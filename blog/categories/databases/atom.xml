@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Databases | My Octopress Blog]]></title>
+  <title><![CDATA[Category: Databases | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/databases/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T09:37:35-07:00</updated>
+  <updated>2013-04-28T11:17:17-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[Matthew Kenny]]></name>
+    <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>I've been creating a simple GeoDjango application for managing environmental sampling metadata, and it's been a lot of fun so far. I've had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
 
 <p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i'll just put two entries into the same cell).</p>
+
+<!-- more -->
+
 
 <p>[caption id="attachment_487" align="alignnone" width="464" caption="sometimes spreadsheets just don't work..."]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
 
@@ -51,6 +54,9 @@
     <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;-- Imagine that's a mustache on it's side.</p>
 
 <blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
+
+<!-- more -->
+
 
 <p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I'm most interested in though, is it's ability to deploy vector tiles. So what are vector tiles? Think TMS tiles... but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
 

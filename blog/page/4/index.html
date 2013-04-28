@@ -6,15 +6,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <title>mattmakesmaps</title>
+  <meta name="author" content="Matthew Kenny">
   <link rel="author" href="humans.txt">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   
     
   
-  <meta name="description" content=" ">
+  <meta name="description" content=" open source mapping notes from cascadia ">
   
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -26,11 +26,11 @@
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
   <meta name="og:type" content="website" />
-  <meta name="og:site_name" content="My Octopress Blog" />
-  <meta name="og:title" content="My Octopress Blog" />
-  <meta name="og:description" content=" " />
+  <meta name="og:site_name" content="mattmakesmaps" />
+  <meta name="og:title" content="mattmakesmaps" />
+  <meta name="og:description" content=" open source mapping notes from cascadia " />
   <meta name="og:url" content="http://mkgeomatics.github.io/blog/page/4/index.html"/>
   <meta name="url" content="http://mkgeomatics.github.io/blog/page/4/index.html">
   
@@ -52,10 +52,11 @@
 					  		  <span class="icon-bar"></span>
 							  		  <span class="icon-bar"></span>
 									  	  </a>
-    <a class="brand" href="/">My Octopress Blog</a>
+    <a class="brand" href="/">mattmakesmaps</a>
     <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -81,9 +82,9 @@
     <div id="hero-inner" class="container">
       <div class="span10 offset1">
   <h1>
-    My Octopress Blog
+    mattmakesmaps
   </h1>
-  <h2>A blogging framework for hackers.</h2>
+  <h2>open source mapping notes from cascadia</h2>
 </div>
 
     </div>
@@ -92,17 +93,35 @@
     <div class="container">
       <div class="row">
   <div class="span4">
-    <h2>about me</h2>
-<p>A little something about me.</p>
+    <h2>in brief</h2>
+<p>I&#8217;m a GIS Analyst at the Seattle-based environmental engineering firm, RIDOLFI Inc. Some may say that Open Source web mapping is my jam.</p>
 
   </div>
   <div class="span6">
     
+<h2>recent public projects</h2>
+<dl id="gh_repos" class="dl-horizontal" data-github-user="mattmakesmaps" data-github-repo-count="3" data-github-skip-forks="true">
+  <dd class="loading">Status updating&#8230;</dd>
+</dl>
+<script src="/javascripts/github.js" type="text/javascript"> </script>
+<script src="/javascripts/libs/jXHR.js" type="text/javascript"> </script>
+
 
   </div>
   <div class="span2">
     <h2>found on</h2>
 
+<a href="https://github.com/mattmakesmaps/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+
+
+<a href="http://www.linkedin.com/in/mattmakesmaps" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/mattmakesmaps" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
 
 
 
@@ -110,10 +129,8 @@
 
 
 
-
-
-
-
+<h2>contact at</h2>
+<a href="mailto:matthewkenny AT gmail DOT com">matthewkenny AT gmail DOT com</a>
 
 
   </div>
@@ -131,7 +148,7 @@
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing an Existing MySQL Database</a></h1>
     
     
       <p class="meta">
@@ -156,15 +173,8 @@
   
 
 
-<time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time> - 
+<time datetime="2009-04-22T08:43:21-07:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2009</time> - 
         
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
-  
-</span>
 
 
         
@@ -173,21 +183,21 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve finally got a working python script that does the following:</p>
+  <div class="entry-content"><p>So I&#8217;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&#8230; you know, the kind that usually don&#8217;t work out very well?</p>
 
-<p>-Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217;</p>
+<p>In any event, my SOP for handling these queries was to submit sample data through the codeigniter site that our project&#8217;s web developer has been courageously firing away at. In this sense, I&#8217;d sort-of trace the flow of new information through the various tables of the database, monitoring the information stream as best as I could. I thought to myself, that there has to be a better way to handle this stuff! In comes the <a href="http://dev.mysql.com/workbench/">MySQL Workbench</a>. This handy tool from the <a href="http://dev.mysql.com/">MySQL Dev Zone</a> apparently comes in two flavors: FOSS and commercial.</p>
 
-<p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
+<p>The free version served my visualization needs perfectly. The layout of the program is very solid. I was easily able to take an SQL export of the existing database and import it into the Workbench, through a tool they call &#8216;Reverse Engineer MySQL Create Script&#8217;. Once the schema has been injected into the program, a model can be automatically created containing all of the tables as well as relationships. The auto-layout feature however, leaves a lot to be desired.</p>
 
-<p>-Generates an output text file using &#8216;stdout&#8217; with the resulting &#8216;smoothed&#8217; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+<p>[caption id=&#8221;attachment_293&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Automatic Layout Results, Snazzy!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/initial_layout.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/initial_layout-300x189.jpg" alt="Above: Automatic Layout Results, Snazzy!" /></a>[/caption]</p>
 
-<p>This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.</p>
+<p>After about twenty-minutes of fooling with the table graphics, a usable layout can be produced. One feature that I think is really convenient, but will never use, is the automatic setting of the diagram width and height based on numbers of pages. This is useful for those who need a quick-print out of their database for whatever reason.</p>
 
-<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes&#8230; and re-import them as input files for the DP algorithm. It&#8217;s all good now though, and the code looks (a bit) cleaner.</p>
+<p>[caption id=&#8221;attachment_292&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Workbench w/ Completed Diagram&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/workspace.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/workspace-300x187.jpg" alt="Above: Workbench w/ Completed Diagram" /></a>[/caption]</p>
 
-<p>The next step will be to take this output text file and build another shapefile from it&#8230;</p>
+<p>The real benefit for me however, is the automatic highlighting of key values linking tables together. I&#8217;m now able to quickly work my way from the table I need to get to, drilling backwards until I see the table I need to start with.</p>
 
-<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select &#8216;save-as&#8217;) as it stands thus-far.</p>
+<p>[caption id=&#8221;attachment_294&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Automatically Highlight The Key Fields Between Two Tables.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables-300x147.jpg" alt="Above: Automatically Highlight The Key Fields Between Two Tables." /></a>[/caption]</p>
 </div>
   
   
@@ -203,7 +213,7 @@ posted in
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/">MetaCarta&#8217;s Map Rectifier + ESRI DevSummit Mashup Winner :)</a></h1>
     
     
       <p class="meta">
@@ -228,88 +238,7 @@ posted in
   
 
 
-<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
-
-<p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
-
-<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
-
-<p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
-$ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8221; > output.csv</p>
-
-<p>-Reformat the verticies [somehow], so that they can be readable to the python script.</p>
-
-<p>-Rebuild shapefile from output csv with projection information using GDAL/OGR.</p>
-
-<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&#8217;ll see how far this goes.</p>
-
-<p>Some reading:</p>
-
-<p><a href="http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm">Douglas-Peucker Algorithm</a></p>
-
-<p><a href="http://users.ox.ac.uk/~orie1848/tutorial.html">Existing GRASS Implementation</a></p>
-
-<p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=530&amp;pid=513&amp;topicname=Simplifying_and_smoothing_features">Existing ArcGIS Implementation</a></p>
-
-<p>-</p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
+<time datetime="2009-04-08T08:24:07-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2009</time> - 
         
 
 posted in
@@ -326,30 +255,23 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, &#8216;export NAD2BIN=/home/&#8230;/bin/nad2bin&#8217;.</p>
+  <div class="entry-content"><p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&#8217;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. In addition to uploading your own content, a user has the ability to add GCPs for other users&#8217; uploads as well.</p>
 
-<p>I&#8217;m not all that familiar with the command line syntax of GRASS, so I actually had to use a local install to view some sample syntax, and modify it for use on the web instance. Pretty fun.</p>
+<p>[caption id=&#8221;attachment_276&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The MetaCarta Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta-300x170.jpg" alt="Above: The MetaCarta Interface" /></a>[/caption]</p>
 
-<p>I&#8217;m wondering if there is anyway for a user to access the geoprocessing functionality of this GRASS install w/o logging into the server. Furthermore, could it be possible to tie this into a mapserver / openlayers install? It would be amazing to recreate this <a href="http://resources.esri.com/help/9.3/arcgisserver/apis/javascript/arcgis/help/jssamples_start.htm#jssamples/GPviewShed.html">ESRI on-the-fly geoprocessing example</a> using only open source GIS tools.</p>
+<p>What&#8217;s really amazing is the ability to directly access rectified images via WMS overlay. Each image hosted on the site is given a unique URL, we can insert into our favorite web mapping clients.</p>
 
-<p>Anyways, it&#8217;s a pretty cool feeling to be able to upload a file to the server, run a geoprocessing task on it, and download the results back to my machine!</p>
+<p>To try it out, I used the <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGalleryDetails&amp;scriptID=16067">ExtMap - Mashup Framework</a> developed by ArcGIS user <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a>. This particular application framework was one of the winners at 2009 ESRI DevSummit, with good reason. I was able to quickly pass in the MetaCarta Labs URL, allowing the ExtMap application to consume and display the WMS layer with ease.</p>
 
-<blockquote><p>GRASS 6.2.3 (spearfish):~/usr/local/bin > r.shaded.relief map=elevation.dem shadedmap=shade_test altitude=30 azimuth=270 zmult=2 scale=1
-Calculating shading, please stand by.
-100%
-Color table for [shade_test] set to grey</p></blockquote>
+<p>[caption id=&#8221;attachment_278&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Adding a Service to ExtMap&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service-300x158.jpg" alt="Above: Adding a Service to ExtMap" /></a>[/caption]</p>
 
-<p>Shaded relief map created and named [shade_test].
-GRASS 6.2.3 (spearfish):~/usr/local/bin > r.out.tiff input=shade_test output=/home/matthewkenny/usr/local/gis_workspace/shade_out compression=none
-WARNING: The map <shade_test> in mapset <user1> is a floating point map.
-Decimal values will be rounded to integer!
-GRASS 6.2.3 (spearfish):~/usr/local/bin ></p>
+<p>In addition to WMS layers, we can add in KML/GeoRSS as well as ArcGIS Server Dynamic/Tiled Map Layers.</p>
 
-<p>And the output image downloaded back to my computer:</p>
+<p>[caption id=&#8221;attachment_279&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: ExtMap Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs-300x187.jpg" alt="Above: ExtMap Interface" /></a>[/caption]</p>
 
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out-300x225.jpg" alt="" /></a></p>
+<p>Easy as pie? Piece of Cake? Yes. It&#8217;s innovative projects like these that keep pushing me to learn more about web mapping technology. Big thanks go out to <a href="http://">crschmidt</a> (who i assumed was involved w/ the project) at MetaCarta and <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a> for putting together two great products.</p>
 
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.tif"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.tif" alt="" /></a></p>
+<p>On a final note, the MetaCarta Rectifier has the ability to export out images as geotiffs, allowing us to consume them in our desktop GIS applications. A quick check in ArcCatalog of the Chernobyl sample image I exported out revealed a WGS84 GCS. I can see some really nice workflows combining this tool with tiling programs such as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a> for painless TMS creation.</p>
 </div>
   
   
@@ -365,7 +287,7 @@ GRASS 6.2.3 (spearfish):~/usr/local/bin ></p>
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/04/07/cloudmade-tile-request-graphics/">CloudMade Tile Request Graphics</a></h1>
     
     
       <p class="meta">
@@ -390,121 +312,7 @@ GRASS 6.2.3 (spearfish):~/usr/local/bin ></p>
   
 
 
-<time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
-
-<h1>Batch Convert ASCII to ESRI GRID</h1>
-
-<h1>Matthew Kenny</h1>
-
-<h1>September 14, 2008</h1>
-
-<h6>#</h6>
-
-<h1>Import the arcgisscripting module</h1>
-
-<p>import sys, arcgisscripting</p>
-
-<h1>Create the Geoprocessor object</h1>
-
-<p>gp = arcgisscripting.create()</p>
-
-<h1>Set the workspace</h1>
-
-<p>gp.workspace = (&#8220;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&#8221;)</p>
-
-<h1>get list of all the ASCII files in the workspace</h1>
-
-<p>asciiList = gp.ListRasters(&#8221;<em>DEM</em>&#8221;, &#8220;*&#8221;)
-ascii = asciiList.next()
-print &#8220;Starting with &#8221; + ascii</p>
-
-<h1>Set initial INPUT file</h1>
-
-<p>inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-print inputAscii</p>
-
-<h1>Set initial OUTPUT file</h1>
-
-<p>raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-print raster</p>
-
-<h1>loop through list of feature classes</h1>
-
-<p>while ascii:</p>
-
-<h1>Execute ASCII to Raster</h1>
-
-<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, &#8220;INTEGER&#8221;)
-    print &#8220;File &#8221; + raster+ &#8221; has been created.&#8221;
-    ascii = asciiList.next()
-    print &#8220;Moving onto &#8221; + ascii
-    inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-    print &#8220;new inputAscii: &#8221; + inputAscii
-    raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-    print &#8220;new output Raster: &#8221; + raster
-ascii = asciiList.reset()</p>
-
-<h1>remove geoprocessor object from memory</h1>
-
-<p>del gp</p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 on Shared Webhost</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time> - 
+<time datetime="2009-04-07T10:14:36-07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2009</time> - 
         
 
 posted in
@@ -521,215 +329,11 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+  <div class="entry-content"><p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&#8217;s also interesting to note the high activity in other regions such as Chile and the Philippines.</p>
 
-<p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+<p>[caption id=&#8221;attachment_272&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Tile Request Graphic&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request-300x187.jpg" alt="Above: CloudMade's Tile Request Overlay" /></a>[/caption]</p>
 
-<blockquote><p>[gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
-INFO: Open of <code>/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'
-using driver</code>ESRI Shapefile&#8217; successful.</p></blockquote>
-
-<p>Layer name: county_polygon
-Geometry: Polygon
-Feature Count: 39
-Extent: (576751.628593, 81877.320813) - (2551197.698864, 1355595.418907)
-Layer SRS WKT:
-PROJCS[&#8220;NAD_1983_HARN_StatePlane_Washington_South_FIPS_4602_Feet&#8221;,
-GEOGCS[&#8220;GCS_North_American_1983_HARN&#8221;,
-DATUM[&#8220;NAD83_High_Accuracy_Regional_Network&#8221;,
-SPHEROID[&#8220;GRS_1980&#8221;,6378137.0,298.257222101]],
-PRIMEM[&#8220;Greenwich&#8221;,0.0],
-UNIT[&#8220;Degree&#8221;,0.0174532925199433]],
-PROJECTION[&#8220;Lambert_Conformal_Conic_2SP&#8221;],
-PARAMETER[&#8220;False_Easting&#8221;,1640416.666666667],
-PARAMETER[&#8220;False_Northing&#8221;,0.0],
-PARAMETER[&#8220;Central_Meridian&#8221;,-120.5],
-PARAMETER[&#8220;Standard_Parallel_1&#8221;,45.83333333333334],
-PARAMETER[&#8220;Standard_Parallel_2&#8221;,47.33333333333334],
-PARAMETER[&#8220;Latitude_Of_Origin&#8221;,45.33333333333334],
-UNIT[&#8220;Foot_US&#8221;,0.3048006096012192]]
-COUNTY_COD: Integer (2.0)
-COUNTY_FIP: String (3.0)
-COUNTY_NM: String (15.0)
-ECY_REGION: String (4.0)
-AIR_REGION: String (46.0)
-[gotti]$</p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/08/plans/">Plans</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-08T06:09:35-07:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time> - 
-        
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve finished downloading my previous portfolio site from Western&#8217;s server. Until I finish pushing the content into this design, it will be accessible either from the link on the right, or by following this link below:</p>
-
-<p><a href="http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2">http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2</a></p>
-
-<p>I hope to have it up by the end of the week. Stay tuned.</p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-07T16:24:38-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/links/'>Links</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right?</p>
-
-<p>Some of the best that I have found are in regards to both commercial as well as open source software. I&#8217;ve found the following courses to be of particular benefit to me over the last year.</p>
-
-<p><a href="http://www.gis.usu.edu/~jlowry/python/">Utah State University - WILD 6900 - GIS Programming with Python (ESRI) </a></p>
-
-<p><a href="http://www.gis.usu.edu/~chrisg/python/">Utah State University - WILD 6900 - GIS Programming with Python (Open Source) </a></p>
-
-<p><a href="https://courseware.e-education.psu.edu/courses/geog585/content/home.html">Penn State - GEOG 585 - Open Web Mapping </a></p>
-
-<p><a href="http://ocw.mit.edu/OcwWeb/Urban-Studies-and-Planning/11-521Spatial-Database-Management-and-Advanced-Geographic-Information-SystemsSpring2003/CourseHome/index.htm">MIT - 11.521 / 11.523 / 11.524 - Database Management and Advanced Geographic Information Systems</a></p>
-
-<p><a href="http://ocw.mit.edu/OcwWeb/Civil-and-Environmental-Engineering/1-963Fall-2004/CourseHome/">MIT - 1963 - Environmental Engineering Applications of Geographic Information Systems</a></p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/07/i-am-matt/">I Am Matt</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-07T12:24:52-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time> - 
-        
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>how may i help you visualize the world around us?</p>
+<p>Following the link to the <a href="http://maps.cloudmade.com/javascripts/stats/cloudmade.js?1238766232">stats JavaScript</a>, it looks like they are using a custom OpenLayers layer class, OpenLayers.Layer.Cloudmade. Sweet!</p>
 </div>
   
   
@@ -742,6 +346,10 @@ posted in
     </div>
       <div class="row">
         <ul class="pager">
+          
+            <li class="previous">
+              <a href="/blog/page/5/">&larr; Older</a>
+            </li>
           
           
             <li class="next">
@@ -790,11 +398,28 @@ posted in
   </div>
   <div class="span4">
     
+<h2>twitter</h2>
+<a href="https://twitter.com/mattmakesmaps" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @mattmakesmaps</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="tweet" data-twitter-user="mattmakesmaps">
+</div>
+
 
   </div>
   <div class="span2">
     <h2>found on</h2>
 
+<a href="https://github.com/mattmakesmaps/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+
+
+<a href="http://www.linkedin.com/in/mattmakesmaps" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/mattmakesmaps" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
 
 
 
@@ -802,10 +427,8 @@ posted in
 
 
 
-
-
-
-
+<h2>contact at</h2>
+<a href="mailto:matthewkenny AT gmail DOT com">matthewkenny AT gmail DOT com</a>
 
 
   </div>
@@ -816,8 +439,8 @@ posted in
 <footer class="footer">
   <div class="container">
     <p class="pull-left">
-  <a href="/">My Octopress Blog</a>
-  - Copyright &copy; 2013 - Your Name
+  <a href="/">mattmakesmaps</a>
+  - Copyright &copy; 2013 - Matthew Kenny
 </p>
 <p class="pull-right">
   <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
@@ -837,6 +460,19 @@ posted in
 <script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
 <script src="/javascripts/custom.js" type="text/javascript"></script>
 
+
+<script type="text/javascript">
+      var disqus_shortname = 'mattmakesmaps';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
