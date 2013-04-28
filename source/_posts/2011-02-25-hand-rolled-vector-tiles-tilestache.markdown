@@ -27,7 +27,7 @@ For example, data from a PostGIS data source can be rendered as an image tile (.
 
 But can also be represtented as a vector tile (.../10/16/357.json), like this:
 
-[sourcecode language="js"]
+``` javascript
 // Subset of a single 256x256 pixel vector tile.
 {
   "type": "FeatureCollection",
@@ -59,7 +59,7 @@ But can also be represtented as a vector tile (.../10/16/357.json), like this:
     }
   ]
 }
-[/sourcecode]
+```
 
 So what are the advantages of using vector tiles? You can already use [OpenLayers' GeoJSON](http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html) format reader to populate a vector layer in OL. It's an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS... only request those sections of data which you need at that time. By only requesting those tiles within the user's current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS's can be pre-cached to disk (seeded), so can vector tiles.
 
@@ -74,6 +74,7 @@ Additionally, using vector representations of geometry rather then cached images
 The above example converts data from the [USGS Instantaneous Values Web Service](http://waterservices.usgs.gov/rest/WOF-IV-Service.html) (part of the [USGS Water Date for the Nation program](http://waterdata.usgs.gov/nwis/)) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.
 
 
+``` javascript
 {
 "type": "FeatureCollection",
 "features": [{
@@ -97,3 +98,4 @@ http: //jsbeautifier.org/
 "id": 1280
 }]
 }
+```

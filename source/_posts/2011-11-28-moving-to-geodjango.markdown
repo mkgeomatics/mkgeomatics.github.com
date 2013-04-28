@@ -25,12 +25,12 @@ Spreadsheets are easy to edit, but lack any form of relational structure (two se
 
 Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt's ["Puget Sound on the Pacific Coast"](http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084), but it's just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.
 
-[code]
+```
 ^ Column One                ^ Column Two                 ^
 | Zee 'z' string            | This is a longer string    |
 | 2nd longer string of text | 2nd short string           |
 | SuperShort                | A string starting with 'A' |
-[/code]
+```
 
 Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don't allow for the storage/visualization of spatial data.
 

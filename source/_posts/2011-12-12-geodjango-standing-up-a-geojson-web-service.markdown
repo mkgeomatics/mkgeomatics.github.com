@@ -33,18 +33,18 @@ The GeoDjango GeoQuerySet API has built in methods to handle the serialization a
 
 For example, asking for the GeoJSON representation of a given feature through Django's shell, like this:
 
-[code lang="python"]
+``` python
 # Import Models from the Company Application
 from company.Models import *
 # Create a GeoQuerySet from the primary key, return GeoJSON
 qs = Boundary.objects.filter(pk=1).geojson()
 # Print GeoJSON representation of geom
 print qs[0].geojson
-[/code]
+```
 
 Will produce a GeoJSON object like this:
 
-[code lang="js"]
+``` javascript
 {
  "type":"MultiPolygon",
   "coordinates":[
@@ -66,7 +66,7 @@ Will produce a GeoJSON object like this:
     ]
   ]
 }
-[/code]
+```
 
 As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the [GeoJSON spec](http://geojson.org/geojson-spec.html), there are multiple 'type' values which an object can be constrained by. Using GeoDjango's geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I'd like to return a GeoJSON object of type 'Feature' or 'FeatureCollection'. These types require an additional 'properties' parameter, which can store tabular attributes. From the spec:
 
@@ -97,13 +97,13 @@ The vectorformats library is designed to make it easy to serialize content from 
 
 Installing vectorformats is as easy as:
 
-[code]
+``` bash
 $sudo easy_install vectorformats
-[/code]
+```
 
 From there, as outlined in the above referenced post, it's only a matter of adding a few lines into your GeoDjango app's [view function](https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py).
 
-[code lang="python"]
+``` python
 # Using vectorfeatures module return a GeoJSON FeatureCollection
 # for a given boundary ID.
 def boundary_detail(request, boundary_id):
@@ -112,11 +112,11 @@ def boundary_detail(request, boundary_id):
     geoj = GeoJSON.GeoJSON()
     s = geoj.encode(djf.decode(boundary_detail))
     return HttpResponse(s)
-[/code]
+```
 
 The resulting GeoJSON object, represented as a 'type' of 'FeatureCollection':
 
-[code lang="js"]
+``` javascript
 {
   "crs":null,
   "type":"FeatureCollection",
@@ -151,6 +151,6 @@ The resulting GeoJSON object, represented as a 'type' of 'FeatureCollection':
     }
   ]
 }
-[/code]
+```
 
 And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as 'http://my-site.com/geojson/boundary/{boundary_id}/'. Pass this to your web mapping client, and you're ready to rock.
