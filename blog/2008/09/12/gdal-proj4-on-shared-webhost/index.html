@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GDAL / PROJ.4 On Shared Webhost - mattmakesmaps</title>
+  <meta name="author" content="Matthew Kenny">
+  <link rel="author" href="humans.txt">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  
+    
+  
+  <meta name="description" content="For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;guide to GIS on a shared hosting service &hellip;">
+  
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+  <meta name="og:type" content="website" />
+  <meta name="og:site_name" content="mattmakesmaps" />
+  <meta name="og:title" content="GDAL / PROJ.4 On Shared Webhost" />
+  <meta name="og:description" content="For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;guide to GIS on a shared hosting service &hellip;" />
+  <meta name="og:url" content="http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/"/>
+  <meta name="url" content="http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/">
+  
+  <meta name="subject" content="Web-GIS"/>
+  <meta name="category" content="Web-GIS"/>
+  
+  <meta name="distribution" content="global">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!-- Page Keywords -->
+<meta name="author" content="Matthew Kenny">
+
+<meta name="description" content="Open Source GIS Notebook">
+<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+  <div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+	  </a>
+    <a class="brand" href="/">mattmakesmaps</a>
+  <div class="nav-collapse collapse">
+    <ul class="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/blog/archives">Archives</a></li>
+    </ul>
+    <ul class="nav" data-subscription="rss">
+      <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+      
+    </ul>
+      
+    <form class="navbar-form" action="http://google.com/search" method="get">
+      <fieldset role="search">
+        <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+        <input class="span2" type="text" name="q" results="0" placeholder="Search"/>
+      </fieldset>
+    </form>
+      
+    
+  </div>
+  </div>
+  </div>
+</div>
+</nav>
+  <div class="wrapper_single">
+    <div class="container">
+      <article class="span8 offset2" role="article">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title">GDAL / PROJ.4 on Shared Webhost</h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+
+<p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+
+<blockquote><p>[gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
+INFO: Open of <code>/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'
+using driver</code>ESRI Shapefile&#8217; successful.</p></blockquote>
+
+<p>Layer name: county_polygon
+Geometry: Polygon
+Feature Count: 39
+Extent: (576751.628593, 81877.320813) - (2551197.698864, 1355595.418907)
+Layer SRS WKT:
+PROJCS[&#8220;NAD_1983_HARN_StatePlane_Washington_South_FIPS_4602_Feet&#8221;,
+GEOGCS[&#8220;GCS_North_American_1983_HARN&#8221;,
+DATUM[&#8220;NAD83_High_Accuracy_Regional_Network&#8221;,
+SPHEROID[&#8220;GRS_1980&#8221;,6378137.0,298.257222101]],
+PRIMEM[&#8220;Greenwich&#8221;,0.0],
+UNIT[&#8220;Degree&#8221;,0.0174532925199433]],
+PROJECTION[&#8220;Lambert_Conformal_Conic_2SP&#8221;],
+PARAMETER[&#8220;False_Easting&#8221;,1640416.666666667],
+PARAMETER[&#8220;False_Northing&#8221;,0.0],
+PARAMETER[&#8220;Central_Meridian&#8221;,-120.5],
+PARAMETER[&#8220;Standard_Parallel_1&#8221;,45.83333333333334],
+PARAMETER[&#8220;Standard_Parallel_2&#8221;,47.33333333333334],
+PARAMETER[&#8220;Latitude_Of_Origin&#8221;,45.33333333333334],
+UNIT[&#8220;Foot_US&#8221;,0.3048006096012192]]
+COUNTY_COD: Integer (2.0)
+COUNTY_FIP: String (3.0)
+COUNTY_NM: String (15.0)
+ECY_REGION: String (4.0)
+AIR_REGION: String (46.0)
+[gotti]$</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time>
+      
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/" data-via="mattmakesmaps" data-counturl="http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    
+      <a class="pull-left" href="/blog/2008/09/08/plans/" title="Previous Post: Plans">&laquo; Plans</a>
+    
+    
+      <a class="pull-right" href="/blog/2008/09/14/python-gp-strangeness/" title="Next Post: Python GP Strangeness">Python GP Strangeness &raquo;</a>
+    
+  </footer>
+
+</div>
+
+        
+          <div class="article-format">
+            <h1>Comments</h1>
+            <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+          </div>
+        
+      </article>
+    </div>
+  </div>
+  <div id="footer-widgets">
+  <div class="container">
+    <div class="row">
+  <div class="span3">
+    <h2>recent posts</h2>
+    <ul class="recent_posts">
+      
+        <li>
+          <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+        </li>
+      
+    </ul>
+    <h2><a href="/blog/archives">archives</a></h2>
+  </div>
+  <div class="span3">
+    
+
+  </div>
+  <div class="span4">
+    
+<h2>twitter</h2>
+<a href="https://twitter.com/mattmakesmaps" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @mattmakesmaps</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="tweet" data-twitter-user="mattmakesmaps">
+</div>
+
+
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+
+<a href="https://github.com/mattmakesmaps/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+
+
+<a href="http://www.linkedin.com/in/mattmakesmaps" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/mattmakesmaps" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+
+
+
+
+
+
+
+<h2>contact at</h2>
+<a href="mailto:matthewkenny AT gmail DOT com">matthewkenny AT gmail DOT com</a>
+
+
+  </div>
+</div>
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">
+  <a href="/">mattmakesmaps</a>
+  - Copyright &copy; 2013 - Matthew Kenny
+</p>
+<p class="pull-right">
+  <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
+  
+    <span>Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.</span>
+  
+</p>
+
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
+<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
+<script src="/javascripts/custom.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/';
+        var disqus_url = 'http://mkgeomatics.github.io/blog/2008/09/12/gdal-proj4-on-shared-webhost/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>
