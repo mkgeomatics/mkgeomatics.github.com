@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Links | My Octopress Blog]]></title>
+  <title><![CDATA[Category: Links | mkgeomatics]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/links/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-27T18:47:04-07:00</updated>
+  <updated>2013-04-27T23:35:54-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[Matthew Kenny]]></name>
+    <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
