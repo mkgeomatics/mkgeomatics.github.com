@@ -190,19 +190,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides.</p>
-
-<p>Of particular interest was a question posed by a first time OSM&#8217;er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, &#8216;it&#8217;s just the way it is&#8217;.</p>
-
-<p>It appears though, that CloudMade has provided us with an answer just the other day. The <a href="http://matt.sandbox.cloudmade.com/">Minutely Updated Tile Server</a> is updated &#8216;every minute from OpenStreetMap diffs&#8217;. The results can be seen below. The first image depicts the standard weekly update view while the bottom image depicts the minutely render. Note the presence of the additional buildings on ASU&#8217;s Tempe Campus.</p>
-
-<p>[caption id=&#8221;attachment_241&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: OSM Weekly Update&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly-300x242.jpg" alt="Above: OSM Weekly Update" /></a>[/caption]</p>
-
-<p>[caption id=&#8221;attachment_242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Minutely Updated Tile Server for OSM&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely-300x240.jpg" alt="Above: CloudMade's Minutely Updated Tile Server for OSM" /></a>[/caption]</p>
-
-<p>Check out the full post from CloudMade&#8217;s blog here: <a href="http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/">http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/</a></p>
-</div>
+  <div class="entry-content"><p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -260,47 +253,12 @@ posted in
 
   <div class="entry-content"><p>The vacation is over. A new job and a new semester are already providing plenty of opportunities to explore those crazy technologies of the geoweb.</p>
 
-<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
-
-<p>A quick overview of the primary steps to add the YahooGeocoder.js addin are as follows:</p>
-
-<ol>
-<li><p>Sign up for a Yahoo APP Key to enable access to their geocoding service.</p></li>
-<li><p>Add the proxy.cgi script to your webserver&#8217;s &#8216;cgi-bin&#8217;. Note: When navigating to the proxy.cgi&#8217;s url, you might encounter, &#8216;access denied&#8217; errors. If you do, make sure that you have the proper permissions set for your cgi-bin directory. This can be done using the terminal command, &#8216;chmod 755&#8217; targeting cgi-bin directory.</p></li>
-<li><p>Edit the proxy.cgi script to include &#8216;local.yahooapis.com&#8217; in the list of &#8216;allowedHosts&#8217;.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_228&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;proxy.cgi&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts-300x54.png" alt="proxy_hosts" /></a>[/caption]</p>
-
-<ol>
-<li><p>Add the YahooGeocoder.js file to the OpenLayers &#8216;lib/OpenLayers/Control&#8217; folder.</p></li>
-<li><p>Add &#8220;OpenLayers/Control/YahooGeocoder.js&#8221; to the variable array, &#8216;jsfiles&#8217; inside the &#8220;lib/OpenLayers.js&#8221; library.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_229&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;lib/OpenLayers.js&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add-300x149.png" alt="control_add" /></a>[/caption]</p>
-
-<ol>
-<li>Test the geocoder&#8217;s functionality using the supplied .HTML file. (Hopefully it should work!)</li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_230&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Geocoder Result with Properly Formed XML Response.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1-300x217.png" alt="good_xml_return1" /></a>[/caption]</p>
-
-<p>Six simple steps, but it can be challenging if you haven&#8217;t tried to install any addins to the OL library before.</p>
-
-<p>In the above image, the firebug window can be seen returning a properly formed XML Response, having successfully executed the geocoding function. If you enlarge the image, we can compare this to the raw XML-Response using a properly constructed query. Note in both the response captured from firebug (above) as well as the raw XML (below) the presence of the address: 510 High Street, Bellingham WA, broken down into it&#8217;s individual units along with the geocoded result.</p>
-
-<p>[caption id=&#8221;attachment_231&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Basic XML Return&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml-300x221.png" alt="basic_xml" /></a>[/caption]</p>
-
-<p>Further diving into the capabilities of firebug, we can use the DOM inspector to ensure that the various parameters required to properly execute the Yahoo Geocoder are in place. Note in the image below the presence of such necessary information as the APP ID Key, Projection, and Class, for the ygc variable. If any of these parameters happened to be incorrectly set, it would be displayed in this view.</p>
-
-<p>[caption id=&#8221;attachment_232&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The Firebug DOM Inspector&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector-300x91.png" alt="dom_inspector" /></a>[/caption]</p>
-
-<p>I&#8217;m finally starting to appreciate the power of firebug as a development tool, which just so happens to coincide with my ability to understand it at a basic level. Hopefully as my experience in GIS Web Development grows, so will be ability to use the higher-end functions of this tool.</p>
-</div>
+<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -356,34 +314,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>After reading <a href="http://stamen.com/">Michal Migurski&#8217;s</a> excellent post, &#8217;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&#8217; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&#8230; I set out on the FOSSGIS path.</p>
-
-<p>[caption id=&#8221;attachment_205&#8221; align=&#8221;alignnone&#8221; width=&#8221;259&#8221; caption=&#8221;The resulting overlay&#8221;]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
-
-<p>The final output was created in a primarily two-step process. The hillshade was created using Matt Perry&#8217;s <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM tools</a>. This command line addition to the GDAL suite of tools negated having to import the DEM into a new GRASS location, and exporting the resulting hillshade back out as another format.</p>
-
-<p>The majority of the work, the tiling that is, was done using <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. This Google Summer of Code project operates under a command line utility which will take your slick GDAL-compatible raster dataset as input, and export a set of tiles exactly to your specs. What&#8217;s more is the capability to automatically generate google maps and OpenLayers viewing pages which can be directly uploaded to a webspace.</p>
-
-<p>Finally, applying a slight transparency to the OSM layer allowed for the shaded relief to appear from behind. Quick-and-Dirty, <a href="http://mkgeomatics.com/apps/openlayers/tiles/ol_working.html">but it works</a>!</p>
-
-<p>The pain came when trying to compare the local TMS overlay using OSM vs. Google Maps base data. While using Google Maps street data, we clearly see the LiDAR building footprints align with the vector street centerlines. But switching over to OSM data, we see a drastic skew between the two.</p>
-
-<p>[caption id=&#8221;attachment_206&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Google Street Data: Properly Aligned Local TMS&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21-300x209.png" alt="Google Street Data: Properly Aligned Local TMS" /></a>[/caption]</p>
-
-<p>[caption id=&#8221;attachment_209&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;OSM Data: Note Hawaii Belt Road&#8217;s location compared to its LiDAR footprint.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4-300x297.png" alt="OSM Data: Note Hawaii Belt Rd's location compared to its LiDAR footprint." /></a>[/caption]</p>
-
-<p>Initially, I assumed that the problem was the result of some projection issues (EPSG: 4326 vs EPSG: 900913), until I realized that all data sets (LiDAR, Google, and OSM) had matching coastlines. Any distortion resulting from the affine transformation between WGS84 and Spherical Mercator would have clearly showed up along the coast as well as the streets.</p>
-
-<p>A quick look at the <a href="http://wiki.openstreetmap.org/wiki/Potlatch">Potlatch</a> editor revealed the inaccuracy of the TIGER line files used in this section of the map:</p>
-
-<p>[caption id=&#8221;attachment_210&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Potlatch: TIGER data is a good, but not great.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch-300x273.png" alt="Potlatch: TIGER data is a good, but not great." /></a>[/caption]</p>
-
-<p>All-in-all I was extremely impressed with the speed and efficency of using the <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM Tools</a> as well as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. Both projects are great representations of what can be done by individuals who choose to build upon existing FOSSGIS projects, and give back to the community.</p>
-
-<p>Additional Note:
-A GRASS-based approach to creating a TMS layer is possible, and has been outlined in <a href="sunbird.jrc.it/pvgis/doc/paper/2008_OSGeo5_TiledMapServices.pdf">this paper</a> appearing in the OSGeo Journal.</p>
-</div>
+  <div class="entry-content"><p>After reading <a href="http://stamen.com/">Michal Migurski&#8217;s</a> excellent post, &#8217;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&#8217; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&#8230; I set out on the FOSSGIS path. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/">Read on &rarr;</a>
+    </footer>
   
 
 

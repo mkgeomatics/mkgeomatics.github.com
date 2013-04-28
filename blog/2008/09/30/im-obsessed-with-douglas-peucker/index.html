@@ -134,6 +134,9 @@ posted in
 
 <p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
 
+<!-- more -->
+
+
 <p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
 $ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8221; > output.csv</p>
 

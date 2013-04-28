@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/databases/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T11:33:16-07:00</updated>
+  <updated>2013-04-28T11:48:59-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -148,7 +148,7 @@ http: //jsbeautifier.org/
     <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
-    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop.</p>
+    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
 <p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I've posted my function below. It's not pretty, but it's filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
 
@@ -216,7 +216,7 @@ SELECT bulk_route_generate();
     <id>http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
     <content type="html"><![CDATA[<p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
 
-<p>The conceptual plan is as follows:</p>
+<p>The conceptual plan is as follows: <!-- more --></p>
 
 <ul>
 <li><p>Extract the geometry of a user's click on the map.</p></li>
@@ -283,7 +283,7 @@ SELECT bulk_route_generate();
     <link href="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/"/>
     <updated>2010-01-31T05:05:32-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver</id>
-    <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney's pgRouting extension</a> to PostgreSQL/PostGIS, I've decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows:</p>
+    <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney's pgRouting extension</a> to PostgreSQL/PostGIS, I've decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: <!-- more --></p>
 
 <ul>
 <li><p>Display: OpenLayers</p></li>

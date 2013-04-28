@@ -190,41 +190,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&#8217;s pgRouting extension</a> to PostgreSQL/PostGIS, I&#8217;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows:</p>
-
-<ul>
-<li><p>Display: OpenLayers</p></li>
-<li><p>Renderer: Geoserver (via non-cached WMS)</p></li>
-<li><p>Spatial Backend: PostGIS/pgRouting enabled PostgreSQL</p></li>
-<li><p>Data: <a href="http://www.cob.org/services/maps/gis/index.aspx">Public GIS data</a> from the city of Bellingham, Washington&#8217;s GIS department.</p></li>
-</ul>
-
-
-<p>For the sake of brevity, (but really because both TOPP has created some <a href="http://workshops.opengeo.org/opengeo-stack/">fantastic guides</a>) I won&#8217;t go into the specifics of installing all the pieces. Just as an FYI, remember to set your &#8216;JAVA_HOME&#8217; environment variable and make sure that you don&#8217;t have things trying to use the same port!</p>
-
-<p>The Bellingham data is currently stored in <a href="http://www.spatialreference.org/ref/esri/102748/">NAD83 State Plane WA North Feet</a>, a typical projection for this area. This projection however, is not part of the EPSG projection set, and as such is not included in a vanilla install of PostGIS.</p>
-
-<p>In order to add this to the collection of spatial reference systems used by my PostGIS install, I went with the ridiculously cool <a href="http://spatialreference.org">spatialreference.org</a> site (A <a href="http://crschmidt.net/">crschmidt</a>, <a href="http://dbsgeo.com/">dbsgeo</a>, <a href="http://hobu.biz/">hobu</a>, and <a href="http://umbrellaconsulting.com/">umbrella</a> joint, hah). Navigating to the projection&#8217;s page gives me the option to generate an <a href="http://www.spatialreference.org/ref/esri/102748/postgis/">INSERT</a> statement, adding the projection&#8217;s info into my database.</p>
-
-<p>To load shapefiles into the PostGIS database, I chose to use the SPIT plugin for QGIS. Loading the data was fairly straightforward. I had an issue with a datefield that was present in the source shapefile, and had to delete the column manually using Open Office Database. I haven&#8217;t found a way to delete fields from a shapefile using QGIS.</p>
-
-<p>[caption id=&#8221;attachment_327&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The SPIT Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit-300x175.png" alt="spit" /></a>[/caption]</p>
-
-<p>After uploading the streets data into my PostGIS database, the next step was to transform the geometry into the Web Mercator 900913 Projection. This was done using standard PostGIS functions, adding a new, second, geometry column to the existing streets table. This reprojected data was then exported from my staging PostGIS database as a shapefile using the QGIS, &#8216;Save As Shapefile&#8217; tool, and re-imported into my production database (with the routing functions).</p>
-
-<p>With data stored in the web mercator projection, inside of our PostGIS/pgRouting database, the next step was to add the layers to Geoserver. Using Geoserver 2.x, the process included the following steps (all done through the web-admin).</p>
-
-<ul>
-<li><p>Add the new data store pointing the PostGIS database.</p></li>
-<li><p>Add new layers (resources) which point to the tables of interest in our PostGIS database.</p></li>
-</ul>
-
-
-<p>After creating the connections between PostGIS and Geoserver, the creation of WMS services is taken care of, allowing us to roll them into OpenLayers with relative ease.</p>
-
-<p>I guess this got a little off-topic from what I originally wanted to write about. I think that I&#8217;ll save the actual breakdown of my OL code (taking a user&#8217;s map click to and using it to calculate a route to the nearest fire-station as determined by manhattan distance, as opposed to euclidean distance) for another day.</p>
-</div>
+  <div class="entry-content"><p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&#8217;s pgRouting extension</a> to PostgreSQL/PostGIS, I&#8217;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -280,54 +251,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>While working through Regina Obe and Leo Hsu&#8217;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&#8217;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included.</p>
-
-<p>Undeterred and inspired, i decided to compile the <a href="http://pgrouting.postlbs.org/">pgRouting</a> set of tools for PostGIS and give them a whirl.</p>
-
-<p>My primary tutorial for moving through the install and execution of functions came from the 2009 FOSS4G Tokyo &amp; Osaka workshop entitled, &#8221;<a href="http://www.google.com/url?sa=t&amp;source=web&amp;ct=res&amp;cd=7&amp;ved=0CCMQFjAG&amp;url=http%3A%2F%2Fwww.osgeo.jp%2Fwordpress%2Fwp-content%2Fuploads%2F2009%2F11%2Fworkshop_manual.pdf&amp;ei=4vdLS63EKIGSsgPFrsGIDA&amp;usg=AFQjCNEoTXqRqtS8fpDXbNLo6H2Nk3cEyg&amp;sig2=RLw7qVqUev7k8pdvzCjXeQ">FOSS4G routing with pgRouting tools and OpenStreetMap road data.</a>&#8221; Although my installation on Ubuntu Netbook Remix (UNR) 9.10 required a little different setup, this guide definitely got me 99% of the way there.</p>
-
-<p>The majority of my installation woes were caused by the different pathways used on my UNR install of PostgreSQL vs. what are apparently the standard paths.</p>
-
-<p>After attempting to execute cmake to compile pgRouting, I&#8217;d be presented with an error stating that the &#8216;POSTGRESQL_INCLUDE_DIR&#8217; was not found. A locate command pointed me to the correct path for my PostgreSQL installation. By modifying the FindPostgreSQL.cmake file to search for the correct path, I was back in business.</p>
-
-<p>Following the workshop instructions, I then attempted to create the database directly from the terminal, which yielded the following result.</p>
-
-<p>[sourcecode language=&#8221;bash&#8221;]matt@matt-netbook:~$ createdb -U postgres routing
-createdb: could not connect to database postgres: could not connect to server: No such file or directory
- Is the server running locally and accepting
- connections on Unix domain socket &#8220;/var/run/postgresql/.s.PGSQL.5432&#8221;?[/sourcecode]</p>
-
-<p>After reading the documentation associated with &#8220;createdb&#8221;, i tried adding the &#8220;-h&#8221; flag pointing to &#8220;localhost&#8221;, which solved the problem.</p>
-
-<p>The final error which I ran into had to do with the &#8220;$libdir&#8221; environment variable. While trying to register the pgRouting functions in my new database, I&#8217;d be presented with the following:</p>
-
-<p>[sourcecode language=&#8221;bash&#8221;]psql:/usr/share/postlbs/routing_core.sql:32: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
-psql:/usr/share/postlbs/routing_core.sql:43: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
-psql:/usr/share/postlbs/routing_core.sql:53: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory[/sourcecode]</p>
-
-<p>Getting impatient at this point (i wanted to route!) I modified the SQL files to reference the explicit path of my PostgreSQL lib directory. Once that was done, I had a working routing database!</p>
-
-<p>Loading the sample data, creating the indexes, and executing the queries was amazingly straightforward. To test visualizing the data, I exported one of the tutorial queries directly into a new table.</p>
-
-<p>[sourcecode language=&#8221;SQL&#8221;]SELECT * INTO export
- FROM dijkstra_sp(&#8216;ways&#8217;, 10, 20);[/sourcecode]</p>
-
-<p>[caption id=&#8221;attachment_316&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The route depicted in red as seen in QGIS.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing-300x175.png" alt="qgis_routing" /></a>[/caption]</p>
-
-<p>Just for kicks, I tried exporting the data as GeoJSON and visualzing it via OpenLayers.</p>
-
-<p>The following SQL query aggregates the exported line segments into a single GeoJSON object:</p>
-
-<p>[sourcecode language=&#8221;SQL&#8221;]SELECT ST_AsGeoJSON(ST_UNION(the_geom)) AS geom_union
-FROM export;[/sourcecode]</p>
-
-<p>Using the <a href="http://openlayers.org/dev/examples/vector-formats.html">vector-formats</a> OL example, which displays GeoJSON in either EPSG 4326 or 102113, I was able to visualize the line segment with no problem.</p>
-
-<p>[caption id=&#8221;attachment_317&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;GeoJSON representation of line segment generated using pgRouting, displayed in OpenLayers&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats-300x175.png" alt="" /></a>[/caption]</p>
-
-<p>Well that&#8217;s all for one day. So it looks like the bike riding app is out, but I&#8217;m sure that there will be many more interesting ideas for pgRouting that will come to mind as I continue to explore PostGIS.</p>
-</div>
+  <div class="entry-content"><p>While working through Regina Obe and Leo Hsu&#8217;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&#8217;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -385,11 +314,12 @@ posted in
 
   <div class="entry-content"><p>Just found out that I&#8217;ll be participating in the 2009 ESRI UC as a student assistant. Big thanks go out to <a href="http://geography.asu.edu/balling">Dr. Robert Balling</a> and <a href="http://www.spatiallyadjusted.com/">James Fee</a>, who both wrote letters of recommendation for me.</p>
 
-<p>Now to get back to more pressing matters, like refactoring this giant wad o&#8217; javascript.</p>
-
-<p>See you in San Deigo!</p>
-</div>
+<p>Now to get back to more pressing matters, like refactoring this giant wad o&#8217; javascript. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">Read on &rarr;</a>
+    </footer>
   
 
 

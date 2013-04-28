@@ -128,7 +128,7 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine.</p>
+  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine. <!-- more --></p>
 
 <p>A different baselayer is also available, <a href="http://www.openstreetmap.org/">openstreetmaps.org</a> (via telascience.org tiles). You may notice that some of these tiles fail to reload upon panning and zooming operations. I asked why this was on the OpenLayers IRC, and was told that these tiles basically suck. I&#8217;m stuck using them however, as they are Lat/Long WGS84. OSM Mapnik and Google maps require a spherical mercator projection, and as such PROJ.4 needs to be amended to support this EPSG code so that Mapserver and render properly.</p>
 

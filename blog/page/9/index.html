@@ -194,13 +194,12 @@ posted in
 
 <p><a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html">http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html</a></p>
 
-<p>Calling Mapserver as a WFS layer, displaying with OpenLayers. Many thanks to <a href="http://crschmidt.net/">Chris Schmidt</a> for a quick response on the OL mailing list!</p>
-
-<p>Currently set to extract attributes in the OL html, but still need to build in the attribute display. A good example of the necessary javascript can be found in the <a href="http://openlayers.org/dev/examples/openmnnd.html">OL Cookbook</a>.</p>
-
-<p>I also set a quick thank you to Jeff McKenna at <a href="http://www.gatewaygeomatics.com/">Gateway Geomatics</a> for putting together such a great set of UMN Mapserver WFS and WMS tutorials. He actually wrote back! oh FOSS4G, what a nice community.</p>
-</div>
+<p>Calling Mapserver as a WFS layer, displaying with OpenLayers. Many thanks to <a href="http://crschmidt.net/">Chris Schmidt</a> for a quick response on the OL mailing list! </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/21/whew/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -307,26 +306,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &#8216;WFS&#8217; service types. As you can see in the image below, a static baselayer, &#8216;COUNTY&#8217; (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, &#8216;NATPARK&#8217;, capable of actually identifiying features.</p>
-
-<p>[caption id=&#8221;attachment_97&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;QGIS Screenshot: Selected feature in yellow, Identified feature in pinkish-outline.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify-300x221.jpg" alt="wfs_identify" /></a>[/caption]</p>
-
-<p>I&#8217;m amazed at the ability of Mapserver to take a shapefile, turn it into GML, and send it almost magically to ANY program that can interpret it.  I&#8217;m finally wrapping my noggin around the whole concept of XML, and just how powerful it can be.</p>
-
-<p>So what were my primary issues? Well, it took me about an hour to realize that I was running my, &#8216;DescribeFeatureType&#8217; request on the mapfile entitled &#8216;WA_WGS84.map&#8217; rather than &#8216;WA_WFS_WGS84.map&#8217;. So that was my own error. Then I realized that while the KEY field for each of these shapefiles in ArcGIS is simply, &#8216;FID&#8217;, this <strong>cannot </strong>be used for the &#8216;gml_featureid&#8217; metadata requirement in the mapfile. Another primary key such as, &#8216;PARKID&#8217; must instead be used, and the GML file will actually create its own, &#8216;FID&#8217; based on this.</p>
-
-<p>Some other key lessons from today:</p>
-
-<ul>
-<li><p>ESRI ArcGIS does not support WFS out of the box, as it does WMS. To enable the GML simple features profile, try out this <a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=5607&amp;pid=5604&amp;topicname=Using_the_GML_simple_features_profile">ESRI Help Article</a>.</p></li>
-<li><p>Querying your WFS server in-browser using the, &#8216;getfeature&#8217; and &#8216;getcapabilities&#8217; requests is a really simple and effective way of determining which required pieces of information are missing from your XML. Mapserver will actually create a comment in-line saying which required pieces of metadata are missing.</p></li>
-<li><p>Creating metadata abstracts for both WFS and WMS in your mapfile is a simple way to view how your GIS software is consuming the data. For example, the only reason i realized that I was actually using QGIS to display my WFS mapfile as a WMS was through the use both of the &#8220;wms_abstract&#8221; and &#8220;wfs_abstract&#8221; metadata tags.</p></li>
-</ul>
-
-
-<p>What&#8217;s next? Wrap an openlayers display around this with selection and identify capabilities.</p>
-</div>
+  <div class="entry-content"><p>Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &#8216;WFS&#8217; service types. As you can see in the image below, a static baselayer, &#8216;COUNTY&#8217; (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, &#8216;NATPARK&#8217;, capable of actually identifiying features. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wfs/">Read on &rarr;</a>
+    </footer>
   
 
 

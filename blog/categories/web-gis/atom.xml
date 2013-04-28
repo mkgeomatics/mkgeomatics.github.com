@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T11:33:16-07:00</updated>
+  <updated>2013-04-28T11:48:59-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -296,7 +296,7 @@ http: //jsbeautifier.org/
     <link href="http://mkgeomatics.github.io/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/"/>
     <updated>2010-07-09T05:25:40-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought</id>
-    <content type="html"><![CDATA[<p>So I've finished cutting a draft tileset using mapnik, <a href="http://mkgeomatics.com/apps/bus/bus.html">depicting bus routes in Bellingham, WA</a>. Now that the cartography is well in progress, I'd like to add some interactivity to the map. My first attempt at this will be to utilize MetaCarta (Chris Schmidt)'s <a href="http://featureserver.org/">FeatureServer</a>. FeatureServer allows one to use standard HTTP verbs to GET representations of data, POST new data, or DELETE existing data. While querying data you can also pass additional URL parameters like a bounding box or attribute to select out a smaller subset of returned representations. I'll be POST'ing a bus stop dataset to FeatureServer as GeoJSON. Once the data are stored in FeatureServer, I'll be able to add popups based on a user's click of a bus stop.</p>
+    <content type="html"><![CDATA[<p>So I've finished cutting a draft tileset using mapnik, <a href="http://mkgeomatics.com/apps/bus/bus.html">depicting bus routes in Bellingham, WA</a>. Now that the cartography is well in progress, I'd like to add some interactivity to the map. My first attempt at this will be to utilize MetaCarta (Chris Schmidt)'s <a href="http://featureserver.org/">FeatureServer</a>. <!-- more --> FeatureServer allows one to use standard HTTP verbs to GET representations of data, POST new data, or DELETE existing data. While querying data you can also pass additional URL parameters like a bounding box or attribute to select out a smaller subset of returned representations. I'll be POST'ing a bus stop dataset to FeatureServer as GeoJSON. Once the data are stored in FeatureServer, I'll be able to add popups based on a user's click of a bus stop. <!-- more --></p>
 
 <p>Getting data stored on my local PostGIS install to my remote FeatureServer instance turned out to be a three step process.</p>
 
@@ -349,7 +349,7 @@ ogr2ogr -f "GeoJSON" ogrstops.json PG:"host=localhost dbname=routing user=postgr
     <id>http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
     <content type="html"><![CDATA[<p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
 
-<p>The conceptual plan is as follows:</p>
+<p>The conceptual plan is as follows: <!-- more --></p>
 
 <ul>
 <li><p>Extract the geometry of a user's click on the map.</p></li>

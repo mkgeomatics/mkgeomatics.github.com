@@ -192,63 +192,12 @@ posted in
 
   <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
 
-<h1>Batch Convert ASCII to ESRI GRID</h1>
-
-<h1>Matthew Kenny</h1>
-
-<h1>September 14, 2008</h1>
-
-<h6>#</h6>
-
-<h1>Import the arcgisscripting module</h1>
-
-<p>import sys, arcgisscripting</p>
-
-<h1>Create the Geoprocessor object</h1>
-
-<p>gp = arcgisscripting.create()</p>
-
-<h1>Set the workspace</h1>
-
-<p>gp.workspace = (&#8220;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&#8221;)</p>
-
-<h1>get list of all the ASCII files in the workspace</h1>
-
-<p>asciiList = gp.ListRasters(&#8221;<em>DEM</em>&#8221;, &#8220;*&#8221;)
-ascii = asciiList.next()
-print &#8220;Starting with &#8221; + ascii</p>
-
-<h1>Set initial INPUT file</h1>
-
-<p>inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-print inputAscii</p>
-
-<h1>Set initial OUTPUT file</h1>
-
-<p>raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-print raster</p>
-
-<h1>loop through list of feature classes</h1>
-
-<p>while ascii:</p>
-
-<h1>Execute ASCII to Raster</h1>
-
-<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, &#8220;INTEGER&#8221;)
-    print &#8220;File &#8221; + raster+ &#8221; has been created.&#8221;
-    ascii = asciiList.next()
-    print &#8220;Moving onto &#8221; + ascii
-    inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-    print &#8220;new inputAscii: &#8221; + inputAscii
-    raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-    print &#8220;new output Raster: &#8221; + raster
-ascii = asciiList.reset()</p>
-
-<h1>remove geoprocessor object from memory</h1>
-
-<p>del gp</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/14/python-gp-strangeness/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -308,37 +257,12 @@ posted in
 
 <p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
 
-<blockquote><p>[gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
-INFO: Open of <code>/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'
-using driver</code>ESRI Shapefile&#8217; successful.</p></blockquote>
-
-<p>Layer name: county_polygon
-Geometry: Polygon
-Feature Count: 39
-Extent: (576751.628593, 81877.320813) - (2551197.698864, 1355595.418907)
-Layer SRS WKT:
-PROJCS[&#8220;NAD_1983_HARN_StatePlane_Washington_South_FIPS_4602_Feet&#8221;,
-GEOGCS[&#8220;GCS_North_American_1983_HARN&#8221;,
-DATUM[&#8220;NAD83_High_Accuracy_Regional_Network&#8221;,
-SPHEROID[&#8220;GRS_1980&#8221;,6378137.0,298.257222101]],
-PRIMEM[&#8220;Greenwich&#8221;,0.0],
-UNIT[&#8220;Degree&#8221;,0.0174532925199433]],
-PROJECTION[&#8220;Lambert_Conformal_Conic_2SP&#8221;],
-PARAMETER[&#8220;False_Easting&#8221;,1640416.666666667],
-PARAMETER[&#8220;False_Northing&#8221;,0.0],
-PARAMETER[&#8220;Central_Meridian&#8221;,-120.5],
-PARAMETER[&#8220;Standard_Parallel_1&#8221;,45.83333333333334],
-PARAMETER[&#8220;Standard_Parallel_2&#8221;,47.33333333333334],
-PARAMETER[&#8220;Latitude_Of_Origin&#8221;,45.33333333333334],
-UNIT[&#8220;Foot_US&#8221;,0.3048006096012192]]
-COUNTY_COD: Integer (2.0)
-COUNTY_FIP: String (3.0)
-COUNTY_NM: String (15.0)
-ECY_REGION: String (4.0)
-AIR_REGION: String (46.0)
-[gotti]$</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">Read on &rarr;</a>
+    </footer>
   
 
 

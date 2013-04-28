@@ -190,38 +190,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>.</p>
-
-<p>If we take a look at the DescribeFeatureType() results for <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_WGS84.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">my WFS</a> query (I don&#8217;t know if I should be calling it a WFS at this point, but I will&#8230;) we see that no tabular information is being extracted from the shapefiles.</p>
-
-<blockquote><p><schema targetNamespace="http://mapserver.gis.umn.edu/mapserver" elementFormDefault="qualified" version="0.1">
-<import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/2.1.2/feature.xsd"/>
-</schema></p></blockquote>
-
-<p>compare this to the DMSolutions WFS DescribeFeatureType() <a href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">request</a>.</p>
-
-<blockquote><p><schema targetNamespace="http://www.ttt.org/myns" elementFormDefault="qualified" version="0.1">
-<import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengeospatial.net/gml/2.1.2/feature.xsd"/>
-<element name="prov_land" type="myns:prov_landType" substitutionGroup="gml:_Feature"/>
-−
-<complexType name="prov_landType">
-−
-<complexContent>
-−
-<extension base="gml:AbstractFeatureType">
-−
-<sequence>
-<element name="msGeometry" type="gml:GeometryPropertyType" minOccurs="0" maxOccurs="1"/>
-<element name="AREA" type="string"/>
-<element name="PERIMETER" type="string"/>
-<element name="PROVINCE_" type="string"/>
-&#8230;</p></blockquote>
-
-<p>I&#8217;m thinking that there is more work which needs to be done in the mapfile. My guess is that it has to do with the &#8216;gml_featureid&#8217; and &#8216;gml_include_items&#8217; metadata information.</p>
-
-<p>whatever&#8217;s clever.</p>
-</div>
+  <div class="entry-content"><p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wms-to-wfs/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -277,11 +251,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Well, using the <a href="http://openlayers.org/dev/examples/">OpenLayers Cookbook</a> I&#8217;ve been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now.</p>
-
-<p>Viewing the source code might not give you too much insight as to what is going on&#8230; it&#8217;s looking pretty haggard at this point. I&#8217;ll get around to cleaning it up and adding comments (mainly so I can learn something about what is going on, hah).</p>
-</div>
+  <div class="entry-content"><p>Well, using the <a href="http://openlayers.org/dev/examples/">OpenLayers Cookbook</a> I&#8217;ve been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/16/mapserver-update/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -337,17 +312,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Well, after about a month of no progress in the Web GIS realm, i&#8217;ve finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you&#8217;re also wondering, the data being displayed is actually a <a href="http://www.cob.org/services/maps/index.aspx">shapefile</a> of the neighborhoods of beautiful Bellingham, WA.</p>
-
-<p>This gets me back to where I was as part of my senior GIS project, with the very large exception that the data is being hosted 24/7 on a shared host, rather than an ubuntu-powered laptop on death&#8217;s door. Well, &#8216;what is the difference?&#8217; one might ask. Well, instead of having to tell someone, &#8216;Hey, you interested person, sure you can view my WMS server. I&#8217;ll turn my laptop on between the hours of 3-5PM. If the connection is slow, it could be because my wi-fi is dropping out. Or maybe because my roommates are playing Halo 3 on Xbox Live? Or maybe I&#8217;m watching a movie on netflix?&#8217; In any event, reliability is a plus.</p>
-
-<p>So what got me over this hurtle? Well, it just so happens that instead of compiling all of these programs from the source, you can just install <a href="http://fwtools.maptools.org/">FWTools</a> as an entire package right onto your website. Neat! As Aaron Racicot also pointed out in <a href="http://www.mail-archive.com/mapserver-users@lists.umn.edu/msg13520.html">some post</a>, it&#8217;s necessary to add the, &#8216;.cgi&#8217; extension to the mapserv file, as dreamhost (my current hosting choice) requires the extension to be explicitly set.</p>
-
-<p>This really opens the door to quite a bit of experimentation using OpenLayers and Mapserver together.</p>
-
-<p>On a final note, compiling all those programs from source has had an added benefit not attainable with FWTools. That is, the use of command-line GRASS. Who knows when they&#8217;ll be stuck, needing to do some GIS w/o an ArcDesktop install, <em>but</em> with an SSH terminal?</p>
-</div>
+  <div class="entry-content"><p>Well, after about a month of no progress in the Web GIS realm, i&#8217;ve finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you&#8217;re also wondering, the data being displayed is actually a <a href="http://www.cob.org/services/maps/index.aspx">shapefile</a> of the neighborhoods of beautiful Bellingham, WA. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/15/73/">Read on &rarr;</a>
+    </footer>
   
 
 

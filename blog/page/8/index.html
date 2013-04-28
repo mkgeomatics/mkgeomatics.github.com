@@ -190,15 +190,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>In the continuing adventures of my WFS example, I&#8217;ve now added spherical mercator capabilities to the PROJ.4 library, following those instructions <a href="http://crschmidt.net/">Chris Schmidt</a> gave me last week. On the fly reprojection of the data allows for the incorporation of numerous proprietary vendors, such as Google Maps and Microsoft Virtual Earth, as well as open source tile services such as OpenStreetMaps.org.</p>
-
-<p>[caption id=&#8221;attachment_185&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: WFS Spherical Mercator Reprojection with Google Terrain Base Layer&#8221;]<a href="http://mkgeomatics.com/apps/openlayers/spherical_merc.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_spherical-300x298.jpg" alt="Above: WFS Spherical Mercator Reprojection with Google Terrain Base Layer" /></a>[/caption]</p>
-
-<p>Feel free to check it out: <a href="http://mkgeomatics.com/apps/openlayers/spherical_merc.html">http://mkgeomatics.com/apps/openlayers/spherical_merc.html</a></p>
-
-<p>In other news, I&#8217;m also nearly finished moving my portfolio from WWU&#8217;s servers to this site. One can click on the Portfolio link to the right, or simply navigate directly to a sub-section if they choose.</p>
-</div>
+  <div class="entry-content"><p>In the continuing adventures of my WFS example, I&#8217;ve now added spherical mercator capabilities to the PROJ.4 library, following those instructions <a href="http://crschmidt.net/">Chris Schmidt</a> gave me last week. On the fly reprojection of the data allows for the incorporation of numerous proprietary vendors, such as Google Maps and Microsoft Virtual Earth, as well as open source tile services such as OpenStreetMaps.org. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/30/spherical-mercator-new-portfolio/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -254,21 +251,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it&#8217;s platform-independent, another plus for mac and / or linux GIS users.</p>
-
-<p>[caption id=&#8221;attachment_127&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The counties of Washington State.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa-300x202.jpg" alt="WA_Green" /></a>[/caption]</p>
-
-<p>What is so cool about this program is that not only does it use shapefiles as an input, but it generates shapefiles as output as well. A SizeError attribute is also generated to allow a user to easily control map symbology using GIS software. In addition to this, one can also export as an SVG directly to use in a graphics editor.</p>
-
-<p>The cartogram below was generated using the percentage of a county&#8217;s total area covered by state routes. The lighter colors indicate a smaller distortion in size while the darker colors indicate a larger distortion in size. Note the I-5 corridor in Western Washington is heavily affected using this criteria.</p>
-
-<p>[caption id=&#8221;attachment_128&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The result. &#8220;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/cartogram2.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/cartogram2-300x212.jpg" alt="WA_Cartogram" /></a>[/caption]</p>
-
-<p>ScapeToad - <a href="http://chorogram.choros.ch/scapetoad/index.php">http://chorogram.choros.ch/scapetoad/index.php</a></p>
-
-<p>Data (WA DOT) - <a href="http://www.wsdot.wa.gov/">http://www.wsdot.wa.gov/</a></p>
-</div>
+  <div class="entry-content"><p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it&#8217;s platform-independent, another plus for mac and / or linux GIS users. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/23/scapetoad-open-source-cartogram-generator/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -324,17 +312,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine.</p>
-
-<p>A different baselayer is also available, <a href="http://www.openstreetmap.org/">openstreetmaps.org</a> (via telascience.org tiles). You may notice that some of these tiles fail to reload upon panning and zooming operations. I asked why this was on the OpenLayers IRC, and was told that these tiles basically suck. I&#8217;m stuck using them however, as they are Lat/Long WGS84. OSM Mapnik and Google maps require a spherical mercator projection, and as such PROJ.4 needs to be amended to support this EPSG code so that Mapserver and render properly.</p>
-
-<p>[caption id=&#8221;attachment_121&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Screenshot of simple WFS example&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_example.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_example-300x276.jpg" alt="Screenshot of simple WFS example" /></a>[/caption]</p>
-
-<p>It <a href="http://docs.openlayers.org/spherical_mercator/#mapserver">looks pretty straightforward</a>, but another project for another day.</p>
-
-<p>In any event, I&#8217;ve kept the OpenLayers WMS as the primary base layer, which doesn&#8217;t have display issues.</p>
-</div>
+  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/22/attribution-css-and-irc/">Read on &rarr;</a>
+    </footer>
   
 
 
