@@ -3,11 +3,12 @@
 # ----------------------- #
 
 url: http://mkgeomatics.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: mattmakesmaps
+subtitle: open source mapping notes from cascadia 
+author: Matthew Kenny 
 simple_search: http://google.com/search
-description:
+description: open source mapping notes from cascadia
+keywords: GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -19,7 +20,7 @@ date_format: "ordinal"
 subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
-email:
+email: matthewkenny AT gmail DOT com
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -36,7 +37,7 @@ category_dir: blog/categories
 markdown: rdiscount
 pygments: false # default python pygments have been replaced by pygments.rb
 
-paginate: 10          # Posts per page on the blog index
+paginate: 3          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
@@ -58,13 +59,13 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
-github_repo_count: 0
+github_user: mattmakesmaps
+github_repo_count: 3
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: mattmakesmaps
 twitter_tweet_button: true
 
 # Google +1
@@ -84,8 +85,11 @@ pinboard_count: 3
 delicious_user:
 delicious_count: 3
 
+# linkedin
+linkedin_user: mattmakesmaps
+
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: mattmakesmaps
 disqus_show_comment_count: false
 
 # Google Analytics

@@ -5,12 +5,13 @@ date: 2011-12-12 08:30:17
 layout: post
 slug: geodjango-standing-up-a-geojson-web-service
 title: 'GeoDjango: Standing Up A GeoJSON Web-Service'
+keywords: geodjango, geojson, django, web mapping, open source
 wordpress_id: 500
 categories:
 - Web-GIS
 ---
 
-The models are complete. The database is loaded with some test tabular and spatial data. We're pushing out HTML representations of attribute data using GeoDjango's standard templating functions. Now, the focus moves to visualizing these features' geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available [Spatial Lookup](https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility) and [GeoQuerySet method](https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods). Take note, PostGIS is the clear winner in terms of functionality ;)
+The models are complete. The database is loaded with some test tabular and spatial data. We're pushing out HTML representations of attribute data using GeoDjango's standard templating functions. Now, the focus moves to visualizing these features' geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. <!-- more --> When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available [Spatial Lookup](https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility) and [GeoQuerySet method](https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods). Take note, PostGIS is the clear winner in terms of functionality ;)
 
 
 

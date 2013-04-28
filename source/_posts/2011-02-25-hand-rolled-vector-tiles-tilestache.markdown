@@ -17,6 +17,7 @@ A few weeks ago I found myself surfing the intertubes for instructions on how to
 
 > TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.
 
+<!-- more -->
 
 By design, TileStache can be used to serve up stylish TMS tiles using [mapnik](http://mapnik.org/) map files, and can also be used to locally cache remote-services via [proxy](http://tilestache.org/doc/#providers). What I'm most interested in though, is it's ability to deploy vector tiles. So what are vector tiles? Think TMS tiles... but replace representations of the geometries through images, with [GeoJSON](http://geojson.org/). Pretty wild right? Specifically, the TileStache [PostGeoJSON Provider](http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html) can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.
 

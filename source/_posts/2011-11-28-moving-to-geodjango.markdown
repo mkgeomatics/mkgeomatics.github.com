@@ -19,6 +19,7 @@ tags:
 I've been creating a simple GeoDjango application for managing environmental sampling metadata, and it's been a lot of fun so far. I've had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.
 
 Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i'll just put two entries into the same cell).
+<!-- more -->
 
 [caption id="attachment_487" align="alignnone" width="464" caption="sometimes spreadsheets just don't work..."][![](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png)](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png)[/caption]
 
