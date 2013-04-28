@@ -148,7 +148,7 @@
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing an Existing MySQL Database</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/30/spherical-mercator-new-portfolio/">Spherical Mercator / New Portfolio</a></h1>
     
     
       <p class="meta">
@@ -173,61 +173,7 @@
   
 
 
-<time datetime="2009-04-22T08:43:21-07:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2009</time> - 
-        
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So I&#8217;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&#8230; you know, the kind that usually don&#8217;t work out very well? </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Read on &rarr;</a>
-    </footer>
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/">MetaCarta&#8217;s Map Rectifier + ESRI DevSummit Mashup Winner :)</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-08T08:24:07-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2009</time> - 
+<time datetime="2008-11-30T14:38:53-08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2008</time> - 
         
 
 posted in
@@ -244,11 +190,11 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&#8217;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. </div>
+  <div class="entry-content"><p>In the continuing adventures of my WFS example, I&#8217;ve now added spherical mercator capabilities to the PROJ.4 library, following those instructions <a href="http://crschmidt.net/">Chris Schmidt</a> gave me last week. On the fly reprojection of the data allows for the incorporation of numerous proprietary vendors, such as Google Maps and Microsoft Virtual Earth, as well as open source tile services such as OpenStreetMaps.org. </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/2008/11/30/spherical-mercator-new-portfolio/">Read on &rarr;</a>
     </footer>
   
 
@@ -263,7 +209,7 @@ posted in
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/04/07/cloudmade-tile-request-graphics/">CloudMade Tile Request Graphics</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/23/scapetoad-open-source-cartogram-generator/">ScapeToad - Open Source Cartogram Generator</a></h1>
     
     
       <p class="meta">
@@ -288,7 +234,68 @@ posted in
   
 
 
-<time datetime="2009-04-07T10:14:36-07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2009</time> - 
+<time datetime="2008-11-23T05:11:25-08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/links/'>Links</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it&#8217;s platform-independent, another plus for mac and / or linux GIS users. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/23/scapetoad-open-source-cartogram-generator/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/22/attribution-css-and-irc/">Attribution, CSS, and IRC</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-22T10:41:33-08:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2008</time> - 
         
 
 posted in
@@ -305,11 +312,249 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&#8217;s also interesting to note the high activity in other regions such as Chile and the Philippines. </div>
+  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine. </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2009/04/07/cloudmade-tile-request-graphics/">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/2008/11/22/attribution-css-and-irc/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/21/whew/">Whew&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-21T10:21:14-08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This took a &#8216;lot&#8217; longer than i expected.</p>
+
+<p><a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html">http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html</a></p>
+
+<p>Calling Mapserver as a WFS layer, displaying with OpenLayers. Many thanks to <a href="http://crschmidt.net/">Chris Schmidt</a> for a quick response on the OL mailing list! </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/21/whew/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/19/happy-gis-day/">Happy GIS Day.</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-19T01:44:54-08:00" pubdate data-updated="true">Nov 19<span>th</span>, 2008</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>all across the world, little GIS themed cookies and cakes will be consumed&#8230;</p>
+</div>
+  
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/18/wfs/">WFS!</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T08:10:22-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &#8216;WFS&#8217; service types. As you can see in the image below, a static baselayer, &#8216;COUNTY&#8217; (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, &#8216;NATPARK&#8217;, capable of actually identifiying features. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wfs/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/18/wms-to-wfs/">WMS to WFS</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T04:00:42-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wms-to-wfs/">Read on &rarr;</a>
     </footer>
   
 
