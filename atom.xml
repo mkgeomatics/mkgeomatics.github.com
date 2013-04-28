@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
+  <link href="http://mkgeomatics.github.io/"/>
+  <updated>2013-04-27T18:47:04-07:00</updated>
+  <id>http://mkgeomatics.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GeoDjango: Standing Up A GeoJSON Web-Service]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/"/>
+    <updated>2011-12-12T00:30:17-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service</id>
+    <content type="html"><![CDATA[<p>The models are complete. The database is loaded with some test tabular and spatial data. We&#8217;re pushing out HTML representations of attribute data using GeoDjango&#8217;s standard templating functions. Now, the focus moves to visualizing these features&#8217; geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
+
+<h2>Why GeoJSON?</h2>
+
+<p>From the perspective of exporting data, GeoDjango supports a number of formats. The GeoQuerySet methods can represent your model&#8217;s geometry column in a number of different <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoquerysets/#geometry-output">formats</a>: GeoHash, GeoJSON, GML, KML, and SVG. Of all these serialization formats, I&#8217;ve found KML to be the most frequently used amongst GeoDjango users. Illustrative of this, three of the four functions in <a href="https://code.djangoproject.com/browser/django/trunk/django/contrib/gis/shortcuts.py">django.contrib.gis.shortcuts</a> have to do with KML/KMZ. That&#8217;s awesome, but where is the love for GeoJSON?</p>
+
+<p>KML can be easily consumed by OpenLayers, the king of open source web mapping viewers. But some of the new kids, e.g. leaflet, polymaps, look to favor GeoJSON over KML as an input for dynamically rendered data, not directly consuming KML out-of-the-box. That being said, if you want KML, this <a href="https://github.com/shramov/Leaflet/tree/master/src/layer">fork of leaflet</a> looks like it will work for you. In my particular project, I&#8217;m interested in using leaflet, so GeoJSON was the way to go.</p>
+
+<p>Later on, I&#8217;d like to do some speed comparisons, rendering the same featureset using OpenLayers, represented as both KML and GeoJSON, but that&#8217;s for the future. I&#8217;m wondering if OpenLayers will handle the JSON object faster then KML&#8217;s XML? JSON is just JavaScript after all.</p>
+
+<h2>The Problem</h2>
+
+<p>The GeoDjango GeoQuerySet API has built in methods to handle the serialization and de-serialization of a result set&#8217;s geometries into different formats. The problem is that these methods only wrap the geometries of a result set. For display in a web mapping application, like leaflet, I want to have access to both the geometry in the format of my choosing, as well as the supplementary attributes (name, type, etc.) which provide context for that geometry.</p>
+
+<p>For example, asking for the GeoJSON representation of a given feature through Django&#8217;s shell, like this:</p>
+
+<p>[code lang=&#8221;python&#8221;]</p>
+
+<h1>Import Models from the Company Application</h1>
+
+<p>from company.Models import *</p>
+
+<h1>Create a GeoQuerySet from the primary key, return GeoJSON</h1>
+
+<p>qs = Boundary.objects.filter(pk=1).geojson()</p>
+
+<h1>Print GeoJSON representation of geom</h1>
+
+<p>print qs[0].geojson
+[/code]</p>
+
+<p>Will produce a GeoJSON object like this:</p>
+
+<p>[code lang=&#8221;js&#8221;]
+{
+ &#8220;type&#8221;:&#8221;MultiPolygon&#8221;,
+  &#8220;coordinates&#8221;:[</p>
+
+<pre><code>[
+  [
+    [
+      -122.574295,
+      47.856636
+    ],
+    [
+      -122.573924,
+      47.85718
+    ],
+    [
+      -122.573719,
+      47.85757
+    ] // Truncated Verticies
+  ]
+]
+</code></pre>
+
+<p>  ]
+}
+[/code]</p>
+
+<p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &#8216;type&#8217; values which an object can be constrained by. Using GeoDjango&#8217;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&#8217;d like to return a GeoJSON object of type &#8216;Feature&#8217; or &#8216;FeatureCollection&#8217;. These types require an additional &#8216;properties&#8217; parameter, which can store tabular attributes. From the spec:</p>
+
+<blockquote><p>A feature object must have a member with the name &#8220;properties&#8221;. The value of the properties member is an object (any JSON object or a JSON null value).</p></blockquote>
+
+<p>So, the trick now is to dynamically create a GeoJSON object which contains both populated Geom and Properties attributes.</p>
+
+<h2>The fix (vectorformats)</h2>
+
+<p>In order to create a fully populated GeoJSON object, we need to bring in some extra assistance. Some quick searching brought me to this stack exchange <a href="http://stackoverflow.com/questions/3034482/rendering-spatial-data-of-geoqueryset-in-a-custom-view-on-geodjango">response</a>, from <a href="http://crschmidt.net/blog/">Chris Schmidt</a>. Chris&#8217; vectorformats package handles the serialization and de-serializtion of a variety of formats, including Django Querysets and GeoJSON. From the project <a href="http://packages.python.org/vectorformats/">homepage</a>:</p>
+
+<blockquote><p>The vectorformats library is designed to make it easy to serialize content from any source to any source within Python. Think of it as a “poor man’s OGR” – a pure Python implementation of transforming features to and from various formats (largely XML based).</p></blockquote>
+
+<p>Installing vectorformats is as easy as:</p>
+
+<p>[code]
+$sudo easy_install vectorformats
+[/code]</p>
+
+<p>From there, as outlined in the above referenced post, it&#8217;s only a matter of adding a few lines into your GeoDjango app&#8217;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
+
+<p>[code lang=&#8221;python&#8221;]</p>
+
+<h1>Using vectorfeatures module return a GeoJSON FeatureCollection</h1>
+
+<h1>for a given boundary ID.</h1>
+
+<p>def boundary_detail(request, boundary_id):</p>
+
+<pre><code>boundary_detail = Boundary.objects.filter(pk=boundary_id)
+djf = Django.Django(geodjango='geom', properties=['name'])
+geoj = GeoJSON.GeoJSON()
+s = geoj.encode(djf.decode(boundary_detail))
+return HttpResponse(s)
+</code></pre>
+
+<p>[/code]</p>
+
+<p>The resulting GeoJSON object, represented as a &#8216;type&#8217; of &#8216;FeatureCollection&#8217;:</p>
+
+<p>[code lang=&#8221;js&#8221;]
+{
+  &#8220;crs&#8221;:null,
+  &#8220;type&#8221;:&#8221;FeatureCollection&#8221;,
+  &#8220;features&#8221;:[</p>
+
+<pre><code>{
+  "geometry":{
+    "type":"MultiPolygon",
+    "coordinates":[
+      [
+        [
+          [
+            -122.574295,
+            47.856636
+          ],
+          [
+            -122.573924,
+            47.85718
+          ],
+          [
+            -122.573719,
+            47.85757
+          ] // Truncated Verticies
+        ]
+      ]
+    ]
+  },
+  "type":"Feature",
+  "id":1,
+  "properties":{
+    "name":"Port Gamble"
+  }
+}
+</code></pre>
+
+<p>  ]
+}
+[/code]</p>
+
+<p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &#8216;http://my-site.com/geojson/boundary/{boundary_id}/&#8217;. Pass this to your web mapping client, and you&#8217;re ready to rock.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Moving to GeoDjango]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/"/>
+    <updated>2011-11-28T00:35:49-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&#8217;s been a lot of fun so far. I&#8217;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
+
+<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&#8217;ll just put two entries into the same cell).</p>
+
+<p>[caption id=&#8221;attachment_487&#8221; align=&#8221;alignnone&#8221; width=&#8221;464&#8221; caption=&#8221;sometimes spreadsheets just don&#8217;t work&#8230;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
+
+<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt&#8217;s <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">&#8220;Puget Sound on the Pacific Coast&#8221;</a>, but it&#8217;s just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
+
+<p>[code]
+^ Column One                ^ Column Two                 ^
+| Zee &#8216;z&#8217; string            | This is a longer string    |
+| 2nd longer string of text | 2nd short string           |
+| SuperShort                | A string starting with &#8216;A&#8217; |
+[/code]</p>
+
+<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don&#8217;t allow for the storage/visualization of spatial data.</p>
+
+<p>[caption id=&#8221;attachment_488&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;10 megs free for one user? cool!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
+
+<p>In comes GeoDjango. Over the next few posts, I think I&#8217;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
+
+<p>[caption id=&#8221;attachment_489&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Hey look Ma&#8217;, it&#8217;s GeoJSON!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hand-Rolled Vector Tiles - TileStache]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
+    <updated>2011-02-25T05:09:52-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
+    <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&#8211; Imagine that&#8217;s a mustache on it&#8217;s side.</p>
+
+<blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
+
+<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I&#8217;m most interested in though, is it&#8217;s ability to deploy vector tiles. So what are vector tiles? Think TMS tiles&#8230; but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
+
+<p>For example, data from a PostGIS data source can be rendered as an image tile (&#8230;/10/16/357.png), like this:</p>
+
+<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png" alt="" /></a></p>
+
+<p>But can also be represtented as a vector tile (&#8230;/10/16/357.json), like this:</p>
+
+<p>[sourcecode language=&#8221;js&#8221;]
+// Subset of a single 256x256 pixel vector tile.
+{
+  &#8220;type&#8221;: &#8220;FeatureCollection&#8221;,
+  &#8220;features&#8221;: [</p>
+
+<pre><code>{
+  "geometry": {
+    "type": "MultiPolygon",
+    "coordinates": [
+      [
+        [
+          [
+            -122.973093,
+            47.969842
+          ],...
+          [
+            -122.973093,
+            47.969842
+          ]
+        ]
+      ]
+    ]
+  },
+  "type": "Feature",
+  "properties": {
+    "property_s": "USFS",
+    "juris_name": "Olympic National Forest"
+  },
+  "id": 1280
+}
+</code></pre>
+
+<p>  ]
+}
+[/sourcecode]</p>
+
+<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers&#8217; GeoJSON</a> format reader to populate a vector layer in OL. It&#8217;s an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS&#8230; only request those sections of data which you need at that time. By only requesting those tiles within the user&#8217;s current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS&#8217;s can be pre-cached to disk (seeded), so can vector tiles.</p>
+
+<p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
+
+<p>[caption id=&#8221;attachment_398&#8221; align=&#8221;alignnone&#8221; width=&#8221;665&#8221; caption=&#8221;NFS Boundaries Provided By ChopShopGeo&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
+
+<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&#8217;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&#8230; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
+
+<p>[caption id=&#8221;attachment_393&#8221; align=&#8221;alignnone&#8221; width=&#8221;691&#8221; caption=&#8221;USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You&#8217;ll have to ignore the fact that I&#8217;m symbolizing streamflow without the streams.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
+
+<p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
+
+<p>{
+&#8220;type&#8221;: &#8220;FeatureCollection&#8221;,
+&#8220;features&#8221;: [{
+&#8220;geometry&#8221;: {
+&#8220;type&#8221;: &#8220;MultiPolygon&#8221;,
+&#8220;coordinates&#8221;: [
+[
+[
+[-122.973093, 47.969842],
+[-122.973093, 47.969842]
+]
+]
+]
+},
+http: //jsbeautifier.org/
+&#8220;type&#8221;: &#8220;Feature&#8221;,
+&#8220;properties&#8221;: {
+&#8220;property_s&#8221;: &#8220;USFS&#8221;,
+&#8220;juris_name&#8221;: &#8220;Olympic National Forest&#8221;
+},
+&#8220;id&#8221;: 1280
+}]
+}</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[cURL'ing to FeatureServer from PostGIS: Easier then I Thought]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/"/>
+    <updated>2010-07-09T05:25:40-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought</id>
+    <content type="html"><![CDATA[<p>So I&#8217;ve finished cutting a draft tileset using mapnik, <a href="http://mkgeomatics.com/apps/bus/bus.html">depicting bus routes in Bellingham, WA</a>. Now that the cartography is well in progress, I&#8217;d like to add some interactivity to the map. My first attempt at this will be to utilize MetaCarta (Chris Schmidt)&#8217;s <a href="http://featureserver.org/">FeatureServer</a>. FeatureServer allows one to use standard HTTP verbs to GET representations of data, POST new data, or DELETE existing data. While querying data you can also pass additional URL parameters like a bounding box or attribute to select out a smaller subset of returned representations. I&#8217;ll be POST&#8217;ing a bus stop dataset to FeatureServer as GeoJSON. Once the data are stored in FeatureServer, I&#8217;ll be able to add popups based on a user&#8217;s click of a bus stop.</p>
+
+<p>Getting data stored on my local PostGIS install to my remote FeatureServer instance turned out to be a three step process.</p>
+
+<p><strong>Step One:</strong> Convert local PostGIS bus stops layer to GeoJSON via OGR</p>
+
+<p>I had originally planned on writing a pg/plsql function to try and output a bash script. The script would cURL each feature individually to my FeatureServer instance. This proved to be way more work then I had expected. What was the solution? <a href="http://www.gdal.org/ogr/">OGR</a>, of course. OGR has read/write drivers for both <a href="http://www.gdal.org/ogr/drv_geojson.html">GeoJSON</a> and <a href="http://www.gdal.org/ogr/drv_pg.html">PostGIS</a>. This allows one to convert an entire dataset to GeoJSON with a single command (see below).</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+ogr2ogr -f &#8220;GeoJSON&#8221; ogrstops.json PG:&#8221;host=localhost dbname=routing user=postgres password=*** port=5432&#8221; &#8220;wtastops(the_geom)&#8221;
+[/sourcecode]</p>
+
+<p><strong>Step 2:</strong> Wrap &#8220;coordinate&#8221; elements in double brackets</p>
+
+<p>When initially trying to cURL the GeoJSON output to FeatureServer, I was receiving an error stating that a bounding box could not be determined for the first geometry in my dataset. After some trial-and-error, I soon realized that the OGR output FeatureCollection was wrapping each point feature&#8217;s geometry in a single set of brackets. This type of behavior follows the GeoJSON <a href="http://geojson.org/geojson-spec.html#id9">specification for a FeatureCollection</a>, as far as I can tell. However, in order for FeatureServer to consume this dataset, each point feature is required to be wrapped in a second set of brackets. I used gedit to run the find/replace. Below is an example of a GeoJSON feature which FeatureServer can consume. This individual feature is part of a larger FeatureCollection.</p>
+
+<p>[sourcecode language=&#8221;js&#8221;]</p>
+
+<p>{ &#8220;type&#8221;: &#8220;Feature&#8221;,</p>
+
+<pre><code>      "properties": {
+         "POINT_ID": "1000",
+         "POINT_NAME": "Fielding at 32nd",
+         "SHELTER": "Yes", "BENCH": "No" },
+      "geometry": {
+         "type": "Point",
+         "coordinates": [[-122.474490,48.730021]]}
+</code></pre>
+
+<p>}
+[/sourcecode]</p>
+
+<p><strong>Step 3:</strong> cURL GeoJSON to FeatureServer</p>
+
+<p>The last step is to actually POST the data to FeatureServer. For that, I used cURL.</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]</p>
+
+<p>curl -d @ogrstops.json http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/create.json</p>
+
+<p>[/sourcecode]</p>
+
+<p>Now that the features have been uploaded, we can view them via FeatureServer as <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.georss">GeoRSS</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.kml">KML</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.json">JSON</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.gml">GML</a>. Neat!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PL/pgSQL function to Iterate pgRouting]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
+    <updated>2010-06-28T00:37:39-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&#8217;s one thing to execute pgRouting&#8217;s built-in functions for a single vertex (building) to another vertex (bus stop)&#8230; but another to have the function iterate through all buildings and their closest bus stop.</p>
+
+<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&#8217;ve posted my function below. It&#8217;s not pretty, but it&#8217;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
+
+<ul>
+<li><p>Loop through a table in which each row has a source and destination vertex</p></li>
+<li><p>Execute the pgRouting function using these two vertices, determining the length of the least-cost path.</p></li>
+<li><p>Populate a field, &#8216;dist_calc&#8217; with the distance.</p></li>
+</ul>
+
+
+<p>[sourcecode]
+CREATE OR REPLACE FUNCTION bulk_route_generate() RETURNS VOID AS $$
+DECLARE
+ bld_row bld_wtastops_staging5%ROWTYPE;
+ dist_calc RECORD;
+BEGIN
+ RAISE NOTICE &#8216;Beginning Function&#8217;;
+ FOR bld_row IN SELECT * FROM bld_wtastops_staging5 WHERE bld_wtastops_staging5.bld_vert_node IS NOT NULL
+ AND bld_wtastops_staging5.wtastops_vert_node IS NOT NULL
+ &#8211; BEGIN ADDING BUM NODES TO SKIP OVER
+ AND bld_wtastops_staging5.bld_vert_node &lt;&gt; 2915
+ AND bld_wtastops_staging5.wtastops_vert_node &lt;&gt; 293
+ &#8211; ADD START GID
+ &#8211; USED ONLY IF BUM NODES EXIST
+ &#8211;AND bld_wtastops_staging5.bld_gid &gt;= 29200
+ ORDER BY bld_wtastops_staging5.bld_gid LOOP
+ RAISE NOTICE &#8216;Value of wtastops_vert_node is %. The value of bld_vert_node is %&#8217;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &#8216;Value of wtastops_gid is %. The value of bld_gid is %&#8217;,bld_row.wtastops_gid, bld_row.bld_gid;
+ &#8211; BEGIN STANDARD pgRouting A*Star FUNCTION
+ SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar(&#8217;
+ SELECT gid as id,
+ source::integer,
+ target::integer,
+ length::double precision as cost,
+ x1, y1, x2, y2
+ FROM streets_9102748&#8217;,
+ bld_row.bld_vert_node, bld_row.wtastops_vert_node, false, false);
+ RAISE NOTICE &#8216;Value of dist_calc is %.&#8217;,dist_calc;
+ EXECUTE &#8216;UPDATE bld_wtastops_staging5
+ SET route_dist = &#8217; ||dist_calc|| &#8217;
+ WHERE &#8217; ||bld_row.bld_gid|| &#8217; = bld_wtastops_staging5.bld_gid&#8217;;
+ END LOOP;
+ &#8211; BAIL OUT ON ERRORS
+ EXCEPTION
+ WHEN CONTAINING_SQL_NOT_PERMITTED THEN
+ RAISE NOTICE &#8217; EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %&#8217;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+END;
+$$ LANGUAGE &#8216;plpgsql&#8217;;
+&#8211; EXECUTE FUNCTION
+SELECT bulk_route_generate();
+[/sourcecode]</p>
+
+<p>I&#8217;m excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I&#8217;m sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I&#8217;ll be sure to do some serious head-scratching to think about a better approach!</p>
+
+<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a 1/4 mile distance, while areas from yellow-to-red represent distances increasingly greater then a 1/4 mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
+
+<p>[caption id=&#8221;attachment_360&#8221; align=&#8221;alignnone&#8221; width=&#8221;430&#8221; caption=&#8221;the result as seen in mapnik&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[pgRouting III: PHP + OpenLayers Interface]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/"/>
+    <updated>2010-02-06T09:47:11-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
+    <content type="html"><![CDATA[<p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
+
+<p>The conceptual plan is as follows:</p>
+
+<ul>
+<li><p>Extract the geometry of a user&#8217;s click on the map.</p></li>
+<li><p>Pass the extracted geometry to a PHP script, via an HTTP GET request.</p></li>
+<li><p>Use the PHP script to pass the geometry as part of an SQL query against the PostGIS/pgRouting database.</p></li>
+<li><p>Return the geometry from the database as <a href="http://geojson.org/">GeoJSON</a>, and deserialize it into an OpenLayers vector layer feature.</p></li>
+</ul>
+
+
+<p>The code to extract a user&#8217;s clicked coordinates was taken from <a href="http://openlayers.org/dev/examples/click.html">this</a> OpenLayers example. It was then modified to pass the xy coordinates to a second function, designed to create a URL which will execute a PHP script.</p>
+
+<p>[sourcecode language=&#8221;javascript&#8221;]trigger: function(e) {
+ var xy = map.getLonLatFromViewPortPx(e.xy);
+ executeSQL(xy);
+ }[/sourcecode]</p>
+
+<p>Passing the XY variable to the executeSQL() function, we are able to now seperate out the individual X and Y coordinates, and apply them to their respective parameters in our URL string.</p>
+
+<p>[sourcecode language=&#8221;javascript&#8221;]// Build the URL
+ var json_url = &#8220;http://localhost/near_vertex_astar.php?&#8221;;
+ json_url += &#8220;x=&#8221; + escape(xy.lon);
+ json_url += &#8220;&amp;y=&#8221; + escape(xy.lat);[/sourcecode]</p>
+
+<p>Having constructed the URL, we are now ready to use it to populate an OpenLayers vector layer with data.</p>
+
+<p>[sourcecode language=&#8221;javascript&#8221;]// Make a fresh vector layer, pulling features from our script URL
+ json_layer = new OpenLayers.Layer.Vector(&#8220;GeoJSON&#8221;, {
+ styleMap: myStyles,
+ strategies: [new OpenLayers.Strategy.Fixed()],
+ protocol: new OpenLayers.Protocol.HTTP({
+ url: json_url,
+ format: new OpenLayers.Format.GeoJSON()
+ })
+ });[/sourcecode]</p>
+
+<p>Alright! So where are we at right now? A user has clicked the map, and that click&#8217;s geometry has been extracted and sent to a PHP script on the server for further work. The PHP script will execute SQL in the PostGIS/pgRouting data base to do the following:</p>
+
+<ul>
+<li><p>Find the closest vertex in our routing network to the user&#8217;s map click. This will be used as a source vertex.</p></li>
+<li><p>Find all firestations within 5km of the vertex (which have been pre-attributed with the closest vertex on the routing network to their location).</p></li>
+<li><p>Calculate the cost (as defined by total length of the route) from the source vertex to each fire station (really the routing network vertex).</p></li>
+<li><p>Return back as GeoJSON only the geometry for the route with the lowest cost.</p></li>
+</ul>
+
+
+<p>Why all the hassle with determining the cost? Can&#8217;t you just use PostGIS&#8217; ST_DWithin() function to find the closet firestation to our user&#8217;s click and create the route? Well you could, but it might not always be the shortest route.</p>
+
+<p>[caption id=&#8221;attachment_339&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Euclidean distance versus Manhattan. Which one is shorter?&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance-300x279.png" alt="Euclidean distance versus Manhattan. Which one is shorter?" /></a>[/caption]</p>
+
+<p>This behavior can be respresented in the routing network with the example below. Two different routes are generated from the same source vertex based on the combination of routing algorithm and account for route cost. On the left, the <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">dijkstra algorithm</a> is used to return the route to the closest fire station as the result of an ST_DWithin() query. On the right, the A-Star algorithm is used, and the route costs of all fire stations within a buffer are taken into account. As we can see, a different route and a different station are returned.</p>
+
+<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1-1024x338.png" alt="Comparing the two search algorithms and cost relationships." /></a></p>
+
+<p>A link to the JS and PHP scripts can be found at the end of this post. This definitely is not the most elegant solution to working with routing, but in terms of an experiment it was a great learning exercise. I&#8217;m really excited to dive deeper into PostGIS and pgRouting. The next step in the process will be incorporating OSM data, and adding in addition attributes which affect cost (speed limits, one-way streets, etc).</p>
+
+<p>View the <a href="http://mkgeomatics.com/apps/syntaxhighlighter/astar_php.html">PHP</a>.</p>
+
+<p>View the <a href="http://mkgeomatics.com/apps/syntaxhighlighter/astar.html">OL JS</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[pgRouting Part II: PostGIS + Geoserver]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/"/>
+    <updated>2010-01-31T05:05:32-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver</id>
+    <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&#8217;s pgRouting extension</a> to PostgreSQL/PostGIS, I&#8217;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows:</p>
+
+<ul>
+<li><p>Display: OpenLayers</p></li>
+<li><p>Renderer: Geoserver (via non-cached WMS)</p></li>
+<li><p>Spatial Backend: PostGIS/pgRouting enabled PostgreSQL</p></li>
+<li><p>Data: <a href="http://www.cob.org/services/maps/gis/index.aspx">Public GIS data</a> from the city of Bellingham, Washington&#8217;s GIS department.</p></li>
+</ul>
+
+
+<p>For the sake of brevity, (but really because both TOPP has created some <a href="http://workshops.opengeo.org/opengeo-stack/">fantastic guides</a>) I won&#8217;t go into the specifics of installing all the pieces. Just as an FYI, remember to set your &#8216;JAVA_HOME&#8217; environment variable and make sure that you don&#8217;t have things trying to use the same port!</p>
+
+<p>The Bellingham data is currently stored in <a href="http://www.spatialreference.org/ref/esri/102748/">NAD83 State Plane WA North Feet</a>, a typical projection for this area. This projection however, is not part of the EPSG projection set, and as such is not included in a vanilla install of PostGIS.</p>
+
+<p>In order to add this to the collection of spatial reference systems used by my PostGIS install, I went with the ridiculously cool <a href="http://spatialreference.org">spatialreference.org</a> site (A <a href="http://crschmidt.net/">crschmidt</a>, <a href="http://dbsgeo.com/">dbsgeo</a>, <a href="http://hobu.biz/">hobu</a>, and <a href="http://umbrellaconsulting.com/">umbrella</a> joint, hah). Navigating to the projection&#8217;s page gives me the option to generate an <a href="http://www.spatialreference.org/ref/esri/102748/postgis/">INSERT</a> statement, adding the projection&#8217;s info into my database.</p>
+
+<p>To load shapefiles into the PostGIS database, I chose to use the SPIT plugin for QGIS. Loading the data was fairly straightforward. I had an issue with a datefield that was present in the source shapefile, and had to delete the column manually using Open Office Database. I haven&#8217;t found a way to delete fields from a shapefile using QGIS.</p>
+
+<p>[caption id=&#8221;attachment_327&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The SPIT Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit-300x175.png" alt="spit" /></a>[/caption]</p>
+
+<p>After uploading the streets data into my PostGIS database, the next step was to transform the geometry into the Web Mercator 900913 Projection. This was done using standard PostGIS functions, adding a new, second, geometry column to the existing streets table. This reprojected data was then exported from my staging PostGIS database as a shapefile using the QGIS, &#8216;Save As Shapefile&#8217; tool, and re-imported into my production database (with the routing functions).</p>
+
+<p>With data stored in the web mercator projection, inside of our PostGIS/pgRouting database, the next step was to add the layers to Geoserver. Using Geoserver 2.x, the process included the following steps (all done through the web-admin).</p>
+
+<ul>
+<li><p>Add the new data store pointing the PostGIS database.</p></li>
+<li><p>Add new layers (resources) which point to the tables of interest in our PostGIS database.</p></li>
+</ul>
+
+
+<p>After creating the connections between PostGIS and Geoserver, the creation of WMS services is taken care of, allowing us to roll them into OpenLayers with relative ease.</p>
+
+<p>I guess this got a little off-topic from what I originally wanted to write about. I think that I&#8217;ll save the actual breakdown of my OL code (taking a user&#8217;s map click to and using it to calculate a route to the nearest fire-station as determined by manhattan distance, as opposed to euclidean distance) for another day.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[pgRouting On Ubuntu Netbook Remix 9.10]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/"/>
+    <updated>2010-01-11T14:26:59-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10</id>
+    <content type="html"><![CDATA[<p>While working through Regina Obe and Leo Hsu&#8217;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&#8217;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included.</p>
+
+<p>Undeterred and inspired, i decided to compile the <a href="http://pgrouting.postlbs.org/">pgRouting</a> set of tools for PostGIS and give them a whirl.</p>
+
+<p>My primary tutorial for moving through the install and execution of functions came from the 2009 FOSS4G Tokyo &amp; Osaka workshop entitled, &#8221;<a href="http://www.google.com/url?sa=t&amp;source=web&amp;ct=res&amp;cd=7&amp;ved=0CCMQFjAG&amp;url=http%3A%2F%2Fwww.osgeo.jp%2Fwordpress%2Fwp-content%2Fuploads%2F2009%2F11%2Fworkshop_manual.pdf&amp;ei=4vdLS63EKIGSsgPFrsGIDA&amp;usg=AFQjCNEoTXqRqtS8fpDXbNLo6H2Nk3cEyg&amp;sig2=RLw7qVqUev7k8pdvzCjXeQ">FOSS4G routing with pgRouting tools and OpenStreetMap road data.</a>&#8221; Although my installation on Ubuntu Netbook Remix (UNR) 9.10 required a little different setup, this guide definitely got me 99% of the way there.</p>
+
+<p>The majority of my installation woes were caused by the different pathways used on my UNR install of PostgreSQL vs. what are apparently the standard paths.</p>
+
+<p>After attempting to execute cmake to compile pgRouting, I&#8217;d be presented with an error stating that the &#8216;POSTGRESQL_INCLUDE_DIR&#8217; was not found. A locate command pointed me to the correct path for my PostgreSQL installation. By modifying the FindPostgreSQL.cmake file to search for the correct path, I was back in business.</p>
+
+<p>Following the workshop instructions, I then attempted to create the database directly from the terminal, which yielded the following result.</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]matt@matt-netbook:~$ createdb -U postgres routing
+createdb: could not connect to database postgres: could not connect to server: No such file or directory
+ Is the server running locally and accepting
+ connections on Unix domain socket &#8220;/var/run/postgresql/.s.PGSQL.5432&#8221;?[/sourcecode]</p>
+
+<p>After reading the documentation associated with &#8220;createdb&#8221;, i tried adding the &#8220;-h&#8221; flag pointing to &#8220;localhost&#8221;, which solved the problem.</p>
+
+<p>The final error which I ran into had to do with the &#8220;$libdir&#8221; environment variable. While trying to register the pgRouting functions in my new database, I&#8217;d be presented with the following:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]psql:/usr/share/postlbs/routing_core.sql:32: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
+psql:/usr/share/postlbs/routing_core.sql:43: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
+psql:/usr/share/postlbs/routing_core.sql:53: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory[/sourcecode]</p>
+
+<p>Getting impatient at this point (i wanted to route!) I modified the SQL files to reference the explicit path of my PostgreSQL lib directory. Once that was done, I had a working routing database!</p>
+
+<p>Loading the sample data, creating the indexes, and executing the queries was amazingly straightforward. To test visualizing the data, I exported one of the tutorial queries directly into a new table.</p>
+
+<p>[sourcecode language=&#8221;SQL&#8221;]SELECT * INTO export
+ FROM dijkstra_sp(&#8216;ways&#8217;, 10, 20);[/sourcecode]</p>
+
+<p>[caption id=&#8221;attachment_316&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The route depicted in red as seen in QGIS.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing-300x175.png" alt="qgis_routing" /></a>[/caption]</p>
+
+<p>Just for kicks, I tried exporting the data as GeoJSON and visualzing it via OpenLayers.</p>
+
+<p>The following SQL query aggregates the exported line segments into a single GeoJSON object:</p>
+
+<p>[sourcecode language=&#8221;SQL&#8221;]SELECT ST_AsGeoJSON(ST_UNION(the_geom)) AS geom_union
+FROM export;[/sourcecode]</p>
+
+<p>Using the <a href="http://openlayers.org/dev/examples/vector-formats.html">vector-formats</a> OL example, which displays GeoJSON in either EPSG 4326 or 102113, I was able to visualize the line segment with no problem.</p>
+
+<p>[caption id=&#8221;attachment_317&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;GeoJSON representation of line segment generated using pgRouting, displayed in OpenLayers&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats-300x175.png" alt="" /></a>[/caption]</p>
+
+<p>Well that&#8217;s all for one day. So it looks like the bike riding app is out, but I&#8217;m sure that there will be many more interesting ideas for pgRouting that will come to mind as I continue to explore PostGIS.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ESRI UC Student Assistant, Sweet!]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/04/27/esri-uc-student-assistant-sweet/"/>
+    <updated>2009-04-27T03:13:59-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/04/27/esri-uc-student-assistant-sweet</id>
+    <content type="html"><![CDATA[<p>Just found out that I&#8217;ll be participating in the 2009 ESRI UC as a student assistant. Big thanks go out to <a href="http://geography.asu.edu/balling">Dr. Robert Balling</a> and <a href="http://www.spatiallyadjusted.com/">James Fee</a>, who both wrote letters of recommendation for me.</p>
+
+<p>Now to get back to more pressing matters, like refactoring this giant wad o&#8217; javascript.</p>
+
+<p>See you in San Deigo!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Visualizing An Existing MySQL Database]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/04/22/visualizing-an-existing-mysql-database/"/>
+    <updated>2009-04-22T08:43:21-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/04/22/visualizing-an-existing-mysql-database</id>
+    <content type="html"><![CDATA[<p>So I&#8217;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&#8230; you know, the kind that usually don&#8217;t work out very well?</p>
+
+<p>In any event, my SOP for handling these queries was to submit sample data through the codeigniter site that our project&#8217;s web developer has been courageously firing away at. In this sense, I&#8217;d sort-of trace the flow of new information through the various tables of the database, monitoring the information stream as best as I could. I thought to myself, that there has to be a better way to handle this stuff! In comes the <a href="http://dev.mysql.com/workbench/">MySQL Workbench</a>. This handy tool from the <a href="http://dev.mysql.com/">MySQL Dev Zone</a> apparently comes in two flavors: FOSS and commercial.</p>
+
+<p>The free version served my visualization needs perfectly. The layout of the program is very solid. I was easily able to take an SQL export of the existing database and import it into the Workbench, through a tool they call &#8216;Reverse Engineer MySQL Create Script&#8217;. Once the schema has been injected into the program, a model can be automatically created containing all of the tables as well as relationships. The auto-layout feature however, leaves a lot to be desired.</p>
+
+<p>[caption id=&#8221;attachment_293&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Automatic Layout Results, Snazzy!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/initial_layout.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/initial_layout-300x189.jpg" alt="Above: Automatic Layout Results, Snazzy!" /></a>[/caption]</p>
+
+<p>After about twenty-minutes of fooling with the table graphics, a usable layout can be produced. One feature that I think is really convenient, but will never use, is the automatic setting of the diagram width and height based on numbers of pages. This is useful for those who need a quick-print out of their database for whatever reason.</p>
+
+<p>[caption id=&#8221;attachment_292&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Workbench w/ Completed Diagram&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/workspace.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/workspace-300x187.jpg" alt="Above: Workbench w/ Completed Diagram" /></a>[/caption]</p>
+
+<p>The real benefit for me however, is the automatic highlighting of key values linking tables together. I&#8217;m now able to quickly work my way from the table I need to get to, drilling backwards until I see the table I need to start with.</p>
+
+<p>[caption id=&#8221;attachment_294&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Automatically Highlight The Key Fields Between Two Tables.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables-300x147.jpg" alt="Above: Automatically Highlight The Key Fields Between Two Tables." /></a>[/caption]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :)]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/"/>
+    <updated>2009-04-08T08:24:07-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner</id>
+    <content type="html"><![CDATA[<p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&#8217;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. In addition to uploading your own content, a user has the ability to add GCPs for other users&#8217; uploads as well.</p>
+
+<p>[caption id=&#8221;attachment_276&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The MetaCarta Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta-300x170.jpg" alt="Above: The MetaCarta Interface" /></a>[/caption]</p>
+
+<p>What&#8217;s really amazing is the ability to directly access rectified images via WMS overlay. Each image hosted on the site is given a unique URL, we can insert into our favorite web mapping clients.</p>
+
+<p>To try it out, I used the <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGalleryDetails&amp;scriptID=16067">ExtMap - Mashup Framework</a> developed by ArcGIS user <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a>. This particular application framework was one of the winners at 2009 ESRI DevSummit, with good reason. I was able to quickly pass in the MetaCarta Labs URL, allowing the ExtMap application to consume and display the WMS layer with ease.</p>
+
+<p>[caption id=&#8221;attachment_278&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Adding a Service to ExtMap&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service-300x158.jpg" alt="Above: Adding a Service to ExtMap" /></a>[/caption]</p>
+
+<p>In addition to WMS layers, we can add in KML/GeoRSS as well as ArcGIS Server Dynamic/Tiled Map Layers.</p>
+
+<p>[caption id=&#8221;attachment_279&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: ExtMap Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs-300x187.jpg" alt="Above: ExtMap Interface" /></a>[/caption]</p>
+
+<p>Easy as pie? Piece of Cake? Yes. It&#8217;s innovative projects like these that keep pushing me to learn more about web mapping technology. Big thanks go out to <a href="http://">crschmidt</a> (who i assumed was involved w/ the project) at MetaCarta and <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a> for putting together two great products.</p>
+
+<p>On a final note, the MetaCarta Rectifier has the ability to export out images as geotiffs, allowing us to consume them in our desktop GIS applications. A quick check in ArcCatalog of the Chernobyl sample image I exported out revealed a WGS84 GCS. I can see some really nice workflows combining this tool with tiling programs such as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a> for painless TMS creation.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CloudMade Tile Request Graphics]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/04/07/cloudmade-tile-request-graphics/"/>
+    <updated>2009-04-07T10:14:36-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/04/07/cloudmade-tile-request-graphics</id>
+    <content type="html"><![CDATA[<p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&#8217;s also interesting to note the high activity in other regions such as Chile and the Philippines.</p>
+
+<p>[caption id=&#8221;attachment_272&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Tile Request Graphic&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request-300x187.jpg" alt="Above: CloudMade's Tile Request Overlay" /></a>[/caption]</p>
+
+<p>Following the link to the <a href="http://maps.cloudmade.com/javascripts/stats/cloudmade.js?1238766232">stats JavaScript</a>, it looks like they are using a custom OpenLayers layer class, OpenLayers.Layer.Cloudmade. Sweet!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SpatialLite: My First Look]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/04/05/spatiallite-my-first-look/"/>
+    <updated>2009-04-05T05:45:46-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/04/05/spatiallite-my-first-look</id>
+    <content type="html"><![CDATA[<p>With such a small footprint (a single file) <a href="http://www.gaia-gis.it/spatialite/">SpatialLite</a> appears to a novice like myself to be a fantastic niche storage solution for spatial data. In an environment where installing larger FOSS databases such as MySQL or PostGIS/PostgreSQL can be prohibitive, Spatial Lite appears to provide a great solution. Using the provided GUI interface, it&#8217;s extremely easy for a first-time user to create an sqllite dbase, load multiple shapefiles, and create spatial indexes against them. Analogous to a FOSSGIS ESRI Geodatabase, I can see a lot of potential uses for GIS developers who require the indexing and searching power of a database as well as the portability of formats such as an ESRI Shapefile or KML.</p>
+
+<p>It looks like a <a href="http://geobabble.wordpress.com/2009/03/26/spatiallite-support-in-qgis/">QGIS connection</a> is in the works for the 1.1 release as well.</p>
+
+<p>I&#8217;m not sure if it&#8217;s already being done, but I&#8217;d bet that it would be pretty easy to put together a SpatialLite / <a href="http://featureserver.org/">FeatureServer</a> combination, considering its native support for so many spatial-backends.</p>
+
+<p>Some tutorials I&#8217;ve found to be very helpful have come from: <a href="http://www.bostongis.com/PrinterFriendly.aspx?content_name=spatialite_tut01">BostonGIS</a> and the <a href="http://www.gaia-gis.it/spatialite/spatialite-2.2_tutorial.html">SpatialLite project site</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ArcGIS REST API / OpenLayers / Unit Testing = Fun In The Sun]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/03/13/arcgis-rest-api-openlayers-unit-testing-fun-in-the-sun/"/>
+    <updated>2009-03-13T12:31:39-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/03/13/arcgis-rest-api-openlayers-unit-testing-fun-in-the-sun</id>
+    <content type="html"><![CDATA[<p>Until today, I had never truly appreciated the value of unit testing. I recently had the need to bring <a href="http://dev.openlayers.org/sandbox/august/openlayers/openlayers-2.6/examples/ags/index.html">these ArcGIS REST controls</a>, designed for version 2.6 of OpenLayers, into the current development version. Having no real idea how to get started on this process, I looked to the unit tests as a guide to what needed to be changed. One might be asking why this was necessary, when the team over at Avencia just put together a great <a href="http://trac.openlayers.org/ticket/1749">ArcGIS REST Plugin</a> that has made its way into the trunk for the upcoming 2.8 release. The answer is that both plugins do different things well. The older AGSControls can perform &#8216;Identify&#8217; and &#8216;Geoprocessing&#8217; operations rather well, while the Avencia plugin does a great job at displaying and querying a subset of a layer resource.</p>
+
+<p>In any event, the <a href="http://straytree.com/TestAnotherWay/doc/index.html">Test.AnotherWay</a> suite, used by OpenLayers, provides an easy-to-navigate interface for debugging javascript code.</p>
+
+<p>In two steps I was able to begin the debugging process.</p>
+
+<p>First, adding the unit test for the AGSControl to the &#8216;list-tests.html&#8217; file located in the &#8216;tests&#8217; folder of a development version of OpenLayers. This unit test, written by the developer, needs to manually downloaded and incorporated into the standard series of tests that come with OpenLayers. As we can see from the image below, this particular test was written as an html file and placed into the &#8216;Control&#8217; sub-directory of the &#8216;tests&#8217; directory.</p>
+
+<p>[caption id=&#8221;attachment_256&#8221; align=&#8221;alignnone&#8221; width=&#8221;224&#8221; caption=&#8221;Above: Adding a link to the unit test for use by Test.AnotherWay&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/list_test.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/list_test.png" alt="Adding a link to the unit test for use by Test.AnotherWay" /></a>[/caption]</p>
+
+<p>After adding the test, we open up &#8216;run-tests.html&#8217; in the browser and select &#8216;AgsControl&#8217; from the list. After the test has executed, the results are provided to us. With the red light of failure burning bright, we might think to abandon all hope. We are, however, given the cause and location of the failure, an invaluable clue as to where to start debugging. Time to soldier on.</p>
+
+<p>[caption id=&#8221;attachment_257&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Unit Test Failure&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_fail.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_fail-300x98.png" alt="Above: Unit Test Failure" /></a>[/caption]</p>
+
+<p>Using these test results as a road map, even I can eventually debug a plugin. The green light of success offers a reassuring reminder that all is well in the GIS world.</p>
+
+<p>[caption id=&#8221;attachment_259&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Successful Unit Test&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_success1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_success1-300x112.png" alt="Above: Successful Unit Test" /></a>[/caption]</p>
+
+<p>I&#8217;ve taken away a few things from this experience. Firstly, I&#8217;m again deeply impressed by the time and effort that developers in the Open Source community are putting into these projects. The only reason that I could even dream of modifying any of this source code is due to the fact that the developer of the AGSControls provided such detailed unit tests. These allowed me to wrap my brain around what was going on with the code, and how it could be updated. Taking the time to not only write code, but to also provide tools so that others can understand it and modify it with ease is something that I think I&#8217;ll always be impressed with. And of course, I&#8217;ll be continuing to rely on unit tests as debugging tools as i continue my exploration of javascript programming.</p>
+
+<p>In the words of <a href="http://www.davebouwman.net/">Dave Bouwman</a>, who has a whopping fourteen posts in his tag cloud on the subject:</p>
+
+<blockquote><p>Unit testing is quite possibly the single best practice for ensuring that your code is bug free (or very nearly bug free!).</p></blockquote>
+
+<p>His &#8216;fundamentals&#8217; article provides a great introduction on the subject: which can be read <a href="http://www.davebouwman.net/fundamentals/unittesting.aspx">here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Google Motion Charts: From Data To Information ]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/01/31/google-motion-charts-from-data-to-information/"/>
+    <updated>2009-01-31T07:51:18-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/01/31/google-motion-charts-from-data-to-information</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been playing with the motion chart gadget in Google&#8217;s AJAX API Playground recently, and have found it to be an extremely interesting tool to use. In order to produce data rich charts, all that is necessary is to import a tabular datasheet into google docs and call on it within a javascript function.</p>
+
+<p>The spreadsheet itself requires:</p>
+
+<ul>
+<li><p>The first column be entity data (place names, events, etc.)</p></li>
+<li><p>The second column to be formatted as &#8216;Date&#8217;</p></li>
+<li><p>The third and following columns to contain your chart-worthy data.</p></li>
+</ul>
+
+
+<p>A simple example can be found below depicting historical weather station information for three cities in the Western United States. This information was downloaded from the <a href="http://www.wrcc.dri.edu/">Western Regional Climate Center</a> and imported manually into a <a href="http://spreadsheets.google.com/ccc?key=pPDD5D7AqVH0jefmgJwF9OQ">google docs spreadsheet</a>. As we can see, we have a variety of different ways to explore the data, and hopefully, synthesize them into useful information for decision makers in a best case scenario.</p>
+
+<p>Above: Markers indicate the cities in which weather station data was collected.</p>
+
+<p>Above: Google Motion Chart Gadget. NOTE: The data are actually compiled monthly averages from 1971-2000. For the sake of simplicity however, i fed the date column in a format of &#8216;Jan-1&#8217; which turns out automatically appends the current year. The proper date should read for example, &#8216;1/1&#8217; rather than &#8216;1/1/09&#8217;.</p>
+
+<p>In any event, in a data rich GIS environment, we can easily succumb to &#8216;data overload&#8217;. This creates a barrier for decision makers in understanding their situations, and as such can lead to poor planning. Through the careful use of data visualization tools such as this, however, decision makers can be empowered to quickly analyze data in a variety of ways, creating useful information on-the-fly and without the use of specialized GIS technical know-how.</p>
+
+<p>At least I think that&#8217;s how it works.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OSM 'Minutely' Tile Updates: Thanks CloudMade!]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/"/>
+    <updated>2009-01-24T13:32:07-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade</id>
+    <content type="html"><![CDATA[<p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides.</p>
+
+<p>Of particular interest was a question posed by a first time OSM&#8217;er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, &#8216;it&#8217;s just the way it is&#8217;.</p>
+
+<p>It appears though, that CloudMade has provided us with an answer just the other day. The <a href="http://matt.sandbox.cloudmade.com/">Minutely Updated Tile Server</a> is updated &#8216;every minute from OpenStreetMap diffs&#8217;. The results can be seen below. The first image depicts the standard weekly update view while the bottom image depicts the minutely render. Note the presence of the additional buildings on ASU&#8217;s Tempe Campus.</p>
+
+<p>[caption id=&#8221;attachment_241&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: OSM Weekly Update&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly-300x242.jpg" alt="Above: OSM Weekly Update" /></a>[/caption]</p>
+
+<p>[caption id=&#8221;attachment_242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Minutely Updated Tile Server for OSM&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely-300x240.jpg" alt="Above: CloudMade's Minutely Updated Tile Server for OSM" /></a>[/caption]</p>
+
+<p>Check out the full post from CloudMade&#8217;s blog here: <a href="http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/">http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Geocoding with OpenLayers: A Crash Course In Firebug]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/"/>
+    <updated>2009-01-20T12:24:03-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug</id>
+    <content type="html"><![CDATA[<p>The vacation is over. A new job and a new semester are already providing plenty of opportunities to explore those crazy technologies of the geoweb.</p>
+
+<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
+
+<p>A quick overview of the primary steps to add the YahooGeocoder.js addin are as follows:</p>
+
+<ol>
+<li><p>Sign up for a Yahoo APP Key to enable access to their geocoding service.</p></li>
+<li><p>Add the proxy.cgi script to your webserver&#8217;s &#8216;cgi-bin&#8217;. Note: When navigating to the proxy.cgi&#8217;s url, you might encounter, &#8216;access denied&#8217; errors. If you do, make sure that you have the proper permissions set for your cgi-bin directory. This can be done using the terminal command, &#8216;chmod 755&#8217; targeting cgi-bin directory.</p></li>
+<li><p>Edit the proxy.cgi script to include &#8216;local.yahooapis.com&#8217; in the list of &#8216;allowedHosts&#8217;.</p></li>
+</ol>
+
+
+<p>[caption id=&#8221;attachment_228&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;proxy.cgi&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts-300x54.png" alt="proxy_hosts" /></a>[/caption]</p>
+
+<ol>
+<li><p>Add the YahooGeocoder.js file to the OpenLayers &#8216;lib/OpenLayers/Control&#8217; folder.</p></li>
+<li><p>Add &#8220;OpenLayers/Control/YahooGeocoder.js&#8221; to the variable array, &#8216;jsfiles&#8217; inside the &#8220;lib/OpenLayers.js&#8221; library.</p></li>
+</ol>
+
+
+<p>[caption id=&#8221;attachment_229&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;lib/OpenLayers.js&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add-300x149.png" alt="control_add" /></a>[/caption]</p>
+
+<ol>
+<li>Test the geocoder&#8217;s functionality using the supplied .HTML file. (Hopefully it should work!)</li>
+</ol>
+
+
+<p>[caption id=&#8221;attachment_230&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Geocoder Result with Properly Formed XML Response.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1-300x217.png" alt="good_xml_return1" /></a>[/caption]</p>
+
+<p>Six simple steps, but it can be challenging if you haven&#8217;t tried to install any addins to the OL library before.</p>
+
+<p>In the above image, the firebug window can be seen returning a properly formed XML Response, having successfully executed the geocoding function. If you enlarge the image, we can compare this to the raw XML-Response using a properly constructed query. Note in both the response captured from firebug (above) as well as the raw XML (below) the presence of the address: 510 High Street, Bellingham WA, broken down into it&#8217;s individual units along with the geocoded result.</p>
+
+<p>[caption id=&#8221;attachment_231&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Basic XML Return&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml-300x221.png" alt="basic_xml" /></a>[/caption]</p>
+
+<p>Further diving into the capabilities of firebug, we can use the DOM inspector to ensure that the various parameters required to properly execute the Yahoo Geocoder are in place. Note in the image below the presence of such necessary information as the APP ID Key, Projection, and Class, for the ygc variable. If any of these parameters happened to be incorrectly set, it would be displayed in this view.</p>
+
+<p>[caption id=&#8221;attachment_232&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The Firebug DOM Inspector&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector-300x91.png" alt="dom_inspector" /></a>[/caption]</p>
+
+<p>I&#8217;m finally starting to appreciate the power of firebug as a development tool, which just so happens to coincide with my ability to understand it at a basic level. Hopefully as my experience in GIS Web Development grows, so will be ability to use the higher-end functions of this tool.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TMS: Shaded Relief for OSM Data (An Adventure and A 1/2)]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/"/>
+    <updated>2008-12-19T17:00:15-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12</id>
+    <content type="html"><![CDATA[<p>After reading <a href="http://stamen.com/">Michal Migurski&#8217;s</a> excellent post, &#8217;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&#8217; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&#8230; I set out on the FOSSGIS path.</p>
+
+<p>[caption id=&#8221;attachment_205&#8221; align=&#8221;alignnone&#8221; width=&#8221;259&#8221; caption=&#8221;The resulting overlay&#8221;]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
+
+<p>The final output was created in a primarily two-step process. The hillshade was created using Matt Perry&#8217;s <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM tools</a>. This command line addition to the GDAL suite of tools negated having to import the DEM into a new GRASS location, and exporting the resulting hillshade back out as another format.</p>
+
+<p>The majority of the work, the tiling that is, was done using <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. This Google Summer of Code project operates under a command line utility which will take your slick GDAL-compatible raster dataset as input, and export a set of tiles exactly to your specs. What&#8217;s more is the capability to automatically generate google maps and OpenLayers viewing pages which can be directly uploaded to a webspace.</p>
+
+<p>Finally, applying a slight transparency to the OSM layer allowed for the shaded relief to appear from behind. Quick-and-Dirty, <a href="http://mkgeomatics.com/apps/openlayers/tiles/ol_working.html">but it works</a>!</p>
+
+<p>The pain came when trying to compare the local TMS overlay using OSM vs. Google Maps base data. While using Google Maps street data, we clearly see the LiDAR building footprints align with the vector street centerlines. But switching over to OSM data, we see a drastic skew between the two.</p>
+
+<p>[caption id=&#8221;attachment_206&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Google Street Data: Properly Aligned Local TMS&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21-300x209.png" alt="Google Street Data: Properly Aligned Local TMS" /></a>[/caption]</p>
+
+<p>[caption id=&#8221;attachment_209&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;OSM Data: Note Hawaii Belt Road&#8217;s location compared to its LiDAR footprint.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4-300x297.png" alt="OSM Data: Note Hawaii Belt Rd's location compared to its LiDAR footprint." /></a>[/caption]</p>
+
+<p>Initially, I assumed that the problem was the result of some projection issues (EPSG: 4326 vs EPSG: 900913), until I realized that all data sets (LiDAR, Google, and OSM) had matching coastlines. Any distortion resulting from the affine transformation between WGS84 and Spherical Mercator would have clearly showed up along the coast as well as the streets.</p>
+
+<p>A quick look at the <a href="http://wiki.openstreetmap.org/wiki/Potlatch">Potlatch</a> editor revealed the inaccuracy of the TIGER line files used in this section of the map:</p>
+
+<p>[caption id=&#8221;attachment_210&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Potlatch: TIGER data is a good, but not great.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch-300x273.png" alt="Potlatch: TIGER data is a good, but not great." /></a>[/caption]</p>
+
+<p>All-in-all I was extremely impressed with the speed and efficency of using the <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM Tools</a> as well as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. Both projects are great representations of what can be done by individuals who choose to build upon existing FOSSGIS projects, and give back to the community.</p>
+
+<p>Additional Note:
+A GRASS-based approach to creating a TMS layer is possible, and has been outlined in <a href="sunbird.jrc.it/pvgis/doc/paper/2008_OSGeo5_TiledMapServices.pdf">this paper</a> appearing in the OSGeo Journal.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OSM Recap]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/12/08/osm-recap/"/>
+    <updated>2008-12-08T02:01:36-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/12/08/osm-recap</id>
+    <content type="html"><![CDATA[<p>What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by <a href="http://www.cloudmade.com/">CloudMade</a> and hosted locally by <a href="http://gangplankhq.com/">Gangplank</a>. On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, &#8216;crowdsourcing&#8217;. The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.</p>
+
+<p>Here is the result of our work:</p>
+
+<p>[caption id=&#8221;attachment_199&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: ASU Mapping Party&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/export.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/export-300x225.png" alt="ASU Mapping Party" /></a>[/caption]</p>
+
+<p>In any event, we decided to focus our efforts on ASU&#8217;s campus for the weekend. Before we went out with GPS units, an OSM&#8217;er named &#8216;jfuredy&#8217; had actually taken a stab at some rooftop digitization of buildings along campus. I&#8217;ve already noticed that there are inherent conflicts that occur by digitizing from rooftops. Tall buildings of course, will appear oblique, with their roofs offset from their actual footprints. This creates scenarios in which buildings (created from oblique angled rooftops) are overlapping walkways.</p>
+
+<p>[caption id=&#8221;attachment_200&#8221; align=&#8221;alignnone&#8221; width=&#8221;215&#8221; caption=&#8221;Above: Digitization Conflict&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png" alt="Above: Digitization Conflict" /></a>[/caption]</p>
+
+<p>I&#8217;m excited to continue working on the OSM project, and hope to see more mapping parties in the future. Speaking with <a href="http://cloudmade.com/team/brandon-aguirre">Brandon</a>, our contact at CloudMade, I mentioned that the end of January could be a potential date. This would be the first week of the new semester for MAS-GIS, and hopefully more of the students will come out and support the project!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenStreetMap.org Mapping Party This Weekend]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend/"/>
+    <updated>2008-12-04T06:29:01-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend</id>
+    <content type="html"><![CDATA[<p><a href="http://www.meetup.com/OpenStreetMap-Phoenix/">http://www.meetup.com/OpenStreetMap-Phoenix/</a> It&#8217;s going to rock. It really is.</p>
+
+<p>Having just heard of OSM a little over a month ago, and using their tiles for about two weeks now&#8230; I&#8217;m really excited to give back to the OSM community. In a way, it&#8217;s a chance for those who have never committed code to a FOSS project (like me) to really add some positive input back into a community that we are a part of, if only in a small way. But hey, if we are all contributing small bits to the project-at-large&#8230; it&#8217;ll add up. A little &#8217;<a href="http://en.wikipedia.org/wiki/Neogeography">neogeography</a>&#8217;, anyone?</p>
+
+<p>Additionally, I have put together a small tool to compare the current OSM offerings to that of various commercial mapping vendors (Google, Microsoft VE). Pretty fun exploration of the OpenLayers API!</p>
+
+<p>Check it out here: <a href="http://mkgeomatics.com/apps/openlayers/osm_compare.html">http://mkgeomatics.com/apps/openlayers/osm_compare.html</a></p>
+
+<p>[caption id=&#8221;attachment_196&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Quick and Dirty OSM Tool&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/osm_tool.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/osm_tool-300x244.jpg" alt="Above: Quick and Dirty OSM Tool" /></a>[/caption]</p>
+]]></content>
+  </entry>
+  
+</feed>

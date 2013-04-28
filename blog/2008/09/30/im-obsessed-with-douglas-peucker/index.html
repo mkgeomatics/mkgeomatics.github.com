@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>I'm Obsessed With Douglas-Peucker - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="The Problem: Web map vector overlays take a really long time to load if there are too many verticies. The Idea: Use the Douglas-Peucker algorithm to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2008/09/30/im-obsessed-with-douglas-peucker">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">I'm Obsessed With Douglas-Peucker</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
+
+<p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
+
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+
+<p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
+$ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8221; > output.csv</p>
+
+<p>-Reformat the verticies [somehow], so that they can be readable to the python script.</p>
+
+<p>-Rebuild shapefile from output csv with projection information using GDAL/OGR.</p>
+
+<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&#8217;ll see how far this goes.</p>
+
+<p>Some reading:</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm">Douglas-Peucker Algorithm</a></p>
+
+<p><a href="http://users.ox.ac.uk/~orie1848/tutorial.html">Existing GRASS Implementation</a></p>
+
+<p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=530&amp;pid=513&amp;topicname=Simplifying_and_smoothing_features">Existing ArcGIS Implementation</a></p>
+
+<p>-</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2008/09/30/im-obsessed-with-douglas-peucker/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2008/09/30/im-obsessed-with-douglas-peucker/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/09/14/web-based-grass/" title="Previous Post: Web-Based GRASS!">&laquo; Web-Based GRASS!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/" title="Next Post: Nested Tuples and Hours of Patience">Nested Tuples and Hours of Patience &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

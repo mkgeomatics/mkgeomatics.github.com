@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="I&#8217;ve finally got a working python script that does the following: -Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217; - &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve finally got a working python script that does the following:</p>
+
+<p>-Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217;</p>
+
+<p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
+
+<p>-Generates an output text file using &#8216;stdout&#8217; with the resulting &#8216;smoothed&#8217; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+
+<p>This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.</p>
+
+<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes&#8230; and re-import them as input files for the DP algorithm. It&#8217;s all good now though, and the code looks (a bit) cleaner.</p>
+
+<p>The next step will be to take this output text file and build another shapefile from it&#8230;</p>
+
+<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select &#8216;save-as&#8217;) as it stands thus-far.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
+
+<p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
+
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+
+<p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
+$ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8221; > output.csv</p>
+
+<p>-Reformat the verticies [somehow], so that they can be readable to the python script.</p>
+
+<p>-Rebuild shapefile from output csv with projection information using GDAL/OGR.</p>
+
+<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&#8217;ll see how far this goes.</p>
+
+<p>Some reading:</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm">Douglas-Peucker Algorithm</a></p>
+
+<p><a href="http://users.ox.ac.uk/~orie1848/tutorial.html">Existing GRASS Implementation</a></p>
+
+<p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=530&amp;pid=513&amp;topicname=Simplifying_and_smoothing_features">Existing ArcGIS Implementation</a></p>
+
+<p>-</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, &#8216;export NAD2BIN=/home/&#8230;/bin/nad2bin&#8217;.</p>
+
+<p>I&#8217;m not all that familiar with the command line syntax of GRASS, so I actually had to use a local install to view some sample syntax, and modify it for use on the web instance. Pretty fun.</p>
+
+<p>I&#8217;m wondering if there is anyway for a user to access the geoprocessing functionality of this GRASS install w/o logging into the server. Furthermore, could it be possible to tie this into a mapserver / openlayers install? It would be amazing to recreate this <a href="http://resources.esri.com/help/9.3/arcgisserver/apis/javascript/arcgis/help/jssamples_start.htm#jssamples/GPviewShed.html">ESRI on-the-fly geoprocessing example</a> using only open source GIS tools.</p>
+
+<p>Anyways, it&#8217;s a pretty cool feeling to be able to upload a file to the server, run a geoprocessing task on it, and download the results back to my machine!</p>
+
+<blockquote><p>GRASS 6.2.3 (spearfish):~/usr/local/bin > r.shaded.relief map=elevation.dem shadedmap=shade_test altitude=30 azimuth=270 zmult=2 scale=1
+Calculating shading, please stand by.
+100%
+Color table for [shade_test] set to grey</p></blockquote>
+
+<p>Shaded relief map created and named [shade_test].
+GRASS 6.2.3 (spearfish):~/usr/local/bin > r.out.tiff input=shade_test output=/home/matthewkenny/usr/local/gis_workspace/shade_out compression=none
+WARNING: The map <shade_test> in mapset <user1> is a floating point map.
+Decimal values will be rounded to integer!
+GRASS 6.2.3 (spearfish):~/usr/local/bin ></p>
+
+<p>And the output image downloaded back to my computer:</p>
+
+<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out-300x225.jpg" alt="" /></a></p>
+
+<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.tif"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/09/shade_out.tif" alt="" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
+
+<h1>Batch Convert ASCII to ESRI GRID</h1>
+
+<h1>Matthew Kenny</h1>
+
+<h1>September 14, 2008</h1>
+
+<h6>#</h6>
+
+<h1>Import the arcgisscripting module</h1>
+
+<p>import sys, arcgisscripting</p>
+
+<h1>Create the Geoprocessor object</h1>
+
+<p>gp = arcgisscripting.create()</p>
+
+<h1>Set the workspace</h1>
+
+<p>gp.workspace = (&#8220;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&#8221;)</p>
+
+<h1>get list of all the ASCII files in the workspace</h1>
+
+<p>asciiList = gp.ListRasters(&#8221;<em>DEM</em>&#8221;, &#8220;*&#8221;)
+ascii = asciiList.next()
+print &#8220;Starting with &#8221; + ascii</p>
+
+<h1>Set initial INPUT file</h1>
+
+<p>inputAscii = gp.workspace + &#8220;/&#8221; + ascii
+print inputAscii</p>
+
+<h1>Set initial OUTPUT file</h1>
+
+<p>raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
+print raster</p>
+
+<h1>loop through list of feature classes</h1>
+
+<p>while ascii:</p>
+
+<h1>Execute ASCII to Raster</h1>
+
+<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, &#8220;INTEGER&#8221;)
+    print &#8220;File &#8221; + raster+ &#8221; has been created.&#8221;
+    ascii = asciiList.next()
+    print &#8220;Moving onto &#8221; + ascii
+    inputAscii = gp.workspace + &#8220;/&#8221; + ascii
+    print &#8220;new inputAscii: &#8221; + inputAscii
+    raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
+    print &#8220;new output Raster: &#8221; + raster
+ascii = asciiList.reset()</p>
+
+<h1>remove geoprocessor object from memory</h1>
+
+<p>del gp</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 on Shared Webhost</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+
+<p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+
+<blockquote><p>[gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
+INFO: Open of <code>/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'
+using driver</code>ESRI Shapefile&#8217; successful.</p></blockquote>
+
+<p>Layer name: county_polygon
+Geometry: Polygon
+Feature Count: 39
+Extent: (576751.628593, 81877.320813) - (2551197.698864, 1355595.418907)
+Layer SRS WKT:
+PROJCS[&#8220;NAD_1983_HARN_StatePlane_Washington_South_FIPS_4602_Feet&#8221;,
+GEOGCS[&#8220;GCS_North_American_1983_HARN&#8221;,
+DATUM[&#8220;NAD83_High_Accuracy_Regional_Network&#8221;,
+SPHEROID[&#8220;GRS_1980&#8221;,6378137.0,298.257222101]],
+PRIMEM[&#8220;Greenwich&#8221;,0.0],
+UNIT[&#8220;Degree&#8221;,0.0174532925199433]],
+PROJECTION[&#8220;Lambert_Conformal_Conic_2SP&#8221;],
+PARAMETER[&#8220;False_Easting&#8221;,1640416.666666667],
+PARAMETER[&#8220;False_Northing&#8221;,0.0],
+PARAMETER[&#8220;Central_Meridian&#8221;,-120.5],
+PARAMETER[&#8220;Standard_Parallel_1&#8221;,45.83333333333334],
+PARAMETER[&#8220;Standard_Parallel_2&#8221;,47.33333333333334],
+PARAMETER[&#8220;Latitude_Of_Origin&#8221;,45.33333333333334],
+UNIT[&#8220;Foot_US&#8221;,0.3048006096012192]]
+COUNTY_COD: Integer (2.0)
+COUNTY_FIP: String (3.0)
+COUNTY_NM: String (15.0)
+ECY_REGION: String (4.0)
+AIR_REGION: String (46.0)
+[gotti]$</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/08/plans/">Plans</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T06:09:35-07:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve finished downloading my previous portfolio site from Western&#8217;s server. Until I finish pushing the content into this design, it will be accessible either from the link on the right, or by following this link below:</p>
+
+<p><a href="http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2">http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2</a></p>
+
+<p>I hope to have it up by the end of the week. Stay tuned.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-07T16:24:38-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right?</p>
+
+<p>Some of the best that I have found are in regards to both commercial as well as open source software. I&#8217;ve found the following courses to be of particular benefit to me over the last year.</p>
+
+<p><a href="http://www.gis.usu.edu/~jlowry/python/">Utah State University - WILD 6900 - GIS Programming with Python (ESRI) </a></p>
+
+<p><a href="http://www.gis.usu.edu/~chrisg/python/">Utah State University - WILD 6900 - GIS Programming with Python (Open Source) </a></p>
+
+<p><a href="https://courseware.e-education.psu.edu/courses/geog585/content/home.html">Penn State - GEOG 585 - Open Web Mapping </a></p>
+
+<p><a href="http://ocw.mit.edu/OcwWeb/Urban-Studies-and-Planning/11-521Spatial-Database-Management-and-Advanced-Geographic-Information-SystemsSpring2003/CourseHome/index.htm">MIT - 11.521 / 11.523 / 11.524 - Database Management and Advanced Geographic Information Systems</a></p>
+
+<p><a href="http://ocw.mit.edu/OcwWeb/Civil-and-Environmental-Engineering/1-963Fall-2004/CourseHome/">MIT - 1963 - Environmental Engineering Applications of Geographic Information Systems</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/07/i-am-matt/">I Am Matt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-07T12:24:52-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>how may i help you visualize the world around us?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL&#8217;ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TMS: Shaded Relief for OSM Data (An Adventure and A 1/2) - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="After reading Michal Migurski&#8217;s excellent post, &#8217;making friends with hillshading&#8217; I decided to try my own hand at producing a TMS- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">TMS: Shaded Relief for OSM Data (an Adventure and a 1/2)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-19T17:00:15-08:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After reading <a href="http://stamen.com/">Michal Migurski&#8217;s</a> excellent post, &#8217;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&#8217; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&#8230; I set out on the FOSSGIS path.</p>
+
+<p>[caption id=&#8221;attachment_205&#8221; align=&#8221;alignnone&#8221; width=&#8221;259&#8221; caption=&#8221;The resulting overlay&#8221;]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
+
+<p>The final output was created in a primarily two-step process. The hillshade was created using Matt Perry&#8217;s <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM tools</a>. This command line addition to the GDAL suite of tools negated having to import the DEM into a new GRASS location, and exporting the resulting hillshade back out as another format.</p>
+
+<p>The majority of the work, the tiling that is, was done using <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. This Google Summer of Code project operates under a command line utility which will take your slick GDAL-compatible raster dataset as input, and export a set of tiles exactly to your specs. What&#8217;s more is the capability to automatically generate google maps and OpenLayers viewing pages which can be directly uploaded to a webspace.</p>
+
+<p>Finally, applying a slight transparency to the OSM layer allowed for the shaded relief to appear from behind. Quick-and-Dirty, <a href="http://mkgeomatics.com/apps/openlayers/tiles/ol_working.html">but it works</a>!</p>
+
+<p>The pain came when trying to compare the local TMS overlay using OSM vs. Google Maps base data. While using Google Maps street data, we clearly see the LiDAR building footprints align with the vector street centerlines. But switching over to OSM data, we see a drastic skew between the two.</p>
+
+<p>[caption id=&#8221;attachment_206&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Google Street Data: Properly Aligned Local TMS&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21-300x209.png" alt="Google Street Data: Properly Aligned Local TMS" /></a>[/caption]</p>
+
+<p>[caption id=&#8221;attachment_209&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;OSM Data: Note Hawaii Belt Road&#8217;s location compared to its LiDAR footprint.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4-300x297.png" alt="OSM Data: Note Hawaii Belt Rd's location compared to its LiDAR footprint." /></a>[/caption]</p>
+
+<p>Initially, I assumed that the problem was the result of some projection issues (EPSG: 4326 vs EPSG: 900913), until I realized that all data sets (LiDAR, Google, and OSM) had matching coastlines. Any distortion resulting from the affine transformation between WGS84 and Spherical Mercator would have clearly showed up along the coast as well as the streets.</p>
+
+<p>A quick look at the <a href="http://wiki.openstreetmap.org/wiki/Potlatch">Potlatch</a> editor revealed the inaccuracy of the TIGER line files used in this section of the map:</p>
+
+<p>[caption id=&#8221;attachment_210&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Potlatch: TIGER data is a good, but not great.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch-300x273.png" alt="Potlatch: TIGER data is a good, but not great." /></a>[/caption]</p>
+
+<p>All-in-all I was extremely impressed with the speed and efficency of using the <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM Tools</a> as well as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. Both projects are great representations of what can be done by individuals who choose to build upon existing FOSSGIS projects, and give back to the community.</p>
+
+<p>Additional Note:
+A GRASS-based approach to creating a TMS layer is possible, and has been outlined in <a href="sunbird.jrc.it/pvgis/doc/paper/2008_OSGeo5_TiledMapServices.pdf">this paper</a> appearing in the OSGeo Journal.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-19T17:00:15-08:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/12/08/osm-recap/" title="Previous Post: OSM Recap">&laquo; OSM Recap</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/" title="Next Post: Geocoding with OpenLayers: A Crash Course In Firebug">Geocoding with OpenLayers: A Crash Course In Firebug &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

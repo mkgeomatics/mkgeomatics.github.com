@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GeoDjango: Standing Up A GeoJSON Web-Service - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="The models are complete. The database is loaded with some test tabular and spatial data. We&#8217;re pushing out HTML representations of attribute &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GeoDjango: Standing Up a GeoJSON Web-Service</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-12T00:30:17-08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The models are complete. The database is loaded with some test tabular and spatial data. We&#8217;re pushing out HTML representations of attribute data using GeoDjango&#8217;s standard templating functions. Now, the focus moves to visualizing these features&#8217; geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
+
+<h2>Why GeoJSON?</h2>
+
+<p>From the perspective of exporting data, GeoDjango supports a number of formats. The GeoQuerySet methods can represent your model&#8217;s geometry column in a number of different <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoquerysets/#geometry-output">formats</a>: GeoHash, GeoJSON, GML, KML, and SVG. Of all these serialization formats, I&#8217;ve found KML to be the most frequently used amongst GeoDjango users. Illustrative of this, three of the four functions in <a href="https://code.djangoproject.com/browser/django/trunk/django/contrib/gis/shortcuts.py">django.contrib.gis.shortcuts</a> have to do with KML/KMZ. That&#8217;s awesome, but where is the love for GeoJSON?</p>
+
+<p>KML can be easily consumed by OpenLayers, the king of open source web mapping viewers. But some of the new kids, e.g. leaflet, polymaps, look to favor GeoJSON over KML as an input for dynamically rendered data, not directly consuming KML out-of-the-box. That being said, if you want KML, this <a href="https://github.com/shramov/Leaflet/tree/master/src/layer">fork of leaflet</a> looks like it will work for you. In my particular project, I&#8217;m interested in using leaflet, so GeoJSON was the way to go.</p>
+
+<p>Later on, I&#8217;d like to do some speed comparisons, rendering the same featureset using OpenLayers, represented as both KML and GeoJSON, but that&#8217;s for the future. I&#8217;m wondering if OpenLayers will handle the JSON object faster then KML&#8217;s XML? JSON is just JavaScript after all.</p>
+
+<h2>The Problem</h2>
+
+<p>The GeoDjango GeoQuerySet API has built in methods to handle the serialization and de-serialization of a result set&#8217;s geometries into different formats. The problem is that these methods only wrap the geometries of a result set. For display in a web mapping application, like leaflet, I want to have access to both the geometry in the format of my choosing, as well as the supplementary attributes (name, type, etc.) which provide context for that geometry.</p>
+
+<p>For example, asking for the GeoJSON representation of a given feature through Django&#8217;s shell, like this:</p>
+
+<p>[code lang=&#8221;python&#8221;]</p>
+
+<h1>Import Models from the Company Application</h1>
+
+<p>from company.Models import *</p>
+
+<h1>Create a GeoQuerySet from the primary key, return GeoJSON</h1>
+
+<p>qs = Boundary.objects.filter(pk=1).geojson()</p>
+
+<h1>Print GeoJSON representation of geom</h1>
+
+<p>print qs[0].geojson
+[/code]</p>
+
+<p>Will produce a GeoJSON object like this:</p>
+
+<p>[code lang=&#8221;js&#8221;]
+{
+ &#8220;type&#8221;:&#8221;MultiPolygon&#8221;,
+  &#8220;coordinates&#8221;:[</p>
+
+<pre><code>[
+  [
+    [
+      -122.574295,
+      47.856636
+    ],
+    [
+      -122.573924,
+      47.85718
+    ],
+    [
+      -122.573719,
+      47.85757
+    ] // Truncated Verticies
+  ]
+]
+</code></pre>
+
+<p>  ]
+}
+[/code]</p>
+
+<p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &#8216;type&#8217; values which an object can be constrained by. Using GeoDjango&#8217;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&#8217;d like to return a GeoJSON object of type &#8216;Feature&#8217; or &#8216;FeatureCollection&#8217;. These types require an additional &#8216;properties&#8217; parameter, which can store tabular attributes. From the spec:</p>
+
+<blockquote><p>A feature object must have a member with the name &#8220;properties&#8221;. The value of the properties member is an object (any JSON object or a JSON null value).</p></blockquote>
+
+<p>So, the trick now is to dynamically create a GeoJSON object which contains both populated Geom and Properties attributes.</p>
+
+<h2>The fix (vectorformats)</h2>
+
+<p>In order to create a fully populated GeoJSON object, we need to bring in some extra assistance. Some quick searching brought me to this stack exchange <a href="http://stackoverflow.com/questions/3034482/rendering-spatial-data-of-geoqueryset-in-a-custom-view-on-geodjango">response</a>, from <a href="http://crschmidt.net/blog/">Chris Schmidt</a>. Chris&#8217; vectorformats package handles the serialization and de-serializtion of a variety of formats, including Django Querysets and GeoJSON. From the project <a href="http://packages.python.org/vectorformats/">homepage</a>:</p>
+
+<blockquote><p>The vectorformats library is designed to make it easy to serialize content from any source to any source within Python. Think of it as a “poor man’s OGR” – a pure Python implementation of transforming features to and from various formats (largely XML based).</p></blockquote>
+
+<p>Installing vectorformats is as easy as:</p>
+
+<p>[code]
+$sudo easy_install vectorformats
+[/code]</p>
+
+<p>From there, as outlined in the above referenced post, it&#8217;s only a matter of adding a few lines into your GeoDjango app&#8217;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
+
+<p>[code lang=&#8221;python&#8221;]</p>
+
+<h1>Using vectorfeatures module return a GeoJSON FeatureCollection</h1>
+
+<h1>for a given boundary ID.</h1>
+
+<p>def boundary_detail(request, boundary_id):</p>
+
+<pre><code>boundary_detail = Boundary.objects.filter(pk=boundary_id)
+djf = Django.Django(geodjango='geom', properties=['name'])
+geoj = GeoJSON.GeoJSON()
+s = geoj.encode(djf.decode(boundary_detail))
+return HttpResponse(s)
+</code></pre>
+
+<p>[/code]</p>
+
+<p>The resulting GeoJSON object, represented as a &#8216;type&#8217; of &#8216;FeatureCollection&#8217;:</p>
+
+<p>[code lang=&#8221;js&#8221;]
+{
+  &#8220;crs&#8221;:null,
+  &#8220;type&#8221;:&#8221;FeatureCollection&#8221;,
+  &#8220;features&#8221;:[</p>
+
+<pre><code>{
+  "geometry":{
+    "type":"MultiPolygon",
+    "coordinates":[
+      [
+        [
+          [
+            -122.574295,
+            47.856636
+          ],
+          [
+            -122.573924,
+            47.85718
+          ],
+          [
+            -122.573719,
+            47.85757
+          ] // Truncated Verticies
+        ]
+      ]
+    ]
+  },
+  "type":"Feature",
+  "id":1,
+  "properties":{
+    "name":"Port Gamble"
+  }
+}
+</code></pre>
+
+<p>  ]
+}
+[/code]</p>
+
+<p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &#8216;http://my-site.com/geojson/boundary/{boundary_id}/&#8217;. Pass this to your web mapping client, and you&#8217;re ready to rock.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-12T00:30:17-08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/11/28/moving-to-geodjango/" title="Previous Post: Moving to GeoDjango">&laquo; Moving to GeoDjango</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

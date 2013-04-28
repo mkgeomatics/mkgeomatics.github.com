@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>pgRouting On Ubuntu Netbook Remix 9.10 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="While working through Regina Obe and Leo Hsu&#8217;s PostGIS In Action I thought that I&#8217;d jump into the world of routing. My plan was to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">pgRouting on Ubuntu Netbook Remix 9.10</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-11T14:26:59-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>While working through Regina Obe and Leo Hsu&#8217;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&#8217;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included.</p>
+
+<p>Undeterred and inspired, i decided to compile the <a href="http://pgrouting.postlbs.org/">pgRouting</a> set of tools for PostGIS and give them a whirl.</p>
+
+<p>My primary tutorial for moving through the install and execution of functions came from the 2009 FOSS4G Tokyo &amp; Osaka workshop entitled, &#8221;<a href="http://www.google.com/url?sa=t&amp;source=web&amp;ct=res&amp;cd=7&amp;ved=0CCMQFjAG&amp;url=http%3A%2F%2Fwww.osgeo.jp%2Fwordpress%2Fwp-content%2Fuploads%2F2009%2F11%2Fworkshop_manual.pdf&amp;ei=4vdLS63EKIGSsgPFrsGIDA&amp;usg=AFQjCNEoTXqRqtS8fpDXbNLo6H2Nk3cEyg&amp;sig2=RLw7qVqUev7k8pdvzCjXeQ">FOSS4G routing with pgRouting tools and OpenStreetMap road data.</a>&#8221; Although my installation on Ubuntu Netbook Remix (UNR) 9.10 required a little different setup, this guide definitely got me 99% of the way there.</p>
+
+<p>The majority of my installation woes were caused by the different pathways used on my UNR install of PostgreSQL vs. what are apparently the standard paths.</p>
+
+<p>After attempting to execute cmake to compile pgRouting, I&#8217;d be presented with an error stating that the &#8216;POSTGRESQL_INCLUDE_DIR&#8217; was not found. A locate command pointed me to the correct path for my PostgreSQL installation. By modifying the FindPostgreSQL.cmake file to search for the correct path, I was back in business.</p>
+
+<p>Following the workshop instructions, I then attempted to create the database directly from the terminal, which yielded the following result.</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]matt@matt-netbook:~$ createdb -U postgres routing
+createdb: could not connect to database postgres: could not connect to server: No such file or directory
+ Is the server running locally and accepting
+ connections on Unix domain socket &#8220;/var/run/postgresql/.s.PGSQL.5432&#8221;?[/sourcecode]</p>
+
+<p>After reading the documentation associated with &#8220;createdb&#8221;, i tried adding the &#8220;-h&#8221; flag pointing to &#8220;localhost&#8221;, which solved the problem.</p>
+
+<p>The final error which I ran into had to do with the &#8220;$libdir&#8221; environment variable. While trying to register the pgRouting functions in my new database, I&#8217;d be presented with the following:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]psql:/usr/share/postlbs/routing_core.sql:32: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
+psql:/usr/share/postlbs/routing_core.sql:43: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory
+psql:/usr/share/postlbs/routing_core.sql:53: ERROR:  could not access file &#8220;$libdir/librouting&#8221;: No such file or directory[/sourcecode]</p>
+
+<p>Getting impatient at this point (i wanted to route!) I modified the SQL files to reference the explicit path of my PostgreSQL lib directory. Once that was done, I had a working routing database!</p>
+
+<p>Loading the sample data, creating the indexes, and executing the queries was amazingly straightforward. To test visualizing the data, I exported one of the tutorial queries directly into a new table.</p>
+
+<p>[sourcecode language=&#8221;SQL&#8221;]SELECT * INTO export
+ FROM dijkstra_sp(&#8216;ways&#8217;, 10, 20);[/sourcecode]</p>
+
+<p>[caption id=&#8221;attachment_316&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The route depicted in red as seen in QGIS.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/qgis_routing-300x175.png" alt="qgis_routing" /></a>[/caption]</p>
+
+<p>Just for kicks, I tried exporting the data as GeoJSON and visualzing it via OpenLayers.</p>
+
+<p>The following SQL query aggregates the exported line segments into a single GeoJSON object:</p>
+
+<p>[sourcecode language=&#8221;SQL&#8221;]SELECT ST_AsGeoJSON(ST_UNION(the_geom)) AS geom_union
+FROM export;[/sourcecode]</p>
+
+<p>Using the <a href="http://openlayers.org/dev/examples/vector-formats.html">vector-formats</a> OL example, which displays GeoJSON in either EPSG 4326 or 102113, I was able to visualize the line segment with no problem.</p>
+
+<p>[caption id=&#8221;attachment_317&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;GeoJSON representation of line segment generated using pgRouting, displayed in OpenLayers&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/openlayers_vector_formats-300x175.png" alt="" /></a>[/caption]</p>
+
+<p>Well that&#8217;s all for one day. So it looks like the bike riding app is out, but I&#8217;m sure that there will be many more interesting ideas for pgRouting that will come to mind as I continue to explore PostGIS.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-11T14:26:59-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/04/27/esri-uc-student-assistant-sweet/" title="Previous Post: ESRI UC Student Assistant, Sweet!">&laquo; ESRI UC Student Assistant, Sweet!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/" title="Next Post: pgRouting Part II: PostGIS + Geoserver">pgRouting Part II: PostGIS + Geoserver &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

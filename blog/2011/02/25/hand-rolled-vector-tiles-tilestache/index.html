@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hand-Rolled Vector Tiles - TileStache - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hand-Rolled Vector Tiles - TileStache</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-25T05:09:52-08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&#8211; Imagine that&#8217;s a mustache on it&#8217;s side.</p>
+
+<blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
+
+<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I&#8217;m most interested in though, is it&#8217;s ability to deploy vector tiles. So what are vector tiles? Think TMS tiles&#8230; but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
+
+<p>For example, data from a PostGIS data source can be rendered as an image tile (&#8230;/10/16/357.png), like this:</p>
+
+<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png" alt="" /></a></p>
+
+<p>But can also be represtented as a vector tile (&#8230;/10/16/357.json), like this:</p>
+
+<p>[sourcecode language=&#8221;js&#8221;]
+// Subset of a single 256x256 pixel vector tile.
+{
+  &#8220;type&#8221;: &#8220;FeatureCollection&#8221;,
+  &#8220;features&#8221;: [</p>
+
+<pre><code>{
+  "geometry": {
+    "type": "MultiPolygon",
+    "coordinates": [
+      [
+        [
+          [
+            -122.973093,
+            47.969842
+          ],...
+          [
+            -122.973093,
+            47.969842
+          ]
+        ]
+      ]
+    ]
+  },
+  "type": "Feature",
+  "properties": {
+    "property_s": "USFS",
+    "juris_name": "Olympic National Forest"
+  },
+  "id": 1280
+}
+</code></pre>
+
+<p>  ]
+}
+[/sourcecode]</p>
+
+<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers&#8217; GeoJSON</a> format reader to populate a vector layer in OL. It&#8217;s an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS&#8230; only request those sections of data which you need at that time. By only requesting those tiles within the user&#8217;s current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS&#8217;s can be pre-cached to disk (seeded), so can vector tiles.</p>
+
+<p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
+
+<p>[caption id=&#8221;attachment_398&#8221; align=&#8221;alignnone&#8221; width=&#8221;665&#8221; caption=&#8221;NFS Boundaries Provided By ChopShopGeo&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
+
+<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&#8217;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&#8230; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
+
+<p>[caption id=&#8221;attachment_393&#8221; align=&#8221;alignnone&#8221; width=&#8221;691&#8221; caption=&#8221;USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You&#8217;ll have to ignore the fact that I&#8217;m symbolizing streamflow without the streams.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
+
+<p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
+
+<p>{
+&#8220;type&#8221;: &#8220;FeatureCollection&#8221;,
+&#8220;features&#8221;: [{
+&#8220;geometry&#8221;: {
+&#8220;type&#8221;: &#8220;MultiPolygon&#8221;,
+&#8220;coordinates&#8221;: [
+[
+[
+[-122.973093, 47.969842],
+[-122.973093, 47.969842]
+]
+]
+]
+},
+http: //jsbeautifier.org/
+&#8220;type&#8221;: &#8220;Feature&#8221;,
+&#8220;properties&#8221;: {
+&#8220;property_s&#8221;: &#8220;USFS&#8221;,
+&#8220;juris_name&#8221;: &#8220;Olympic National Forest&#8221;
+},
+&#8220;id&#8221;: 1280
+}]
+}</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-25T05:09:52-08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/" title="Previous Post: cURL'ing to FeatureServer from PostGIS: Easier then I Thought">&laquo; cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/11/28/moving-to-geodjango/" title="Next Post: Moving to GeoDjango">Moving to GeoDjango &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>pgRouting Part II: PostGIS + Geoserver - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Since compiling Orkney&#8217;s pgRouting extension to PostgreSQL/PostGIS, I&#8217;ve decided to try my hand at creating a simple web interface to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">pgRouting Part II: PostGIS + Geoserver</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-31T05:05:32-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&#8217;s pgRouting extension</a> to PostgreSQL/PostGIS, I&#8217;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows:</p>
+
+<ul>
+<li><p>Display: OpenLayers</p></li>
+<li><p>Renderer: Geoserver (via non-cached WMS)</p></li>
+<li><p>Spatial Backend: PostGIS/pgRouting enabled PostgreSQL</p></li>
+<li><p>Data: <a href="http://www.cob.org/services/maps/gis/index.aspx">Public GIS data</a> from the city of Bellingham, Washington&#8217;s GIS department.</p></li>
+</ul>
+
+
+<p>For the sake of brevity, (but really because both TOPP has created some <a href="http://workshops.opengeo.org/opengeo-stack/">fantastic guides</a>) I won&#8217;t go into the specifics of installing all the pieces. Just as an FYI, remember to set your &#8216;JAVA_HOME&#8217; environment variable and make sure that you don&#8217;t have things trying to use the same port!</p>
+
+<p>The Bellingham data is currently stored in <a href="http://www.spatialreference.org/ref/esri/102748/">NAD83 State Plane WA North Feet</a>, a typical projection for this area. This projection however, is not part of the EPSG projection set, and as such is not included in a vanilla install of PostGIS.</p>
+
+<p>In order to add this to the collection of spatial reference systems used by my PostGIS install, I went with the ridiculously cool <a href="http://spatialreference.org">spatialreference.org</a> site (A <a href="http://crschmidt.net/">crschmidt</a>, <a href="http://dbsgeo.com/">dbsgeo</a>, <a href="http://hobu.biz/">hobu</a>, and <a href="http://umbrellaconsulting.com/">umbrella</a> joint, hah). Navigating to the projection&#8217;s page gives me the option to generate an <a href="http://www.spatialreference.org/ref/esri/102748/postgis/">INSERT</a> statement, adding the projection&#8217;s info into my database.</p>
+
+<p>To load shapefiles into the PostGIS database, I chose to use the SPIT plugin for QGIS. Loading the data was fairly straightforward. I had an issue with a datefield that was present in the source shapefile, and had to delete the column manually using Open Office Database. I haven&#8217;t found a way to delete fields from a shapefile using QGIS.</p>
+
+<p>[caption id=&#8221;attachment_327&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;The SPIT Interface&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit-300x175.png" alt="spit" /></a>[/caption]</p>
+
+<p>After uploading the streets data into my PostGIS database, the next step was to transform the geometry into the Web Mercator 900913 Projection. This was done using standard PostGIS functions, adding a new, second, geometry column to the existing streets table. This reprojected data was then exported from my staging PostGIS database as a shapefile using the QGIS, &#8216;Save As Shapefile&#8217; tool, and re-imported into my production database (with the routing functions).</p>
+
+<p>With data stored in the web mercator projection, inside of our PostGIS/pgRouting database, the next step was to add the layers to Geoserver. Using Geoserver 2.x, the process included the following steps (all done through the web-admin).</p>
+
+<ul>
+<li><p>Add the new data store pointing the PostGIS database.</p></li>
+<li><p>Add new layers (resources) which point to the tables of interest in our PostGIS database.</p></li>
+</ul>
+
+
+<p>After creating the connections between PostGIS and Geoserver, the creation of WMS services is taken care of, allowing us to roll them into OpenLayers with relative ease.</p>
+
+<p>I guess this got a little off-topic from what I originally wanted to write about. I think that I&#8217;ll save the actual breakdown of my OL code (taking a user&#8217;s map click to and using it to calculate a route to the nearest fire-station as determined by manhattan distance, as opposed to euclidean distance) for another day.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-31T05:05:32-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/" title="Previous Post: pgRouting On Ubuntu Netbook Remix 9.10">&laquo; pgRouting On Ubuntu Netbook Remix 9.10</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/" title="Next Post: pgRouting III: PHP + OpenLayers Interface">pgRouting III: PHP + OpenLayers Interface &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Links | My Octopress Blog]]></title>
+  <link href="http://mkgeomatics.github.io/blog/categories/links/atom.xml" rel="self"/>
+  <link href="http://mkgeomatics.github.io/"/>
+  <updated>2013-04-27T18:47:04-07:00</updated>
+  <id>http://mkgeomatics.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Stefan Steinger - FOSS Desktop GIS Overview]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/12/01/stefan-steinger-foss-desktop-gis-overview/"/>
+    <updated>2008-12-01T02:09:19-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/12/01/stefan-steinger-foss-desktop-gis-overview</id>
+    <content type="html"><![CDATA[<p>Found via the Cascadia Users of Geospatial Open Source (<a href="http://groups.google.com/group/cugos">CUGOS</a>) website.</p>
+
+<p>Very recent paper accepted by the International Journal of Geographical Information Science depitcs the current state of the art in FOSS Desktop GIS and much more. The staying power in the article however, IMHO, is the detailed explanation of the various FOSS license agreements which exist and the organisations which play a major role in the development of FOSSGIS as a whole. One of the most interesting tidbits for me was the realization that the Open Geospatial Consortium cannot be equated directly to the FOSSGIS movement.</p>
+
+<blockquote><p>A couple of people to which we spoke related the activities of  the  Open  Geospatial  Consortium  (OGC,  www.opengeospatial.org)  to  open  source  GIS software.  This  link  is  not entirely  correct,  since  the OGC  is  an  organisation  that  develops standards  for  the processing  and  exchange  of  geo-data  between  different  GIS  platforms. Furthermore a large portion of the member organisations of the OGC, besides universities and authorities, are companies that develop proprietary GIS and Databases.</p></blockquote>
+
+<p>Link: <a href="http://cugos.googlegroups.com/web/sstein_foss_desktop_gis_overview.pdf">http://cugos.googlegroups.com/web/sstein_foss_desktop_gis_overview.pdf</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ScapeToad - Open Source Cartogram Generator]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator/"/>
+    <updated>2008-11-23T05:11:25-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator</id>
+    <content type="html"><![CDATA[<p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it's platform-independent, another plus for mac and / or linux GIS users.</p>
+
+<p>[caption id="attachment_127" align="alignnone" width="300" caption="Above: The counties of Washington State."]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa-300x202.jpg" alt="WA_Green" /></a>[/caption]</p>
+
+<p>What is so cool about this program is that not only does it use shapefiles as an input, but it generates shapefiles as output as well. A SizeError attribute is also generated to allow a user to easily control map symbology using GIS software. In addition to this, one can also export as an SVG directly to use in a graphics editor.</p>
+
+<p>The cartogram below was generated using the percentage of a county's total area covered by state routes. The lighter colors indicate a smaller distortion in size while the darker colors indicate a larger distortion in size. Note the I-5 corridor in Western Washington is heavily affected using this criteria.</p>
+
+<p>[caption id="attachment_128" align="alignnone" width="300" caption="Above: The result. "]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/cartogram2.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/cartogram2-300x212.jpg" alt="WA_Cartogram" /></a>[/caption]</p>
+
+<p>ScapeToad - <a href="http://chorogram.choros.ch/scapetoad/index.php">http://chorogram.choros.ch/scapetoad/index.php</a></p>
+
+<p>Data (WA DOT) - <a href="http://www.wsdot.wa.gov/">http://www.wsdot.wa.gov/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[University Courses in GIS]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/09/07/free-courses-in-gis/"/>
+    <updated>2008-09-07T16:24:38-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/09/07/free-courses-in-gis</id>
+    <content type="html"><![CDATA[<p>So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right?</p>
+
+<p>Some of the best that I have found are in regards to both commercial as well as open source software. I've found the following courses to be of particular benefit to me over the last year.</p>
+
+<p><a href="http://www.gis.usu.edu/~jlowry/python/">Utah State University - WILD 6900 - GIS Programming with Python (ESRI) </a></p>
+
+<p><a href="http://www.gis.usu.edu/~chrisg/python/">Utah State University - WILD 6900 - GIS Programming with Python (Open Source) </a></p>
+
+<p><a href="https://courseware.e-education.psu.edu/courses/geog585/content/home.html">Penn State - GEOG 585 - Open Web Mapping </a></p>
+
+<p><a href="http://ocw.mit.edu/OcwWeb/Urban-Studies-and-Planning/11-521Spatial-Database-Management-and-Advanced-Geographic-Information-SystemsSpring2003/CourseHome/index.htm">MIT - 11.521 / 11.523 / 11.524 - Database Management and Advanced Geographic Information Systems</a></p>
+
+<p><a href="http://ocw.mit.edu/OcwWeb/Civil-and-Environmental-Engineering/1-963Fall-2004/CourseHome/">MIT - 1963 - Environmental Engineering Applications of Geographic Information Systems</a></p>
+]]></content>
+  </entry>
+  
+</feed>

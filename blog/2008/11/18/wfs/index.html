@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>WFS! - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2008/11/18/wfs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">WFS!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T08:10:22-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &#8216;WFS&#8217; service types. As you can see in the image below, a static baselayer, &#8216;COUNTY&#8217; (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, &#8216;NATPARK&#8217;, capable of actually identifiying features.</p>
+
+<p>[caption id=&#8221;attachment_97&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;QGIS Screenshot: Selected feature in yellow, Identified feature in pinkish-outline.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify-300x221.jpg" alt="wfs_identify" /></a>[/caption]</p>
+
+<p>I&#8217;m amazed at the ability of Mapserver to take a shapefile, turn it into GML, and send it almost magically to ANY program that can interpret it.  I&#8217;m finally wrapping my noggin around the whole concept of XML, and just how powerful it can be.</p>
+
+<p>So what were my primary issues? Well, it took me about an hour to realize that I was running my, &#8216;DescribeFeatureType&#8217; request on the mapfile entitled &#8216;WA_WGS84.map&#8217; rather than &#8216;WA_WFS_WGS84.map&#8217;. So that was my own error. Then I realized that while the KEY field for each of these shapefiles in ArcGIS is simply, &#8216;FID&#8217;, this <strong>cannot </strong>be used for the &#8216;gml_featureid&#8217; metadata requirement in the mapfile. Another primary key such as, &#8216;PARKID&#8217; must instead be used, and the GML file will actually create its own, &#8216;FID&#8217; based on this.</p>
+
+<p>Some other key lessons from today:</p>
+
+<ul>
+<li><p>ESRI ArcGIS does not support WFS out of the box, as it does WMS. To enable the GML simple features profile, try out this <a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=5607&amp;pid=5604&amp;topicname=Using_the_GML_simple_features_profile">ESRI Help Article</a>.</p></li>
+<li><p>Querying your WFS server in-browser using the, &#8216;getfeature&#8217; and &#8216;getcapabilities&#8217; requests is a really simple and effective way of determining which required pieces of information are missing from your XML. Mapserver will actually create a comment in-line saying which required pieces of metadata are missing.</p></li>
+<li><p>Creating metadata abstracts for both WFS and WMS in your mapfile is a simple way to view how your GIS software is consuming the data. For example, the only reason i realized that I was actually using QGIS to display my WFS mapfile as a WMS was through the use both of the &#8220;wms_abstract&#8221; and &#8220;wfs_abstract&#8221; metadata tags.</p></li>
+</ul>
+
+
+<p>What&#8217;s next? Wrap an openlayers display around this with selection and identify capabilities.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T08:10:22-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2008/11/18/wfs/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2008/11/18/wfs/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/11/18/wms-to-wfs/" title="Previous Post: WMS To WFS">&laquo; WMS To WFS</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/11/19/happy-gis-day/" title="Next Post: Happy GIS Day.">Happy GIS Day. &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

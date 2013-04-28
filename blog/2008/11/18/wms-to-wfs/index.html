@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>WMS To WFS - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="The main goal for today is figuring out what is going on with my WFS demo. I&#8217;ve got it a Mapserver mapfile up and running, and can load each &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2008/11/18/wms-to-wfs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">WMS to WFS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T04:00:42-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>.</p>
+
+<p>If we take a look at the DescribeFeatureType() results for <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_WGS84.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">my WFS</a> query (I don&#8217;t know if I should be calling it a WFS at this point, but I will&#8230;) we see that no tabular information is being extracted from the shapefiles.</p>
+
+<blockquote><p><schema targetNamespace="http://mapserver.gis.umn.edu/mapserver" elementFormDefault="qualified" version="0.1">
+<import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/2.1.2/feature.xsd"/>
+</schema></p></blockquote>
+
+<p>compare this to the DMSolutions WFS DescribeFeatureType() <a href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">request</a>.</p>
+
+<blockquote><p><schema targetNamespace="http://www.ttt.org/myns" elementFormDefault="qualified" version="0.1">
+<import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengeospatial.net/gml/2.1.2/feature.xsd"/>
+<element name="prov_land" type="myns:prov_landType" substitutionGroup="gml:_Feature"/>
+−
+<complexType name="prov_landType">
+−
+<complexContent>
+−
+<extension base="gml:AbstractFeatureType">
+−
+<sequence>
+<element name="msGeometry" type="gml:GeometryPropertyType" minOccurs="0" maxOccurs="1"/>
+<element name="AREA" type="string"/>
+<element name="PERIMETER" type="string"/>
+<element name="PROVINCE_" type="string"/>
+&#8230;</p></blockquote>
+
+<p>I&#8217;m thinking that there is more work which needs to be done in the mapfile. My guess is that it has to do with the &#8216;gml_featureid&#8217; and &#8216;gml_include_items&#8217; metadata information.</p>
+
+<p>whatever&#8217;s clever.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T04:00:42-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2008/11/18/wms-to-wfs/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2008/11/18/wms-to-wfs/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/11/16/mapserver-update/" title="Previous Post: Mapserver [Update]">&laquo; Mapserver [Update]</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/11/18/wfs/" title="Next Post: WFS!">WFS! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

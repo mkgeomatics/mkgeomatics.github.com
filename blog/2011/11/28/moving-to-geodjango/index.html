@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Moving to GeoDjango - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="I&#8217;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&#8217;s been a lot of fun so far. I&# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Moving to GeoDjango</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-28T00:35:49-08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&#8217;s been a lot of fun so far. I&#8217;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
+
+<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&#8217;ll just put two entries into the same cell).</p>
+
+<p>[caption id=&#8221;attachment_487&#8221; align=&#8221;alignnone&#8221; width=&#8221;464&#8221; caption=&#8221;sometimes spreadsheets just don&#8217;t work&#8230;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
+
+<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt&#8217;s <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">&#8220;Puget Sound on the Pacific Coast&#8221;</a>, but it&#8217;s just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
+
+<p>[code]
+^ Column One                ^ Column Two                 ^
+| Zee &#8216;z&#8217; string            | This is a longer string    |
+| 2nd longer string of text | 2nd short string           |
+| SuperShort                | A string starting with &#8216;A&#8217; |
+[/code]</p>
+
+<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don&#8217;t allow for the storage/visualization of spatial data.</p>
+
+<p>[caption id=&#8221;attachment_488&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;10 megs free for one user? cool!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
+
+<p>In comes GeoDjango. Over the next few posts, I think I&#8217;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
+
+<p>[caption id=&#8221;attachment_489&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Hey look Ma&#8217;, it&#8217;s GeoJSON!&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-28T00:35:49-08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/" data-via="" data-counturl="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/" title="Previous Post: Hand-Rolled Vector Tiles - TileStache">&laquo; Hand-Rolled Vector Tiles - TileStache</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/" title="Next Post: GeoDjango: Standing Up A GeoJSON Web-Service">GeoDjango: Standing Up A GeoJSON Web-Service &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
