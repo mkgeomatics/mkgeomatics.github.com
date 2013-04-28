@@ -148,6 +148,331 @@
 
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve finally got a working python script that does the following:</p>
+
+<p>-Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217;</p>
+
+<p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
+
+<p>-Generates an output text file using &#8216;stdout&#8217; with the resulting &#8216;smoothed&#8217; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
+
+<p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
+
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/14/web-based-grass/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/14/python-gp-strangeness/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 on Shared Webhost</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+
+<p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2008/09/08/plans/">Plans</a></h1>
     
     
@@ -197,126 +522,13 @@
 
       </article>
     
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-07T16:24:38-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/links/'>Links</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right? </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2008/09/07/free-courses-in-gis/">Read on &rarr;</a>
-    </footer>
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/07/i-am-matt/">I Am Matt</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-07T12:24:52-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time> - 
-        
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>how may i help you visualize the world around us?</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2008/09/07/i-am-matt/">Read on &rarr;</a>
-    </footer>
-  
-
-
-</div>
-
-      </article>
-    
     </div>
       <div class="row">
         <ul class="pager">
+          
+            <li class="previous">
+              <a href="/blog/page/7/">&larr; Older</a>
+            </li>
           
           
             <li class="next">
