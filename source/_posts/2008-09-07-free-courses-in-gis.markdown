@@ -16,7 +16,7 @@ tags:
 - Web Mapping
 ---
 
-So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right?
+So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right? <!-- more -->
 
 Some of the best that I have found are in regards to both commercial as well as open source software. I've found the following courses to be of particular benefit to me over the last year.
 

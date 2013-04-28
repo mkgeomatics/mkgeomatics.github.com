@@ -15,7 +15,7 @@ tags:
 - OpenSource
 ---
 
-I never knew about the [MetaCarta Labs' Map Rectifier](http://labs.metacarta.com/rectifier/) tool, but I'll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. In addition to uploading your own content, a user has the ability to add GCPs for other users' uploads as well.
+I never knew about the [MetaCarta Labs' Map Rectifier](http://labs.metacarta.com/rectifier/) tool, but I'll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. <!-- more --> In addition to uploading your own content, a user has the ability to add GCPs for other users' uploads as well.
 
 [caption id="attachment_276" align="alignnone" width="300" caption="Above: The MetaCarta Interface"][![Above: The MetaCarta Interface](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta-300x170.jpg)](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta.jpg)[/caption]
 

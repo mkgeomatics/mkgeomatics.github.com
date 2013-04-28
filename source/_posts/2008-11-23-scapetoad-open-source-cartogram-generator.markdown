@@ -15,7 +15,7 @@ tags:
 - ScapeToad
 ---
 
-[ScapeToad](http://chorogram.choros.ch/scapetoad/index.php) provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it's platform-independent, another plus for mac and / or linux GIS users.
+[ScapeToad](http://chorogram.choros.ch/scapetoad/index.php) provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it's platform-independent, another plus for mac and / or linux GIS users. <!-- more -->
 
 [caption id="attachment_127" align="alignnone" width="300" caption="Above: The counties of Washington State."][![WA_Green](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa-300x202.jpg)](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa.jpeg)[/caption]
 

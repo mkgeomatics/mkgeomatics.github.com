@@ -13,7 +13,7 @@ tags:
 - OpenLayers
 ---
 
-Well, using the [OpenLayers Cookbook](http://openlayers.org/dev/examples/) I've been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now.
+Well, using the [OpenLayers Cookbook](http://openlayers.org/dev/examples/) I've been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now. <!-- more -->
 
 
 

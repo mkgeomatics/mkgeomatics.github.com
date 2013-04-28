@@ -15,7 +15,7 @@ tags:
 - OpenStreetMap.org
 ---
 
-What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by [CloudMade](http://www.cloudmade.com/) and hosted locally by [Gangplank](http://gangplankhq.com/). On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, 'crowdsourcing'. The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.
+What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by [CloudMade](http://www.cloudmade.com/) and hosted locally by [Gangplank](http://gangplankhq.com/). On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, 'crowdsourcing'. <!-- more --> The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.
 
 Here is the result of our work:
 

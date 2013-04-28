@@ -20,6 +20,8 @@ For the past couple of days, I've been putting hours into understanding Aaron Ra
 
 I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.
 
+<!-- more -->
+
 
 > [gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
 INFO: Open of `/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'

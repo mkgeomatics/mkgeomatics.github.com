@@ -14,7 +14,7 @@ tags:
 - OpenLayers
 ---
 
-Well, after about a month of no progress in the Web GIS realm, i've finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you're also wondering, the data being displayed is actually a [shapefile](http://www.cob.org/services/maps/index.aspx) of the neighborhoods of beautiful Bellingham, WA.
+Well, after about a month of no progress in the Web GIS realm, i've finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you're also wondering, the data being displayed is actually a [shapefile](http://www.cob.org/services/maps/index.aspx) of the neighborhoods of beautiful Bellingham, WA. <!-- more -->
 
 
 

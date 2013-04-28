@@ -24,6 +24,7 @@ I've finally got a working python script that does the following:
 
 -Generates an output text file using 'stdout' with the resulting 'smoothed' coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).
 
+<!-- more -->
 This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.
 
 Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes... and re-import them as input files for the DP algorithm. It's all good now though, and the code looks (a bit) cleaner.

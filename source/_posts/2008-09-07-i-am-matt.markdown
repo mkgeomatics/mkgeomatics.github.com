@@ -12,3 +12,4 @@ tags:
 ---
 
 how may i help you visualize the world around us?
+<!-- more -->

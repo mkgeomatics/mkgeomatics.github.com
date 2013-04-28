@@ -8,7 +8,7 @@ title: Visualizing An Existing MySQL Database
 wordpress_id: 291
 ---
 
-So I've been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships... you know, the kind that usually don't work out very well?
+So I've been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships... you know, the kind that usually don't work out very well? <!-- more -->
 
 In any event, my SOP for handling these queries was to submit sample data through the codeigniter site that our project's web developer has been courageously firing away at. In this sense, I'd sort-of trace the flow of new information through the various tables of the database, monitoring the information stream as best as I could. I thought to myself, that there has to be a better way to handle this stuff! In comes the [MySQL Workbench](http://dev.mysql.com/workbench/). This handy tool from the [MySQL Dev Zone](http://dev.mysql.com/) apparently comes in two flavors: FOSS and commercial.
 

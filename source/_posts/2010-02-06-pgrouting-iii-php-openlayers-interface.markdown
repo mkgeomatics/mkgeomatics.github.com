@@ -17,7 +17,7 @@ tags:
 
 With the routing [database configured and populated](http://www.mkgeomatics.com/wordpress/?p=312), and with [geoserver rendering the WMS](http://www.mkgeomatics.com/wordpress/?p=322), now the focus can shift on designing the actual display and functionality.
 
-The conceptual plan is as follows:
+The conceptual plan is as follows: <!-- more -->
 
 
 

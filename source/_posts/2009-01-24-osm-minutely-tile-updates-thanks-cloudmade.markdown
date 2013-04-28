@@ -17,7 +17,7 @@ tags:
 - Tempe
 ---
 
-Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of [CloudMade](http://www.cloudmade.com/) came out to run the show, with local hosting by [James Fee](http://www.spatiallyadjusted.com/) of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides.
+Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of [CloudMade](http://www.cloudmade.com/) came out to run the show, with local hosting by [James Fee](http://www.spatiallyadjusted.com/) of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides. <!-- more -->
 
 Of particular interest was a question posed by a first time OSM'er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, 'it's just the way it is'.
 

@@ -15,7 +15,7 @@ tags:
 - visualization
 ---
 
-I've been playing with the motion chart gadget in Google's AJAX API Playground recently, and have found it to be an extremely interesting tool to use. In order to produce data rich charts, all that is necessary is to import a tabular datasheet into google docs and call on it within a javascript function.
+I've been playing with the motion chart gadget in Google's AJAX API Playground recently, and have found it to be an extremely interesting tool to use. In order to produce data rich charts, all that is necessary is to import a tabular datasheet into google docs and call on it within a javascript function. <!-- more -->
 
 The spreadsheet itself requires:
 

@@ -15,7 +15,7 @@ tags:
 - WFS
 ---
 
-Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  'WMS' and 'WFS' service types. As you can see in the image below, a static baselayer, 'COUNTY' (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, 'NATPARK', capable of actually identifiying features.
+Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  'WMS' and 'WFS' service types. As you can see in the image below, a static baselayer, 'COUNTY' (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, 'NATPARK', capable of actually identifiying features. <!-- more -->
 
 [caption id="attachment_97" align="alignnone" width="300" caption="QGIS Screenshot: Selected feature in yellow, Identified feature in pinkish-outline."][![wfs_identify](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify-300x221.jpg)](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wfs_identify.jpeg)[/caption]
 

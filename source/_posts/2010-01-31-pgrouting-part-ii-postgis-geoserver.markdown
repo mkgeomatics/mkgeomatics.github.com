@@ -11,7 +11,7 @@ categories:
 - Web-GIS
 ---
 
-Since compiling [Orkney's pgRouting extension](http://pgrouting.postlbs.org/) to PostgreSQL/PostGIS, I've decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows:
+Since compiling [Orkney's pgRouting extension](http://pgrouting.postlbs.org/) to PostgreSQL/PostGIS, I've decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: <!-- more -->
 
 
 

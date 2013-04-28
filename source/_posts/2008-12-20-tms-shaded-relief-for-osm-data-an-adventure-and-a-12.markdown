@@ -15,7 +15,7 @@ tags:
 - TMS
 ---
 
-After reading [Michal Migurski's](http://stamen.com/) excellent post, '[making friends with hillshading](http://mike.teczno.com/notes/hillshading.html)' I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession... I set out on the FOSSGIS path.
+After reading [Michal Migurski's](http://stamen.com/) excellent post, '[making friends with hillshading](http://mike.teczno.com/notes/hillshading.html)' I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession... I set out on the FOSSGIS path. <!-- more -->
 
 [caption id="attachment_205" align="alignnone" width="259" caption="The resulting overlay"][![The resulting overlay](http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png)](http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html)[/caption]
 

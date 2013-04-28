@@ -16,7 +16,7 @@ tags:
 - voronoi
 ---
 
-I've been working on a side project using [pgRouting](http://www.mkgeomatics.com/wordpress/?s=pgRouting&searchsubmit=Find) to determine the least-cost path across a street network from a given building to the nearest bus stop within [Bellingham, WA](http://en.wikipedia.org/wiki/Bellingham,_Washington). It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop.
+I've been working on a side project using [pgRouting](http://www.mkgeomatics.com/wordpress/?s=pgRouting&searchsubmit=Find) to determine the least-cost path across a street network from a given building to the nearest bus stop within [Bellingham, WA](http://en.wikipedia.org/wiki/Bellingham,_Washington). It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop. <!-- more -->
 
 So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I've posted my function below. It's not pretty, but it's filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:
 

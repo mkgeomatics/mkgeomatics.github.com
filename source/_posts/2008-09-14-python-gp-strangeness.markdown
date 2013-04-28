@@ -17,6 +17,9 @@ tags:
 
 I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?
 
+<!-- more -->
+
+``` python
 #Batch Convert ASCII to ESRI GRID
 #Matthew Kenny
 #September 14, 2008
@@ -58,3 +61,4 @@ ascii = asciiList.reset()
 
 #remove geoprocessor object from memory
 del gp
+```

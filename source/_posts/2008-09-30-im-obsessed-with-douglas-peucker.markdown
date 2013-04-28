@@ -19,6 +19,7 @@ The Problem: Web map vector overlays take a really long time to load if there ar
 The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.
 
 The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not 'spatially' enabled. The trick is to make it except shapefiles as an input source.
+<!-- more -->
 
 -Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
 $ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > output.csv

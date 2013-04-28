@@ -15,7 +15,7 @@ tags:
 - PostgreSQL
 ---
 
-While working through Regina Obe and Leo Hsu's [PostGIS In Action](http://www.postgis.us) I thought that I'd jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! [http://www.ridethecity.com/](http://www.ridethecity.com/) provides cycling routes using OSM data for many major cities, Seattle included.
+While working through Regina Obe and Leo Hsu's [PostGIS In Action](http://www.postgis.us) I thought that I'd jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! [http://www.ridethecity.com/](http://www.ridethecity.com/) provides cycling routes using OSM data for many major cities, Seattle included. <!-- more -->
 
 Undeterred and inspired, i decided to compile the [pgRouting](http://pgrouting.postlbs.org/) set of tools for PostGIS and give them a whirl.
 

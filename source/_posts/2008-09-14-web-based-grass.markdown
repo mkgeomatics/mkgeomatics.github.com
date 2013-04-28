@@ -15,7 +15,7 @@ tags:
 - Web-Based GIS
 ---
 
-Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I've been working off of Aaron Racicot's [tutorial](http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/) for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using --with-fftw-includes and --with-tclktk-includes respectively. Also, ran into an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, 'export NAD2BIN=/home/.../bin/nad2bin'.
+Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I've been working off of Aaron Racicot's [tutorial](http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/) for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using --with-fftw-includes and --with-tclktk-includes respectively. Also, ran into <!-- more --> an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, 'export NAD2BIN=/home/.../bin/nad2bin'.
 
 I'm not all that familiar with the command line syntax of GRASS, so I actually had to use a local install to view some sample syntax, and modify it for use on the web instance. Pretty fun.
 
