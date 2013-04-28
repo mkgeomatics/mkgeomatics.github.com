@@ -144,49 +144,67 @@ posted in
 
 <p>For example, asking for the GeoJSON representation of a given feature through Django&#8217;s shell, like this:</p>
 
-<p>[code lang=&#8221;python&#8221;]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Import Models from the Company Application</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">company.Models</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class='line'><span class="c"># Create a GeoQuerySet from the primary key, return GeoJSON</span>
+</span><span class='line'><span class="n">qs</span> <span class="o">=</span> <span class="n">Boundary</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">geojson</span><span class="p">()</span>
+</span><span class='line'><span class="c"># Print GeoJSON representation of geom</span>
+</span><span class='line'><span class="k">print</span> <span class="n">qs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">geojson</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>Import Models from the Company Application</h1>
-
-<p>from company.Models import *</p>
-
-<h1>Create a GeoQuerySet from the primary key, return GeoJSON</h1>
-
-<p>qs = Boundary.objects.filter(pk=1).geojson()</p>
-
-<h1>Print GeoJSON representation of geom</h1>
-
-<p>print qs[0].geojson
-[/code]</p>
 
 <p>Will produce a GeoJSON object like this:</p>
 
-<p>[code lang=&#8221;js&#8221;]
-{
- &#8220;type&#8221;:&#8221;MultiPolygon&#8221;,
-  &#8220;coordinates&#8221;:[</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'> <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;coordinates&quot;</span><span class="o">:</span><span class="p">[</span>
+</span><span class='line'>    <span class="p">[</span>
+</span><span class='line'>      <span class="p">[</span>
+</span><span class='line'>        <span class="p">[</span>
+</span><span class='line'>          <span class="o">-</span><span class="mf">122.574295</span><span class="p">,</span>
+</span><span class='line'>          <span class="mf">47.856636</span>
+</span><span class='line'>        <span class="p">],</span>
+</span><span class='line'>        <span class="p">[</span>
+</span><span class='line'>          <span class="o">-</span><span class="mf">122.573924</span><span class="p">,</span>
+</span><span class='line'>          <span class="mf">47.85718</span>
+</span><span class='line'>        <span class="p">],</span>
+</span><span class='line'>        <span class="p">[</span>
+</span><span class='line'>          <span class="o">-</span><span class="mf">122.573719</span><span class="p">,</span>
+</span><span class='line'>          <span class="mf">47.85757</span>
+</span><span class='line'>        <span class="p">]</span> <span class="c1">// Truncated Verticies</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>[
-  [
-    [
-      -122.574295,
-      47.856636
-    ],
-    [
-      -122.573924,
-      47.85718
-    ],
-    [
-      -122.573719,
-      47.85757
-    ] // Truncated Verticies
-  ]
-]
-</code></pre>
-
-<p>  ]
-}
-[/code]</p>
 
 <p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &#8216;type&#8217; values which an object can be constrained by. Using GeoDjango&#8217;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&#8217;d like to return a GeoJSON object of type &#8216;Feature&#8217; or &#8216;FeatureCollection&#8217;. These types require an additional &#8216;properties&#8217; parameter, which can store tabular attributes. From the spec:</p>
 
@@ -202,70 +220,104 @@ posted in
 
 <p>Installing vectorformats is as easy as:</p>
 
-<p>[code]
-$sudo easy_install vectorformats
-[/code]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$sudo</span> easy_install vectorformats
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>From there, as outlined in the above referenced post, it&#8217;s only a matter of adding a few lines into your GeoDjango app&#8217;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
 
-<p>[code lang=&#8221;python&#8221;]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Using vectorfeatures module return a GeoJSON FeatureCollection</span>
+</span><span class='line'><span class="c"># for a given boundary ID.</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">boundary_detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">boundary_id</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">boundary_detail</span> <span class="o">=</span> <span class="n">Boundary</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">boundary_id</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">djf</span> <span class="o">=</span> <span class="n">Django</span><span class="o">.</span><span class="n">Django</span><span class="p">(</span><span class="n">geodjango</span><span class="o">=</span><span class="s">&#39;geom&#39;</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">geoj</span> <span class="o">=</span> <span class="n">GeoJSON</span><span class="o">.</span><span class="n">GeoJSON</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">geoj</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">djf</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">boundary_detail</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>Using vectorfeatures module return a GeoJSON FeatureCollection</h1>
-
-<h1>for a given boundary ID.</h1>
-
-<p>def boundary_detail(request, boundary_id):</p>
-
-<pre><code>boundary_detail = Boundary.objects.filter(pk=boundary_id)
-djf = Django.Django(geodjango='geom', properties=['name'])
-geoj = GeoJSON.GeoJSON()
-s = geoj.encode(djf.decode(boundary_detail))
-return HttpResponse(s)
-</code></pre>
-
-<p>[/code]</p>
 
 <p>The resulting GeoJSON object, represented as a &#8216;type&#8217; of &#8216;FeatureCollection&#8217;:</p>
 
-<p>[code lang=&#8221;js&#8221;]
-{
-  &#8220;crs&#8221;:null,
-  &#8220;type&#8221;:&#8221;FeatureCollection&#8221;,
-  &#8220;features&#8221;:[</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;crs&quot;</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;features&quot;</span><span class="o">:</span><span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;geometry&quot;</span><span class="o">:</span><span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;coordinates&quot;</span><span class="o">:</span><span class="p">[</span>
+</span><span class='line'>          <span class="p">[</span>
+</span><span class='line'>            <span class="p">[</span>
+</span><span class='line'>              <span class="p">[</span>
+</span><span class='line'>                <span class="o">-</span><span class="mf">122.574295</span><span class="p">,</span>
+</span><span class='line'>                <span class="mf">47.856636</span>
+</span><span class='line'>              <span class="p">],</span>
+</span><span class='line'>              <span class="p">[</span>
+</span><span class='line'>                <span class="o">-</span><span class="mf">122.573924</span><span class="p">,</span>
+</span><span class='line'>                <span class="mf">47.85718</span>
+</span><span class='line'>              <span class="p">],</span>
+</span><span class='line'>              <span class="p">[</span>
+</span><span class='line'>                <span class="o">-</span><span class="mf">122.573719</span><span class="p">,</span>
+</span><span class='line'>                <span class="mf">47.85757</span>
+</span><span class='line'>              <span class="p">]</span> <span class="c1">// Truncated Verticies</span>
+</span><span class='line'>            <span class="p">]</span>
+</span><span class='line'>          <span class="p">]</span>
+</span><span class='line'>        <span class="p">]</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;properties&quot;</span><span class="o">:</span><span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;Port Gamble&quot;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>{
-  "geometry":{
-    "type":"MultiPolygon",
-    "coordinates":[
-      [
-        [
-          [
-            -122.574295,
-            47.856636
-          ],
-          [
-            -122.573924,
-            47.85718
-          ],
-          [
-            -122.573719,
-            47.85757
-          ] // Truncated Verticies
-        ]
-      ]
-    ]
-  },
-  "type":"Feature",
-  "id":1,
-  "properties":{
-    "name":"Port Gamble"
-  }
-}
-</code></pre>
-
-<p>  ]
-}
-[/code]</p>
 
 <p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &#8216;http://my-site.com/geojson/boundary/{boundary_id}/&#8217;. Pass this to your web mapping client, and you&#8217;re ready to rock.</p>
 </div>

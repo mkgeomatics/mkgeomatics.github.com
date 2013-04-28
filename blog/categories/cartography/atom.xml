@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cartography | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/cartography/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T11:22:37-07:00</updated>
+  <updated>2013-04-28T11:33:16-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -33,7 +33,7 @@
 
 <p>But can also be represtented as a vector tile (.../10/16/357.json), like this:</p>
 
-<p>[sourcecode language="js"]
+<p>``` javascript
 // Subset of a single 256x256 pixel vector tile.
 {
   "type": "FeatureCollection",
@@ -68,7 +68,7 @@
 
 <p>  ]
 }
-[/sourcecode]</p>
+```</p>
 
 <p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers' GeoJSON</a> format reader to populate a vector layer in OL. It's an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS... only request those sections of data which you need at that time. By only requesting those tiles within the user's current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS's can be pre-cached to disk (seeded), so can vector tiles.</p>
 
@@ -82,7 +82,8 @@
 
 <p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
 
-<p>{
+<p><code>javascript
+{
 "type": "FeatureCollection",
 "features": [{
 "geometry": {
@@ -104,7 +105,8 @@ http: //jsbeautifier.org/
 },
 "id": 1280
 }]
-}</p>
+}
+</code></p>
 ]]></content>
   </entry>
   
