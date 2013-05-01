@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-29T18:47:27-07:00</updated>
+  <updated>2013-04-30T23:25:01-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,129 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Aerial Tiles]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/04/30/hack-geodjango-admin-with-mapquest-aerial-tiles/"/>
+    <updated>2013-04-30T21:38:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/04/30/hack-geodjango-admin-with-mapquest-aerial-tiles</id>
+    <content type="html"><![CDATA[<p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
+GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
+as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
+for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. My application deals
+primarilly with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
+Our data occur primarilly in non-urban areas, where natural features provide a much
+better context for orientation then would be expected with any streets layer, OSM or otherwise.
+Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
+
+<p>It's easier to place a point on this:</p>
+
+<p>{% img http://mattmakesmaps.com/images/2013-04-30/aerial.jpg 500 %}</p>
+
+<p>Then this:</p>
+
+<p>{% img http://mattmakesmaps.com/images/2013-04-30/osm.png 500 %}</p>
+
+<p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
+From the gis contrib package, we'll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py"><strong>init</strong>.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
+folder</a>,
+we'll create two new files, a html template file, that actually points to a javascript file
+containing a reference to the Mapquest Open Aerial tiles service.</p>
+
+<h2>Creating mapquestGeoAdminSubclass</h2>
+
+<p>The <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py#L132-L139">OSMGeoAdmin class</a> is a subclass of the base GeoModelAdmin. The GeoModelAdmin contains a set of
+configuration parameters for the map, covering basic setup. The OSMGeoAdmin class utilizes
+many of those configuration parameters, but configures the map for a spherical mercator projection.
+Since our Mapquest Aerial Tiles also require a spherical mercator projection, our class will
+be a subclass of the OSMGeoAdmin.</p>
+
+<p>We add the following code below the OSMGeoAdmin class definition.</p>
+
+<p>``` python</p>
+
+<pre><code># Subclass OSMGeoAdmin, pointing to the To-Be-Created
+# Mapquest template file.`
+class mapquestGeoAdmin(OSMGeoAdmin):
+    map_template = 'gis/admin/mapquest.html'
+</code></pre>
+
+<p>```</p>
+
+<h2>Modify the GIS Admin Package's <strong>init</strong>.py</h2>
+
+<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let's modify it to include our
+new subclass</p>
+
+<p>``` python</p>
+
+<pre><code># From this
+from django.contrib.gis.admin.options import OSMGeoAdmin
+# To this
+from django.contrib.gis.admin.options import OSMGeoAdmin, mapquestGeoAdmin
+</code></pre>
+
+<p>```</p>
+
+<h2>Create mapquest.js</h2>
+
+<p>Again, using the OpenStreetMap implementation as a reference, we can see that
+<a href="https://github.com/django/django/blob/master/django/contrib/gis/templates/gis/admin/osm.js">osm.js</a> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
+block with an a reference to the OpenStreetMap layer.</p>
+
+<p>We'll create a similar file in this package called <code>mapquest.js</code>. The contents are as
+follows:</p>
+
+<p>```
+{# Source: http://openlayers.org/dev/examples/mapquest.html #}
+{% extends "gis/admin/openlayers.js" %}
+{% block base_layer %}</p>
+
+<pre><code>    new OpenLayers.Layer.XYZ(
+        "Imagery",
+        [
+            "http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
+            "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
+            "http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
+            "http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png"
+        ],
+        {
+            attribution: "Tiles Courtesy of &lt;a href='http://open.mapquest.co.uk/' target='_blank'&gt;MapQuest&lt;/a&gt;. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. &lt;img src='http://developer.mapquest.com/content/osm/mq_logo.png' border='0'&gt;",
+            transitionEffect: "resize"
+        }
+    )
+</code></pre>
+
+<p>{% endblock %}
+```</p>
+
+<h2>Create mapquest.html</h2>
+
+<p>In the same folder, we'll create an html template file, pointing to our javascript file.
+We'll call the file <code>mapquest.html</code>. Here are the contents:</p>
+
+<p><code>
+{% extends "gis/admin/openlayers.html" %}
+{% block openlayers %}{% include "gis/admin/mapquest.js" %}{% endblock %}
+</code></p>
+
+<h2>In admin.py, Reference mapquestGeoAdmin</h2>
+
+<p>The last step is to replace references to <code>GeoModelAdmin</code> or <code>OSMGeoAdmin</code> to
+<code>mapquestGeoAdmin</code>.</p>
+
+<p>```
+class PntTraxGeoAdmin(admin.mapquestGeoAdmin):</p>
+
+<pre><code>"""Base Class for Geometry Table Admin"""
+list_display = ('name','collectDate','group','featurePurpose','collectionMethod')
+list_editable = ('featurePurpose','group','collectionMethod')
+list_filter = ('featurePurpose','group__name')
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GeoDjango: Standing Up A GeoJSON Web-Service]]></title>
@@ -339,75 +462,6 @@ ogr2ogr -f "GeoJSON" ogrstops.json PG:"host=localhost dbname=routing user=postgr
 <p>[/sourcecode]</p>
 
 <p>Now that the features have been uploaded, we can view them via FeatureServer as <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.georss">GeoRSS</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.kml">KML</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.json">JSON</a>, <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/all.gml">GML</a>. Neat!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[pgRouting III: PHP + OpenLayers Interface]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/"/>
-    <updated>2010-02-06T09:47:11-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
-    <content type="html"><![CDATA[<p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
-
-<p>The conceptual plan is as follows: <!-- more --></p>
-
-<ul>
-<li><p>Extract the geometry of a user's click on the map.</p></li>
-<li><p>Pass the extracted geometry to a PHP script, via an HTTP GET request.</p></li>
-<li><p>Use the PHP script to pass the geometry as part of an SQL query against the PostGIS/pgRouting database.</p></li>
-<li><p>Return the geometry from the database as <a href="http://geojson.org/">GeoJSON</a>, and deserialize it into an OpenLayers vector layer feature.</p></li>
-</ul>
-
-
-<p>The code to extract a user's clicked coordinates was taken from <a href="http://openlayers.org/dev/examples/click.html">this</a> OpenLayers example. It was then modified to pass the xy coordinates to a second function, designed to create a URL which will execute a PHP script.</p>
-
-<p>[sourcecode language="javascript"]trigger: function(e) {
- var xy = map.getLonLatFromViewPortPx(e.xy);
- executeSQL(xy);
- }[/sourcecode]</p>
-
-<p>Passing the XY variable to the executeSQL() function, we are able to now seperate out the individual X and Y coordinates, and apply them to their respective parameters in our URL string.</p>
-
-<p>[sourcecode language="javascript"]// Build the URL
- var json_url = "http://localhost/near_vertex_astar.php?";
- json_url += "x=" + escape(xy.lon);
- json_url += "&amp;y=" + escape(xy.lat);[/sourcecode]</p>
-
-<p>Having constructed the URL, we are now ready to use it to populate an OpenLayers vector layer with data.</p>
-
-<p>[sourcecode language="javascript"]// Make a fresh vector layer, pulling features from our script URL
- json_layer = new OpenLayers.Layer.Vector("GeoJSON", {
- styleMap: myStyles,
- strategies: [new OpenLayers.Strategy.Fixed()],
- protocol: new OpenLayers.Protocol.HTTP({
- url: json_url,
- format: new OpenLayers.Format.GeoJSON()
- })
- });[/sourcecode]</p>
-
-<p>Alright! So where are we at right now? A user has clicked the map, and that click's geometry has been extracted and sent to a PHP script on the server for further work. The PHP script will execute SQL in the PostGIS/pgRouting data base to do the following:</p>
-
-<ul>
-<li><p>Find the closest vertex in our routing network to the user's map click. This will be used as a source vertex.</p></li>
-<li><p>Find all firestations within 5km of the vertex (which have been pre-attributed with the closest vertex on the routing network to their location).</p></li>
-<li><p>Calculate the cost (as defined by total length of the route) from the source vertex to each fire station (really the routing network vertex).</p></li>
-<li><p>Return back as GeoJSON only the geometry for the route with the lowest cost.</p></li>
-</ul>
-
-
-<p>Why all the hassle with determining the cost? Can't you just use PostGIS' ST_DWithin() function to find the closet firestation to our user's click and create the route? Well you could, but it might not always be the shortest route.</p>
-
-<p>[caption id="attachment_339" align="alignnone" width="300" caption="Euclidean distance versus Manhattan. Which one is shorter?"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance-300x279.png" alt="Euclidean distance versus Manhattan. Which one is shorter?" /></a>[/caption]</p>
-
-<p>This behavior can be respresented in the routing network with the example below. Two different routes are generated from the same source vertex based on the combination of routing algorithm and account for route cost. On the left, the <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">dijkstra algorithm</a> is used to return the route to the closest fire station as the result of an ST_DWithin() query. On the right, the A-Star algorithm is used, and the route costs of all fire stations within a buffer are taken into account. As we can see, a different route and a different station are returned.</p>
-
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1-1024x338.png" alt="Comparing the two search algorithms and cost relationships." /></a></p>
-
-<p>A link to the JS and PHP scripts can be found at the end of this post. This definitely is not the most elegant solution to working with routing, but in terms of an experiment it was a great learning exercise. I'm really excited to dive deeper into PostGIS and pgRouting. The next step in the process will be incorporating OSM data, and adding in addition attributes which affect cost (speed limits, one-way streets, etc).</p>
-
-<p>View the <a href="http://mkgeomatics.com/apps/syntaxhighlighter/astar_php.html">PHP</a>.</p>
-
-<p>View the <a href="http://mkgeomatics.com/apps/syntaxhighlighter/astar.html">OL JS</a>.</p>
 ]]></content>
   </entry>
   
