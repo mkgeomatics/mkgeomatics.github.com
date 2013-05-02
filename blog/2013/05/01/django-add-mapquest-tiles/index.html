@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hack GeoDjango Admin with Mapquest Tiles - mattmakesmaps</title>
+  <meta name="author" content="Matthew Kenny">
+  <link rel="author" href="humans.txt">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  
+    
+  
+  <meta name="description" content="The GeoDjango model admin provides a great OpenLayers interface, allowing a user to create geographic features (points, lines, polygons) directly &hellip;">
+  <meta name="keywords" content="geodjango, geojson, django, web mapping, open source">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+  <meta name="og:type" content="website" />
+  <meta name="og:site_name" content="mattmakesmaps" />
+  <meta name="og:title" content="Hack GeoDjango Admin with Mapquest Tiles" />
+  <meta name="og:description" content="The GeoDjango model admin provides a great OpenLayers interface, allowing a user to create geographic features (points, lines, polygons) directly &hellip;" />
+  <meta name="og:url" content="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/"/>
+  <meta name="url" content="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/">
+  
+  <meta name="subject" content="Web-GIS"/>
+  <meta name="category" content="Web-GIS"/>
+  
+  <meta name="distribution" content="global">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+  <div class="container">
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
+    <a class="brand" href="/">mattmakesmaps</a>
+    <div class="nav-collapse collapse">
+    <ul class="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
+      <li><a href="/blog/archives">Archives</a></li>
+    </ul>
+    <ul class="nav" data-subscription="rss">
+      <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+      
+    </ul>
+      
+    <form class="navbar-form" action="http://google.com/search" method="get">
+      <fieldset role="search">
+        <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+        <input class="span2" type="text" name="q" results="0" placeholder="Search"/>
+      </fieldset>
+    </form>
+      
+    
+    </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="wrapper_single">
+    <div class="container">
+      <article class="span8 offset2" role="article">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title">Hack GeoDjango Admin With Mapquest Tiles</h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Matthew Kenny</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-01T20:53:00-07:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
+GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
+as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
+for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. <!-- more -->My application deals
+primarily with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
+Our data occur primarily in non-urban areas, where natural features provide a much
+better context for orientation then would be expected with any streets layer, OSM or otherwise.
+Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
+
+<p>It&#8217;s easier to place a point on this:</p>
+
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/aerial.jpg" width="500"></p>
+
+<p>Then this:</p>
+
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/osm.png" width="500"></p>
+
+<p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
+From the gis contrib package, we&#8217;ll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
+folder</a>,
+we&#8217;ll create two new files, a html template file, that actually points to a javascript file
+containing a reference to the Mapquest Open Aerial tiles service.</p>
+
+<h2>Creating mapquestGeoAdminSubclass</h2>
+
+<p>The <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py#L132-L139">OSMGeoAdmin class</a> is a subclass of the base GeoModelAdmin. The GeoModelAdmin contains a set of
+configuration parameters for the map, covering basic setup. The OSMGeoAdmin class utilizes
+many of those configuration parameters, but configures the map for a spherical mercator projection.
+Since our Mapquest Aerial Tiles also require a spherical mercator projection, our class will
+be a subclass of the OSMGeoAdmin.</p>
+
+<p>We add the following code below the OSMGeoAdmin class definition.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Subclass OSMGeoAdmin, pointing to the To-Be-Created</span>
+</span><span class='line'><span class="c"># Mapquest template file.`</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">mapquestGeoAdmin</span><span class="p">(</span><span class="n">OSMGeoAdmin</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">map_template</span> <span class="o">=</span> <span class="s">&#39;gis/admin/mapquest.html&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Modify the GIS Admin Package&#8217;s __init__.py</h2>
+
+<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let&#8217;s modify it to include our
+new subclass</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># From this</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.gis.admin.options</span> <span class="kn">import</span> <span class="n">OSMGeoAdmin</span>
+</span><span class='line'><span class="c"># To this</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.gis.admin.options</span> <span class="kn">import</span> <span class="n">OSMGeoAdmin</span><span class="p">,</span> <span class="n">mapquestGeoAdmin</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Create mapquest.js</h2>
+
+<p>Again, using the OpenStreetMap implementation as a reference, we can see that <code>osm.js</code> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
+block with an a reference to the OpenStreetMap layer.</p>
+
+<p>We&#8217;ll create a similar file in this package called <code>mapquest.js</code>. The contents are as
+follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span><span class="c"># Source: http://openlayers.org/dev/examples/mapquest.html #}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s">&quot;gis/admin/openlayers.js&quot;</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">base_layer</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>        <span class="n">new</span> <span class="n">OpenLayers</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span>
+</span><span class='line'>            <span class="s">&quot;Imagery&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">[</span>
+</span><span class='line'>                <span class="s">&quot;http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span>
+</span><span class='line'>            <span class="p">],</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">attribution</span><span class="p">:</span> <span class="s">&quot;Tiles Courtesy of &lt;a href=&#39;http://open.mapquest.co.uk/&#39; target=&#39;_blank&#39;&gt;MapQuest&lt;/a&gt;. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. &lt;img src=&#39;http://developer.mapquest.com/content/osm/mq_logo.png&#39; border=&#39;0&#39;&gt;&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="n">transitionEffect</span><span class="p">:</span> <span class="s">&quot;resize&quot;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Create mapquest.html</h2>
+
+<p>In the same folder, we&#8217;ll create an html template file, pointing to our javascript file.
+We&#8217;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s">&quot;gis/admin/openlayers.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">openlayers</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">include</span> <span class="s">&quot;gis/admin/mapquest.js&quot;</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>In admin.py, Reference mapquestGeoAdmin</h2>
+
+<p>The last step is to replace references to <code>GeoModelAdmin</code> or <code>OSMGeoAdmin</code> to
+<code>mapquestGeoAdmin</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">PntTraxGeoAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">mapquestGeoAdmin</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;Base Class for Geometry Table Admin&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;collectDate&#39;</span><span class="p">,</span><span class="s">&#39;group&#39;</span><span class="p">,</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;collectionMethod&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;group&#39;</span><span class="p">,</span><span class="s">&#39;collectionMethod&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;group__name&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And there you go. Your Django GeoAdmin interface is now rocking aerial tiles courtesy
+of Mapquest.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Matthew Kenny</span></span>
+  
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-01T20:53:00-07:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+      
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/" data-via="mattmakesmaps" data-counturl="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    
+      <a class="pull-left" href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/" title="Previous Post: GeoDjango: Standing Up A GeoJSON Web-Service">&laquo; GeoDjango: Standing Up A GeoJSON Web-Service</a>
+    
+    
+  </footer>
+
+</div>
+
+        
+          <div class="article-format">
+            <h1>Comments</h1>
+            <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+          </div>
+        
+      </article>
+    </div>
+  </div>
+  <div id="footer-widgets">
+  <div class="container">
+    <div class="row">
+  <div class="span3">
+    <h2>recent posts</h2>
+    <ul class="recent_posts">
+      
+        <li>
+          <a href="/blog/2013/05/01/django-add-mapquest-tiles/">Hack GeoDjango Admin with Mapquest Tiles</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL'ing to FeatureServer from PostGIS: Easier then I Thought</a>
+        </li>
+      
+    </ul>
+    <h2><a href="/blog/archives">archives</a></h2>
+  </div>
+  <div class="span3">
+    
+
+  </div>
+  <div class="span4">
+    
+<h2>twitter</h2>
+<a href="https://twitter.com/mattmakesmaps" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @mattmakesmaps</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="tweet" data-twitter-user="mattmakesmaps">
+</div>
+
+
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+
+<a href="https://github.com/mattmakesmaps/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+
+
+<a href="http://www.linkedin.com/in/mattmakesmaps" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/mattmakesmaps" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+
+
+
+
+
+
+
+<h2>contact at</h2>
+<a href="mailto:matthewkenny AT gmail DOT com">matthewkenny AT gmail DOT com</a>
+
+
+  </div>
+</div>
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">
+  <a href="/">mattmakesmaps</a>
+  - Copyright &copy; 2013 - Matthew Kenny
+</p>
+<p class="pull-right">
+  <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
+  
+    <span>Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.</span>
+  
+</p>
+
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
+<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
+<script src="/javascripts/custom.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/';
+        var disqus_url = 'http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

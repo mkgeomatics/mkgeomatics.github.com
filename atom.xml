@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-29T18:47:27-07:00</updated>
+  <updated>2013-05-01T21:00:04-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,151 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Tiles]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/"/>
+    <updated>2013-05-01T20:53:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles</id>
+    <content type="html"><![CDATA[<p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
+GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
+as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
+for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. <!-- more -->My application deals
+primarily with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
+Our data occur primarily in non-urban areas, where natural features provide a much
+better context for orientation then would be expected with any streets layer, OSM or otherwise.
+Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
+
+<p>It&#8217;s easier to place a point on this:</p>
+
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/aerial.jpg" width="500"></p>
+
+<p>Then this:</p>
+
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/osm.png" width="500"></p>
+
+<p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
+From the gis contrib package, we&#8217;ll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
+folder</a>,
+we&#8217;ll create two new files, a html template file, that actually points to a javascript file
+containing a reference to the Mapquest Open Aerial tiles service.</p>
+
+<h2>Creating mapquestGeoAdminSubclass</h2>
+
+<p>The <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py#L132-L139">OSMGeoAdmin class</a> is a subclass of the base GeoModelAdmin. The GeoModelAdmin contains a set of
+configuration parameters for the map, covering basic setup. The OSMGeoAdmin class utilizes
+many of those configuration parameters, but configures the map for a spherical mercator projection.
+Since our Mapquest Aerial Tiles also require a spherical mercator projection, our class will
+be a subclass of the OSMGeoAdmin.</p>
+
+<p>We add the following code below the OSMGeoAdmin class definition.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Subclass OSMGeoAdmin, pointing to the To-Be-Created</span>
+</span><span class='line'><span class="c"># Mapquest template file.`</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">mapquestGeoAdmin</span><span class="p">(</span><span class="n">OSMGeoAdmin</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">map_template</span> <span class="o">=</span> <span class="s">&#39;gis/admin/mapquest.html&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Modify the GIS Admin Package&#8217;s __init__.py</h2>
+
+<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let&#8217;s modify it to include our
+new subclass</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># From this</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.gis.admin.options</span> <span class="kn">import</span> <span class="n">OSMGeoAdmin</span>
+</span><span class='line'><span class="c"># To this</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.gis.admin.options</span> <span class="kn">import</span> <span class="n">OSMGeoAdmin</span><span class="p">,</span> <span class="n">mapquestGeoAdmin</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Create mapquest.js</h2>
+
+<p>Again, using the OpenStreetMap implementation as a reference, we can see that <code>osm.js</code> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
+block with an a reference to the OpenStreetMap layer.</p>
+
+<p>We&#8217;ll create a similar file in this package called <code>mapquest.js</code>. The contents are as
+follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span><span class="c"># Source: http://openlayers.org/dev/examples/mapquest.html #}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s">&quot;gis/admin/openlayers.js&quot;</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">base_layer</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>        <span class="n">new</span> <span class="n">OpenLayers</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span>
+</span><span class='line'>            <span class="s">&quot;Imagery&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">[</span>
+</span><span class='line'>                <span class="s">&quot;http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&quot;http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png&quot;</span>
+</span><span class='line'>            <span class="p">],</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">attribution</span><span class="p">:</span> <span class="s">&quot;Tiles Courtesy of &lt;a href=&#39;http://open.mapquest.co.uk/&#39; target=&#39;_blank&#39;&gt;MapQuest&lt;/a&gt;. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. &lt;img src=&#39;http://developer.mapquest.com/content/osm/mq_logo.png&#39; border=&#39;0&#39;&gt;&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="n">transitionEffect</span><span class="p">:</span> <span class="s">&quot;resize&quot;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Create mapquest.html</h2>
+
+<p>In the same folder, we&#8217;ll create an html template file, pointing to our javascript file.
+We&#8217;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s">&quot;gis/admin/openlayers.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">openlayers</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">include</span> <span class="s">&quot;gis/admin/mapquest.js&quot;</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>In admin.py, Reference mapquestGeoAdmin</h2>
+
+<p>The last step is to replace references to <code>GeoModelAdmin</code> or <code>OSMGeoAdmin</code> to
+<code>mapquestGeoAdmin</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">PntTraxGeoAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">mapquestGeoAdmin</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;Base Class for Geometry Table Admin&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;collectDate&#39;</span><span class="p">,</span><span class="s">&#39;group&#39;</span><span class="p">,</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;collectionMethod&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;group&#39;</span><span class="p">,</span><span class="s">&#39;collectionMethod&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;featurePurpose&#39;</span><span class="p">,</span><span class="s">&#39;group__name&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And there you go. Your Django GeoAdmin interface is now rocking aerial tiles courtesy
+of Mapquest.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GeoDjango: Standing Up A GeoJSON Web-Service]]></title>
@@ -946,23 +1091,6 @@ A GRASS-based approach to creating a TMS layer is possible, and has been outline
 <p>[caption id=&#8221;attachment_200&#8221; align=&#8221;alignnone&#8221; width=&#8221;215&#8221; caption=&#8221;Above: Digitization Conflict&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png" alt="Above: Digitization Conflict" /></a>[/caption]</p>
 
 <p>I&#8217;m excited to continue working on the OSM project, and hope to see more mapping parties in the future. Speaking with <a href="http://cloudmade.com/team/brandon-aguirre">Brandon</a>, our contact at CloudMade, I mentioned that the end of January could be a potential date. This would be the first week of the new semester for MAS-GIS, and hopefully more of the students will come out and support the project!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OpenStreetMap.org Mapping Party This Weekend]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend/"/>
-    <updated>2008-12-04T06:29:01-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend</id>
-    <content type="html"><![CDATA[<p><a href="http://www.meetup.com/OpenStreetMap-Phoenix/">http://www.meetup.com/OpenStreetMap-Phoenix/</a> It&#8217;s going to rock. It really is.</p>
-
-<p>Having just heard of OSM a little over a month ago, and using their tiles for about two weeks now&#8230; I&#8217;m really excited to give back to the OSM community. In a way, it&#8217;s a chance for those who have never committed code to a FOSS project (like me) to really add some positive input back <!-- more --> into a community that we are a part of, if only in a small way. But hey, if we are all contributing small bits to the project-at-large&#8230; it&#8217;ll add up. A little &#8217;<a href="http://en.wikipedia.org/wiki/Neogeography">neogeography</a>&#8217;, anyone?</p>
-
-<p>Additionally, I have put together a small tool to compare the current OSM offerings to that of various commercial mapping vendors (Google, Microsoft VE). Pretty fun exploration of the OpenLayers API!</p>
-
-<p>Check it out here: <a href="http://mkgeomatics.com/apps/openlayers/osm_compare.html">http://mkgeomatics.com/apps/openlayers/osm_compare.html</a></p>
-
-<p>[caption id=&#8221;attachment_196&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Quick and Dirty OSM Tool&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/osm_tool.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/osm_tool-300x244.jpg" alt="Above: Quick and Dirty OSM Tool" /></a>[/caption]</p>
 ]]></content>
   </entry>
   
