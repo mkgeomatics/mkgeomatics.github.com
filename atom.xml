@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-05-01T21:03:32-07:00</updated>
+  <updated>2013-05-01T21:04:47-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -155,17 +155,6 @@ We&#8217;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
 
 <p>And there you go. Your Django GeoAdmin interface is now rocking aerial tiles courtesy
 of Mapquest.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Use Prose.io]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/12/12/test-file/"/>
-    <updated>2011-12-12T00:30:17-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/12/12/test-file</id>
-    <content type="html"><![CDATA[<h1>Prose.io</h1>
-
-<p>You can check it out <a href="http://prose.io">here</a>.</p>
 ]]></content>
   </entry>
   
@@ -1083,6 +1072,25 @@ FROM export;[/sourcecode]</p>
 
 <p>Additional Note:
 A GRASS-based approach to creating a TMS layer is possible, and has been outlined in <a href="sunbird.jrc.it/pvgis/doc/paper/2008_OSGeo5_TiledMapServices.pdf">this paper</a> appearing in the OSGeo Journal.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OSM Recap]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2008/12/08/osm-recap/"/>
+    <updated>2008-12-08T02:01:36-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2008/12/08/osm-recap</id>
+    <content type="html"><![CDATA[<p>What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by <a href="http://www.cloudmade.com/">CloudMade</a> and hosted locally by <a href="http://gangplankhq.com/">Gangplank</a>. On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, &#8216;crowdsourcing&#8217;. <!-- more --> The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.</p>
+
+<p>Here is the result of our work:</p>
+
+<p>[caption id=&#8221;attachment_199&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: ASU Mapping Party&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/export.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/export-300x225.png" alt="ASU Mapping Party" /></a>[/caption]</p>
+
+<p>In any event, we decided to focus our efforts on ASU&#8217;s campus for the weekend. Before we went out with GPS units, an OSM&#8217;er named &#8216;jfuredy&#8217; had actually taken a stab at some rooftop digitization of buildings along campus. I&#8217;ve already noticed that there are inherent conflicts that occur by digitizing from rooftops. Tall buildings of course, will appear oblique, with their roofs offset from their actual footprints. This creates scenarios in which buildings (created from oblique angled rooftops) are overlapping walkways.</p>
+
+<p>[caption id=&#8221;attachment_200&#8221; align=&#8221;alignnone&#8221; width=&#8221;215&#8221; caption=&#8221;Above: Digitization Conflict&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-2.png" alt="Above: Digitization Conflict" /></a>[/caption]</p>
+
+<p>I&#8217;m excited to continue working on the OSM project, and hope to see more mapping parties in the future. Speaking with <a href="http://cloudmade.com/team/brandon-aguirre">Brandon</a>, our contact at CloudMade, I mentioned that the end of January could be a potential date. This would be the first week of the new semester for MAS-GIS, and hopefully more of the students will come out and support the project!</p>
 ]]></content>
   </entry>
   
