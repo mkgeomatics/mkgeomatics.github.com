@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-30T23:25:01-07:00</updated>
+  <updated>2013-05-01T21:00:04-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -14,29 +14,29 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Aerial Tiles]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/04/30/hack-geodjango-admin-with-mapquest-aerial-tiles/"/>
-    <updated>2013-04-30T21:38:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/04/30/hack-geodjango-admin-with-mapquest-aerial-tiles</id>
+    <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Tiles]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/"/>
+    <updated>2013-05-01T20:53:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles</id>
     <content type="html"><![CDATA[<p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
 GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
 as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
-for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. My application deals
-primarilly with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
-Our data occur primarilly in non-urban areas, where natural features provide a much
+for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. <!-- more -->My application deals
+primarily with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
+Our data occur primarily in non-urban areas, where natural features provide a much
 better context for orientation then would be expected with any streets layer, OSM or otherwise.
 Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
 
 <p>It's easier to place a point on this:</p>
 
-<p>{% img http://mattmakesmaps.com/images/2013-04-30/aerial.jpg 500 %}</p>
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/aerial.jpg" width="500"></p>
 
 <p>Then this:</p>
 
-<p>{% img http://mattmakesmaps.com/images/2013-04-30/osm.png 500 %}</p>
+<p><img src="http://mattmakesmaps.com/images/2013-04-30/osm.png" width="500"></p>
 
 <p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
-From the gis contrib package, we'll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py"><strong>init</strong>.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
+From the gis contrib package, we'll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
 folder</a>,
 we'll create two new files, a html template file, that actually points to a javascript file
 containing a reference to the Mapquest Open Aerial tiles service.</p>
@@ -61,7 +61,7 @@ class mapquestGeoAdmin(OSMGeoAdmin):
 
 <p>```</p>
 
-<h2>Modify the GIS Admin Package's <strong>init</strong>.py</h2>
+<h2>Modify the GIS Admin Package's __init__.py</h2>
 
 <p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let's modify it to include our
 new subclass</p>
@@ -78,14 +78,14 @@ from django.contrib.gis.admin.options import OSMGeoAdmin, mapquestGeoAdmin
 
 <h2>Create mapquest.js</h2>
 
-<p>Again, using the OpenStreetMap implementation as a reference, we can see that
-<a href="https://github.com/django/django/blob/master/django/contrib/gis/templates/gis/admin/osm.js">osm.js</a> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
+<p>Again, using the OpenStreetMap implementation as a reference, we can see that <code>osm.js</code> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
 block with an a reference to the OpenStreetMap layer.</p>
 
 <p>We'll create a similar file in this package called <code>mapquest.js</code>. The contents are as
 follows:</p>
 
-<p>```
+<p>
+```
 {# Source: http://openlayers.org/dev/examples/mapquest.html #}
 {% extends "gis/admin/openlayers.js" %}
 {% block base_layer %}</p>
@@ -106,17 +106,20 @@ follows:</p>
 </code></pre>
 
 <p>{% endblock %}
-```</p>
+```
+</p>
 
 <h2>Create mapquest.html</h2>
 
 <p>In the same folder, we'll create an html template file, pointing to our javascript file.
 We'll call the file <code>mapquest.html</code>. Here are the contents:</p>
 
-<p><code>
+<p>
+<code>
 {% extends "gis/admin/openlayers.html" %}
 {% block openlayers %}{% include "gis/admin/mapquest.js" %}{% endblock %}
-</code></p>
+</code>
+</p>
 
 <h2>In admin.py, Reference mapquestGeoAdmin</h2>
 
@@ -133,6 +136,9 @@ list_filter = ('featurePurpose','group__name')
 </code></pre>
 
 <p>```</p>
+
+<p>And there you go. Your Django GeoAdmin interface is now rocking aerial tiles courtesy
+of Mapquest.</p>
 ]]></content>
   </entry>
   
