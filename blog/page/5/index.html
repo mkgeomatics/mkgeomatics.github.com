@@ -14,7 +14,7 @@
   
     
   
-  <meta name="description" content=" Open Source GIS Notebook ">
+  <meta name="description" content=" open source mapping notes from cascadia ">
   
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -30,7 +30,7 @@
   <meta name="og:type" content="website" />
   <meta name="og:site_name" content="mattmakesmaps" />
   <meta name="og:title" content="mattmakesmaps" />
-  <meta name="og:description" content=" Open Source GIS Notebook " />
+  <meta name="og:description" content=" open source mapping notes from cascadia " />
   <meta name="og:url" content="http://mkgeomatics.github.io/blog/page/5/index.html"/>
   <meta name="url" content="http://mkgeomatics.github.io/blog/page/5/index.html">
   
@@ -38,13 +38,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -52,16 +59,16 @@
 <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -77,8 +84,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -89,7 +96,7 @@
   <h1>
     mattmakesmaps
   </h1>
-  <h2>open source mapping notes</h2>
+  <h2>open source mapping notes from cascadia</h2>
 </div>
 
     </div>
@@ -99,7 +106,7 @@
       <div class="row">
   <div class="span4">
     <h2>in brief</h2>
-<p>I&#8217;m a GIS Analyst at the Seattle-based environmental consulting firm, RIDOLFI Inc. Some may say that Open Source GIS software is my jam.</p>
+<p>I&#8217;m a GIS Analyst at the Seattle-based environmental engineering firm, RIDOLFI Inc. Some may say that Open Source web mapping is my jam.</p>
 
   </div>
   <div class="span6">
@@ -153,7 +160,7 @@
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/04/05/spatiallite-my-first-look/">SpatialLite: My First Look</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/21/whew/">Whew&#8230;</a></h1>
     
     
       <p class="meta">
@@ -178,71 +185,7 @@
   
 
 
-<time datetime="2009-04-05T05:45:46-07:00" pubdate data-updated="true">Apr 5<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/databases/'>Databases</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>With such a small footprint (a single file) <a href="http://www.gaia-gis.it/spatialite/">SpatialLite</a> appears to a novice like myself to be a fantastic niche storage solution for spatial data. In an environment where installing larger FOSS databases such as MySQL or PostGIS/PostgreSQL can be prohibitive, Spatial Lite appears to provide a great solution. Using the provided GUI interface, it&#8217;s extremely easy for a first-time user to create an sqllite dbase, load multiple shapefiles, and create spatial indexes against them. Analogous to a FOSSGIS ESRI Geodatabase, I can see a lot of potential uses for GIS developers who require the indexing and searching power of a database as well as the portability of formats such as an ESRI Shapefile or KML.</p>
-
-<p>It looks like a <a href="http://geobabble.wordpress.com/2009/03/26/spatiallite-support-in-qgis/">QGIS connection</a> is in the works for the 1.1 release as well.</p>
-
-<p>I&#8217;m not sure if it&#8217;s already being done, but I&#8217;d bet that it would be pretty easy to put together a SpatialLite / <a href="http://featureserver.org/">FeatureServer</a> combination, considering its native support for so many spatial-backends.</p>
-
-<p>Some tutorials I&#8217;ve found to be very helpful have come from: <a href="http://www.bostongis.com/PrinterFriendly.aspx?content_name=spatialite_tut01">BostonGIS</a> and the <a href="http://www.gaia-gis.it/spatialite/spatialite-2.2_tutorial.html">SpatialLite project site</a>.</p>
-</div>
-  
-  
-
-
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/03/13/arcgis-rest-api-openlayers-unit-testing-fun-in-the-sun/">ArcGIS REST API / OpenLayers / Unit Testing = Fun in the Sun</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">admin</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-13T12:31:39-07:00" pubdate data-updated="true">Mar 13<span>th</span>, 2009</time> - 
+<time datetime="2008-11-21T10:21:14-08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2008</time> - 
         
 
 posted in
@@ -259,33 +202,16 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Until today, I had never truly appreciated the value of unit testing. I recently had the need to bring <a href="http://dev.openlayers.org/sandbox/august/openlayers/openlayers-2.6/examples/ags/index.html">these ArcGIS REST controls</a>, designed for version 2.6 of OpenLayers, into the current development version. Having no real idea how to get started on this process, I looked to the unit tests as a guide to what needed to be changed. One might be asking why this was necessary, when the team over at Avencia just put together a great <a href="http://trac.openlayers.org/ticket/1749">ArcGIS REST Plugin</a> that has made its way into the trunk for the upcoming 2.8 release. The answer is that both plugins do different things well. The older AGSControls can perform &#8216;Identify&#8217; and &#8216;Geoprocessing&#8217; operations rather well, while the Avencia plugin does a great job at displaying and querying a subset of a layer resource.</p>
+  <div class="entry-content"><p>This took a &#8216;lot&#8217; longer than i expected.</p>
 
-<p>In any event, the <a href="http://straytree.com/TestAnotherWay/doc/index.html">Test.AnotherWay</a> suite, used by OpenLayers, provides an easy-to-navigate interface for debugging javascript code.</p>
+<p><a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html">http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84.html</a></p>
 
-<p>In two steps I was able to begin the debugging process.</p>
-
-<p>First, adding the unit test for the AGSControl to the &#8216;list-tests.html&#8217; file located in the &#8216;tests&#8217; folder of a development version of OpenLayers. This unit test, written by the developer, needs to manually downloaded and incorporated into the standard series of tests that come with OpenLayers. As we can see from the image below, this particular test was written as an html file and placed into the &#8216;Control&#8217; sub-directory of the &#8216;tests&#8217; directory.</p>
-
-<p>[caption id=&#8221;attachment_256&#8221; align=&#8221;alignnone&#8221; width=&#8221;224&#8221; caption=&#8221;Above: Adding a link to the unit test for use by Test.AnotherWay&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/list_test.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/list_test.png" alt="Adding a link to the unit test for use by Test.AnotherWay" /></a>[/caption]</p>
-
-<p>After adding the test, we open up &#8216;run-tests.html&#8217; in the browser and select &#8216;AgsControl&#8217; from the list. After the test has executed, the results are provided to us. With the red light of failure burning bright, we might think to abandon all hope. We are, however, given the cause and location of the failure, an invaluable clue as to where to start debugging. Time to soldier on.</p>
-
-<p>[caption id=&#8221;attachment_257&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Unit Test Failure&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_fail.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_fail-300x98.png" alt="Above: Unit Test Failure" /></a>[/caption]</p>
-
-<p>Using these test results as a road map, even I can eventually debug a plugin. The green light of success offers a reassuring reminder that all is well in the GIS world.</p>
-
-<p>[caption id=&#8221;attachment_259&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Successful Unit Test&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_success1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/03/ags_success1-300x112.png" alt="Above: Successful Unit Test" /></a>[/caption]</p>
-
-<p>I&#8217;ve taken away a few things from this experience. Firstly, I&#8217;m again deeply impressed by the time and effort that developers in the Open Source community are putting into these projects. The only reason that I could even dream of modifying any of this source code is due to the fact that the developer of the AGSControls provided such detailed unit tests. These allowed me to wrap my brain around what was going on with the code, and how it could be updated. Taking the time to not only write code, but to also provide tools so that others can understand it and modify it with ease is something that I think I&#8217;ll always be impressed with. And of course, I&#8217;ll be continuing to rely on unit tests as debugging tools as i continue my exploration of javascript programming.</p>
-
-<p>In the words of <a href="http://www.davebouwman.net/">Dave Bouwman</a>, who has a whopping fourteen posts in his tag cloud on the subject:</p>
-
-<blockquote><p>Unit testing is quite possibly the single best practice for ensuring that your code is bug free (or very nearly bug free!).</p></blockquote>
-
-<p>His &#8216;fundamentals&#8217; article provides a great introduction on the subject: which can be read <a href="http://www.davebouwman.net/fundamentals/unittesting.aspx">here</a>.</p>
-</div>
+<p>Calling Mapserver as a WFS layer, displaying with OpenLayers. Many thanks to <a href="http://crschmidt.net/">Chris Schmidt</a> for a quick response on the OL mailing list! </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/21/whew/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -299,7 +225,7 @@ posted in
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/01/31/google-motion-charts-from-data-to-information/">Google Motion Charts: From Data to Information</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/19/happy-gis-day/">Happy GIS Day.</a></h1>
     
     
       <p class="meta">
@@ -324,7 +250,58 @@ posted in
   
 
 
-<time datetime="2009-01-31T07:51:18-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2009</time> - 
+<time datetime="2008-11-19T01:44:54-08:00" pubdate data-updated="true">Nov 19<span>th</span>, 2008</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>all across the world, little GIS themed cookies and cakes will be consumed&#8230;</p>
+</div>
+  
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/18/wfs/">WFS!</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T08:10:22-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time> - 
         
 
 posted in
@@ -341,28 +318,195 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve been playing with the motion chart gadget in Google&#8217;s AJAX API Playground recently, and have found it to be an extremely interesting tool to use. In order to produce data rich charts, all that is necessary is to import a tabular datasheet into google docs and call on it within a javascript function.</p>
-
-<p>The spreadsheet itself requires:</p>
-
-<ul>
-<li><p>The first column be entity data (place names, events, etc.)</p></li>
-<li><p>The second column to be formatted as &#8216;Date&#8217;</p></li>
-<li><p>The third and following columns to contain your chart-worthy data.</p></li>
-</ul>
-
-
-<p>A simple example can be found below depicting historical weather station information for three cities in the Western United States. This information was downloaded from the <a href="http://www.wrcc.dri.edu/">Western Regional Climate Center</a> and imported manually into a <a href="http://spreadsheets.google.com/ccc?key=pPDD5D7AqVH0jefmgJwF9OQ">google docs spreadsheet</a>. As we can see, we have a variety of different ways to explore the data, and hopefully, synthesize them into useful information for decision makers in a best case scenario.</p>
-
-<p>Above: Markers indicate the cities in which weather station data was collected.</p>
-
-<p>Above: Google Motion Chart Gadget. NOTE: The data are actually compiled monthly averages from 1971-2000. For the sake of simplicity however, i fed the date column in a format of &#8216;Jan-1&#8217; which turns out automatically appends the current year. The proper date should read for example, &#8216;1/1&#8217; rather than &#8216;1/1/09&#8217;.</p>
-
-<p>In any event, in a data rich GIS environment, we can easily succumb to &#8216;data overload&#8217;. This creates a barrier for decision makers in understanding their situations, and as such can lead to poor planning. Through the careful use of data visualization tools such as this, however, decision makers can be empowered to quickly analyze data in a variety of ways, creating useful information on-the-fly and without the use of specialized GIS technical know-how.</p>
-
-<p>At least I think that&#8217;s how it works.</p>
-</div>
+  <div class="entry-content"><p>Wow, i actually have a working WFS server now. I was able to successfully use QGIS to call upon the same mapfile using both  &#8216;WMS&#8217; and &#8216;WFS&#8217; service types. As you can see in the image below, a static baselayer, &#8216;COUNTY&#8217; (actually a dissolved shp designed to show the physical outline of Washington State) is displayed as WMS layer, as well as WFS layer, &#8216;NATPARK&#8217;, capable of actually identifiying features. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wfs/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/18/wms-to-wfs/">WMS to WFS</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-18T04:00:42-08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/18/wms-to-wfs/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/16/mapserver-update/">Mapserver [Update]</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-16T08:19:10-08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well, using the <a href="http://openlayers.org/dev/examples/">OpenLayers Cookbook</a> I&#8217;ve been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/16/mapserver-update/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/15/73/">Mapserver Up and Running</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-15T12:33:28-08:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well, after about a month of no progress in the Web GIS realm, i&#8217;ve finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you&#8217;re also wondering, the data being displayed is actually a <a href="http://www.cob.org/services/maps/index.aspx">shapefile</a> of the neighborhoods of beautiful Bellingham, WA. </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/11/15/73/">Read on &rarr;</a>
+    </footer>
   
 
 

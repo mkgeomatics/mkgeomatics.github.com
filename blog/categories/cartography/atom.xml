@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cartography | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/cartography/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T09:00:10-07:00</updated>
+  <updated>2013-04-30T23:25:01-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -74,9 +74,7 @@
 
 <p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
 
-<p>NFS Boundaries Provided By ChopShopGeo</p>
-
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a></p>
+<p>[caption id="attachment_398" align="alignnone" width="665" caption="NFS Boundaries Provided By ChopShopGeo"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
 
 <p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I've found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input... ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
 
@@ -117,7 +115,7 @@ http: //jsbeautifier.org/
     <link href="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/"/>
     <updated>2008-12-19T17:00:15-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12</id>
-    <content type="html"><![CDATA[<p>After reading <a href="http://stamen.com/">Michal Migurski's</a> excellent post, '<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>' I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession... I set out on the FOSSGIS path.</p>
+    <content type="html"><![CDATA[<p>After reading <a href="http://stamen.com/">Michal Migurski's</a> excellent post, '<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>' I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession... I set out on the FOSSGIS path. <!-- more --></p>
 
 <p>[caption id="attachment_205" align="alignnone" width="259" caption="The resulting overlay"]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
 
@@ -151,7 +149,7 @@ A GRASS-based approach to creating a TMS layer is possible, and has been outline
     <link href="http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator/"/>
     <updated>2008-11-23T05:11:25-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator</id>
-    <content type="html"><![CDATA[<p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it's platform-independent, another plus for mac and / or linux GIS users.</p>
+    <content type="html"><![CDATA[<p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it's platform-independent, another plus for mac and / or linux GIS users. <!-- more --></p>
 
 <p>[caption id="attachment_127" align="alignnone" width="300" caption="Above: The counties of Washington State."]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa-300x202.jpg" alt="WA_Green" /></a>[/caption]</p>
 

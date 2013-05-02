@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -126,7 +133,7 @@
   </header>
 
 
-  <div class="entry-content"><p>So I&#8217;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&#8230; you know, the kind that usually don&#8217;t work out very well?</p>
+  <div class="entry-content"><p>So I&#8217;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&#8230; you know, the kind that usually don&#8217;t work out very well? <!-- more --></p>
 
 <p>In any event, my SOP for handling these queries was to submit sample data through the codeigniter site that our project&#8217;s web developer has been courageously firing away at. In this sense, I&#8217;d sort-of trace the flow of new information through the various tables of the database, monitoring the information stream as best as I could. I thought to myself, that there has to be a better way to handle this stuff! In comes the <a href="http://dev.mysql.com/workbench/">MySQL Workbench</a>. This handy tool from the <a href="http://dev.mysql.com/">MySQL Dev Zone</a> apparently comes in two flavors: FOSS and commercial.</p>
 

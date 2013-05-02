@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -136,6 +143,9 @@ posted in
   <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
 
 <p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+
+<!-- more -->
+
 
 <blockquote><p>[gotti]$ ./ogrinfo -al -so /home/matthewkenny/usr/local/shp_samples/county_polygon.shp
 INFO: Open of <code>/home/matthewkenny/usr/local/shp_samples/county_polygon.shp'

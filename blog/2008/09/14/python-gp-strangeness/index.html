@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -135,61 +142,95 @@ posted in
 
   <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
 
-<h1>Batch Convert ASCII to ESRI GRID</h1>
+<!-- more -->
 
-<h1>Matthew Kenny</h1>
 
-<h1>September 14, 2008</h1>
 
-<h6>#</h6>
 
-<h1>Import the arcgisscripting module</h1>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#Batch Convert ASCII to ESRI GRID</span>
+</span><span class='line'><span class="c">#Matthew Kenny</span>
+</span><span class='line'><span class="c">#September 14, 2008</span>
+</span><span class='line'><span class="c">#############################################################</span>
+</span><span class='line'><span class="c"># Import the arcgisscripting module</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">arcgisscripting</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Create the Geoprocessor object</span>
+</span><span class='line'><span class="n">gp</span> <span class="o">=</span> <span class="n">arcgisscripting</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Set the workspace</span>
+</span><span class='line'><span class="n">gp</span><span class="o">.</span><span class="n">workspace</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># get list of all the ASCII files in the workspace</span>
+</span><span class='line'><span class="n">asciiList</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">ListRasters</span><span class="p">(</span><span class="s">&quot;*DEM*&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">ascii</span> <span class="o">=</span> <span class="n">asciiList</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&quot;Starting with &quot;</span> <span class="o">+</span> <span class="n">ascii</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Set initial INPUT file</span>
+</span><span class='line'><span class="n">inputAscii</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">workspace</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">ascii</span>
+</span><span class='line'><span class="k">print</span> <span class="n">inputAscii</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Set initial OUTPUT file</span>
+</span><span class='line'><span class="n">raster</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">workspace</span> <span class="o">+</span> <span class="s">&quot;/GRID/&quot;</span> <span class="o">+</span> <span class="n">ascii</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;.img&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="n">raster</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># loop through list of feature classes</span>
+</span><span class='line'><span class="k">while</span> <span class="n">ascii</span><span class="p">:</span>
+</span><span class='line'><span class="c">#Execute ASCII to Raster</span>
+</span><span class='line'><span class="err">   </span> <span class="n">gp</span><span class="o">.</span><span class="n">ASCIIToRaster_conversion</span><span class="p">(</span><span class="n">inputAscii</span><span class="p">,</span> <span class="n">raster</span><span class="p">,</span> <span class="s">&quot;INTEGER&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">   </span> <span class="k">print</span> <span class="s">&quot;File &quot;</span> <span class="o">+</span> <span class="n">raster</span><span class="o">+</span> <span class="s">&quot; has been created.&quot;</span>
+</span><span class='line'><span class="err">   </span> <span class="n">ascii</span> <span class="o">=</span> <span class="n">asciiList</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span class='line'><span class="err">   </span> <span class="k">print</span> <span class="s">&quot;Moving onto &quot;</span> <span class="o">+</span> <span class="n">ascii</span>
+</span><span class='line'><span class="err">   </span> <span class="n">inputAscii</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">workspace</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">ascii</span>
+</span><span class='line'><span class="err">   </span> <span class="k">print</span> <span class="s">&quot;new inputAscii: &quot;</span> <span class="o">+</span> <span class="n">inputAscii</span>
+</span><span class='line'><span class="err">   </span> <span class="n">raster</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">workspace</span> <span class="o">+</span> <span class="s">&quot;/GRID/&quot;</span> <span class="o">+</span> <span class="n">ascii</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;.img&quot;</span>
+</span><span class='line'><span class="err">   </span> <span class="k">print</span> <span class="s">&quot;new output Raster: &quot;</span> <span class="o">+</span> <span class="n">raster</span>
+</span><span class='line'><span class="n">ascii</span> <span class="o">=</span> <span class="n">asciiList</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#remove geoprocessor object from memory</span>
+</span><span class='line'><span class="k">del</span> <span class="n">gp</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>import sys, arcgisscripting</p>
-
-<h1>Create the Geoprocessor object</h1>
-
-<p>gp = arcgisscripting.create()</p>
-
-<h1>Set the workspace</h1>
-
-<p>gp.workspace = (&#8220;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&#8221;)</p>
-
-<h1>get list of all the ASCII files in the workspace</h1>
-
-<p>asciiList = gp.ListRasters(&#8221;<em>DEM</em>&#8221;, &#8220;*&#8221;)
-ascii = asciiList.next()
-print &#8220;Starting with &#8221; + ascii</p>
-
-<h1>Set initial INPUT file</h1>
-
-<p>inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-print inputAscii</p>
-
-<h1>Set initial OUTPUT file</h1>
-
-<p>raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-print raster</p>
-
-<h1>loop through list of feature classes</h1>
-
-<p>while ascii:</p>
-
-<h1>Execute ASCII to Raster</h1>
-
-<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, &#8220;INTEGER&#8221;)
-    print &#8220;File &#8221; + raster+ &#8221; has been created.&#8221;
-    ascii = asciiList.next()
-    print &#8220;Moving onto &#8221; + ascii
-    inputAscii = gp.workspace + &#8220;/&#8221; + ascii
-    print &#8220;new inputAscii: &#8221; + inputAscii
-    raster = gp.workspace + &#8220;/GRID/&#8221; + ascii[:-8] + &#8220;.img&#8221;
-    print &#8220;new output Raster: &#8221; + raster
-ascii = asciiList.reset()</p>
-
-<h1>remove geoprocessor object from memory</h1>
-
-<p>del gp</p>
 </div>
 
 

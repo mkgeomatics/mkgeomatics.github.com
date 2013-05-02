@@ -14,7 +14,7 @@
   
     
   
-  <meta name="description" content=" Open Source GIS Notebook ">
+  <meta name="description" content=" open source mapping notes from cascadia ">
   
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -30,7 +30,7 @@
   <meta name="og:type" content="website" />
   <meta name="og:site_name" content="mattmakesmaps" />
   <meta name="og:title" content="mattmakesmaps" />
-  <meta name="og:description" content=" Open Source GIS Notebook " />
+  <meta name="og:description" content=" open source mapping notes from cascadia " />
   <meta name="og:url" content="http://mkgeomatics.github.io/blog/page/6/index.html"/>
   <meta name="url" content="http://mkgeomatics.github.io/blog/page/6/index.html">
   
@@ -38,13 +38,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -52,16 +59,16 @@
 <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -77,8 +84,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -89,7 +96,7 @@
   <h1>
     mattmakesmaps
   </h1>
-  <h2>open source mapping notes</h2>
+  <h2>open source mapping notes from cascadia</h2>
 </div>
 
     </div>
@@ -99,7 +106,7 @@
       <div class="row">
   <div class="span4">
     <h2>in brief</h2>
-<p>I&#8217;m a GIS Analyst at the Seattle-based environmental consulting firm, RIDOLFI Inc. Some may say that Open Source GIS software is my jam.</p>
+<p>I&#8217;m a GIS Analyst at the Seattle-based environmental engineering firm, RIDOLFI Inc. Some may say that Open Source web mapping is my jam.</p>
 
   </div>
   <div class="span6">
@@ -153,7 +160,7 @@
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/">OSM &#8216;Minutely&#8217; Tile Updates: Thanks CloudMade!</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
     
     
       <p class="meta">
@@ -178,13 +185,13 @@
   
 
 
-<time datetime="2009-01-24T13:32:07-08:00" pubdate data-updated="true">Jan 24<span>th</span>, 2009</time> - 
+<time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time> - 
         
 
 posted in
 <span class="categories">
   
-    <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
   
 </span>
 
@@ -195,19 +202,20 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides.</p>
+  <div class="entry-content"><p>I&#8217;ve finally got a working python script that does the following:</p>
 
-<p>Of particular interest was a question posed by a first time OSM&#8217;er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, &#8216;it&#8217;s just the way it is&#8217;.</p>
+<p>-Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217;</p>
 
-<p>It appears though, that CloudMade has provided us with an answer just the other day. The <a href="http://matt.sandbox.cloudmade.com/">Minutely Updated Tile Server</a> is updated &#8216;every minute from OpenStreetMap diffs&#8217;. The results can be seen below. The first image depicts the standard weekly update view while the bottom image depicts the minutely render. Note the presence of the additional buildings on ASU&#8217;s Tempe Campus.</p>
+<p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
 
-<p>[caption id=&#8221;attachment_241&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: OSM Weekly Update&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly-300x242.jpg" alt="Above: OSM Weekly Update" /></a>[/caption]</p>
+<p>-Generates an output text file using &#8216;stdout&#8217; with the resulting &#8216;smoothed&#8217; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
 
-<p>[caption id=&#8221;attachment_242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Minutely Updated Tile Server for OSM&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely-300x240.jpg" alt="Above: CloudMade's Minutely Updated Tile Server for OSM" /></a>[/caption]</p>
-
-<p>Check out the full post from CloudMade&#8217;s blog here: <a href="http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/">http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/</a></p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -221,7 +229,7 @@ posted in
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/">Geocoding With OpenLayers: A Crash Course in Firebug</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
     
     
       <p class="meta">
@@ -246,7 +254,74 @@ posted in
   
 
 
-<time datetime="2009-01-20T12:24:03-08:00" pubdate data-updated="true">Jan 20<span>th</span>, 2009</time> - 
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
+
+<p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
+
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
         
 
 posted in
@@ -263,49 +338,12 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>The vacation is over. A new job and a new semester are already providing plenty of opportunities to explore those crazy technologies of the geoweb.</p>
-
-<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
-
-<p>A quick overview of the primary steps to add the YahooGeocoder.js addin are as follows:</p>
-
-<ol>
-<li><p>Sign up for a Yahoo APP Key to enable access to their geocoding service.</p></li>
-<li><p>Add the proxy.cgi script to your webserver&#8217;s &#8216;cgi-bin&#8217;. Note: When navigating to the proxy.cgi&#8217;s url, you might encounter, &#8216;access denied&#8217; errors. If you do, make sure that you have the proper permissions set for your cgi-bin directory. This can be done using the terminal command, &#8216;chmod 755&#8217; targeting cgi-bin directory.</p></li>
-<li><p>Edit the proxy.cgi script to include &#8216;local.yahooapis.com&#8217; in the list of &#8216;allowedHosts&#8217;.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_228&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;proxy.cgi&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts-300x54.png" alt="proxy_hosts" /></a>[/caption]</p>
-
-<ol>
-<li><p>Add the YahooGeocoder.js file to the OpenLayers &#8216;lib/OpenLayers/Control&#8217; folder.</p></li>
-<li><p>Add &#8220;OpenLayers/Control/YahooGeocoder.js&#8221; to the variable array, &#8216;jsfiles&#8217; inside the &#8220;lib/OpenLayers.js&#8221; library.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_229&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;lib/OpenLayers.js&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add-300x149.png" alt="control_add" /></a>[/caption]</p>
-
-<ol>
-<li>Test the geocoder&#8217;s functionality using the supplied .HTML file. (Hopefully it should work!)</li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_230&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Geocoder Result with Properly Formed XML Response.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1-300x217.png" alt="good_xml_return1" /></a>[/caption]</p>
-
-<p>Six simple steps, but it can be challenging if you haven&#8217;t tried to install any addins to the OL library before.</p>
-
-<p>In the above image, the firebug window can be seen returning a properly formed XML Response, having successfully executed the geocoding function. If you enlarge the image, we can compare this to the raw XML-Response using a properly constructed query. Note in both the response captured from firebug (above) as well as the raw XML (below) the presence of the address: 510 High Street, Bellingham WA, broken down into it&#8217;s individual units along with the geocoded result.</p>
-
-<p>[caption id=&#8221;attachment_231&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Basic XML Return&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml-300x221.png" alt="basic_xml" /></a>[/caption]</p>
-
-<p>Further diving into the capabilities of firebug, we can use the DOM inspector to ensure that the various parameters required to properly execute the Yahoo Geocoder are in place. Note in the image below the presence of such necessary information as the APP ID Key, Projection, and Class, for the ygc variable. If any of these parameters happened to be incorrectly set, it would be displayed in this view.</p>
-
-<p>[caption id=&#8221;attachment_232&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The Firebug DOM Inspector&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector-300x91.png" alt="dom_inspector" /></a>[/caption]</p>
-
-<p>I&#8217;m finally starting to appreciate the power of firebug as a development tool, which just so happens to coincide with my ability to understand it at a basic level. Hopefully as my experience in GIS Web Development grows, so will be ability to use the higher-end functions of this tool.</p>
-</div>
+  <div class="entry-content"><p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/14/web-based-grass/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -319,7 +357,7 @@ posted in
 
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/">TMS: Shaded Relief for OSM Data (an Adventure and a 1/2)</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
     
     
       <p class="meta">
@@ -344,13 +382,13 @@ posted in
   
 
 
-<time datetime="2008-12-19T17:00:15-08:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time> - 
+<time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time> - 
         
 
 posted in
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+    <a class='category' href='/blog/categories/scripting/'>Scripting</a>
   
 </span>
 
@@ -361,32 +399,132 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>After reading <a href="http://stamen.com/">Michal Migurski&#8217;s</a> excellent post, &#8217;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&#8217; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&#8230; I set out on the FOSSGIS path.</p>
+  <div class="entry-content"><p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
 
-<p>[caption id=&#8221;attachment_205&#8221; align=&#8221;alignnone&#8221; width=&#8221;259&#8221; caption=&#8221;The resulting overlay&#8221;]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/14/python-gp-strangeness/">Read on &rarr;</a>
+    </footer>
+  
 
-<p>The final output was created in a primarily two-step process. The hillshade was created using Matt Perry&#8217;s <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM tools</a>. This command line addition to the GDAL suite of tools negated having to import the DEM into a new GRASS location, and exporting the resulting hillshade back out as another format.</p>
 
-<p>The majority of the work, the tiling that is, was done using <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. This Google Summer of Code project operates under a command line utility which will take your slick GDAL-compatible raster dataset as input, and export a set of tiles exactly to your specs. What&#8217;s more is the capability to automatically generate google maps and OpenLayers viewing pages which can be directly uploaded to a webspace.</p>
+</div>
 
-<p>Finally, applying a slight transparency to the OSM layer allowed for the shaded relief to appear from behind. Quick-and-Dirty, <a href="http://mkgeomatics.com/apps/openlayers/tiles/ol_working.html">but it works</a>!</p>
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
 
-<p>The pain came when trying to compare the local TMS overlay using OSM vs. Google Maps base data. While using Google Maps street data, we clearly see the LiDAR building footprints align with the vector street centerlines. But switching over to OSM data, we see a drastic skew between the two.</p>
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 on Shared Webhost</a></h1>
+    
+    
+      <p class="meta">
+        
+  
 
-<p>[caption id=&#8221;attachment_206&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Google Street Data: Properly Aligned Local TMS&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-21-300x209.png" alt="Google Street Data: Properly Aligned Local TMS" /></a>[/caption]</p>
 
-<p>[caption id=&#8221;attachment_209&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;OSM Data: Note Hawaii Belt Road&#8217;s location compared to its LiDAR footprint.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-4-300x297.png" alt="OSM Data: Note Hawaii Belt Rd's location compared to its LiDAR footprint." /></a>[/caption]</p>
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
 
-<p>Initially, I assumed that the problem was the result of some projection issues (EPSG: 4326 vs EPSG: 900913), until I realized that all data sets (LiDAR, Google, and OSM) had matching coastlines. Any distortion resulting from the affine transformation between WGS84 and Spherical Mercator would have clearly showed up along the coast as well as the streets.</p>
+ - 
+        
 
-<p>A quick look at the <a href="http://wiki.openstreetmap.org/wiki/Potlatch">Potlatch</a> editor revealed the inaccuracy of the TIGER line files used in this section of the map:</p>
 
-<p>[caption id=&#8221;attachment_210&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Potlatch: TIGER data is a good, but not great.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/potlatch-300x273.png" alt="Potlatch: TIGER data is a good, but not great." /></a>[/caption]</p>
 
-<p>All-in-all I was extremely impressed with the speed and efficency of using the <a href="http://www.perrygeo.net/wordpress/?p=7">GDAL DEM Tools</a> as well as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a>. Both projects are great representations of what can be done by individuals who choose to build upon existing FOSSGIS projects, and give back to the community.</p>
 
-<p>Additional Note:
-A GRASS-based approach to creating a TMS layer is possible, and has been outlined in <a href="sunbird.jrc.it/pvgis/doc/paper/2008_OSGeo5_TiledMapServices.pdf">this paper</a> appearing in the OSGeo Journal.</p>
+
+
+
+
+  
+
+
+<time datetime="2008-09-12T05:02:06-07:00" pubdate data-updated="true">Sep 12<span>th</span>, 2008</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+
+<p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/08/plans/">Plans</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">admin</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T06:09:35-07:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve finished downloading my previous portfolio site from Western&#8217;s server. Until I finish pushing the content into this design, it will be accessible either from the link on the right, or by following this link below:</p>
+
+<p><a href="http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2">http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2</a></p>
+
+<p>I hope to have it up by the end of the week. Stay tuned.</p>
 </div>
   
   

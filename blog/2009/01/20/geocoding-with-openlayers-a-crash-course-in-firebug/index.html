@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -135,7 +142,7 @@ posted in
 
   <div class="entry-content"><p>The vacation is over. A new job and a new semester are already providing plenty of opportunities to explore those crazy technologies of the geoweb.</p>
 
-<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
+<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. <!-- more --> The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
 
 <p>A quick overview of the primary steps to add the YahooGeocoder.js addin are as follows:</p>
 

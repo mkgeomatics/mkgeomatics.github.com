@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -133,7 +140,7 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine.</p>
+  <div class="entry-content"><p>I&#8217;ve built up the <a href="http://www.mkgeomatics.com/apps/openlayers/WA_WFS_WGS84_query.html">WFS OpenLayers example</a> I&#8217;ve been working on to now include attribution (by hovering over a feature) as well as a pointless select feature capability. Click away! It won&#8217;t do anything but, that&#8217;s fine. <!-- more --></p>
 
 <p>A different baselayer is also available, <a href="http://www.openstreetmap.org/">openstreetmaps.org</a> (via telascience.org tiles). You may notice that some of these tiles fail to reload upon panning and zooming operations. I asked why this was on the OpenLayers IRC, and was told that these tiles basically suck. I&#8217;m stuck using them however, as they are Lat/Long WGS84. OSM Mapnik and Google maps require a spherical mercator projection, and as such PROJ.4 needs to be amended to support this EPSG code so that Mapserver and render properly.</p>
 

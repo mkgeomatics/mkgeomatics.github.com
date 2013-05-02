@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scripting | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/scripting/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T09:00:10-07:00</updated>
+  <updated>2013-04-30T23:25:01-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -18,7 +18,7 @@
     <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
-    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop.</p>
+    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
 <p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I've posted my function below. It's not pretty, but it's filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
 
@@ -92,6 +92,9 @@ SELECT bulk_route_generate();
 
 <p>-Generates an output text file using 'stdout' with the resulting 'smoothed' coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
 
+<!-- more -->
+
+
 <p>This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.</p>
 
 <p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes... and re-import them as input files for the DP algorithm. It's all good now though, and the code looks (a bit) cleaner.</p>
@@ -112,6 +115,9 @@ SELECT bulk_route_generate();
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
 
 <p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not 'spatially' enabled. The trick is to make it except shapefiles as an input source.</p>
+
+<!-- more -->
+
 
 <p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
 $ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > output.csv</p>
@@ -140,6 +146,11 @@ $ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > outpu
     <updated>2008-09-14T09:11:44-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2008/09/14/python-gp-strangeness</id>
     <content type="html"><![CDATA[<p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
+
+<!-- more -->
+
+
+<p>``` python</p>
 
 <h1>Batch Convert ASCII to ESRI GRID</h1>
 
@@ -195,7 +206,8 @@ ascii = asciiList.reset()</p>
 
 <h1>remove geoprocessor object from memory</h1>
 
-<p>del gp</p>
+<p>del gp
+```</p>
 ]]></content>
   </entry>
   

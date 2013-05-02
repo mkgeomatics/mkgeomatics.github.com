@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Events | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/events/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-04-28T09:00:10-07:00</updated>
+  <updated>2013-04-30T23:25:01-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -20,7 +20,7 @@
     <id>http://mkgeomatics.github.io/blog/2009/04/27/esri-uc-student-assistant-sweet</id>
     <content type="html"><![CDATA[<p>Just found out that I'll be participating in the 2009 ESRI UC as a student assistant. Big thanks go out to <a href="http://geography.asu.edu/balling">Dr. Robert Balling</a> and <a href="http://www.spatiallyadjusted.com/">James Fee</a>, who both wrote letters of recommendation for me.</p>
 
-<p>Now to get back to more pressing matters, like refactoring this giant wad o' javascript.</p>
+<p>Now to get back to more pressing matters, like refactoring this giant wad o' javascript. <!-- more --></p>
 
 <p>See you in San Deigo!</p>
 ]]></content>
@@ -31,7 +31,7 @@
     <link href="http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/"/>
     <updated>2009-01-24T13:32:07-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade</id>
-    <content type="html"><![CDATA[<p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides.</p>
+    <content type="html"><![CDATA[<p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides. <!-- more --></p>
 
 <p>Of particular interest was a question posed by a first time OSM'er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, 'it's just the way it is'.</p>
 
@@ -50,7 +50,7 @@
     <link href="http://mkgeomatics.github.io/blog/2008/12/08/osm-recap/"/>
     <updated>2008-12-08T02:01:36-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2008/12/08/osm-recap</id>
-    <content type="html"><![CDATA[<p>What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by <a href="http://www.cloudmade.com/">CloudMade</a> and hosted locally by <a href="http://gangplankhq.com/">Gangplank</a>. On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, 'crowdsourcing'. The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.</p>
+    <content type="html"><![CDATA[<p>What an awesome weekend. There was a good turnout for the Phoenix OSM mapping party, put on by <a href="http://www.cloudmade.com/">CloudMade</a> and hosted locally by <a href="http://gangplankhq.com/">Gangplank</a>. On both days we saw a mixture of GIS professionals and Open Source users come out to support the project. A new neologism to add to the list also came out of the event, 'crowdsourcing'. <!-- more --> The work of many locals who have an inherent expert knowledge of their surrounding environment replacing the work of what would otherwise be performed by a few skilled professionals.</p>
 
 <p>Here is the result of our work:</p>
 
@@ -71,7 +71,7 @@
     <id>http://mkgeomatics.github.io/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend</id>
     <content type="html"><![CDATA[<p><a href="http://www.meetup.com/OpenStreetMap-Phoenix/">http://www.meetup.com/OpenStreetMap-Phoenix/</a> It's going to rock. It really is.</p>
 
-<p>Having just heard of OSM a little over a month ago, and using their tiles for about two weeks now... I'm really excited to give back to the OSM community. In a way, it's a chance for those who have never committed code to a FOSS project (like me) to really add some positive input back into a community that we are a part of, if only in a small way. But hey, if we are all contributing small bits to the project-at-large... it'll add up. A little '<a href="http://en.wikipedia.org/wiki/Neogeography">neogeography</a>', anyone?</p>
+<p>Having just heard of OSM a little over a month ago, and using their tiles for about two weeks now... I'm really excited to give back to the OSM community. In a way, it's a chance for those who have never committed code to a FOSS project (like me) to really add some positive input back <!-- more --> into a community that we are a part of, if only in a small way. But hey, if we are all contributing small bits to the project-at-large... it'll add up. A little '<a href="http://en.wikipedia.org/wiki/Neogeography">neogeography</a>', anyone?</p>
 
 <p>Additionally, I have put together a small tool to compare the current OSM offerings to that of various commercial mapping vendors (Google, Microsoft VE). Pretty fun exploration of the OpenLayers API!</p>
 

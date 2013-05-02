@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -133,7 +140,7 @@ posted in
   </header>
 
 
-  <div class="entry-content"><p>Until today, I had never truly appreciated the value of unit testing. I recently had the need to bring <a href="http://dev.openlayers.org/sandbox/august/openlayers/openlayers-2.6/examples/ags/index.html">these ArcGIS REST controls</a>, designed for version 2.6 of OpenLayers, into the current development version. Having no real idea how to get started on this process, I looked to the unit tests as a guide to what needed to be changed. One might be asking why this was necessary, when the team over at Avencia just put together a great <a href="http://trac.openlayers.org/ticket/1749">ArcGIS REST Plugin</a> that has made its way into the trunk for the upcoming 2.8 release. The answer is that both plugins do different things well. The older AGSControls can perform &#8216;Identify&#8217; and &#8216;Geoprocessing&#8217; operations rather well, while the Avencia plugin does a great job at displaying and querying a subset of a layer resource.</p>
+  <div class="entry-content"><p>Until today, I had never truly appreciated the value of unit testing. I recently had the need to bring <a href="http://dev.openlayers.org/sandbox/august/openlayers/openlayers-2.6/examples/ags/index.html">these ArcGIS REST controls</a>, designed for version 2.6 of OpenLayers, into the current development version. Having no real idea how to get started on this process, I looked to the unit tests as a guide <!-- more --> to what needed to be changed. One might be asking why this was necessary, when the team over at Avencia just put together a great <a href="http://trac.openlayers.org/ticket/1749">ArcGIS REST Plugin</a> that has made its way into the trunk for the upcoming 2.8 release. The answer is that both plugins do different things well. The older AGSControls can perform &#8216;Identify&#8217; and &#8216;Geoprocessing&#8217; operations rather well, while the Avencia plugin does a great job at displaying and querying a subset of a layer resource.</p>
 
 <p>In any event, the <a href="http://straytree.com/TestAnotherWay/doc/index.html">Test.AnotherWay</a> suite, used by OpenLayers, provides an easy-to-navigate interface for debugging javascript code.</p>
 

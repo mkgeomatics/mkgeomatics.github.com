@@ -40,13 +40,20 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<!-- Page Keywords -->
-<meta name="author" content="Matthew Kenny">
-
-<meta name="description" content="Open Source GIS Notebook">
-<meta name="keywords" content="GIS, Python, Open Source, Web Mapping, CUGOS, Seattle, Ridolfi, Django, GeoDjango">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -54,16 +61,16 @@
   <nav role="navigation"><div class="navbar">
   <div class="navbar-inner">
   <div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-		  <span class="icon-bar"></span>
-	  </a>
+	  	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  		  <span class="icon-bar"></span>
+					  		  <span class="icon-bar"></span>
+							  		  <span class="icon-bar"></span>
+									  	  </a>
     <a class="brand" href="/">mattmakesmaps</a>
-  <div class="nav-collapse collapse">
+    <div class="nav-collapse collapse">
     <ul class="nav">
       <li><a href="/">Home</a></li>
-      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/portfolio">Portfolio/Slides</a></li>
       <li><a href="/blog/archives">Archives</a></li>
     </ul>
     <ul class="nav" data-subscription="rss">
@@ -79,8 +86,8 @@
     </form>
       
     
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </div>
 </nav>
@@ -217,9 +224,7 @@ posted in
 
 <p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
 
-<p>NFS Boundaries Provided By ChopShopGeo</p>
-
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a></p>
+<p>[caption id=&#8221;attachment_398&#8221; align=&#8221;alignnone&#8221; width=&#8221;665&#8221; caption=&#8221;NFS Boundaries Provided By ChopShopGeo&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
 
 <p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&#8217;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&#8230; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
 
