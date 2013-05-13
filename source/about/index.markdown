@@ -9,7 +9,7 @@ footer: true
 
 I am currently working as a GIS Analyst at the Seattle-based environmental engineering firm,
 [RIDOLFI Inc](http://www.ridolfi.com). I coordinate with a wide-variety of agency and
-tribal government clients, working on GIS development and spatial analysis project.
+tribal government clients, working on GIS development and spatial analysis projects.
 In addition to my external clients, I act as the primary GIS support for a staff of
 twenty-some environmental scientists and engineers. I enjoy creating tools that help empower
 decision makers and domain knowledge experts to directly access their data, removing the
