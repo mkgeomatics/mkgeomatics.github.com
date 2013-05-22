@@ -63,7 +63,7 @@ $(function(){
       });
     }
   });
-
+/**
   var githubInfo = $("#gh_repos");
 
   github.showRepos({
@@ -72,7 +72,7 @@ $(function(){
     skip_forks: githubInfo.data('github-skip-forks'),
     target: githubInfo
   });
-
+**/
   var $container = $('#post-container');
   $container.imagesLoaded(function(){
     $container.masonry({
