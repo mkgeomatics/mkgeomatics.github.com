@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Github | mattmakesmaps]]></title>
+  <link href="http://mkgeomatics.github.io/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://mkgeomatics.github.io/"/>
+  <updated>2013-06-16T21:35:32-07:00</updated>
+  <id>http://mkgeomatics.github.io/</id>
+  <author>
+    <name><![CDATA[Matthew Kenny]]></name>
+    <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Auto-Push to GitHub via Machine User]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/06/16/auto-push-to-github-via-machine-user/"/>
+    <updated>2013-06-16T14:19:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/06/16/auto-push-to-github-via-machine-user</id>
+    <content type="html"><![CDATA[<p>This post will review a workflow for automatically pushing data from a client machine to github.
+This can be useful if you want to automatically make publicly available data that are regularly processed on
+a local machine. <!-- more --> For my particular use case, I'm downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
+Web Service</a> , and would
+like to process those data locally for use in a d3 visualization. My d3 viz will eventually be
+hosted on github as well, so having a dynamically updated dataset stored on github made sense.
+I'm sure that it's possible to emulate this ETL workflow in pure JavaScript, but I wanted to see
+how to set this up, in the event that I found myself in a situation in which heavy pre-processing
+of data was required.</p>
+
+<p>The general steps are as follows:</p>
+
+<ol>
+<li>On the local machine, create a machine user and group.</li>
+<li>Create a corresponding github account for the machine user.</li>
+<li>Generate an SSH key machine user &amp; associate the public key of the machine user to its github account.</li>
+<li>Assign the github account to the repository of interest.</li>
+<li>Clone the repository of interest, making it group writable.</li>
+<li>On the local machine, create a cron job under the machine user to execute the processing script.</li>
+</ol>
+
+
+<h2>Create Machine User and Group</h2>
+
+<p>On my local machine, I start by creating a user and group for the purpose of pushing data to github.
+I'm doing this to isolate the amount of exposure that this user has to my wider system.</p>
+
+<p>```bash</p>
+
+<h1>Create the user, rdi-git</h1>
+
+<p>$ sudo adduser rdi-git</p>
+
+<h1>You'll be prompted to enter a password as well.</h1>
+
+<h1>Create the group, git</h1>
+
+<p>$ sudo addgroup git</p>
+
+<h1>Add our new user (rdi-git) to the new group (git)</h1>
+
+<p>$ sudo usermod -a -G git rdi-git
+```</p>
+
+<h2>Create a Github Account for Machine User</h2>
+
+<p>After having created the machine users on my local box, the next step is to create an analogous
+user on <a href="https://github.com">github</a>.</p>
+
+<h2>Generate SSH Key &amp; Assign to Github User</h2>
+
+<p>From the local machine, make sure that you're logged in as the newly created machine user.</p>
+
+<p><code>bash
+$ sudo su rdi-git
+</code></p>
+
+<p>At this point, I defer to the great instructions on the Github help docs for <a href="https://help.github.com/articles/generating-ssh-keys">generating an ssh key</a>.</p>
+
+<h2>Assign Github Account As Collaborator to Repo of Interest</h2>
+
+<p>Next, I add our github user, rdi-git, as a collaborator on my repository of interest. Here is a link on
+the <a href="https://help.github.com/articles/how-do-i-add-a-collaborator">Github help docs</a>.</p>
+
+<h2>Clone the Repository of Interest, add Assign Permissions</h2>
+
+<p>I'm creating a <code>/projects/</code> folder, in which I'll clone my repo. I'd like to ensure that this folder, and
+subsequently all repos contained within it, are associated with git group. This <a href="http://unix.stackexchange.com/questions/12842/make-all-new-files-in-a-directory-accessible-to-a-group">stackoverflow</a> outlines the required commands.</p>
+
+<p>```bash</p>
+
+<h1>Make the directory</h1>
+
+<p>$ cd /
+$ mkdir projects
+$ cd /projects</p>
+
+<h1>Change perms to group writable. See Above SO post.</h1>
+
+<p>$ umask 002            # allow group write; everyone must do this
+$ chgrp git .          # set directory group to gitG
+$ chmod g+s .          # files created in directory will be in group git</p>
+
+<h1>Clone our repo of interest, using ssh</h1>
+
+<p>$ git@github.com:mattmakesmaps/robo-d3.git
+```</p>
+
+<h2>Create the Cron Job</h2>
+
+<p>The repo I've just cloned contains the <a href="https://github.com/mattmakesmaps/robo-d3/blob/master/scripts/waterservices_parser.py">processing script</a> I'll be running.
+Our processed data will also be stored and pushed back to this repository.</p>
+
+<p>I'd like to have my processing script run once every hour, on the hour. We setup the cron job by first entering
+crontab.</p>
+
+<p>```bash</p>
+
+<h1>Login as machine user, cron job will be run under this id.</h1>
+
+<p>$ sudo su rdi-git
+$ crontab -e
+```</p>
+
+<p>Here is an excerpt of the machine user's cron jobs, with the new job added at the bottom.</p>
+
+<p>```bash</p>
+
+<h1>For more information see the manual pages of crontab(5) and cron(8)</h1>
+
+<p>#</p>
+
+<h1>m h  dom mon dow   command</h1>
+
+<p>0 * * * * python /projects/robo-d3/scripts/waterservices_parser.py > ~/robo-d3.log 2>&amp;1
+```</p>
+
+<p>We essential say, on the minute zero, of every hour, for every day, month, and weekday, run the command 'python /path/to/script'. The tail indicates that we're outputting both STDOUT and the ERROR log to <code>/home/rdi-git/robo-d3.log</code></p>
+
+<p>And there we go. If we check out the <a href="https://github.com/mattmakesmaps/robo-d3/commits/master">commit logs</a> we can
+see that our github user, rdi-git, has been pushing every hour on the hour. Woo-hoo!</p>
+]]></content>
+  </entry>
+  
+</feed>
