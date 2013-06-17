@@ -97,3 +97,15 @@ google_analytics_tracking_id: UA-40519413-1
 
 # Facebook Like
 facebook_like: false
+
+# Add Nav Bar
+
+navigation:
+- text: Home
+  url: /index.html
+- text: About
+  url: /about/
+- text: Portfolio/Slides
+  url: /portfolio/
+- text: Archives
+  url: /blog/archives/
