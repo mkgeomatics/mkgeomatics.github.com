@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-07-10T21:23:42-07:00</updated>
+  <updated>2013-07-10T21:29:20-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -60,42 +60,12 @@ ArcGIS Desktop&#8217;s internal Python console.</p>
 <h1>Creation of PYTHONPATH Environment Variable</h1>
 
 <ol>
-<li>From the start menu, right click the <code>computer</code> button and select <code>properties</code>.</li>
-</ol>
-
-
-<p><img src="http://mattmakesmaps.com/images/2013-07-10/path_img_1.png"></p>
-
-<ol>
-<li>Click <code>Advanced System Settings</code>.</li>
-</ol>
-
-
-<p><img src="http://mattmakesmaps.com/images/2013-07-10/path_img_2.png"></p>
-
-<ol>
-<li>Click the <code>Advanced</code> tab, and select the <code>Environment Variables</code> button.</li>
-</ol>
-
-
-<p><img src="http://mattmakesmaps.com/images/2013-07-10/path_img_3.png"></p>
-
-<ol>
-<li>Click <code>New</code> to create a new environment variable.</li>
-</ol>
-
-
-<p><img src="http://mattmakesmaps.com/images/2013-07-10/path_img_4.png"></p>
-
-<ol>
-<li>Name the environment variable <code>PYTHONPATH</code> and set it&#8217;s value to point to the <code>site-packages</code> directory for ArcGIS. For my instance, this is <code>C:\Python27\ArcGIS10.1\Lib\site-packages</code>.</li>
-</ol>
-
-
-<p><img src="http://mattmakesmaps.com/images/2013-07-10/path_img_5.png"></p>
-
-<ol>
-<li>Restart the machine. You should now be able to successfully import numpy, arcpy, and any other Python modules installed as part of the ArcGIS 10.x version of Python.</li>
+<li><p>From the start menu, right click the <code>computer</code> button and select <code>properties</code>.</p></li>
+<li><p>Click <code>Advanced System Settings</code>.</p></li>
+<li><p>Click the <code>Advanced</code> tab, and select the <code>Environment Variables</code> button.</p></li>
+<li><p>Click <code>New</code> to create a new environment variable.</p></li>
+<li><p>Name the environment variable <code>PYTHONPATH</code> and set it&#8217;s value to point to the <code>site-packages</code> directory for ArcGIS. For my instance, this is <code>C:\Python27\ArcGIS10.1\Lib\site-packages</code>.</p></li>
+<li><p>Restart the machine. You should now be able to successfully import numpy, arcpy, and any other Python modules installed as part of the ArcGIS 10.x version of Python.</p></li>
 </ol>
 
 ]]></content>
