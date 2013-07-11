@@ -7,10 +7,11 @@ sharing: true
 footer: true
 ---
 
-I am currently working as a GIS Analyst at the Seattle-based environmental engineering firm,
-[RIDOLFI Inc](http://www.ridolfi.com). I coordinate with a wide-variety of agency and
+In August of 2013, I will have taken on a new role as a GIS Data Engineer for [Tableau Software](http://www.tableausoftware.com).
+I recently ended a nearly four-year term as GIS Analyst at the Seattle-based environmental engineering firm,
+[RIDOLFI Inc](http://www.ridolfi.com). In that role, I coordinated with a wide-variety of agency and
 tribal government clients, working on GIS development and spatial analysis projects.
-In addition to my external clients, I act as the primary GIS support for a staff of
+In addition to my external clients, I acted as the primary GIS support for a staff of
 twenty-some environmental scientists and engineers. I enjoy creating tools that help empower
 decision makers and domain knowledge experts to directly access their data, removing the
 barrier to information that is typically associated with complex and unintuitive GIS software.
@@ -24,5 +25,4 @@ talented group of Open Source GIS software developers and end-users.
 When I'm not working, I can probably be found hacking on a variety of Python projects,
 cycling, attending Crossfit, or playing with a cool three-legged cat.
 
-I'm available to consult on a wide-variety of GIS projects. To contact me, please use
-any of the services listed in the footer.
+To contact me, please use any of the services listed in upper-right.
