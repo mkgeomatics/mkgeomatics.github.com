@@ -13,6 +13,7 @@ At my current employer, we have four Windows 7 64-bit workstations, all running 
 various license levels. Hilariously, due to some quirk that I haven't been able to figure out,
 all machines have been reporting the following traceback when running `>>> import numpy` from
 ArcGIS Desktop's internal Python console.
+<!-- more -->
 
 ```
 >>> import numpy
