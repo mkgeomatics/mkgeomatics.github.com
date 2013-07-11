@@ -38,22 +38,12 @@ One solution to this is to explicitly append the `PYTHONPATH` environment variab
 
 1. From the start menu, right click the `computer` button and select `properties`.
 
-{% img http://mattmakesmaps.com/images/2013-07-10/path_img_1.png %}
-
 2. Click `Advanced System Settings`.
-
-{% img http://mattmakesmaps.com/images/2013-07-10/path_img_2.png %}
 
 3. Click the `Advanced` tab, and select the `Environment Variables` button.
 
-{% img http://mattmakesmaps.com/images/2013-07-10/path_img_3.png %}
-
 4. Click `New` to create a new environment variable.
 
-{% img http://mattmakesmaps.com/images/2013-07-10/path_img_4.png %}
-
 5. Name the environment variable `PYTHONPATH` and set it's value to point to the `site-packages` directory for ArcGIS. For my instance, this is `C:\Python27\ArcGIS10.1\Lib\site-packages`.
-
-{% img http://mattmakesmaps.com/images/2013-07-10/path_img_5.png %}
 
 6. Restart the machine. You should now be able to successfully import numpy, arcpy, and any other Python modules installed as part of the ArcGIS 10.x version of Python.
