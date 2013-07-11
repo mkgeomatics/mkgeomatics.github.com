@@ -146,54 +146,9 @@ various license levels. Hilariously, due to some quirk that I haven&#8217;t been
 all machines have been reporting the following traceback when running <code>&gt;&gt;&gt; import numpy</code> from
 ArcGIS Desktop&#8217;s internal Python console.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt;&gt;&gt; import numpy
-</span><span class='line'>Runtime error 
-</span><span class='line'>Traceback (most recent call last):
-</span><span class='line'>  File "&lt;string&gt;", line 1, in &lt;module&gt;
-</span><span class='line'>  File "c:\program files (x86)\arcgis\desktop10.1\arcpy\arcpy\__init__.py", line 24, in &lt;module&gt;
-</span><span class='line'>    from arcpy.toolbox import *
-</span><span class='line'>  File "c:\program files (x86)\arcgis\desktop10.1\arcpy\arcpy\toolbox.py", line 342, in &lt;module&gt;
-</span><span class='line'>    from management import Graph, GraphTemplate
-</span><span class='line'>  File "c:\program files (x86)\arcgis\desktop10.1\arcpy\arcpy\management.py", line 22, in &lt;module&gt;
-</span><span class='line'>    import _management
-</span><span class='line'>  File "c:\program files (x86)\arcgis\desktop10.1\arcpy\arcpy\_management.py", line 14, in &lt;module&gt;
-</span><span class='line'>    import _graph
-</span><span class='line'>  File "c:\program files (x86)\arcgis\desktop10.1\arcpy\arcpy\_graph.py", line 27, in &lt;module&gt;
-</span><span class='line'>    import numpy
-</span><span class='line'>ImportError: No module named numpy</span></code></pre></td></tr></table></div></figure>
-
-
-<p>One solution to this is to explicitly append the <code>PYTHONPATH</code> environment variable to reference the ArcGIS10.1 Python install&#8217;s <code>site-packages</code> directory.</p>
-
-<h1>Creation of PYTHONPATH Environment Variable</h1>
-
-<ol>
-<li><p>From the start menu, right click the <code>computer</code> button and select <code>properties</code>.</p></li>
-<li><p>Click <code>Advanced System Settings</code>.</p></li>
-<li><p>Click the <code>Advanced</code> tab, and select the <code>Environment Variables</code> button.</p></li>
-<li><p>Click <code>New</code> to create a new environment variable.</p></li>
-<li><p>Name the environment variable <code>PYTHONPATH</code> and set it&#8217;s value to point to the <code>site-packages</code> directory for ArcGIS. For my instance, this is <code>C:\Python27\ArcGIS10.1\Lib\site-packages</code>.</p></li>
-<li><p>Restart the machine. You should now be able to successfully import numpy, arcpy, and any other Python modules installed as part of the ArcGIS 10.x version of Python.</p></li>
-</ol>
-
 
       
-      
+       <a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/">Read on &rarr;</a> 
     </div>
   </div>
 
