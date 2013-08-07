@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-07-10T21:49:24-07:00</updated>
+  <updated>2013-08-06T20:23:27-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MapBox + Github = Free and Fast Web Maps]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/"/>
+    <updated>2013-07-17T11:06:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps</id>
+    <content type="html"><![CDATA[<p>With the announcement of Github&#8217;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
+folks can deploy an embeddable web map with a single git commit and push. This got me
+thinking about the potential of github, specifically <a href="http://pages.github.com/">github pages</a>,
+as a vehicle for the display of more customized web mapping applications. The result of that
+experiment is <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a>. <!-- more --></p>
+
+<p>I deployed the initial draft of this site in a few hours, thanks entirely not only to
+the power of MapBox and Github&#8217;s hosting infrastructure, but also to the easy-to-use
+<a href="http://www.mapbox.com/map-sites/">mapping templates</a> provided by MapBox.</p>
+
+<p>This blog series will attempt to illustrate some of the major steps involved in the
+process of deploying this map. The general process however, is as follows.</p>
+
+<ol>
+<li>Style cartographic layers via TileMill, upload to MapBox.</li>
+<li>Create composite map of individual operation layers plus a base within MapBox.</li>
+<li>Fork MapBox&#8217;s dc-properties-template via github.</li>
+<li>Edit forked repository to point to my layers of interest.</li>
+<li>Add CNAME record for custom URL to forked repository.</li>
+<li>Configure DNS to route custom domain name to github pages.</li>
+</ol>
+
+
+<p>This first post will cover the cartography, and more importantly, the on-the-fly compositing of
+layers.</p>
+
+<h1>Cartography &amp; Compositing</h1>
+
+<p>The primary tool used to create the cartographic look and feel of the individual data layers is
+<a href="http://www.mapbox.com/tilemill/">TileMill</a>. TileMill is a desktop cartographic design studio, allowing you to
+load your own datasets from a variety of spatial formats (SHP, SpatialLite, PostGIS), and style via a CSS-like
+language, <a href="http://www.mapbox.com/tilemill/docs/manual/carto/">CartoCSS</a>.</p>
+
+<p>I&#8217;ll gloss over the details for styling maps in in TileMill, but they&#8217;ve got a great
+<a href="http://www.mapbox.com/tilemill/docs/crashcourse/introduction/">quick-start guide</a>.</p>
+
+<p>For my site, I ended up creating two projects in TileMill, one for each operational layer present in the final
+map. The first layer represents <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/page.html">place names</a>
+, symbolized as points. The second layer depicts <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/page.html">language regions</a>
+, symbolized as lines, but the geometry are in actuality polygons (required for the display of attribute information via a hover event).</p>
+
+<p>Splitting these operational layers into separate projects in TileMill, and conversely separate web maps when uploaded to MapBox, allows
+us to mix and match these layers at will. Specifically, the <a href="http://www.mapbox.com/developers/api/#Map.resources">MapBox REST API</a>
+allows us to composite or layer individual maps into a single-tile, on-the-fly. If you&#8217;re head hasn&#8217;t been exploded, allow me to illustrate.</p>
+
+<p>The map on <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a> is a composite of multiple layers. A basemap, provided by mapbox, as well as two operational layers (a point layer and a line layer).</p>
+
+<p>A <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png">single tile</a> from this map looks like this:</p>
+
+<p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png" title="Base Tile" ></p>
+
+<p>The URL is as follows: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png</a>. Note the <code>mattmakesmaps.map-9ipoh3441</code> section of the URL. This is a combination of my user account, <code>mattmakesmaps</code> and the unique map id. This identifier indicates that I&#8217;m requesting the tile representing this specific map, again, a composite of multiple layers.</p>
+
+<p>We can however, query individual layers that make up this map. For example, the lines layer specifically has a URL endpoint of <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png</a>. It looks like this.</p>
+
+<p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png"></p>
+
+<p>Similarly, with the points layer: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png</a>. NOTE: You&#8217;ll have to squint to see the points. They don&#8217;t show up very well with the black on dark blue background. OR, you can open the tile link above in a new tab.</p>
+
+<p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png"></p>
+
+<p>The real magic comes when we composite these individual layers together, on-the-fly. From the <a href="http://www.mapbox.com/developers/api/#Map.resources">docs</a></p>
+
+<blockquote><p>By joining multiple ids with commas into a single :map parameter you can access the MapBox Hosting compositing API to layer multiple tile images, UTFgrids or aggregate the TileJSON of multiple maps into a single map.</p></blockquote>
+
+
+<p>That looks something like this <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines,mattmakesmaps.language_points/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines,mattmakesmaps.language_points/6/5/16.png</a>:</p>
+
+<p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines,mattmakesmaps.language_points/6/5/16.png"></p>
+
+<p>Pretty cool. You can even flip the z-index in which the layers are composited by simply re-arranging their position in the URL.</p>
+
+<p>That&#8217;s it for now. The next post will cover how to fork Mapbox&#8217;s DC-Properties template, allowing us to visualize our maps, accessible via github pages.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fixing ArcGIS 10.1 Numpy Import Error From Python Console]]></title>
@@ -1187,55 +1268,6 @@ FROM export;[/sourcecode]</p>
 <p>[caption id=&#8221;attachment_242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Minutely Updated Tile Server for OSM&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely-300x240.jpg" alt="Above: CloudMade's Minutely Updated Tile Server for OSM" /></a>[/caption]</p>
 
 <p>Check out the full post from CloudMade&#8217;s blog here: <a href="http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/">http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Geocoding with OpenLayers: A Crash Course In Firebug]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/"/>
-    <updated>2009-01-20T12:24:03-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug</id>
-    <content type="html"><![CDATA[<p>The vacation is over. A new job and a new semester are already providing plenty of opportunities to explore those crazy technologies of the geoweb.</p>
-
-<p>A need to incorporate the <a href="http://developer.yahoo.com/maps/rest/V1/geocode.html">Yahoo Geocoder</a> into a new OpenLayers app has proved to be a great learning experience in the navigation of the development version of OL. <!-- more --> The <a href="http://trac.openlayers.org/ticket/1784">YahooGeocoder.js</a> addin, created by OL community member, &#8216;sbenthall&#8217;, requires two prerequisites to run: A <a href="http://trac.openlayers.org/wiki/FrequentlyAskedQuestions#ProxyHost">proxy.cgi script</a> as well as a Yahoo Developer API key. Why would this RESTful service require a proxy, you might find yourself asking? Well, because even though you can query it in a RESTful fashion, the data is returned in an XML shell, requiring a proxy to allow complete the XMLHttpRequest. Yahoo has a great article for novice web programmers like myself explaining the role of  Web Proxies, which can be found <a href="http://developer.yahoo.com/javascript/howto-proxy.html">here</a>.</p>
-
-<p>A quick overview of the primary steps to add the YahooGeocoder.js addin are as follows:</p>
-
-<ol>
-<li><p>Sign up for a Yahoo APP Key to enable access to their geocoding service.</p></li>
-<li><p>Add the proxy.cgi script to your webserver&#8217;s &#8216;cgi-bin&#8217;. Note: When navigating to the proxy.cgi&#8217;s url, you might encounter, &#8216;access denied&#8217; errors. If you do, make sure that you have the proper permissions set for your cgi-bin directory. This can be done using the terminal command, &#8216;chmod 755&#8217; targeting cgi-bin directory.</p></li>
-<li><p>Edit the proxy.cgi script to include &#8216;local.yahooapis.com&#8217; in the list of &#8216;allowedHosts&#8217;.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_228&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;proxy.cgi&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/proxy_hosts-300x54.png" alt="proxy_hosts" /></a>[/caption]</p>
-
-<ol>
-<li><p>Add the YahooGeocoder.js file to the OpenLayers &#8216;lib/OpenLayers/Control&#8217; folder.</p></li>
-<li><p>Add &#8220;OpenLayers/Control/YahooGeocoder.js&#8221; to the variable array, &#8216;jsfiles&#8217; inside the &#8220;lib/OpenLayers.js&#8221; library.</p></li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_229&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Modified &#8216;lib/OpenLayers.js&#8217;&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/control_add-300x149.png" alt="control_add" /></a>[/caption]</p>
-
-<ol>
-<li>Test the geocoder&#8217;s functionality using the supplied .HTML file. (Hopefully it should work!)</li>
-</ol>
-
-
-<p>[caption id=&#8221;attachment_230&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Geocoder Result with Properly Formed XML Response.&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/good_xml_return1-300x217.png" alt="good_xml_return1" /></a>[/caption]</p>
-
-<p>Six simple steps, but it can be challenging if you haven&#8217;t tried to install any addins to the OL library before.</p>
-
-<p>In the above image, the firebug window can be seen returning a properly formed XML Response, having successfully executed the geocoding function. If you enlarge the image, we can compare this to the raw XML-Response using a properly constructed query. Note in both the response captured from firebug (above) as well as the raw XML (below) the presence of the address: 510 High Street, Bellingham WA, broken down into it&#8217;s individual units along with the geocoded result.</p>
-
-<p>[caption id=&#8221;attachment_231&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: Basic XML Return&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/basic_xml-300x221.png" alt="basic_xml" /></a>[/caption]</p>
-
-<p>Further diving into the capabilities of firebug, we can use the DOM inspector to ensure that the various parameters required to properly execute the Yahoo Geocoder are in place. Note in the image below the presence of such necessary information as the APP ID Key, Projection, and Class, for the ygc variable. If any of these parameters happened to be incorrectly set, it would be displayed in this view.</p>
-
-<p>[caption id=&#8221;attachment_232&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: The Firebug DOM Inspector&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/dom_inspector-300x91.png" alt="dom_inspector" /></a>[/caption]</p>
-
-<p>I&#8217;m finally starting to appreciate the power of firebug as a development tool, which just so happens to coincide with my ability to understand it at a basic level. Hopefully as my experience in GIS Web Development grows, so will be ability to use the higher-end functions of this tool.</p>
 ]]></content>
   </entry>
   
