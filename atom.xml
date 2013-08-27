@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-08-06T20:23:27-07:00</updated>
+  <updated>2013-08-26T22:04:29-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,149 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Quickstart GIS Setup on Ubuntu Linux 12.04 LTS]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/"/>
+    <updated>2013-08-26T21:12:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts</id>
+    <content type="html"><![CDATA[<p>I had to recently setup a clean Ubuntu 12.04 LTS workstation for GIS
+data processing. For the simplicity and speed, I decided to go with
+packaged versions of many of the required GIS software. Many of the
+packages are derived from the <a href="https://launchpad.net/~ubuntugis/+archive/ubuntugis-unstable">ubuntugis-unstable</a> repository.</p>
+
+<p>What follows below are a blow-by-blow of my installation notes
+grouped by software package. Either code snippets or links to relevant
+blog posts.<!-- More --></p>
+
+<p>This is certainly only a high-level guide. If anyone has any other
+suggestions or alternatives, please feel free to list them.</p>
+
+<p><strong>NOTE:</strong> The order of these installs reflects the actual order in
+which I installed them.</p>
+
+<h2>Non-GIS Essentials</h2>
+
+<h3>Install SSH</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> or Secure Shell,
+is essential for remote server administration.</p>
+
+<p><code>$ sudo apt-get install openssh-server</code></p>
+
+<h3>Increase History Size</h3>
+
+<p>The default history size is pretty low. Increasing the size allows us
+to do search for that oft-used terminal command right when you need it
+most. What was the name of that server I ssh&#8217;d into last month?
+Piping history to grep can do the trick. <code>$ history | grep -i "ssh"</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vim ~/.bashrc
+</span><span class='line'><span class="nv">HISTSIZE</span><span class="o">=</span>10000
+</span><span class='line'><span class="nv">HISTFILESIZE</span><span class="o">=</span>20000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Python Virtual Environments</h3>
+
+<p>Used this <a href="https://gist.github.com/panuta/3075882">awesome gist</a> by
+github user <a href="https://github.com/panuta">panuta</a>.</p>
+
+<p>Didn&#8217;t follow, but a good reference: <a href="http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu">http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu</a></p>
+
+<h3>Apache</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install apache2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>GIS Packages</h2>
+
+<h3>Connect to the UbuntuGIS-Unstable PPA</h3>
+
+<p>In order to access many of these packages, we need to connect the
+system to the UbuntuGIS-Unstable PPA.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+</span><span class='line'><span class="nv">$ </span>sudo apt-get update
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>GDAL/Fiona</h3>
+
+<p>GDAL/OGR are the defacto Open Source GIS swiss army knife.
+<a href="https://github.com/sgillies/Fiona">Fiona</a> provides easy-to-use
+Python bindings for use in your projects.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install libgdal-dev gdal-bin
+</span><span class='line'><span class="nv">$ </span>workon gis-base
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install python2.7-dev
+</span><span class='line'><span class="nv">$ </span>pip install Fiona
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Postgres/PostGIS</h3>
+
+<p>The ubuntu unstable repository provides pre-packaged binaries combining both Postgres and Postgis.</p>
+
+<p>As of August 2013, GDAL version 1.10 for some reason doesn&#8217;t include libgdal1, replaced by libgdalh. See: <a href="http://lists.osgeo.org/pipermail/ubuntu/2013-July/000757.html">http://lists.osgeo.org/pipermail/ubuntu/2013-July/000757.html</a>
+This appearently is causing some issues with packages installations, including Postgres/PostGIS. The steps below appear to work.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install libgdal1-dev
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install postgresql-9.1-postgis-2.0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you need any of the postgis util scripts, e.g. <code>postgres_restore.pl</code> used for restoring a postgres database (across differing versions
+of postgis), I believe the only way to get these is by making from source.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install proj
+</span><span class='line'><span class="nv">$ </span>wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.g
+</span><span class='line'><span class="nv">$ </span>tar -zxvf postgis-2.0.3.tar.gz
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>postgis-2.0.3/
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally, if you need to change your Postgresql data dir to another
+disk, this guide provides good advice: <a href="http://www.whiteboardcoder.com/2012/04/change-postgres-datadirectory-folder.html">http://www.whiteboardcoder.com/2012/04/change-postgres-datadirectory-folder.html</a></p>
+
+<h3>Imposm 2.5.0</h3>
+
+<p>If you&#8217;re rendering OSM data, imposm is one of the fastest ways
+to get data from an OSM Planet Extract into PostGIS.</p>
+
+<p>I followed the instructions within the <a href="http://imposm.org/docs/imposm/latest/install.html#requirements">Imposm documentation</a></p>
+
+<p>Note: Installed imposm directly into my virtualenv &#8220;gis-base&#8221;</p>
+
+<h3>Quantum GIS</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install qgis
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MapBox + Github = Free and Fast Web Maps]]></title>
@@ -1249,25 +1392,6 @@ FROM export;[/sourcecode]</p>
 <p>In any event, in a data rich GIS environment, we can easily succumb to &#8216;data overload&#8217;. This creates a barrier for decision makers in understanding their situations, and as such can lead to poor planning. Through the careful use of data visualization tools such as this, however, decision makers can be empowered to quickly analyze data in a variety of ways, creating useful information on-the-fly and without the use of specialized GIS technical know-how.</p>
 
 <p>At least I think that&#8217;s how it works.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OSM 'Minutely' Tile Updates: Thanks CloudMade!]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/"/>
-    <updated>2009-01-24T13:32:07-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade</id>
-    <content type="html"><![CDATA[<p>Another great OSM Mapping Party is underway in Tempe Arizona. Brandon of <a href="http://www.cloudmade.com/">CloudMade</a> came out to run the show, with local hosting by <a href="http://www.spatiallyadjusted.com/">James Fee</a> of RSP Architects. Coffee, pizza, libations, and Open Source GIS provided a great foundation for lively discussion on the practical and philosophical aspects that OpenStreetMaps provides. <!-- more --></p>
-
-<p>Of particular interest was a question posed by a first time OSM&#8217;er, who wondered why we had to wait a week for the tiles to render, just to see the results of some type of experiment that we might be trying out in the digitization and attribution of features in the map. Well, no one could really give him a good answer other then, &#8216;it&#8217;s just the way it is&#8217;.</p>
-
-<p>It appears though, that CloudMade has provided us with an answer just the other day. The <a href="http://matt.sandbox.cloudmade.com/">Minutely Updated Tile Server</a> is updated &#8216;every minute from OpenStreetMap diffs&#8217;. The results can be seen below. The first image depicts the standard weekly update view while the bottom image depicts the minutely render. Note the presence of the additional buildings on ASU&#8217;s Tempe Campus.</p>
-
-<p>[caption id=&#8221;attachment_241&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: OSM Weekly Update&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/weekly-300x242.jpg" alt="Above: OSM Weekly Update" /></a>[/caption]</p>
-
-<p>[caption id=&#8221;attachment_242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;Above: CloudMade&#8217;s Minutely Updated Tile Server for OSM&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/01/minutely-300x240.jpg" alt="Above: CloudMade's Minutely Updated Tile Server for OSM" /></a>[/caption]</p>
-
-<p>Check out the full post from CloudMade&#8217;s blog here: <a href="http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/">http://blog.cloudmade.com/2009/01/23/nearly-live-tiles/</a></p>
 ]]></content>
   </entry>
   

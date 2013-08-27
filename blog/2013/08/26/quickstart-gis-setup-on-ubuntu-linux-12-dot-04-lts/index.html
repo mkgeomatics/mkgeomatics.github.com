@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Quickstart GIS Setup on Ubuntu Linux 12.04 LTS - mattmakesmaps</title>
+  <meta name="author" content="Matthew Kenny">
+
+  
+  <meta name="description" content="Quickstart GIS Setup on Ubuntu Linux 12.04 LTS Aug 26th, 2013 I had to recently setup a clean Ubuntu 12.04 LTS workstation for GIS
+data processing. &hellip;">
+  <meta name="keywords" content="linux, gis, ubuntu, open source">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/flat-ui.css" rel="stylesheet">
+  <link href="/stylesheets/font-awesome.css" rel="stylesheet">
+  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    
+        <li ><a href="/index.html">Home</a></li>
+    
+        <li ><a href="/about/">About</a></li>
+    
+        <li ><a href="/portfolio/">Portfolio/Slides</a></li>
+    
+        <li ><a href="/blog/archives/">Archives</a></li>
+    
+</ul>
+
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+    <div class="span12">
+      <div class="row-fluid">
+        <div id="content">
+          <div>
+<article class="hentry" role="article">
+  
+
+  <header>
+  <div class="jumbotron">
+    Quickstart GIS Setup on Ubuntu Linux 12.04 LTS
+	<h5>
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> <time datetime="2013-08-26T21:12:00-07:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time></h5>
+  </div>
+</header>
+  <div class="row-fluid">
+    <div class="span12">
+      <p>I had to recently setup a clean Ubuntu 12.04 LTS workstation for GIS
+data processing. For the simplicity and speed, I decided to go with
+packaged versions of many of the required GIS software. Many of the
+packages are derived from the <a href="https://launchpad.net/~ubuntugis/+archive/ubuntugis-unstable">ubuntugis-unstable</a> repository.</p>
+
+<p>What follows below are a blow-by-blow of my installation notes
+grouped by software package. Either code snippets or links to relevant
+blog posts.<!-- More --></p>
+
+<p>This is certainly only a high-level guide. If anyone has any other
+suggestions or alternatives, please feel free to list them.</p>
+
+<p><strong>NOTE:</strong> The order of these installs reflects the actual order in
+which I installed them.</p>
+
+<h2>Non-GIS Essentials</h2>
+
+<h3>Install SSH</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> or Secure Shell,
+is essential for remote server administration.</p>
+
+<p><code>$ sudo apt-get install openssh-server</code></p>
+
+<h3>Increase History Size</h3>
+
+<p>The default history size is pretty low. Increasing the size allows us
+to do search for that oft-used terminal command right when you need it
+most. What was the name of that server I ssh&#8217;d into last month?
+Piping history to grep can do the trick. <code>$ history | grep -i "ssh"</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vim ~/.bashrc
+</span><span class='line'><span class="nv">HISTSIZE</span><span class="o">=</span>10000
+</span><span class='line'><span class="nv">HISTFILESIZE</span><span class="o">=</span>20000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Python Virtual Environments</h3>
+
+<p>Used this <a href="https://gist.github.com/panuta/3075882">awesome gist</a> by
+github user <a href="https://github.com/panuta">panuta</a>.</p>
+
+<p>Didn&#8217;t follow, but a good reference: <a href="http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu">http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu</a></p>
+
+<h3>Apache</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install apache2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>GIS Packages</h2>
+
+<h3>Connect to the UbuntuGIS-Unstable PPA</h3>
+
+<p>In order to access many of these packages, we need to connect the
+system to the UbuntuGIS-Unstable PPA.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+</span><span class='line'><span class="nv">$ </span>sudo apt-get update
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>GDAL/Fiona</h3>
+
+<p>GDAL/OGR are the defacto Open Source GIS swiss army knife.
+<a href="https://github.com/sgillies/Fiona">Fiona</a> provides easy-to-use
+Python bindings for use in your projects.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install libgdal-dev gdal-bin
+</span><span class='line'><span class="nv">$ </span>workon gis-base
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install python2.7-dev
+</span><span class='line'><span class="nv">$ </span>pip install Fiona
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Postgres/PostGIS</h3>
+
+<p>The ubuntu unstable repository provides pre-packaged binaries combining both Postgres and Postgis.</p>
+
+<p>As of August 2013, GDAL version 1.10 for some reason doesn&#8217;t include libgdal1, replaced by libgdalh. See: <a href="http://lists.osgeo.org/pipermail/ubuntu/2013-July/000757.html">http://lists.osgeo.org/pipermail/ubuntu/2013-July/000757.html</a>
+This appearently is causing some issues with packages installations, including Postgres/PostGIS. The steps below appear to work.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install libgdal1-dev
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install postgresql-9.1-postgis-2.0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you need any of the postgis util scripts, e.g. <code>postgres_restore.pl</code> used for restoring a postgres database (across differing versions
+of postgis), I believe the only way to get these is by making from source.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install proj
+</span><span class='line'><span class="nv">$ </span>wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.g
+</span><span class='line'><span class="nv">$ </span>tar -zxvf postgis-2.0.3.tar.gz
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>postgis-2.0.3/
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally, if you need to change your Postgresql data dir to another
+disk, this guide provides good advice: <a href="http://www.whiteboardcoder.com/2012/04/change-postgres-datadirectory-folder.html">http://www.whiteboardcoder.com/2012/04/change-postgres-datadirectory-folder.html</a></p>
+
+<h3>Imposm 2.5.0</h3>
+
+<p>If you&#8217;re rendering OSM data, imposm is one of the fastest ways
+to get data from an OSM Planet Extract into PostGIS.</p>
+
+<p>I followed the instructions within the <a href="http://imposm.org/docs/imposm/latest/install.html#requirements">Imposm documentation</a></p>
+
+<p>Note: Installed imposm directly into my virtualenv &#8220;gis-base&#8221;</p>
+
+<h3>Quantum GIS</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install qgis
+</span></code></pre></td></tr></table></div></figure>
+
+
+    </div>
+  </div>
+
+
+
+  <footer>
+    <hr>
+    
+    <div class="row-fluid">
+      
+      <div class="span6">
+        <p class="meta">
+        
+        
+
+
+
+  <a href="/blog/categories/Desktop-GIS/"><span class="badge">Desktop-GIS</span></a>
+
+  <a href="/blog/categories/Linux/"><span class="badge">Linux</span></a>
+
+
+
+
+        </p>
+      </div>
+      
+      <div class="span6 social-sharing">
+        <div class="sharing">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+      </div>
+      
+      
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12">
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/" title="Previous Post: MapBox + Github = Free and Fast Web Maps">&laquo; MapBox + Github = Free and Fast Web Maps</a>
+          
+          
+        </p>
+      </div>
+    </div>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
+  Copyright &copy; 2013 - Matthew Kenny -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
+</p>
+
+
+        </footer>
+      </div>
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/';
+        var disqus_url = 'http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
