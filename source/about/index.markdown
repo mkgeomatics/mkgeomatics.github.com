@@ -7,8 +7,9 @@ sharing: true
 footer: true
 ---
 
-In August of 2013, I will have taken on a new role as a GIS Data Engineer for [Tableau Software](http://www.tableausoftware.com).
-I recently ended a nearly four-year term as GIS Analyst at the Seattle-based environmental engineering firm,
+I'm currently working as a GIS Data Engineer for [Tableau Software](http://www.tableausoftware.com).
+My day-to-day involves working with Open Source geospatial data processing. I love Python!
+Before that, I worked a four-year term as GIS Analyst at the Seattle-based environmental engineering firm,
 [RIDOLFI Inc](http://www.ridolfi.com). In that role, I coordinated with a wide-variety of agency and
 tribal government clients, working on GIS development and spatial analysis projects.
 In addition to my external clients, I acted as the primary GIS support for a staff of
@@ -23,6 +24,6 @@ development goals. I have cherished the opportunity to work with and learn from 
 talented group of Open Source GIS software developers and end-users.
 
 When I'm not working, I can probably be found hacking on a variety of Python projects,
-cycling, attending Crossfit, or playing with a cool three-legged cat.
+cycling, Crossfit, or playing with a cool three-legged cat.
 
 To contact me, please use any of the services listed in upper-right.
