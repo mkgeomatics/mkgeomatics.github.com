@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="Hi. I&#8217;m Matthew Kenny. maps + matt = mattmakesmaps Sep 30th, 2008 Scripting Web-GIS I&#8217;m Obsessed With Douglas-Peucker The Problem: Web &hellip;">
+  <meta name="description" content="Hi. I&#8217;m Matthew Kenny. Here are some thoughts of mine. Oct 3rd, 2008 Scripting Nested Tuples and Hours of Patience I&rsquo;ve finally got a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,13 +99,66 @@
           <div class="jumbotron">
   <div class="container">
     Hi. I&#8217;m Matthew Kenny.
-    <h3 class="tagline">maps + matt = mattmakesmaps</h3>
+    <h3 class="tagline">Here are some thoughts of mine.</h3>
   </div>
 </div>
 
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2">
+		<h1 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> <time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/Scripting/"><span class="badge">Scripting</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10">
+      <h1 class="link"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
+      <p>I&rsquo;ve finally got a working python script that does the following:</p>
+
+<p>-Reads each of the vertexes of a polyline shapefile using &lsquo;OGR&rsquo;</p>
+
+<p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
+
+<p>-Generates an output text file using &lsquo;stdout&rsquo; with the resulting &lsquo;smoothed&rsquo; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+
+
+      
+       <a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
   
   
     <article>
@@ -145,7 +198,7 @@
 
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
 
-<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &lsquo;spatially&rsquo; enabled. The trick is to make it except shapefiles as an input source.</p>
 
 
       
@@ -192,7 +245,7 @@
     </div>
     <div class="span10">
       <h1 class="link"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
-      <p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into 
+      <p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&rsquo;ve been working off of Aaron Racicot&rsquo;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &mdash;with-fftw-includes and &mdash;with-tclktk-includes respectively. Also, ran into 
       
        <a href="/blog/2008/09/14/web-based-grass/">Read on &rarr;</a> 
     </div>
@@ -284,7 +337,7 @@
     </div>
     <div class="span10">
       <h1 class="link"><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 On Shared Webhost</a></h1>
-      <p>For the past couple of days, I&#8217;ve been putting hours into understanding Aaron Racicot&#8217;s, &#8217;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&#8217;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&#8217;ve got everything in place&#8230; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
+      <p>For the past couple of days, I&rsquo;ve been putting hours into understanding Aaron Racicot&rsquo;s, &lsquo;<a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">guide to GIS on a shared hosting service</a>&rsquo;. This has been a great learning experience in working w/ SSH and a full mapserver install from the source. My goal is to host a Mapserver WMS directly from this site. I&rsquo;ve got everything in place&hellip; probably not configured correctly, probably full of errors, probably will never work (w/o a healthy dose of patience).</p>
 
 <p>I do however, know that I am on the right track, as GDAL/OGR and PROJ.4 are up and running.</p>
 
@@ -331,7 +384,7 @@
     </div>
     <div class="span10">
       <h1 class="link"><a href="/blog/2008/09/08/plans/">Plans</a></h1>
-      <p>I&#8217;ve finished downloading my previous portfolio site from Western&#8217;s server. Until I finish pushing the content into this design, it will be accessible either from the link on the right, or by following this link below:</p>
+      <p>I&rsquo;ve finished downloading my previous portfolio site from Western&rsquo;s server. Until I finish pushing the content into this design, it will be accessible either from the link on the right, or by following this link below:</p>
 
 <p><a href="http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2">http://deptweb.wwu.edu/huxley/huxweb/gis/Portfolio/08/kennym2</a></p>
 
@@ -339,51 +392,6 @@
 
       
       
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2">
-		<h1 class="date-time">
-
-
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2008-09-07T16:24:38-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/Links/"><span class="badge">Links</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10">
-      <h1 class="link"><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
-      <p>So, like many GIS users, I find myself scouring google for tips / tricks / solutions to problems. These searches regularly lead me to GIS course webpages from various universities. Hurrah for the internet! Right? 
-      
-       <a href="/blog/2008/09/07/free-courses-in-gis/">Read on &rarr;</a> 
     </div>
   </div>
 

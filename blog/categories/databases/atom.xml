@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/databases/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-08-26T22:04:29-07:00</updated>
+  <updated>2013-10-09T22:43:30-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -18,16 +18,16 @@
     <link href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/"/>
     <updated>2011-11-28T00:35:49-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango</id>
-    <content type="html"><![CDATA[<p>I've been creating a simple GeoDjango application for managing environmental sampling metadata, and it's been a lot of fun so far. I've had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&rsquo;s been a lot of fun so far. I&rsquo;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
 
-<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i'll just put two entries into the same cell).</p>
+<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&rsquo;ll just put two entries into the same cell).</p>
 
 <!-- more -->
 
 
-<p>[caption id="attachment_487" align="alignnone" width="464" caption="sometimes spreadsheets just don't work..."]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;464&rdquo; caption=&ldquo;sometimes spreadsheets just don&rsquo;t work&hellip;&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
 
-<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt's <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">"Puget Sound on the Pacific Coast"</a>, but it's just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
+<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt&rsquo;s <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">&ldquo;Puget Sound on the Pacific Coast&rdquo;</a>, but it&rsquo;s just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
 
 <p><code>
 ^ Column One                ^ Column Two                 ^
@@ -36,13 +36,13 @@
 | SuperShort                | A string starting with 'A' |
 </code></p>
 
-<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don't allow for the storage/visualization of spatial data.</p>
+<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don&rsquo;t allow for the storage/visualization of spatial data.</p>
 
-<p>[caption id="attachment_488" align="alignnone" width="300" caption="10 megs free for one user? cool!"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_488&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;10 megs free for one user? cool!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
 
-<p>In comes GeoDjango. Over the next few posts, I think I'll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
+<p>In comes GeoDjango. Over the next few posts, I think I&rsquo;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
 
-<p>[caption id="attachment_489" align="alignnone" width="300" caption="Hey look Ma', it's GeoJSON!"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_489&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Hey look Ma', it&rsquo;s GeoJSON!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
 ]]></content>
   </entry>
   
@@ -51,26 +51,26 @@
     <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
     <updated>2011-02-25T05:09:52-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
-    <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;-- Imagine that's a mustache on it's side.</p>
+    <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&mdash; Imagine that&rsquo;s a mustache on it&rsquo;s side.</p>
 
 <blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
 
 <!-- more -->
 
 
-<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I'm most interested in though, is it's ability to deploy vector tiles. So what are vector tiles? Think TMS tiles... but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
+<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I&rsquo;m most interested in though, is it&rsquo;s ability to deploy vector tiles. So what are vector tiles? Think TMS tiles&hellip; but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
 
-<p>For example, data from a PostGIS data source can be rendered as an image tile (.../10/16/357.png), like this:</p>
+<p>For example, data from a PostGIS data source can be rendered as an image tile (&hellip;/10/16/357.png), like this:</p>
 
 <p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png" alt="" /></a></p>
 
-<p>But can also be represtented as a vector tile (.../10/16/357.json), like this:</p>
+<p>But can also be represtented as a vector tile (&hellip;/10/16/357.json), like this:</p>
 
 <p>``` javascript
 // Subset of a single 256x256 pixel vector tile.
 {
-  "type": "FeatureCollection",
-  "features": [</p>
+  &ldquo;type&rdquo;: &ldquo;FeatureCollection&rdquo;,
+  &ldquo;features&rdquo;: [</p>
 
 <pre><code>{
   "geometry": {
@@ -103,15 +103,15 @@
 }
 ```</p>
 
-<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers' GeoJSON</a> format reader to populate a vector layer in OL. It's an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS... only request those sections of data which you need at that time. By only requesting those tiles within the user's current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS's can be pre-cached to disk (seeded), so can vector tiles.</p>
+<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers' GeoJSON</a> format reader to populate a vector layer in OL. It&rsquo;s an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS&hellip; only request those sections of data which you need at that time. By only requesting those tiles within the user&rsquo;s current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS&rsquo;s can be pre-cached to disk (seeded), so can vector tiles.</p>
 
 <p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
 
-<p>[caption id="attachment_398" align="alignnone" width="665" caption="NFS Boundaries Provided By ChopShopGeo"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_398&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;665&rdquo; caption=&ldquo;NFS Boundaries Provided By ChopShopGeo&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
 
-<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I've found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input... ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
+<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&rsquo;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&hellip; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
 
-<p>[caption id="attachment_393" align="alignnone" width="691" caption="USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You'll have to ignore the fact that I'm symbolizing streamflow without the streams."]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_393&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;691&rdquo; caption=&ldquo;USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You&rsquo;ll have to ignore the fact that I&rsquo;m symbolizing streamflow without the streams.&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
 
 <p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
 
@@ -148,14 +148,14 @@ http: //jsbeautifier.org/
     <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
-    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
-<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I've posted my function below. It's not pretty, but it's filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
+<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&rsquo;ve posted my function below. It&rsquo;s not pretty, but it&rsquo;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
 
 <ul>
 <li><p>Loop through a table in which each row has a source and destination vertex</p></li>
 <li><p>Execute the pgRouting function using these two vertices, determining the length of the least-cost path.</p></li>
-<li><p>Populate a field, 'dist_calc' with the distance.</p></li>
+<li><p>Populate a field, &lsquo;dist_calc&rsquo; with the distance.</p></li>
 </ul>
 
 
@@ -165,47 +165,47 @@ DECLARE
  bld_row bld_wtastops_staging5%ROWTYPE;
  dist_calc RECORD;
 BEGIN
- RAISE NOTICE 'Beginning Function';
+ RAISE NOTICE &lsquo;Beginning Function&rsquo;;
  FOR bld_row IN SELECT * FROM bld_wtastops_staging5 WHERE bld_wtastops_staging5.bld_vert_node IS NOT NULL
  AND bld_wtastops_staging5.wtastops_vert_node IS NOT NULL
- -- BEGIN ADDING BUM NODES TO SKIP OVER
+ &mdash; BEGIN ADDING BUM NODES TO SKIP OVER
  AND bld_wtastops_staging5.bld_vert_node &lt;&gt; 2915
  AND bld_wtastops_staging5.wtastops_vert_node &lt;&gt; 293
- -- ADD START GID
- -- USED ONLY IF BUM NODES EXIST
- --AND bld_wtastops_staging5.bld_gid &gt;= 29200
+ &mdash; ADD START GID
+ &mdash; USED ONLY IF BUM NODES EXIST
+ &mdash;AND bld_wtastops_staging5.bld_gid &gt;= 29200
  ORDER BY bld_wtastops_staging5.bld_gid LOOP
- RAISE NOTICE 'Value of wtastops_vert_node is %. The value of bld_vert_node is %',bld_row.wtastops_vert_node, bld_row.bld_vert_node;
- RAISE NOTICE 'Value of wtastops_gid is %. The value of bld_gid is %',bld_row.wtastops_gid, bld_row.bld_gid;
- -- BEGIN STANDARD pgRouting A*Star FUNCTION
- SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar('
+ RAISE NOTICE &lsquo;Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo;Value of wtastops_gid is %. The value of bld_gid is %&rsquo;,bld_row.wtastops_gid, bld_row.bld_gid;
+ &mdash; BEGIN STANDARD pgRouting A*Star FUNCTION
+ SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar(&lsquo;
  SELECT gid as id,
  source::integer,
  target::integer,
  length::double precision as cost,
  x1, y1, x2, y2
- FROM streets_9102748',
+ FROM streets_9102748&rsquo;,
  bld_row.bld_vert_node, bld_row.wtastops_vert_node, false, false);
- RAISE NOTICE 'Value of dist_calc is %.',dist_calc;
- EXECUTE 'UPDATE bld_wtastops_staging5
- SET route_dist = ' ||dist_calc|| '
- WHERE ' ||bld_row.bld_gid|| ' = bld_wtastops_staging5.bld_gid';
+ RAISE NOTICE &lsquo;Value of dist_calc is %.&rsquo;,dist_calc;
+ EXECUTE &lsquo;UPDATE bld_wtastops_staging5
+ SET route_dist = &rsquo; ||dist_calc|| &lsquo;
+ WHERE &rsquo; ||bld_row.bld_gid|| &lsquo; = bld_wtastops_staging5.bld_gid&rsquo;;
  END LOOP;
- -- BAIL OUT ON ERRORS
+ &mdash; BAIL OUT ON ERRORS
  EXCEPTION
  WHEN CONTAINING_SQL_NOT_PERMITTED THEN
- RAISE NOTICE ' EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %',bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo; EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
 END;
-$$ LANGUAGE 'plpgsql';
--- EXECUTE FUNCTION
+$$ LANGUAGE &lsquo;plpgsql&rsquo;;
+&mdash; EXECUTE FUNCTION
 SELECT bulk_route_generate();
 [/sourcecode]</p>
 
-<p>I'm excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I'm sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I'll be sure to do some serious head-scratching to think about a better approach!</p>
+<p>I&rsquo;m excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I&rsquo;m sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I&rsquo;ll be sure to do some serious head-scratching to think about a better approach!</p>
 
-<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a 1/4 mile distance, while areas from yellow-to-red represent distances increasingly greater then a 1/4 mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
+<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a &frac14; mile distance, while areas from yellow-to-red represent distances increasingly greater then a &frac14; mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
 
-<p>[caption id="attachment_360" align="alignnone" width="430" caption="the result as seen in mapnik"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_360&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;430&rdquo; caption=&ldquo;the result as seen in mapnik&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
 ]]></content>
   </entry>
   
@@ -219,31 +219,31 @@ SELECT bulk_route_generate();
 <p>The conceptual plan is as follows: <!-- more --></p>
 
 <ul>
-<li><p>Extract the geometry of a user's click on the map.</p></li>
+<li><p>Extract the geometry of a user&rsquo;s click on the map.</p></li>
 <li><p>Pass the extracted geometry to a PHP script, via an HTTP GET request.</p></li>
 <li><p>Use the PHP script to pass the geometry as part of an SQL query against the PostGIS/pgRouting database.</p></li>
 <li><p>Return the geometry from the database as <a href="http://geojson.org/">GeoJSON</a>, and deserialize it into an OpenLayers vector layer feature.</p></li>
 </ul>
 
 
-<p>The code to extract a user's clicked coordinates was taken from <a href="http://openlayers.org/dev/examples/click.html">this</a> OpenLayers example. It was then modified to pass the xy coordinates to a second function, designed to create a URL which will execute a PHP script.</p>
+<p>The code to extract a user&rsquo;s clicked coordinates was taken from <a href="http://openlayers.org/dev/examples/click.html">this</a> OpenLayers example. It was then modified to pass the xy coordinates to a second function, designed to create a URL which will execute a PHP script.</p>
 
-<p>[sourcecode language="javascript"]trigger: function(e) {
+<p>[sourcecode language=&ldquo;javascript&rdquo;]trigger: function(e) {
  var xy = map.getLonLatFromViewPortPx(e.xy);
  executeSQL(xy);
  }[/sourcecode]</p>
 
 <p>Passing the XY variable to the executeSQL() function, we are able to now seperate out the individual X and Y coordinates, and apply them to their respective parameters in our URL string.</p>
 
-<p>[sourcecode language="javascript"]// Build the URL
- var json_url = "http://localhost/near_vertex_astar.php?";
- json_url += "x=" + escape(xy.lon);
- json_url += "&amp;y=" + escape(xy.lat);[/sourcecode]</p>
+<p>[sourcecode language=&ldquo;javascript&rdquo;]// Build the URL
+ var json_url = &ldquo;<a href="http://localhost/near_vertex_astar.php?">http://localhost/near_vertex_astar.php?</a>&rdquo;;
+ json_url += &ldquo;x=&rdquo; + escape(xy.lon);
+ json_url += &ldquo;&amp;y=&rdquo; + escape(xy.lat);[/sourcecode]</p>
 
 <p>Having constructed the URL, we are now ready to use it to populate an OpenLayers vector layer with data.</p>
 
-<p>[sourcecode language="javascript"]// Make a fresh vector layer, pulling features from our script URL
- json_layer = new OpenLayers.Layer.Vector("GeoJSON", {
+<p>[sourcecode language=&ldquo;javascript&rdquo;]// Make a fresh vector layer, pulling features from our script URL
+ json_layer = new OpenLayers.Layer.Vector(&ldquo;GeoJSON&rdquo;, {
  styleMap: myStyles,
  strategies: [new OpenLayers.Strategy.Fixed()],
  protocol: new OpenLayers.Protocol.HTTP({
@@ -252,25 +252,25 @@ SELECT bulk_route_generate();
  })
  });[/sourcecode]</p>
 
-<p>Alright! So where are we at right now? A user has clicked the map, and that click's geometry has been extracted and sent to a PHP script on the server for further work. The PHP script will execute SQL in the PostGIS/pgRouting data base to do the following:</p>
+<p>Alright! So where are we at right now? A user has clicked the map, and that click&rsquo;s geometry has been extracted and sent to a PHP script on the server for further work. The PHP script will execute SQL in the PostGIS/pgRouting data base to do the following:</p>
 
 <ul>
-<li><p>Find the closest vertex in our routing network to the user's map click. This will be used as a source vertex.</p></li>
+<li><p>Find the closest vertex in our routing network to the user&rsquo;s map click. This will be used as a source vertex.</p></li>
 <li><p>Find all firestations within 5km of the vertex (which have been pre-attributed with the closest vertex on the routing network to their location).</p></li>
 <li><p>Calculate the cost (as defined by total length of the route) from the source vertex to each fire station (really the routing network vertex).</p></li>
 <li><p>Return back as GeoJSON only the geometry for the route with the lowest cost.</p></li>
 </ul>
 
 
-<p>Why all the hassle with determining the cost? Can't you just use PostGIS' ST_DWithin() function to find the closet firestation to our user's click and create the route? Well you could, but it might not always be the shortest route.</p>
+<p>Why all the hassle with determining the cost? Can&rsquo;t you just use PostGIS' ST_DWithin() function to find the closet firestation to our user&rsquo;s click and create the route? Well you could, but it might not always be the shortest route.</p>
 
-<p>[caption id="attachment_339" align="alignnone" width="300" caption="Euclidean distance versus Manhattan. Which one is shorter?"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance-300x279.png" alt="Euclidean distance versus Manhattan. Which one is shorter?" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_339&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Euclidean distance versus Manhattan. Which one is shorter?&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/distance-300x279.png" alt="Euclidean distance versus Manhattan. Which one is shorter?" /></a>[/caption]</p>
 
 <p>This behavior can be respresented in the routing network with the example below. Two different routes are generated from the same source vertex based on the combination of routing algorithm and account for route cost. On the left, the <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">dijkstra algorithm</a> is used to return the route to the closest fire station as the result of an ST_DWithin() query. On the right, the A-Star algorithm is used, and the route costs of all fire stations within a buffer are taken into account. As we can see, a different route and a different station are returned.</p>
 
 <p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/02/dj_left_astar_right1-1024x338.png" alt="Comparing the two search algorithms and cost relationships." /></a></p>
 
-<p>A link to the JS and PHP scripts can be found at the end of this post. This definitely is not the most elegant solution to working with routing, but in terms of an experiment it was a great learning exercise. I'm really excited to dive deeper into PostGIS and pgRouting. The next step in the process will be incorporating OSM data, and adding in addition attributes which affect cost (speed limits, one-way streets, etc).</p>
+<p>A link to the JS and PHP scripts can be found at the end of this post. This definitely is not the most elegant solution to working with routing, but in terms of an experiment it was a great learning exercise. I&rsquo;m really excited to dive deeper into PostGIS and pgRouting. The next step in the process will be incorporating OSM data, and adding in addition attributes which affect cost (speed limits, one-way streets, etc).</p>
 
 <p>View the <a href="http://mkgeomatics.com/apps/syntaxhighlighter/astar_php.html">PHP</a>.</p>
 
@@ -283,27 +283,27 @@ SELECT bulk_route_generate();
     <link href="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/"/>
     <updated>2010-01-31T05:05:32-08:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver</id>
-    <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney's pgRouting extension</a> to PostgreSQL/PostGIS, I've decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: <!-- more --></p>
+    <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&rsquo;s pgRouting extension</a> to PostgreSQL/PostGIS, I&rsquo;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: <!-- more --></p>
 
 <ul>
 <li><p>Display: OpenLayers</p></li>
 <li><p>Renderer: Geoserver (via non-cached WMS)</p></li>
 <li><p>Spatial Backend: PostGIS/pgRouting enabled PostgreSQL</p></li>
-<li><p>Data: <a href="http://www.cob.org/services/maps/gis/index.aspx">Public GIS data</a> from the city of Bellingham, Washington's GIS department.</p></li>
+<li><p>Data: <a href="http://www.cob.org/services/maps/gis/index.aspx">Public GIS data</a> from the city of Bellingham, Washington&rsquo;s GIS department.</p></li>
 </ul>
 
 
-<p>For the sake of brevity, (but really because both TOPP has created some <a href="http://workshops.opengeo.org/opengeo-stack/">fantastic guides</a>) I won't go into the specifics of installing all the pieces. Just as an FYI, remember to set your 'JAVA_HOME' environment variable and make sure that you don't have things trying to use the same port!</p>
+<p>For the sake of brevity, (but really because both TOPP has created some <a href="http://workshops.opengeo.org/opengeo-stack/">fantastic guides</a>) I won&rsquo;t go into the specifics of installing all the pieces. Just as an FYI, remember to set your &lsquo;JAVA_HOME&rsquo; environment variable and make sure that you don&rsquo;t have things trying to use the same port!</p>
 
 <p>The Bellingham data is currently stored in <a href="http://www.spatialreference.org/ref/esri/102748/">NAD83 State Plane WA North Feet</a>, a typical projection for this area. This projection however, is not part of the EPSG projection set, and as such is not included in a vanilla install of PostGIS.</p>
 
-<p>In order to add this to the collection of spatial reference systems used by my PostGIS install, I went with the ridiculously cool <a href="http://spatialreference.org">spatialreference.org</a> site (A <a href="http://crschmidt.net/">crschmidt</a>, <a href="http://dbsgeo.com/">dbsgeo</a>, <a href="http://hobu.biz/">hobu</a>, and <a href="http://umbrellaconsulting.com/">umbrella</a> joint, hah). Navigating to the projection's page gives me the option to generate an <a href="http://www.spatialreference.org/ref/esri/102748/postgis/">INSERT</a> statement, adding the projection's info into my database.</p>
+<p>In order to add this to the collection of spatial reference systems used by my PostGIS install, I went with the ridiculously cool <a href="http://spatialreference.org">spatialreference.org</a> site (A <a href="http://crschmidt.net/">crschmidt</a>, <a href="http://dbsgeo.com/">dbsgeo</a>, <a href="http://hobu.biz/">hobu</a>, and <a href="http://umbrellaconsulting.com/">umbrella</a> joint, hah). Navigating to the projection&rsquo;s page gives me the option to generate an <a href="http://www.spatialreference.org/ref/esri/102748/postgis/">INSERT</a> statement, adding the projection&rsquo;s info into my database.</p>
 
-<p>To load shapefiles into the PostGIS database, I chose to use the SPIT plugin for QGIS. Loading the data was fairly straightforward. I had an issue with a datefield that was present in the source shapefile, and had to delete the column manually using Open Office Database. I haven't found a way to delete fields from a shapefile using QGIS.</p>
+<p>To load shapefiles into the PostGIS database, I chose to use the SPIT plugin for QGIS. Loading the data was fairly straightforward. I had an issue with a datefield that was present in the source shapefile, and had to delete the column manually using Open Office Database. I haven&rsquo;t found a way to delete fields from a shapefile using QGIS.</p>
 
-<p>[caption id="attachment_327" align="alignnone" width="300" caption="The SPIT Interface"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit-300x175.png" alt="spit" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_327&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;The SPIT Interface&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/01/spit-300x175.png" alt="spit" /></a>[/caption]</p>
 
-<p>After uploading the streets data into my PostGIS database, the next step was to transform the geometry into the Web Mercator 900913 Projection. This was done using standard PostGIS functions, adding a new, second, geometry column to the existing streets table. This reprojected data was then exported from my staging PostGIS database as a shapefile using the QGIS, 'Save As Shapefile' tool, and re-imported into my production database (with the routing functions).</p>
+<p>After uploading the streets data into my PostGIS database, the next step was to transform the geometry into the Web Mercator 900913 Projection. This was done using standard PostGIS functions, adding a new, second, geometry column to the existing streets table. This reprojected data was then exported from my staging PostGIS database as a shapefile using the QGIS, &lsquo;Save As Shapefile&rsquo; tool, and re-imported into my production database (with the routing functions).</p>
 
 <p>With data stored in the web mercator projection, inside of our PostGIS/pgRouting database, the next step was to add the layers to Geoserver. Using Geoserver 2.x, the process included the following steps (all done through the web-admin).</p>
 
@@ -315,7 +315,7 @@ SELECT bulk_route_generate();
 
 <p>After creating the connections between PostGIS and Geoserver, the creation of WMS services is taken care of, allowing us to roll them into OpenLayers with relative ease.</p>
 
-<p>I guess this got a little off-topic from what I originally wanted to write about. I think that I'll save the actual breakdown of my OL code (taking a user's map click to and using it to calculate a route to the nearest fire-station as determined by manhattan distance, as opposed to euclidean distance) for another day.</p>
+<p>I guess this got a little off-topic from what I originally wanted to write about. I think that I&rsquo;ll save the actual breakdown of my OL code (taking a user&rsquo;s map click to and using it to calculate a route to the nearest fire-station as determined by manhattan distance, as opposed to euclidean distance) for another day.</p>
 ]]></content>
   </entry>
   

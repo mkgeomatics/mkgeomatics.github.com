@@ -1,24 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-10-09T22:43:30-07:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
-  <author>
-    <name><![CDATA[Matthew Kenny]]></name>
-    <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TileStache: Generate [Topo|Geo]JSON Vector Tiles - mattmakesmaps</title>
+  <meta name="author" content="Matthew Kenny">
 
   
-  <entry>
-    <title type="html"><![CDATA[TileStache: Generate [Topo|Geo]JSON Vector Tiles]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson/"/>
-    <updated>2013-10-09T19:25:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson</id>
-    <content type="html"><![CDATA[<p>Vector tiles are simply tiled representations of geographic data, much like raster tiles
+  <meta name="description" content="TileStache: Generate [Topo|Geo]JSON Vector Tiles Oct 9th, 2013 Vector tiles are simply tiled representations of geographic data, much like raster &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/flat-ui.css" rel="stylesheet">
+  <link href="/stylesheets/font-awesome.css" rel="stylesheet">
+  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40519413-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    
+        <li ><a href="/index.html">Home</a></li>
+    
+        <li ><a href="/about/">About</a></li>
+    
+        <li ><a href="/portfolio/">Portfolio/Slides</a></li>
+    
+        <li ><a href="/blog/archives/">Archives</a></li>
+    
+</ul>
+
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+    <div class="span12">
+      <div class="row-fluid">
+        <div id="content">
+          <div>
+<article class="hentry" role="article">
+  
+
+  <header>
+  <div class="jumbotron">
+    TileStache: Generate [Topo|Geo]JSON Vector Tiles
+	<h5>
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> <time datetime="2013-10-09T19:25:00-07:00" pubdate data-updated="true">Oct 9<span>th</span>, 2013</time></h5>
+  </div>
+</header>
+  <div class="row-fluid">
+    <div class="span12">
+      <p>Vector tiles are simply tiled representations of geographic data, much like raster tiles
 used to power typical web maps such as OpenStreetMap. They differ from traditional
 raster tiles however in that instead being an image, they actually contain the
 geographic coordinates and attributes of the features that exist within their bounding boxes.
@@ -64,27 +166,34 @@ quick notes on how to get things up and running.</p>
 </ol>
 
 
-<p><code>bash
-$ created ts_data
-$ psql -d ts_data
-ts_data# CREATE EXTENSION postgis;
-CREATE EXTENSION
-ts_data=# CREATE SCHEMA osm;
-CREATE SCHEMA
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>created ts_data
+</span><span class='line'><span class="nv">$ </span>psql -d ts_data
+</span><span class='line'>ts_data# CREATE EXTENSION postgis;
+</span><span class='line'>CREATE EXTENSION
+</span><span class='line'><span class="nv">ts_data</span><span class="o">=</span><span class="c"># CREATE SCHEMA osm;</span>
+</span><span class='line'>CREATE SCHEMA
+</span></code></pre></td></tr></table></div></figure>
+
 
 <ol>
 <li>Load processed_p Shapefile into PostGIS</li>
 </ol>
 
 
-<p>NOTE: See the excellent shp2pgsql/pgsql2shp cheat sheet by <a href="http://www.bostongis.com/pgsql2shp_shp2pgsql_quickguide_20.bqg">BostonGIS</a>
-``` bash</p>
+<p>NOTE: See the excellent shp2pgsql/pgsql2shp cheat sheet by <a href="http://www.bostongis.com/pgsql2shp_shp2pgsql_quickguide_20.bqg">BostonGIS</a></p>
 
-<h1>NOTE YMMV, MAY NEED TO ADD ADDITIONAL PSQL CONNECTION PARAMS. SEE &lsquo;$psql &mdash;help&rsquo;</h1>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># NOTE YMMV, MAY NEED TO ADD ADDITIONAL PSQL CONNECTION PARAMS. SEE &#39;$psql --help&#39;</span>
+</span><span class='line'><span class="nv">$ </span>shp2pgsql -I -s 900913 land_polygons.shp osm.land_polygons_split | psql -d ts_data
+</span></code></pre></td></tr></table></div></figure>
 
-<p>$ shp2pgsql -I -s 900913 land_polygons.shp osm.land_polygons_split | psql -d ts_data
-```</p>
 
 <ol>
 <li>Create a TileStache Config</li>
@@ -100,31 +209,48 @@ below. This example uses the VecTiles provider (<a href="http://tilestache.org/d
 which requires a PostGIS backing store, and produces tiles in geojson, topojson, or Mapnik Vector Tile (MVT) format.
 Comments have been added below for clarity.</p>
 
-<p>``` javascript
-&ldquo;osm-processed_p1&rdquo;: { // Layer Name</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;osm-processed_p1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// Layer Name</span>
+</span><span class='line'>    <span class="c1">// Sets ACCESS-CONTROL-ALLOW-ORIGIN header to &quot;*&quot;</span>
+</span><span class='line'>    <span class="s2">&quot;allowed origin&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;provider&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;TileStache.Goodies.VecTiles:Provider&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="c1">// PostGIS Connection Info</span>
+</span><span class='line'>        <span class="s2">&quot;kwargs&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="s2">&quot;dbinfo&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>                <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="s2">&quot;matt&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s2">&quot;database&quot;</span><span class="o">:</span> <span class="s2">&quot;ts_data&quot;</span>
+</span><span class='line'>            <span class="p">},</span>
+</span><span class='line'>            <span class="c1">// An array of queries for each zoom level.</span>
+</span><span class='line'>            <span class="c1">// One query == Used for All Zooms</span>
+</span><span class='line'>            <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>                <span class="s2">&quot;SELECT gid, geom AS __geometry__ FROM osm.land_polygons_split&quot;</span>
+</span><span class='line'>            <span class="p">]</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>// Sets ACCESS-CONTROL-ALLOW-ORIGIN header to "*"
-"allowed origin": "*", 
-"provider": {
-    "class": "TileStache.Goodies.VecTiles:Provider",
-    // PostGIS Connection Info
-    "kwargs": { 
-        "dbinfo": {
-            "host": "localhost",
-            "user": "matt",
-            "database": "ts_data"
-        },
-        // An array of queries for each zoom level.
-        // One query == Used for All Zooms
-        "queries": [ 
-            "SELECT gid, geom AS __geometry__ FROM osm.land_polygons_split"
-        ]
-    }
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <ol>
 <li>Start the Server.</li>
@@ -143,17 +269,21 @@ manager, It can be accessed from the command line via <code>$ tilestache-server.
 
 <p>From the <a href="http://tilestache.org/doc/">API docs</a>: &ldquo;TileStache URLs are based on a Google Maps-like scheme&rdquo;:</p>
 
-<p><code>
-/{layer name}/{zoom}/{column}/{row}.{extension}
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="sr">/{layer name}/</span><span class="p">{</span><span class="nx">zoom</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="nx">column</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="nx">row</span><span class="p">}.{</span><span class="nx">extension</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Utilizing the layer name referenced in the configuration example above, &ldquo;osm-processed_p1&rdquo;, a tile request would look like:</p>
 
-<p><code>
-http://127.0.0.1:8080/osm-processed_p1/9/147/196.topojson #TopoJSON
-http://127.0.0.1:8080/osm-processed_p1/9/147/196.json #GeoJSON
-http://127.0.0.1:8080/osm-processed_p1/9/147/196.mvt # Mapnik Vector Tile
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080/osm-processed_p1/9/147/196.topojson #TopoJSON</span>
+</span><span class='line'><span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080/osm-processed_p1/9/147/196.json #GeoJSON</span>
+</span><span class='line'><span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080/osm-processed_p1/9/147/196.mvt # Mapnik Vector Tile</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Looking at the HTTP requests above, we can see that we&rsquo;re calling on the same layer, e.g. the same backing datastore,
 but rendering those same data into three different output formats. Pretty neat.</p>
@@ -163,423 +293,133 @@ but rendering those same data into three different output formats. Pretty neat.<
 <p>TileStache vector tiles can be rendered in any number of client side JS libraries that support GeoJSON or TopoJSON.
 Pushing the above requested TopoJSON tile to github, we can view the rendered geometries with their attributes.</p>
 
-<p><div><script src='https://gist.github.com/6896905.js?file=s00_9_147_196.topojson'></script>
+<div><script src='https://gist.github.com/6896905.js?file=s00_9_147_196.topojson'></script>
 <noscript><pre><code>{&quot;objects&quot;:{&quot;vectile&quot;:{&quot;type&quot;:&quot;GeometryCollection&quot;,&quot;geometries&quot;:[{&quot;arcs&quot;:[[0]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132148},&quot;clipped&quot;:true,&quot;id&quot;:&quot;cdf2dad9bf&quot;},{&quot;arcs&quot;:[[1]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132149},&quot;clipped&quot;:true,&quot;id&quot;:&quot;f577c6c476&quot;},{&quot;arcs&quot;:[[2]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132150},&quot;clipped&quot;:true,&quot;id&quot;:&quot;cf61e69ac4&quot;},{&quot;arcs&quot;:[[3]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132151},&quot;clipped&quot;:true,&quot;id&quot;:&quot;06d7bcebe6&quot;},{&quot;arcs&quot;:[[4]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132152},&quot;clipped&quot;:true,&quot;id&quot;:&quot;483a9f3660&quot;},{&quot;arcs&quot;:[[5]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132153},&quot;clipped&quot;:true,&quot;id&quot;:&quot;a2e1817cf1&quot;},{&quot;arcs&quot;:[[6]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132154},&quot;clipped&quot;:true,&quot;id&quot;:&quot;8409c14d0c&quot;},{&quot;arcs&quot;:[[7]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132155},&quot;clipped&quot;:true,&quot;id&quot;:&quot;79b65c00b9&quot;},{&quot;arcs&quot;:[[8]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132156},&quot;clipped&quot;:true,&quot;id&quot;:&quot;78cfaffb9f&quot;},{&quot;arcs&quot;:[[9]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132157},&quot;clipped&quot;:true,&quot;id&quot;:&quot;d25f37345c&quot;},{&quot;arcs&quot;:[[10]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132161},&quot;clipped&quot;:true,&quot;id&quot;:&quot;87fffd3593&quot;},{&quot;arcs&quot;:[[11]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132164},&quot;clipped&quot;:true,&quot;id&quot;:&quot;d5849a188f&quot;},{&quot;arcs&quot;:[[12]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132165},&quot;clipped&quot;:true,&quot;id&quot;:&quot;c6fba86600&quot;},{&quot;arcs&quot;:[[13]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132158},&quot;clipped&quot;:true,&quot;id&quot;:&quot;3d02b9d4e0&quot;},{&quot;arcs&quot;:[[14]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132159},&quot;clipped&quot;:true,&quot;id&quot;:&quot;faa5aaf0f9&quot;},{&quot;arcs&quot;:[[15]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132160},&quot;clipped&quot;:true,&quot;id&quot;:&quot;a1110bf5f6&quot;},{&quot;arcs&quot;:[[16]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132173},&quot;clipped&quot;:true,&quot;id&quot;:&quot;bd57c19e69&quot;},{&quot;arcs&quot;:[[17]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132147},&quot;clipped&quot;:true,&quot;id&quot;:&quot;c111dae186&quot;},{&quot;arcs&quot;:[[18]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142087},&quot;clipped&quot;:true,&quot;id&quot;:&quot;8ec73f36e2&quot;},{&quot;arcs&quot;:[[19]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142089},&quot;clipped&quot;:true,&quot;id&quot;:&quot;91e2ed0b62&quot;},{&quot;arcs&quot;:[[20]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142095},&quot;clipped&quot;:true,&quot;id&quot;:&quot;046ba261e3&quot;},{&quot;arcs&quot;:[[21]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142096},&quot;clipped&quot;:true,&quot;id&quot;:&quot;7d1a520c06&quot;},{&quot;arcs&quot;:[[22]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142164},&quot;clipped&quot;:true,&quot;id&quot;:&quot;9f2c36f4b5&quot;},{&quot;arcs&quot;:[[23]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142206},&quot;clipped&quot;:true,&quot;id&quot;:&quot;06b3677f73&quot;},{&quot;arcs&quot;:[[24]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147120},&quot;clipped&quot;:true,&quot;id&quot;:&quot;852e00341e&quot;},{&quot;arcs&quot;:[[25]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147144},&quot;clipped&quot;:true,&quot;id&quot;:&quot;c37dbde232&quot;},{&quot;arcs&quot;:[[26]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147165},&quot;clipped&quot;:true,&quot;id&quot;:&quot;2ff15ba3c0&quot;},{&quot;arcs&quot;:[[27]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147179},&quot;clipped&quot;:true,&quot;id&quot;:&quot;bb393ac749&quot;},{&quot;arcs&quot;:[[28]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147180},&quot;clipped&quot;:true,&quot;id&quot;:&quot;67d0a0cb16&quot;},{&quot;arcs&quot;:[[29]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147207},&quot;clipped&quot;:true,&quot;id&quot;:&quot;f47f7e2abc&quot;},{&quot;arcs&quot;:[[30]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147212},&quot;clipped&quot;:true,&quot;id&quot;:&quot;0e4f775bff&quot;},{&quot;arcs&quot;:[[31]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147213},&quot;clipped&quot;:true,&quot;id&quot;:&quot;93b83b749d&quot;},{&quot;arcs&quot;:[[32]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:484986},&quot;clipped&quot;:true,&quot;id&quot;:&quot;0c0caa5c3e&quot;},{&quot;arcs&quot;:[[33]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:530124},&quot;clipped&quot;:true,&quot;id&quot;:&quot;fa0ed3240f&quot;},{&quot;arcs&quot;:[[34]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132167},&quot;clipped&quot;:true,&quot;id&quot;:&quot;d6786bba96&quot;},{&quot;arcs&quot;:[[[35]],[[36]],[[37]]],&quot;type&quot;:&quot;MultiPolygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132171},&quot;clipped&quot;:true,&quot;id&quot;:&quot;44a5b0ca3b&quot;},{&quot;arcs&quot;:[[38]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131965},&quot;clipped&quot;:true,&quot;id&quot;:&quot;3193bdcf00&quot;},{&quot;arcs&quot;:[[39]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131966},&quot;clipped&quot;:true,&quot;id&quot;:&quot;dafa4d9024&quot;},{&quot;arcs&quot;:[[40]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131970},&quot;clipped&quot;:true,&quot;id&quot;:&quot;cbbe95e42a&quot;},{&quot;arcs&quot;:[[41]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131972},&quot;clipped&quot;:true,&quot;id&quot;:&quot;266d59eaa0&quot;},{&quot;arcs&quot;:[[42]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132162},&quot;clipped&quot;:true,&quot;id&quot;:&quot;53bcc1e76f&quot;},{&quot;arcs&quot;:[[43]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132163},&quot;clipped&quot;:true,&quot;id&quot;:&quot;d381516991&quot;},{&quot;arcs&quot;:[[44]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132166},&quot;clipped&quot;:true,&quot;id&quot;:&quot;2de33e12d8&quot;},{&quot;arcs&quot;:[[45]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147052},&quot;clipped&quot;:true,&quot;id&quot;:&quot;a04b477784&quot;},{&quot;arcs&quot;:[[46]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147112},&quot;clipped&quot;:true,&quot;id&quot;:&quot;0d229ab600&quot;},{&quot;arcs&quot;:[[47]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:147211},&quot;clipped&quot;:true,&quot;id&quot;:&quot;8a3669476b&quot;},{&quot;arcs&quot;:[[48]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132130},&quot;clipped&quot;:true,&quot;id&quot;:&quot;74d672d6aa&quot;},{&quot;arcs&quot;:[[49]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132142},&quot;clipped&quot;:true,&quot;id&quot;:&quot;da8805a166&quot;},{&quot;arcs&quot;:[[50]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132143},&quot;clipped&quot;:true,&quot;id&quot;:&quot;5361637907&quot;},{&quot;arcs&quot;:[[51]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132131},&quot;clipped&quot;:true,&quot;id&quot;:&quot;2d81d3f641&quot;},{&quot;arcs&quot;:[[52]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132132},&quot;clipped&quot;:true,&quot;id&quot;:&quot;27ca007c7b&quot;},{&quot;arcs&quot;:[[53]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132133},&quot;clipped&quot;:true,&quot;id&quot;:&quot;ae82fa887e&quot;},{&quot;arcs&quot;:[[54]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132141},&quot;clipped&quot;:true,&quot;id&quot;:&quot;7a90a7a355&quot;},{&quot;arcs&quot;:[[55]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132144},&quot;clipped&quot;:true,&quot;id&quot;:&quot;01fab69460&quot;},{&quot;arcs&quot;:[[56]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132145},&quot;clipped&quot;:true,&quot;id&quot;:&quot;f13eacb14f&quot;},{&quot;arcs&quot;:[[57]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132146},&quot;clipped&quot;:true,&quot;id&quot;:&quot;ab6911a580&quot;},{&quot;arcs&quot;:[[58]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132465},&quot;clipped&quot;:true,&quot;id&quot;:&quot;b4c49dbed3&quot;},{&quot;arcs&quot;:[[59]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132467},&quot;clipped&quot;:true,&quot;id&quot;:&quot;4208012975&quot;},{&quot;arcs&quot;:[[60]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142097},&quot;clipped&quot;:true,&quot;id&quot;:&quot;9422c27108&quot;},{&quot;arcs&quot;:[[61]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:141312},&quot;clipped&quot;:true,&quot;id&quot;:&quot;0a0fde9af5&quot;},{&quot;arcs&quot;:[[62]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:141318},&quot;clipped&quot;:true,&quot;id&quot;:&quot;97fa6d8771&quot;},{&quot;arcs&quot;:[[63]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:141385},&quot;clipped&quot;:true,&quot;id&quot;:&quot;ac81484d20&quot;},{&quot;arcs&quot;:[[64]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:141406},&quot;clipped&quot;:true,&quot;id&quot;:&quot;3c14ba68ee&quot;},{&quot;arcs&quot;:[[65]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142085},&quot;clipped&quot;:true,&quot;id&quot;:&quot;fc46708fa7&quot;},{&quot;arcs&quot;:[[66]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142086},&quot;clipped&quot;:true,&quot;id&quot;:&quot;df106e903a&quot;},{&quot;arcs&quot;:[[67]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142088},&quot;clipped&quot;:true,&quot;id&quot;:&quot;40b7c55cb0&quot;},{&quot;arcs&quot;:[[68]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142090},&quot;clipped&quot;:true,&quot;id&quot;:&quot;6abb18b6f9&quot;},{&quot;arcs&quot;:[[69]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142091},&quot;clipped&quot;:true,&quot;id&quot;:&quot;13d5442d0d&quot;},{&quot;arcs&quot;:[[70]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142092},&quot;clipped&quot;:true,&quot;id&quot;:&quot;2c3f08cb3a&quot;},{&quot;arcs&quot;:[[71]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142093},&quot;clipped&quot;:true,&quot;id&quot;:&quot;7718545d88&quot;},{&quot;arcs&quot;:[[72]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142094},&quot;clipped&quot;:true,&quot;id&quot;:&quot;257e6bc2b4&quot;},{&quot;arcs&quot;:[[73]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142134},&quot;clipped&quot;:true,&quot;id&quot;:&quot;eeba683a73&quot;},{&quot;arcs&quot;:[[74]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142160},&quot;clipped&quot;:true,&quot;id&quot;:&quot;c909f02fea&quot;},{&quot;arcs&quot;:[[75]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142175},&quot;clipped&quot;:true,&quot;id&quot;:&quot;8a4e519b66&quot;},{&quot;arcs&quot;:[[76]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142187},&quot;clipped&quot;:true,&quot;id&quot;:&quot;4fb64cca2b&quot;},{&quot;arcs&quot;:[[77]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142204},&quot;clipped&quot;:true,&quot;id&quot;:&quot;e02a0e738b&quot;},{&quot;arcs&quot;:[[78]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142213},&quot;clipped&quot;:true,&quot;id&quot;:&quot;59e63949bc&quot;},{&quot;arcs&quot;:[[79]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142244},&quot;clipped&quot;:true,&quot;id&quot;:&quot;8f9d949337&quot;},{&quot;arcs&quot;:[[80]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142255},&quot;clipped&quot;:true,&quot;id&quot;:&quot;db031e1951&quot;},{&quot;arcs&quot;:[[81]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:142264},&quot;clipped&quot;:true,&quot;id&quot;:&quot;313b7dc7dc&quot;},{&quot;arcs&quot;:[[82]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:274030},&quot;clipped&quot;:true,&quot;id&quot;:&quot;6784569e29&quot;},{&quot;arcs&quot;:[[83]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132135},&quot;clipped&quot;:true,&quot;id&quot;:&quot;a81f46d6d4&quot;},{&quot;arcs&quot;:[[84]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:132140},&quot;clipped&quot;:true,&quot;id&quot;:&quot;cb1f080454&quot;},{&quot;arcs&quot;:[[85]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131954},&quot;clipped&quot;:true,&quot;id&quot;:&quot;651446daa9&quot;},{&quot;arcs&quot;:[[[86]],[[87]],[[88]]],&quot;type&quot;:&quot;MultiPolygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131949},&quot;clipped&quot;:true,&quot;id&quot;:&quot;0a0e3712d4&quot;},{&quot;arcs&quot;:[[89]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131955},&quot;clipped&quot;:true,&quot;id&quot;:&quot;7b2e903309&quot;},{&quot;arcs&quot;:[[90]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131967},&quot;clipped&quot;:true,&quot;id&quot;:&quot;e6523ca7ce&quot;},{&quot;arcs&quot;:[[91]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131968},&quot;clipped&quot;:true,&quot;id&quot;:&quot;2d46b68521&quot;},{&quot;arcs&quot;:[[92]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131960},&quot;clipped&quot;:true,&quot;id&quot;:&quot;6f0aa0aadf&quot;},{&quot;arcs&quot;:[[93]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131961},&quot;clipped&quot;:true,&quot;id&quot;:&quot;88d684f2e1&quot;},{&quot;arcs&quot;:[[94]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131974},&quot;clipped&quot;:true,&quot;id&quot;:&quot;56c863a00f&quot;},{&quot;arcs&quot;:[[95]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131969},&quot;clipped&quot;:true,&quot;id&quot;:&quot;3bbb873dda&quot;},{&quot;arcs&quot;:[[96]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:131973},&quot;clipped&quot;:true,&quot;id&quot;:&quot;9330b1a24e&quot;},{&quot;arcs&quot;:[[97]],&quot;type&quot;:&quot;Polygon&quot;,&quot;properties&quot;:{&quot;gid&quot;:551656},&quot;clipped&quot;:true,&quot;id&quot;:&quot;fe68fa9e57&quot;}]}},&quot;type&quot;:&quot;Topology&quot;,&quot;transform&quot;:{&quot;translate&quot;:[-76.64062500000001,38.27268853598095],&quot;scale&quot;:[0.0006866455078125139,0.0005370141017540866]},&quot;arcs&quot;:[[[699,501],[-64,0],[-3,5],[-4,1],[0,1],[-6,1],[0,2],[2,0],[3,3],[1,2],[2,2],[1,0],[-1,-1],[1,-2],[3,1],[0,2],[-2,0],[2,3],[0,1],[2,-1],[1,1],[0,-1],[3,-2],[0,-1],[2,1],[0,4],[2,1],[1,-3],[1,0],[0,2],[4,1],[0,-3],[2,-1],[-1,2],[2,0],[1,3],[2,0],[1,1],[2,1],[0,1],[1,-1],[1,2],[5,0],[0,-4],[1,-2],[2,-1],[-1,-1],[0,-2],[-1,0],[0,-1],[1,0],[0,-1],[1,0],[1,-6],[1,0],[1,5],[-1,2],[1,5],[1,0],[0,2],[-2,0],[1,6],[2,1],[3,0],[3,2],[0,-3],[2,-1],[2,-6],[3,0],[-1,-4],[1,0],[0,-1],[1,0],[-1,3],[2,0],[0,-1],[2,-1],[-1,2],[2,1],[0,1],[-1,-1],[-3,1],[-1,2],[-2,0],[0,2],[1,0],[-1,4],[2,0],[-1,1],[-4,1],[0,1],[-1,0],[-1,1],[1,0],[2,1],[-3,0],[-2,4],[-2,-1],[-1,0],[0,1],[1,0],[2,8],[1,2],[2,0],[-2,5],[4,2],[2,4],[1,0],[1,-3],[3,-1],[-2,3],[2,2],[2,-1],[1,-2],[3,-2],[1,1],[2,1],[0,-59]],[[699,562],[-1,0],[-2,4],[-4,0],[-1,0],[0,1],[-2,-1],[-1,1],[-1,1],[-1,3],[-1,0],[2,5],[-4,-2],[-1,-5],[-1,1],[-2,0],[2,-2],[0,-5],[-4,-2],[-2,2],[1,1],[-1,3],[-1,0],[-1,2],[-1,0],[1,1],[-2,0],[0,3],[1,0],[0,1],[-3,0],[1,1],[-1,1],[0,3],[-1,0],[0,3],[1,0],[-1,1],[1,2],[1,0],[1,2],[-1,0],[1,1],[-4,-1],[0,1],[-2,1],[1,-3],[1,0],[-1,-1],[0,-3],[0,-2],[-1,-1],[0,-1],[1,0],[0,-3],[-2,-1],[3,0],[0,-1],[-1,-2],[2,0],[0,-5],[1,0],[1,-1],[-1,0],[1,-1],[2,0],[0,-2],[-3,-1],[0,-1],[4,-1],[0,-3],[-3,-1],[0,-1],[-1,0],[-1,-3],[2,-3],[-4,0],[-2,2],[0,-5],[1,0],[1,-5],[-2,0],[1,-1],[0,-2],[-2,2],[0,1],[-3,0],[0,1],[-2,0],[-1,-3],[-2,0],[0,-1],[-4,1],[0,3],[2,2],[0,1],[-3,-2],[-1,1],[0,4],[-1,-1],[-1,0],[-1,-5],[2,0],[-1,-4],[0,1],[-1,0],[0,1],[-10,-1],[-1,-3],[-1,0],[-1,-2],[-5,0],[1,3],[5,3],[2,5],[-2,6],[2,1],[0,3],[3,1],[0,2],[-1,1],[2,1],[1,4],[1,1],[1,3],[-1,1],[1,3],[0,6],[3,0],[0,1],[-5,0],[1,5],[-1,0],[0,1],[1,0],[0,1],[-3,1],[-1,3],[1,1],[-1,4],[-1,-4],[0,-6],[1,0],[1,-8],[1,0],[0,-1],[-2,0],[1,-2],[0,-1],[-3,0],[0,-1],[1,0],[0,-1],[1,0],[0,-3],[-1,2],[-3,-1],[0,-2],[1,-1],[-2,-1],[1,-4],[-1,0],[-3,1],[0,-1],[2,-1],[-1,-2],[0,-4],[-1,-2],[-2,1],[-1,-2],[-1,0],[0,-3],[-2,1],[0,3],[-3,0],[0,1],[-1,-6],[-4,2],[-1,3],[1,3],[-2,1],[0,2],[1,2],[-1,0],[-1,-2],[-2,1],[-1,0],[-1,-1],[-1,0],[0,1],[-1,0],[-1,1],[-1,-1],[-1,-1],[-1,1],[0,1],[3,2],[-2,5],[-1,0],[0,3],[3,3],[6,1],[2,1],[0,1],[2,3],[1,0],[-2,3],[2,1],[2,4],[1,3],[-2,-1],[-1,-1],[-4,1],[0,2],[-1,-1],[0,-3],[2,-1],[0,-3],[-1,-4],[-1,-2],[-7,-1],[-3,1],[1,-2],[0,-2],[-3,0],[0,-2],[-1,0],[-2,-1],[0,1],[0,1],[-2,0],[1,-3],[1,0],[0,-1],[3,0],[0,-4],[1,-1],[-3,-1],[1,-1],[1,0],[1,0],[0,-1],[-1,-1],[-1,0],[0,-1],[0,-1],[-1,1],[-1,1],[0,-1],[1,-1],[0,-2],[0,-1],[-1,0],[-1,0],[1,-1],[-1,-1],[1,0],[1,1],[1,-1],[0,1],[0,1],[2,-1],[1,-1],[0,1],[1,0],[1,-1],[4,1],[2,-1],[-1,-3],[1,-4],[5,-1],[0,-1],[-5,-1],[-4,0],[-1,-1],[2,-9],[-3,-1],[0,-1],[2,0],[1,-2],[2,0],[0,-2],[-2,0],[1,-1],[0,-3],[2,-3],[-2,1],[-3,1],[0,-2],[-6,0],[0,-3],[-1,1],[0,1],[-3,-1],[0,-2],[-2,-1],[1,-1],[-2,-2],[-1,2],[1,2],[-3,-1],[0,-3],[0,1],[-2,0],[0,-4],[-6,2],[3,5],[0,2],[1,0],[1,2],[-2,2],[1,3],[1,2],[-1,1],[0,2],[1,0],[1,-1],[0,-1],[1,4],[1,1],[2,2],[-2,1],[-1,-2],[-1,1],[-1,-1],[-1,0],[-1,2],[2,2],[2,3],[2,0],[-2,1],[-4,-2],[0,2],[-1,0],[0,-4],[-3,0],[1,-4],[-1,-3],[-1,-1],[0,-1],[1,0],[0,-4],[-1,-1],[1,0],[0,-4],[-2,0],[1,-2],[1,0],[0,-1],[-1,0],[0,-2],[-3,-1],[1,9],[1,0],[-2,10],[1,0],[1,2],[-1,2],[-1,1],[-1,5],[3,2],[0,3],[1,0],[1,1],[2,0],[0,1],[2,1],[0,-1],[3,0],[1,2],[-2,-1],[-2,3],[-3,0],[0,-2],[-2,0],[1,1],[-2,1],[1,4],[-2,2],[1,2],[3,0],[-1,3],[-1,0],[0,-1],[-1,5],[1,2],[1,0],[-1,4],[2,1],[-2,1],[1,3],[0,1],[-2,0],[-2,2],[-1,0],[0,3],[2,2],[1,-1],[0,1],[1,1],[-2,1],[0,-1],[0,1],[0,1],[-1,0],[-2,-3],[-1,0],[2,3],[2,1],[7,0],[1,2],[0,2],[1,2],[2,0],[1,4],[-4,1],[0,5],[2,2],[1,0],[2,-2],[6,-1],[1,1],[-7,1],[0,2],[-2,1],[-2,3],[0,-3],[0,-2],[-2,0],[0,-3],[-4,0],[0,-1],[4,0],[-1,-4],[1,0],[0,-1],[-2,-5],[0,-1],[-1,1],[-3,1],[0,-2],[-2,1],[-1,-3],[-2,1],[1,-2],[-5,0],[0,2],[-1,0],[-1,2],[-2,3],[-1,0],[0,1],[-1,0],[3,-10],[4,-4],[0,-1],[1,0],[5,-11],[-3,0],[1,-2],[1,0],[1,-3],[-2,0],[-1,-3],[1,-2],[-3,-1],[-1,6],[-2,0],[0,-1],[-1,-2],[-1,0],[0,-2],[1,0],[1,-2],[2,-1],[-1,-2],[-2,0],[0,-2],[-2,0],[3,0],[0,-1],[2,2],[1,-4],[1,0],[1,-2],[-2,-1],[0,-1],[1,0],[0,-6],[-3,0],[0,2],[0,2],[-2,1],[-3,-1],[0,-1],[1,0],[0,-4],[-2,1],[0,1],[-1,1],[-2,-1],[0,-1],[0,-1],[-2,0],[-1,4],[-1,-2],[0,-4],[2,-3],[0,1],[2,0],[0,-3],[1,0],[0,1],[3,0],[0,-1],[2,0],[0,-1],[2,1],[1,-5],[1,-2],[-2,-1],[-1,-3],[-1,2],[-6,-2],[0,-1],[2,-1],[-1,-1],[-1,0],[0,-1],[3,-1],[0,1],[3,-1],[4,1],[1,-3],[-5,-1],[0,-1],[-1,0],[2,-5],[1,0],[1,-1],[0,-4],[-3,0],[0,-2],[1,0],[0,-1],[-5,0],[-1,1],[1,8],[-1,1],[0,1],[-1,0],[0,1],[-5,-1],[0,-1],[-1,0],[0,1],[-1,0],[1,3],[2,0],[0,3],[-2,3],[-4,1],[0,2],[1,0],[-1,12],[-1,0],[0,1],[-6,1],[0,1],[2,0],[1,3],[1,0],[0,3],[1,1],[0,1],[0,2],[1,0],[1,4],[2,0],[1,1],[-2,0],[0,2],[-1,0],[0,1],[-2,0],[0,1],[-2,-1],[0,1],[2,1],[1,2],[2,0],[-1,3],[-3,-1],[-1,-3],[-3,1],[-3,6],[-2,0],[0,-10],[1,-2],[1,0],[0,-3],[2,0],[0,-1],[-2,-1],[0,-3],[0,-1],[-2,0],[-5,0],[-1,-4],[2,0],[0,-4],[-1,0],[0,-3],[3,0],[-2,-4],[-1,0],[2,-3],[2,1],[0,-1],[2,0],[1,-2],[2,0],[-1,-3],[-4,1],[1,-2],[1,0],[-1,-1],[-1,-1],[0,-1],[1,0],[0,-1],[4,1],[-1,-1],[4,-3],[-2,-1],[-1,-1],[-2,0],[-1,2],[-2,0],[2,-6],[1,0],[0,-1],[5,1],[0,-5],[-1,-2],[-2,-1],[0,7],[-2,0],[0,-3],[0,-3],[-3,-1],[-3,3],[-1,2],[-1,-1],[0,1],[-1,0],[1,3],[1,0],[-1,8],[0,1],[1,0],[-6,15],[-1,0],[-2,4],[-4,0],[0,2],[0,1],[-1,0],[0,2],[-1,0],[-1,1],[-1,3],[-3,3],[-1,1],[-1,2],[-2,0],[0,1],[-11,0],[-1,1],[1,0],[1,2],[-1,0],[-2,2],[-7,1],[2,3],[4,-1],[1,2],[2,0],[0,1],[4,3],[0,1],[3,2],[0,2],[2,0],[0,3],[1,0],[0,2],[1,1],[0,-2],[4,1],[-2,-9],[1,-1],[1,-1],[7,-3],[2,-4],[0,-1],[-1,0],[2,-2],[1,-1],[0,-1],[0,-2],[1,1],[1,4],[-1,0],[0,3],[1,-1],[0,3],[2,0],[2,3],[0,4],[-1,1],[1,0],[1,1],[1,2],[11,5],[-1,-2],[4,-2],[-2,3],[0,2],[2,2],[5,3],[-3,2],[0,1],[-2,0],[-1,2],[-1,0],[1,2],[6,-3],[1,0],[-1,2],[-1,3],[-4,1],[1,2],[-2,1],[-4,-2],[0,-2],[-1,0],[0,-1],[-3,1],[1,5],[1,0],[1,2],[1,0],[0,3],[2,1],[1,-2],[4,-1],[3,4],[-2,-1],[1,4],[0,2],[-1,1],[0,1],[0,-1],[3,-1],[-1,3],[2,-1],[2,1],[-2,4],[2,0],[-1,1],[-2,1],[-1,0],[0,-2],[-10,-1],[-6,0],[1,-1],[1,0],[0,-1],[-2,0],[-1,0],[-1,4],[-1,0],[0,1],[1,5],[-1,0],[-2,4],[-2,1],[0,1],[-1,1],[-1,7],[-1,1],[-4,14],[-3,2],[-1,3],[1,1],[0,-2],[2,-3],[7,-1],[0,-1],[0,-1],[4,-2],[1,-5],[3,0],[0,-1],[1,-1],[0,-3],[0,1],[-1,0],[-1,2],[-5,0],[0,-4],[1,-1],[0,-3],[-1,-1],[-1,0],[0,-3],[1,0],[0,1],[5,0],[0,-2],[0,-2],[-1,1],[0,-2],[1,0],[1,-3],[5,0],[0,-1],[5,0],[0,-1],[1,0],[0,3],[-1,0],[-1,1],[-2,0],[-1,3],[7,1],[1,-1],[1,0],[-2,8],[1,0],[0,1],[2,2],[1,0],[1,3],[1,0],[0,-2],[1,0],[0,-3],[0,-2],[1,0],[-1,-1],[2,-2],[0,-2],[-1,0],[0,-1],[4,-1],[1,-3],[2,2],[-1,3],[-3,6],[3,0],[2,1],[0,-1],[2,-1],[3,-2],[1,0],[-1,3],[1,0],[-1,5],[-1,0],[-1,4],[-1,0],[0,1],[-1,0],[0,1],[-1,5],[5,2],[0,1],[1,0],[0,2],[1,0],[34,44],[94,0],[0,-139]],[[604,699],[2,2],[34,43],[-1,2],[-2,2],[-1,2],[-1,0],[0,1],[-1,0],[0,1],[-2,0],[-4,9],[-4,1],[0,1],[-1,6],[-1,2],[-2,0],[0,5],[2,0],[0,2],[2,0],[0,2],[-1,0],[0,1],[-1,0],[-1,2],[-3,2],[-2,3],[-1,0],[-1,2],[1,4],[4,0],[0,-1],[3,-2],[2,1],[-1,3],[0,1],[-2,1],[0,1],[-3,2],[-1,2],[5,0],[0,1],[2,1],[0,1],[2,0],[-1,-3],[0,-2],[3,0],[0,-1],[3,-1],[-2,3],[4,-1],[1,3],[1,0],[0,-2],[1,-1],[-1,-4],[2,-3],[0,1],[3,-2],[0,2],[-2,0],[1,2],[-1,3],[2,1],[2,-3],[0,-1],[1,-1],[0,1],[-1,4],[1,5],[-1,2],[1,1],[5,-1],[0,2],[-6,1],[-1,4],[-1,0],[1,3],[-1,0],[-2,4],[-2,-2],[2,-1],[0,-3],[1,-5],[1,0],[0,-5],[-3,2],[0,1],[-2,0],[0,-1],[-1,0],[0,1],[-2,-1],[-1,1],[0,-1],[-1,0],[0,1],[-3,1],[-1,2],[-1,0],[1,6],[-2,1],[0,1],[-1,2],[-1,0],[-1,-2],[1,-4],[0,-4],[-1,-1],[-3,1],[-1,0],[-3,1],[-2,4],[-1,2],[-6,2],[0,1],[-2,0],[1,2],[-1,1],[-2,1],[0,-3],[-1,-1],[-3,0],[2,-2],[3,0],[0,-3],[1,0],[-1,-4],[2,0],[-1,-2],[0,1],[-2,-1],[0,-3],[1,-3],[3,-1],[-1,-4],[1,0],[-1,-2],[0,-1],[1,0],[0,-4],[-2,-1],[-1,2],[-2,2],[0,1],[-2,8],[-1,0],[1,2],[-2,0],[-1,1],[0,1],[-1,0],[1,-2],[1,-1],[-3,2],[0,1],[-1,0],[0,2],[-1,0],[0,2],[-2,0],[0,3],[-1,0],[-1,2],[-1,1],[0,3],[1,0],[-2,8],[1,6],[1,0],[0,1],[1,0],[1,4],[3,0],[0,-1],[-1,0],[0,-1],[1,0],[1,-2],[2,0],[2,-5],[2,0],[1,2],[-2,0],[0,3],[1,0],[-1,3],[-1,0],[3,2],[0,6],[-1,2],[-3,5],[0,1],[-4,-1],[-3,2],[-1,0],[1,3],[-1,-1],[0,2],[-2,0],[1,4],[7,0],[3,1],[-1,2],[1,0],[0,1],[2,0],[0,1],[2,-3],[3,0],[6,-3],[2,-3],[0,-1],[-4,0],[0,-1],[-1,1],[0,-1],[0,-2],[6,-1],[0,-1],[2,0],[0,-3],[-2,-1],[0,-2],[1,0],[-4,-1],[0,-1],[2,0],[0,-2],[2,0],[0,-4],[-1,0],[2,-3],[4,-5],[-1,6],[-1,0],[1,3],[3,0],[0,1],[-2,0],[0,1],[-2,1],[0,3],[1,1],[2,0],[0,1],[3,1],[2,2],[-1,0],[5,4],[1,0],[2,0],[0,-1],[3,-1],[1,-1],[2,0],[-1,-2],[-3,-1],[1,-1],[0,-1],[2,-1],[0,-1],[-2,-1],[1,-2],[-2,0],[0,-1],[1,0],[1,-4],[0,2],[2,0],[0,1],[0,2],[1,0],[-1,1],[1,5],[1,0],[1,-2],[7,1],[0,-1],[2,1],[0,-5],[1,3],[6,1],[1,-4],[1,0],[-1,0],[0,-1],[2,-1],[0,-1],[1,0],[1,3],[1,0],[0,2],[1,1],[0,1],[0,3],[2,2],[0,3],[-2,-1],[0,-1],[-1,0],[0,-2],[-1,-1],[-1,-3],[-1,2],[-2,2],[0,4],[1,5],[-1,0],[0,2],[1,2],[4,1],[1,2],[1,0],[1,3],[-1,1],[0,-2],[-2,-1],[-1,-2],[-1,0],[-3,-1],[-1,-2],[-1,0],[0,-2],[-1,0],[0,1],[1,4],[-2,-1],[0,-4],[0,-2],[2,-2],[-1,0],[0,-6],[-2,1],[0,4],[-2,0],[0,3],[-2,3],[0,1],[-1,0],[-1,1],[0,9],[3,4],[1,-1],[0,-1],[1,0],[1,-1],[1,0],[0,2],[-1,3],[3,0],[1,1],[0,1],[0,4],[-3,-2],[0,-1],[-1,0],[-1,5],[-1,1],[1,0],[0,3],[1,0],[1,1],[-3,-2],[-1,-2],[-2,0],[2,-3],[0,-5],[-1,0],[0,-1],[-1,0],[-2,0],[0,2],[-1,0],[1,0],[-1,5],[-2,0],[0,2],[-2,0],[-1,2],[3,8],[-1,0],[-1,-3],[-1,0],[0,-2],[-1,-1],[-3,2],[0,1],[-1,0],[1,-3],[2,-1],[0,-1],[-1,0],[1,-4],[4,-1],[0,-2],[0,-3],[-2,-1],[0,-1],[1,1],[2,-2],[-1,-8],[0,-1],[1,-4],[-2,0],[0,1],[-7,3],[-2,3],[-1,3],[2,1],[0,3],[-3,1],[0,4],[-2,1],[-2,3],[-2,5],[-1,0],[0,4],[-2,0],[0,-2],[0,-5],[1,-1],[1,-6],[1,0],[1,-4],[-2,-3],[-4,8],[-1,0],[0,1],[-3,0],[-1,3],[-1,0],[-1,1],[-2,0],[-2,2],[-1,0],[-1,5],[4,-1],[-1,3],[-1,0],[0,1],[-1,-1],[1,1],[64,0],[8,-3],[-3,-1],[-1,-2],[-2,0],[0,-1],[2,0],[-1,-4],[3,0],[-1,-4],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,-1],[-1,0],[0,-2],[3,1],[0,1],[2,0],[1,0],[3,1],[1,-3],[2,0],[1,-3],[2,2],[-1,0],[-1,2],[-1,0],[0,2],[1,0],[0,3],[-2,-1],[-2,1],[0,1],[-3,-2],[0,2],[1,0],[1,3],[0,4],[-1,0],[4,2],[0,1],[-2,0],[0,1],[4,1],[1,2],[1,0],[11,0],[0,-199],[-95,0]],[[739,501],[0,1],[4,1],[2,4],[1,1],[1,1],[1,3],[-1,0],[-1,-3],[-1,0],[-2,-4],[-4,0],[-2,-3],[-1,0],[0,-1],[-5,0],[0,2],[-1,0],[0,-2],[-3,1],[0,1],[-1,-2],[-6,0],[0,1],[2,1],[-2,6],[0,-1],[-1,-5],[-2,-1],[1,-1],[-20,0],[0,58],[3,1],[1,-2],[0,1],[2,0],[0,1],[2,0],[0,-2],[5,1],[0,3],[3,-1],[2,-3],[3,0],[-4,2],[1,1],[-2,2],[-4,0],[0,-2],[-3,0],[-1,1],[-8,0],[0,336],[210,0],[0,-397],[-169,0]],[[578,898],[1,-1],[2,-3],[-4,2],[0,2],[-1,0],[2,0]],[[574,898],[0,-2],[1,0],[0,-2],[-2,0],[2,-3],[0,1],[1,0],[0,-1],[1,-1],[0,-1],[1,-1],[-1,0],[0,-1],[-1,0],[0,1],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,-1],[0,1],[-1,0],[-1,0],[-1,0],[-1,0],[-1,1],[-2,0],[-1,-1],[-1,0],[0,-1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[-1,1],[1,0],[1,1],[3,2],[0,1],[0,1],[-1,0],[1,1],[-1,1],[10,0]],[[562,898]],[[555,898],[-1,-1],[-1,0],[-1,0],[0,-1],[-1,-1],[0,-1],[1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,-1],[-1,0],[0,-1],[1,0],[1,0],[-1,-1],[0,-1],[0,-1],[3,-1],[0,-1],[1,0],[0,-1],[0,-1],[-1,-1],[0,1],[-1,0],[-1,0],[-1,1],[-1,-1],[0,1],[-1,0],[0,-1],[1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,0],[0,1],[-1,1],[0,1],[-1,0],[0,1],[1,1],[0,1],[0,1],[0,1],[0,1],[-2,0],[-1,0],[-1,1],[-1,0],[-1,-1],[0,-1],[-1,-1],[1,-1],[0,-1],[1,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[-1,0],[0,-1],[1,0],[1,0],[0,-1],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,-1],[-1,1],[0,1],[1,10],[0,1],[0,1],[1,2],[-1,1],[1,0],[0,1],[0,1],[1,1],[0,1],[1,0],[19,0]],[[533,898],[0,-1],[-1,0],[-1,0],[0,-1],[-1,1],[0,-1],[1,-1],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,-1],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,4],[1,1],[0,1],[1,1],[0,1],[0,3],[-1,1],[0,1],[0,1],[0,1],[-1,0],[-1,-2],[0,-1],[0,-1],[0,-1],[1,0],[-1,-1],[0,-2],[-1,0],[0,-1],[-1,0],[0,1],[-1,1],[0,1],[-1,1],[0,1],[-1,0],[0,-1],[-1,-1],[-1,0],[-1,-1],[0,1],[0,1],[0,1],[-1,0],[-1,0],[0,1],[0,1],[1,0],[-1,1],[-1,-1],[0,1],[0,1],[0,1],[1,1],[-1,0],[20,0]],[[555,856],[-2,-1],[0,-2],[-3,0],[-1,-2],[-2,0],[0,3],[-2,2],[1,0],[9,0]],[[476,898],[1,-12],[-1,-1],[1,-5],[-2,-1],[0,-1],[-4,-1],[1,5],[-2,5],[-3,-1],[1,-3],[-1,-3],[-1,-2],[1,-2],[0,-1],[-1,-1],[-1,0],[-1,-1],[-1,1],[-3,4],[-1,0],[1,-4],[0,-8],[-2,0],[0,-2],[3,-1],[1,0],[0,2],[2,1],[0,-1],[2,0],[1,-3],[4,1],[-1,4],[5,-1],[0,-5],[2,-8],[-1,0],[-3,-1],[-4,2],[-1,-4],[-3,0],[2,-6],[-5,-8],[0,-3],[-2,-4],[-2,-1],[1,2],[-2,2],[-1,0],[0,1],[-1,0],[2,-5],[0,-1],[-2,0],[-1,2],[-1,0],[-2,2],[-5,3],[1,2],[-4,8],[0,2],[1,0],[1,2],[-1,1],[1,0],[1,-3],[1,0],[-1,3],[1,0],[2,3],[-1,0],[0,-1],[-2,0],[0,3],[1,3],[0,1],[-1,0],[1,1],[0,4],[-1,0],[-2,-7],[-1,0],[0,-5],[-1,0],[-1,-4],[-1,-1],[-2,5],[1,2],[0,1],[1,0],[1,8],[1,1],[-1,0],[0,1],[-1,-1],[0,-1],[-1,-1],[0,-2],[-1,-2],[0,-1],[-1,0],[0,1],[1,4],[-1,0],[3,5],[-4,18],[3,13],[-1,1],[38,0]],[[642,897],[1,1],[-1,0],[0,-1],[-34,0],[0,1],[-1,-1],[1,2],[1,0],[1,4],[-2,3],[-2,0],[0,2],[-4,2],[0,1],[-2,0],[0,1],[2,0],[2,3],[1,3],[0,1],[0,2],[4,1],[0,-2],[2,-2],[0,-1],[-1,0],[0,-2],[1,0],[2,-2],[2,0],[-2,10],[-3,4],[4,1],[1,-2],[2,-1],[0,1],[3,1],[0,2],[-4,-1],[0,2],[-1,1],[0,1],[-4,-2],[0,2],[0,4],[-3,-1],[1,-1],[-1,-1],[0,-3],[-1,0],[0,-3],[-5,0],[-3,6],[0,2],[-2,1],[0,2],[1,0],[0,1],[3,2],[0,1],[3,0],[-1,5],[1,0],[0,1],[0,1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-2],[0,-1],[-2,0],[0,-1],[-5,-1],[-1,0],[-2,5],[-1,0],[0,-2],[-1,0],[0,-1],[2,0],[-1,-1],[1,-4],[2,-1],[0,-2],[1,-3],[0,-2],[-1,-1],[-4,1],[-8,-2],[0,-2],[8,1],[4,-1],[3,0],[1,-3],[-2,-2],[0,-1],[1,0],[1,-1],[1,0],[-1,-3],[-3,-2],[-1,0],[0,1],[-2,0],[1,-2],[-2,0],[-1,0],[1,-1],[-2,0],[0,1],[-2,0],[-1,2],[-1,0],[-1,2],[-2,0],[-1,3],[2,0],[0,2],[-4,1],[-9,-2],[1,4],[-2,3],[0,1],[2,0],[0,1],[-5,-1],[-2,2],[-1,0],[0,2],[2,0],[0,2],[-3,1],[1,1],[2,1],[2,5],[2,0],[-1,2],[1,1],[1,1],[2,1],[0,2],[1,0],[1,2],[-2,0],[0,1],[-2,0],[-2,-4],[-2,0],[0,1],[-1,0],[0,-3],[-1,-1],[-5,-1],[0,9],[1,0],[2,4],[-1,3],[4,0],[1,4],[1,1],[3,-2],[-2,3],[3,6],[6,-2],[1,1],[2,6],[4,0],[-1,4],[-3,0],[0,6],[1,2],[4,3],[0,1],[-2,0],[-1,-2],[-3,-1],[-1,-2],[-2,1],[0,-1],[1,-6],[-2,-3],[-1,-3],[-3,0],[0,3],[-1,-1],[-2,-5],[-2,-1],[-1,-2],[-1,0],[0,-1],[-2,0],[0,5],[-1,1],[0,1],[-2,0],[1,3],[-1,0],[0,1],[-1,0],[0,-1],[-2,-3],[1,-2],[2,-1],[0,-2],[-1,0],[1,-3],[0,-3],[-2,-1],[-1,-8],[0,1],[0,44],[1,1],[1,0],[1,0],[0,1],[0,1],[-1,0],[-1,-1],[0,1],[0,1],[0,1],[-1,1],[1,1],[0,1],[-1,0],[0,13],[16,0],[2,-1],[-1,-1],[0,-1],[1,-1],[1,-1],[1,-2],[0,-1],[0,-1],[-2,-1],[-2,2],[-1,0],[0,-1],[1,0],[1,-1],[0,-1],[1,0],[1,0],[-1,-2],[1,0],[2,1],[2,2],[2,-1],[1,-1],[-1,-3],[-1,0],[-1,0],[-1,-1],[0,-1],[1,1],[0,-1],[0,-2],[1,1],[0,1],[1,0],[1,0],[1,-1],[1,0],[-1,3],[3,0],[1,0],[0,-1],[0,1],[2,1],[1,1],[-1,0],[-1,1],[0,-1],[-1,1],[0,2],[-1,2],[-1,1],[0,2],[1,0],[3,1],[1,0],[1,0],[2,0],[0,1],[1,0],[1,0],[1,0],[3,1],[0,-1],[0,-1],[-1,0],[-1,0],[-1,0],[0,-1],[-1,0],[1,-1],[0,-1],[1,0],[0,-1],[1,-2],[1,-2],[1,-4],[1,0],[-1,9],[2,1],[2,-1],[1,-4],[4,-4],[1,-2],[3,-3],[1,-1],[0,-1],[3,-2],[1,0],[7,-9],[-1,0],[0,-1],[1,1],[0,-1],[-1,-2],[-2,0],[-1,-3],[-1,0],[0,-1],[-4,0],[1,2],[1,0],[0,1],[-2,-1],[-2,0],[-1,3],[-4,2],[0,2],[-1,0],[0,-2],[2,-2],[1,-1],[1,-1],[-3,1],[0,-1],[2,0],[1,-1],[0,-2],[-3,-2],[-2,0],[-1,-4],[1,0],[1,2],[3,0],[0,1],[2,1],[0,-1],[2,1],[1,-3],[0,-2],[-2,0],[-1,-1],[0,-1],[4,0],[4,-2],[-2,-3],[-1,-1],[-1,-2],[-1,-1],[0,-1],[0,-1],[0,-1],[-1,0],[0,1],[-1,1],[-1,1],[-1,0],[-1,0],[-1,0],[-1,0],[1,-1],[1,-1],[0,-1],[0,-1],[-1,0],[0,1],[0,-1],[0,1],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[0,1],[2,0],[1,-1],[-1,0],[0,-1],[-1,0],[1,0],[-2,0],[0,-1],[-1,1],[-1,0],[-1,0],[-1,0],[1,0],[0,-1],[1,0],[0,-1],[-1,-1],[1,0],[1,0],[0,-1],[1,1],[0,-1],[-1,0],[0,-1],[1,0],[0,-1],[1,0],[1,0],[0,-1],[1,0],[0,1],[-1,0],[-1,1],[0,1],[0,1],[1,0],[1,0],[1,0],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[0,1],[-1,1],[0,1],[0,1],[0,2],[2,-2],[1,0],[1,-2],[1,0],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[1,-1],[1,0],[1,-1],[1,-1],[1,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[1,-1],[3,-3],[0,-2],[-1,0],[0,-1],[-3,-1],[2,-2],[1,-1],[1,-2],[1,-2],[0,-3],[1,0],[1,-2],[0,7],[1,0],[-1,2],[-1,0],[1,2],[1,-1],[1,3],[1,1],[0,1],[3,-3],[1,-2],[-2,-8],[1,0],[1,2],[4,0],[0,-1],[9,-3],[1,-3],[0,-1],[1,0],[-1,-1],[4,-5],[-1,-6],[-2,1],[0,-2],[1,0],[2,-2],[1,0],[0,-1],[8,-4],[-33,0]],[[556,940]],[[538,856],[-1,0],[1,0],[0,-1],[1,0],[-1,-1],[1,-1],[1,0],[1,0],[1,0],[0,-1],[0,-1],[1,0],[1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[0,-1],[-1,-1],[0,-1],[-1,0],[-1,-1],[0,1],[-1,0],[0,1],[0,1],[-1,0],[-1,0],[-1,0],[0,1],[0,-1],[0,1],[-1,0],[-1,1],[-1,0],[0,1],[-1,0],[1,0],[0,1],[-1,0],[-1,0],[0,1],[-1,0],[0,1],[0,1],[-1,0],[1,1],[0,1],[0,1],[-1,0],[0,-1],[-2,1],[-1,1],[1,0],[0,1],[12,0]],[[524,856],[0,-1],[0,-1],[0,-1],[1,-1],[1,0],[-1,-2],[0,-1],[-1,0],[0,1],[-1,0],[-1,0],[-1,0],[0,1],[0,2],[1,0],[0,1],[0,1],[0,1],[-1,0],[0,-1],[-1,0],[-1,0],[-1,0],[0,1],[-1,0],[-1,0],[0,-1],[1,-1],[0,-1],[-1,0],[-1,0],[-1,0],[1,0],[0,-1],[1,0],[0,-1],[0,-1],[-1,0],[-2,1],[-1,0],[0,1],[-1,0],[-1,0],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[1,0],[1,-1],[1,0],[1,0],[0,-1],[1,0],[0,1],[1,0],[1,0],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[1,0],[0,1],[0,1],[1,0],[0,1],[1,0],[0,-1],[1,0],[1,0],[1,-1],[0,-1],[-1,0],[0,-1],[1,1],[1,-1],[0,-1],[1,0],[0,-1],[0,-1],[0,-1],[0,-1],[0,1],[1,0],[1,0],[1,0],[1,0],[1,0],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[1,0],[-1,0],[0,-1],[1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,0],[0,-1],[0,-1],[0,-1],[2,-2],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[1,0],[-1,0],[1,-1],[1,1],[1,0],[0,1],[1,0],[1,1],[1,0],[1,0],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,-1],[1,-1],[-1,-1],[1,-2],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[-1,0],[-1,1],[-1,0],[1,0],[0,1],[-1,0],[0,1],[-1,0],[1,1],[-1,0],[-1,0],[-1,1],[-1,0],[0,1],[-1,0],[-1,1],[0,1],[-1,0],[0,-1],[0,1],[-1,0],[0,1],[0,1],[-1,0],[-1,-1],[-1,1],[0,1],[0,1],[1,1],[0,1],[-1,0],[0,1],[-1,1],[-1,1],[-1,1],[1,0],[1,0],[-1,1],[0,1],[-1,1],[-1,-1],[0,-1],[0,1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[1,1],[0,1],[0,1],[-1,1],[1,0],[0,1],[-1,1],[-1,-1],[0,-1],[-1,1],[0,1],[-1,0],[0,1],[-1,0],[-1,0],[-1,0],[1,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,-1],[-1,-1],[1,-1],[1,0],[0,1],[-1,0],[0,1],[1,0],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,1],[0,1],[-1,0],[-1,0],[-1,0],[-1,1],[-1,0],[-1,0],[1,0],[-1,0],[0,1],[0,1],[1,0],[0,1],[1,1],[0,1],[0,1],[1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[0,1],[0,1],[-1,0],[1,0],[0,1],[-1,0],[-1,0],[0,1],[-1,0],[-1,0],[-1,1],[0,1],[1,1],[0,1],[1,0],[2,1],[0,1],[1,0],[1,1],[1,1],[0,1],[0,1],[0,1],[20,0]],[[509,898],[1,-1],[0,-1],[-1,0],[0,-1],[1,0],[0,-1],[0,-1],[-1,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[1,-1],[-1,0],[-1,-1],[-1,1],[0,-1],[0,-1],[-1,0],[0,-1],[1,-1],[0,-1],[1,0],[0,1],[0,1],[1,0],[0,1],[1,0],[1,0],[2,-1],[1,0],[1,1],[1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,0],[1,0],[1,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[0,-1],[-1,0],[0,1],[-1,-1],[1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[0,-1],[-1,-1],[-1,0],[0,-2],[-1,0],[-1,0],[0,-1],[2,-1],[0,1],[4,1],[0,2],[1,0],[1,1],[3,1],[0,2],[4,-2],[0,-1],[4,-1],[0,-1],[6,2],[0,1],[2,0],[0,-1],[-2,-1],[0,-1],[-2,-1],[1,-1],[1,1],[2,-1],[0,1],[3,0],[1,-2],[1,0],[1,0],[0,2],[2,0],[0,1],[1,1],[1,1],[1,1],[1,2],[2,-1],[0,1],[1,1],[1,1],[1,-1],[1,-1],[2,-3],[0,-7],[-2,0],[-1,-2],[-2,-1],[0,-1],[-2,0],[0,-2],[-2,-1],[-7,0],[-1,1],[1,0],[-1,1],[-1,1],[0,1],[-1,0],[0,-2],[-1,0],[-2,0],[-1,3],[-1,0],[0,-3],[0,-1],[-1,0],[1,0],[0,-1],[-13,0],[1,0],[0,1],[0,1],[-1,1],[-1,0],[0,-1],[0,-1],[0,-1],[-2,0],[0,1],[-1,0],[0,-1],[-1,0],[-1,0],[-1,0],[0,1],[-1,0],[-1,0],[0,-1],[-12,0],[0,1],[0,1],[0,1],[0,1],[1,0],[0,1],[0,1],[-1,0],[0,1],[0,1],[-1,0],[0,1],[-1,0],[-1,0],[0,1],[0,1],[0,1],[1,0],[-1,1],[1,1],[1,1],[0,1],[0,1],[0,1],[-2,6],[0,2],[-1,5],[-1,2],[-3,1],[-3,1],[-1,-1],[-1,0],[1,1],[0,1],[-1,1],[-1,1],[2,2],[4,3],[13,0]],[[1024,501],[-117,0],[0,523],[117,0],[0,-523]],[[540,502],[-3,-1],[-2,1],[5,0]],[[587,502],[1,1],[0,1],[1,0],[0,1],[1,-1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1],[-1,0]],[[489,558],[1,1],[0,-1],[-1,0]],[[679,535],[0,1],[1,0],[0,-1],[-1,0]],[[438,759],[3,-3],[-1,-2],[0,-1],[-1,0],[0,-2],[-1,1],[-1,-4],[1,-3],[2,0],[0,-1],[-1,-3],[-1,0],[-4,11],[-1,2],[-1,0],[2,5],[-1,0],[0,2],[-3,13],[-1,0],[1,5],[-1,1],[1,3],[1,0],[2,10],[1,0],[0,1],[0,2],[-2,6],[-1,0],[-1,1],[1,1],[0,3],[1,0],[1,1],[0,8],[1,0],[1,5],[1,0],[1,3],[0,7],[1,0],[0,2],[0,1],[1,0],[1,0],[-1,-1],[1,0],[1,0],[0,1],[1,-1],[1,1],[1,0],[1,0],[2,-1],[0,-2],[1,1],[1,0],[1,-1],[0,-1],[2,-1],[1,-3],[1,0],[1,-1],[-1,-2],[-4,0],[0,-3],[-1,-2],[-2,-1],[0,2],[-3,1],[1,-6],[4,-1],[-1,-5],[0,-4],[-2,-3],[3,0],[1,-5],[0,-1],[0,-3],[2,0],[1,-2],[0,-1],[1,0],[2,-4],[0,-3],[1,0],[-1,-2],[5,-1],[2,-1],[1,-3],[-3,-8],[2,-6],[-1,0],[0,-1],[0,-3],[-2,0],[0,1],[-5,-1],[-5,1],[-1,1],[1,0],[2,2],[0,1],[-2,1],[0,3],[1,0],[-1,10],[-2,1],[-4,-1],[-1,-1],[0,-9],[1,-1],[-4,-1],[-1,3],[-3,1],[-1,3],[-1,0],[0,-2],[2,-4],[-2,0],[0,-2],[1,0],[-1,-3],[4,1],[0,-2]],[[582,506],[-1,1],[1,0],[0,-1]],[[591,504],[-1,2],[0,1],[2,-3],[-1,0]],[[648,848],[1,1],[0,-1],[-1,0]],[[450,812],[0,1],[1,0],[0,-1],[-1,0]],[[452,811],[0,1],[0,1],[1,0],[0,-2],[-1,0]],[[440,835],[1,3],[1,-2],[-1,0],[0,-1],[-1,0]],[[595,909],[-1,1],[-1,3],[1,-1],[1,-3]],[[598,888],[0,1],[-1,0],[0,1],[1,0],[0,-2]],[[597,898],[-1,2],[1,0],[0,1],[1,0],[1,-3],[-2,0]],[[380,945],[5,4],[1,0],[2,0],[4,-4],[3,-4],[0,-1],[0,-1],[-5,-6],[-1,-1],[-1,0],[-1,-1],[-4,-5],[0,-1],[-1,-2],[0,-1],[-1,-1],[-3,-3],[0,-1],[1,-7],[1,-1],[2,-4],[3,-3],[1,0],[0,-2],[1,0],[2,-6],[-1,-1],[0,-1],[0,-1],[2,0],[0,1],[1,0],[5,-3],[1,0],[3,-2],[2,-2],[2,-1],[0,-2],[-1,0],[-16,-6],[-3,-1],[-2,0],[-2,1],[-2,1],[-2,2],[-2,2],[-1,4],[-1,4],[-7,10],[0,1],[-1,20],[1,2],[14,23],[1,0]],[[392,893],[-1,0],[-1,0],[0,-1],[-1,0],[0,1],[-1,0],[1,0],[0,1],[1,-1],[1,1],[0,1],[1,0],[1,0],[0,1],[1,0],[-1,0],[2,1],[-1,0],[0,1],[1,0],[1,1],[1,0],[1,-1],[4,-1],[1,0],[-1,-1],[0,-1],[0,-1],[0,-2],[1,0],[0,-1],[0,-1],[-1,-1],[1,0],[0,-1],[0,-1],[-1,0],[0,1],[-1,1],[-2,1],[-1,0],[0,1],[-1,0],[0,-1],[-1,0],[1,0],[-1,0],[0,1],[-2,2],[-1,0],[-1,0]],[[626,540],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,1],[1,0],[1,0],[1,0],[1,1],[0,-1],[1,0],[-1,-1]],[[556,918],[3,0],[4,-2],[2,-1],[0,-2],[2,-1],[4,1],[0,-3],[-1,0],[0,-3],[2,1],[0,2],[3,0],[5,-3],[0,-2],[-1,-3],[-2,1],[-1,-1],[2,-4],[1,-1],[-2,0],[0,1],[-2,0],[0,2],[-1,0],[0,-3],[-9,0],[-1,1],[-1,0],[0,1],[-1,-1],[0,1],[0,1],[-1,0],[1,1],[0,1],[0,1],[1,0],[0,1],[-1,0],[-1,1],[-1,0],[0,-1],[0,-1],[-1,0],[0,1],[-1,0],[-1,1],[-1,0],[0,2],[0,11]],[[687,897],[0,1],[1,0],[5,8],[3,-2],[-1,1],[1,0],[0,1],[2,0],[0,-3],[1,0],[0,3],[0,1],[5,2],[0,-1],[3,-1],[-1,2],[-1,0],[0,2],[-6,-1],[0,-1],[-6,-1],[0,4],[1,3],[1,0],[1,3],[0,1],[2,1],[4,1],[1,-3],[2,0],[0,-1],[2,1],[0,1],[-1,0],[1,1],[0,2],[-2,-1],[2,9],[5,1],[3,-1],[0,-4],[-1,0],[0,-1],[2,0],[0,-2],[1,0],[0,-2],[1,0],[0,3],[2,0],[0,-1],[1,0],[0,3],[-1,0],[0,1],[-1,0],[0,1],[-2,1],[0,2],[-1,0],[4,9],[1,0],[0,-3],[1,0],[5,-1],[0,3],[-3,0],[0,1],[-2,0],[1,5],[1,2],[4,2],[3,6],[2,0],[0,-2],[0,-2],[0,1],[2,-1],[0,-1],[2,0],[0,-1],[2,-2],[1,1],[-1,1],[-1,0],[0,2],[-2,0],[-1,7],[8,0],[1,-2],[1,0],[-1,-3],[-1,0],[0,-1],[2,1],[1,-3],[4,0],[0,-3],[2,1],[-1,3],[-4,0],[1,2],[-1,0],[1,4],[3,0],[2,-1],[0,1],[2,0],[-1,0],[-1,2],[-7,1],[0,2],[3,3],[0,2],[1,2],[1,0],[1,1],[5,2],[0,-2],[1,0],[0,-2],[5,1],[2,-1],[1,-2],[3,-1],[0,2],[-1,0],[0,4],[3,0],[0,1],[2,-1],[2,0],[2,-3],[1,-1],[1,-2],[1,0],[-2,5],[0,1],[7,1],[0,1],[12,4],[2,-2],[-1,2],[-12,-1],[-5,-3],[-2,1],[-3,-1],[-2,1],[1,2],[-3,0],[0,-1],[-1,0],[-1,-1],[-9,-1],[-1,2],[-1,0],[0,3],[2,3],[1,2],[2,0],[1,4],[1,0],[1,2],[1,0],[0,1],[3,-1],[0,1],[1,0],[1,1],[-3,1],[4,3],[0,1],[2,1],[0,1],[4,0],[0,-1],[4,3],[4,0],[0,1],[1,0],[1,2],[4,1],[-1,1],[-1,0],[0,-1],[-1,0],[-4,-1],[0,-1],[-6,-1],[0,-1],[-3,1],[1,4],[-1,-1],[-2,-2],[1,-1],[-1,0],[-1,-2],[-2,0],[0,-1],[-1,0],[0,-1],[-2,1],[-1,4],[-2,-3],[1,1],[0,-2],[1,-4],[-2,0],[0,-2],[-3,-1],[-2,-5],[-2,-1],[-3,1],[0,2],[-1,3],[-3,1],[-2,6],[2,1],[1,3],[1,1],[0,1],[-1,0],[0,5],[1,2],[2,2],[2,-1],[0,1],[4,0],[0,3],[-1,0],[0,-1],[-7,-1],[0,-2],[-1,0],[1,5],[-1,4],[3,0],[0,2],[-3,0],[-1,1],[155,0],[0,-127],[-221,0]],[[746,1024],[-1,-1],[2,-1],[0,-2],[3,-1],[0,-3],[-2,0],[2,-2],[0,-3],[-1,-2],[-1,0],[-1,-2],[1,0],[0,-2],[1,0],[1,-2],[-1,-1],[-3,-2],[-3,1],[-1,0],[0,-1],[1,-1],[0,-1],[4,1],[0,-2],[1,-1],[-1,-3],[2,0],[-1,-5],[-1,0],[2,-4],[-2,-1],[0,-1],[4,1],[3,1],[-1,-3],[0,-4],[-7,-2],[0,-2],[-1,-1],[-2,-4],[-8,2],[0,4],[-1,-1],[1,-2],[-4,-2],[-1,-2],[-1,0],[-1,-4],[-1,-1],[-2,2],[0,1],[-3,0],[0,-6],[0,-2],[-3,-1],[0,-4],[-2,0],[0,-2],[-4,-1],[1,-4],[-1,-3],[-3,1],[0,2],[-1,0],[0,-3],[2,-1],[-1,-1],[-3,-1],[0,-1],[-4,0],[-1,-2],[-9,-2],[-3,1],[-2,1],[0,1],[-2,0],[3,5],[1,0],[1,2],[4,3],[1,4],[-1,0],[0,-2],[-3,-2],[0,-1],[-1,1],[0,3],[0,-1],[-1,0],[0,-2],[-2,-1],[0,-1],[-2,-1],[0,3],[-2,2],[-1,0],[-1,3],[-5,-1],[-1,5],[-1,0],[1,2],[3,1],[0,-1],[1,0],[-1,2],[3,4],[5,1],[1,1],[1,0],[0,1],[1,0],[2,4],[5,1],[0,1],[1,0],[-1,-2],[1,0],[3,1],[1,2],[4,1],[1,1],[1,0],[3,-1],[1,0],[-5,3],[0,-1],[-8,-2],[0,1],[-2,0],[1,3],[-4,1],[0,-2],[1,0],[1,-4],[-6,-1],[-1,1],[-1,0],[0,-1],[1,0],[-1,-3],[-3,-2],[-1,0],[0,1],[-1,0],[0,-2],[-1,2],[-2,1],[0,-2],[-2,0],[0,-1],[1,0],[0,-3],[-3,-1],[0,-1],[-3,-1],[-2,-4],[-1,0],[0,2],[-1,0],[-1,1],[-1,0],[2,-5],[2,0],[2,-4],[-1,-1],[-1,2],[-1,0],[1,2],[-1,0],[-6,0],[-2,-1],[0,6],[-2,0],[1,8],[3,0],[0,1],[-2,0],[1,2],[-2,0],[-1,-2],[-1,-1],[-1,1],[-1,-1],[-3,1],[0,5],[-1,1],[1,0],[0,3],[1,1],[1,6],[1,0],[0,1],[1,0],[0,1],[3,-1],[-1,2],[1,0],[0,2],[3,3],[1,0],[1,-2],[1,0],[0,-1],[3,-1],[0,1],[-1,1],[-1,0],[0,1],[-1,0],[-1,5],[1,3],[1,1],[2,-1],[5,1],[0,2],[2,0],[0,1],[4,1],[0,1],[1,0],[0,-1],[3,-1],[1,3],[6,0],[-1,2],[-5,0],[-2,1],[-1,1],[1,1],[3,2],[0,1],[4,0],[0,1],[-4,2],[0,1],[3,2],[0,1],[1,-1],[1,1],[1,0],[1,1],[-2,1],[1,1],[53,0]],[[689,1024],[1,-1],[-2,-3],[-3,0],[0,-4],[-1,-1],[-1,1],[-1,3],[-1,0],[0,-5],[1,0],[0,-3],[-3,-1],[0,1],[-1,0],[1,-3],[-5,-1],[0,-1],[-1,0],[-2,-1],[-2,3],[-2,1],[-1,-3],[1,-1],[-6,0],[0,-2],[3,-2],[-3,-1],[0,-1],[-3,1],[0,-3],[-3,0],[0,-3],[-1,0],[0,-1],[-3,0],[-1,2],[-1,0],[-1,1],[-1,0],[0,-4],[4,-3],[0,-3],[-1,0],[0,-2],[1,0],[0,-1],[-2,-1],[0,-1],[-2,-1],[0,-1],[-1,0],[-1,2],[-3,5],[4,11],[-1,4],[3,0],[0,2],[1,1],[-2,0],[0,-2],[-1,0],[-1,4],[-1,0],[2,3],[0,2],[2,5],[2,1],[0,2],[1,0],[1,5],[5,0],[0,-1],[2,1],[30,0]],[[122,930],[0,1],[0,-1]],[[122,932],[-1,0],[0,-1],[-1,1],[0,1],[-1,-1],[-1,-1],[0,-1],[1,0],[-1,-1],[0,1],[-1,0],[-1,1],[1,1],[0,1],[-1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[1,0],[1,1],[1,1],[-1,1],[1,0],[1,1],[0,1],[-1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[-1,0],[0,1],[0,1],[-1,0],[0,1],[1,1],[1,0],[1,1],[0,-19]],[[171,1024],[0,-12],[-50,0],[0,12],[50,0]],[[207,1024],[1,0],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[-1,0],[1,0],[-1,0],[0,-1],[0,-1],[-1,0],[0,1],[-1,1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[0,-1],[1,-1],[1,0],[1,0],[0,-1],[0,-1],[-1,0],[1,0],[-38,0],[0,12],[37,0]],[[557,979],[-1,-1],[1,-2],[0,-12],[-1,-6],[-4,1],[0,1],[-2,0],[0,2],[-1,0],[0,-2],[2,-3],[0,-1],[3,0],[-1,-9],[-1,0],[0,-1],[-1,0],[1,-1],[3,-3],[1,-2],[-1,-2],[-2,0],[2,-3],[-1,-3],[-2,1],[0,1],[-1,0],[2,-5],[1,0],[0,-1],[3,-2],[0,-4],[0,1],[-2,0],[1,-1],[-2,0],[0,1],[-2,0],[1,-4],[2,0],[2,-1],[0,-13],[-1,0],[0,2],[-1,1],[-1,1],[-1,0],[-1,0],[0,1],[-1,1],[-1,0],[-1,0],[0,-1],[0,1],[0,1],[-1,-1],[0,-1],[0,-1],[0,-1],[-1,0],[0,1],[-1,0],[0,1],[-1,0],[0,1],[-2,0],[0,1],[0,1],[-1,0],[-1,-1],[0,-1],[1,-1],[0,-1],[0,-1],[1,0],[1,-1],[1,-1],[0,-1],[0,-1],[0,-1],[1,1],[1,0],[1,0],[1,0],[1,0],[1,-1],[2,-1],[0,-1],[0,-1],[-1,0],[0,-1],[1,0],[1,0],[1,-1],[-1,-1],[-1,0],[-18,0],[0,1],[1,0],[0,1],[1,0],[-1,1],[-1,1],[0,1],[0,1],[0,1],[0,2],[-1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[0,-3],[0,-1],[0,-1],[-1,0],[-2,0],[-17,0],[1,1],[-1,0],[-1,1],[0,1],[0,1],[0,1],[-1,0],[0,1],[0,1],[0,1],[-1,0],[0,-1],[-1,-1],[0,-1],[1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[1,-1],[-16,0],[2,1],[1,2],[-1,0],[1,1],[0,1],[1,1],[0,1],[-1,0],[1,1],[0,1],[0,1],[1,2],[1,1],[0,1],[1,0],[1,1],[0,1],[1,3],[0,1],[0,1],[0,1],[0,1],[0,1],[1,0],[1,0],[0,-1],[1,0],[0,-1],[-1,-1],[0,-2],[0,-1],[0,-1],[1,0],[1,0],[0,1],[0,1],[0,1],[0,1],[1,0],[1,0],[1,1],[1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[1,0],[1,1],[1,2],[1,0],[1,0],[0,-1],[1,0],[0,-1],[1,0],[1,0],[0,-1],[-1,-1],[-1,0],[0,-1],[1,0],[1,0],[1,0],[0,1],[1,1],[0,1],[0,1],[-1,0],[0,1],[-1,0],[1,1],[0,1],[1,0],[0,1],[1,0],[0,1],[1,-1],[1,0],[0,-1],[1,0],[1,0],[1,-1],[1,0],[1,0],[-1,-1],[0,-1],[1,0],[0,1],[1,0],[1,-1],[0,1],[0,1],[0,1],[0,2],[0,1],[1,0],[1,-1],[0,1],[0,2],[1,1],[1,0],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[0,1],[1,1],[0,1],[0,2],[-1,0],[-1,1],[0,1],[0,1],[-1,1],[0,1],[0,1],[0,1],[1,0],[0,1],[0,1],[1,0],[0,1],[1,1],[0,1],[1,0],[1,1],[0,1],[0,1],[0,1],[1,0],[1,0],[0,1],[0,1],[-1,1],[0,1],[0,1],[-1,1],[1,1],[0,2],[-1,1],[1,1],[0,1],[0,1],[0,1],[-1,1],[0,1],[1,2],[0,1],[0,1],[1,0],[-1,1],[1,1],[1,0],[0,1],[1,1],[1,0],[1,1],[0,1],[-1,0],[0,1],[-1,1],[0,1],[0,1],[1,1],[0,1],[-1,0],[1,1],[1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[-1,0],[0,1],[1,0],[0,1],[0,1],[-1,0],[0,1],[1,0],[0,1],[0,1],[-1,0],[0,1],[-1,0],[-1,0],[0,1],[1,1],[0,1],[1,0],[1,1],[0,1],[0,1],[1,0],[1,0],[1,0],[0,-1],[1,0],[0,1],[1,0],[0,1],[1,0],[0,1],[1,1],[1,1],[0,-25]],[[557,1005],[0,1],[0,1],[0,1],[-1,1],[1,1],[0,1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[0,1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[-1,0],[0,-1],[0,-1],[1,0],[0,-1],[0,-1],[0,-1],[-1,0],[-1,-1],[-1,0],[-1,-1],[-1,0],[0,-1],[1,1],[1,0],[1,0],[1,0],[1,0],[1,0],[0,-1],[1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[-1,-1],[-1,0],[0,1],[-1,0],[-1,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[-1,1],[-1,1],[-1,0],[-1,0],[-1,0],[1,0],[1,-1],[1,-1],[0,-1],[1,-1],[1,0],[0,-1],[-1,-1],[-1,0],[-1,0],[0,-1],[1,0],[1,0],[1,-1],[2,-6],[-3,0],[0,-6],[-2,1],[-1,0],[0,1],[-2,0],[4,-5],[0,-1],[-3,-1],[0,-1],[-1,-3],[-1,0],[-1,4],[-2,4],[-2,0],[-2,4],[-2,1],[0,1],[-2,0],[1,1],[-1,2],[-2,0],[0,-1],[-2,0],[0,1],[1,0],[-1,2],[-1,0],[-1,-4],[-2,0],[-2,5],[-1,0],[0,2],[-1,4],[1,2],[1,0],[0,1],[-3,0],[-1,9],[-2,0],[0,-1],[2,0],[-1,-8],[2,-2],[-1,0],[0,-4],[-1,0],[1,-1],[0,-4],[2,0],[1,-2],[0,-3],[-2,0],[1,-2],[4,2],[1,-3],[4,2],[2,-4],[1,0],[-1,-3],[5,-2],[0,-1],[1,0],[1,-6],[2,-4],[0,-3],[3,-3],[-2,-4],[-1,0],[0,1],[-4,-2],[2,-1],[-1,-2],[-1,0],[1,-4],[-1,-5],[-1,-1],[-3,-1],[-1,-3],[-3,0],[-5,-1],[0,1],[1,0],[1,2],[1,0],[0,2],[-3,-2],[0,1],[-1,5],[1,2],[3,2],[2,0],[2,5],[-1,0],[-1,-2],[-3,1],[0,1],[2,0],[-1,3],[2,0],[-1,5],[-3,-7],[-1,-1],[0,-1],[-1,0],[0,5],[-1,1],[-1,7],[-1,0],[-1,-4],[1,-7],[-2,0],[-1,1],[0,-2],[2,-1],[1,-6],[-3,-1],[0,1],[-1,0],[-4,7],[-2,0],[0,2],[-2,1],[1,2],[0,8],[-3,-1],[0,-1],[-1,3],[-1,0],[0,3],[-1,0],[2,-8],[-4,1],[-1,2],[-1,0],[-1,-4],[-2,1],[0,-1],[1,-1],[3,1],[0,-1],[3,0],[1,-5],[1,-5],[2,-3],[3,-1],[0,-2],[5,-4],[1,-1],[0,-1],[1,0],[-1,-2],[-2,0],[-2,3],[-1,0],[0,1],[-1,0],[-1,2],[-1,0],[0,-3],[-2,-1],[0,1],[-2,0],[-1,3],[-1,0],[0,1],[-1,0],[0,-1],[0,-1],[-1,0],[-2,6],[1,-8],[1,0],[3,-7],[4,2],[2,-1],[0,-4],[-2,-2],[-1,0],[-3,-2],[-1,3],[-4,1],[0,1],[-2,0],[0,1],[-3,0],[0,5],[-2,0],[-2,3],[1,2],[-2,1],[-1,3],[-3,-1],[0,-1],[1,0],[2,-4],[-1,0],[2,-5],[-1,0],[0,-1],[2,-3],[0,-4],[1,-1],[0,-5],[-2,-1],[1,-2],[-3,1],[-1,-1],[-1,0],[-3,0],[0,2],[1,0],[-1,5],[2,0],[-1,2],[-2,0],[-1,3],[-1,0],[-1,-5],[-2,0],[2,-2],[1,-2],[-1,-1],[-1,-5],[2,-2],[-1,-3],[4,1],[0,-4],[-1,0],[0,-2],[-1,0],[0,-2],[-2,-1],[0,-1],[3,1],[3,-1],[0,-2],[-37,0],[-1,1],[2,1],[-1,1],[2,1],[0,1],[1,0],[-1,6],[1,-1],[1,2],[1,-1],[-1,-1],[3,0],[1,1],[-1,1],[-2,1],[2,1],[0,-1],[3,1],[0,-2],[2,-6],[2,-3],[4,1],[-4,1],[-1,9],[4,1],[0,1],[1,0],[1,1],[0,4],[-4,0],[1,1],[3,0],[1,2],[-4,1],[0,1],[-2,1],[2,1],[-2,0],[-2,1],[-1,5],[-3,2],[2,2],[2,1],[1,2],[1,0],[-1,-1],[2,-2],[1,0],[1,-2],[6,1],[2,-1],[1,4],[-2,6],[0,4],[2,1],[0,2],[1,0],[0,1],[1,0],[3,-1],[0,1],[-2,1],[-1,1],[2,6],[1,1],[1,1],[1,1],[0,2],[1,0],[2,2],[1,0],[1,3],[1,0],[1,2],[1,0],[2,5],[3,35],[1,-1],[1,1],[1,1],[1,4],[1,0],[1,0],[2,8],[64,0],[0,-19]],[[556,927],[3,-2],[-1,-4],[-1,0],[0,2],[-1,0],[0,4]],[[390,924],[0,1],[1,0],[0,1],[0,1],[0,-1],[1,0],[-1,-1],[0,-1],[-1,0]],[[682,926],[-4,7],[-4,2],[0,1],[-1,0],[0,1],[-2,0],[2,8],[4,0],[1,-1],[1,-2],[1,-2],[0,-1],[-1,0],[1,-6],[3,-2],[0,-1],[1,-3],[-2,-1]],[[392,917],[-2,1],[0,1],[0,1],[0,1],[1,0],[0,1],[1,0],[0,-1],[0,-1],[0,-1],[1,0],[0,-1],[0,-1],[-1,0]],[[914,62],[-5,2],[-2,5],[7,2],[0,-9]],[[730,502],[0,-1],[-3,1],[3,0]],[[727,502],[-1,-1],[-2,0],[0,-1],[-2,-1],[-3,1],[1,2],[1,0],[6,0]],[[914,141],[-1,-3],[0,-7],[-6,-19],[-16,-11],[-20,-10],[-10,-17],[-4,-7],[-12,-6],[0,-3],[15,0],[15,-13],[13,-16],[5,-13],[-7,-11],[-9,-5],[-61,0],[0,1],[-5,0],[0,-1],[-1,0],[-1,0],[-3,0],[2,1],[1,4],[1,0],[0,1],[-1,0],[-1,2],[2,0],[1,2],[3,-2],[1,3],[4,-1],[0,1],[-5,2],[1,2],[-3,0],[-10,-2],[-2,2],[-5,-4],[-6,5],[3,9],[-5,11],[-5,-2],[-2,-3],[-8,-5],[-7,10],[12,5],[2,4],[-2,8],[-3,0],[-1,-6],[-3,0],[-4,8],[1,5],[-5,0],[-2,-9],[-5,-3],[-1,3],[-1,1],[-2,2],[-2,1],[-3,0],[-3,-1],[2,-8],[-2,-9],[-2,-5],[1,-6],[12,-11],[-2,-2],[-9,5],[-11,-2],[-5,-7],[-1,-2],[-5,4],[-2,-2],[0,-4],[-1,-5],[-2,0],[1,12],[-2,6],[1,4],[14,15],[0,14],[2,0],[1,-2],[3,0],[0,1],[5,4],[-2,3],[-1,4],[3,2],[1,4],[-4,2],[-11,5],[0,2],[-4,1],[0,-3],[-2,-4],[-8,3],[-8,5],[-11,2],[-8,11],[-4,2],[-1,4],[2,2],[3,-3],[3,-5],[5,2],[8,-1],[-1,7],[-5,15],[-6,-4],[-7,9],[2,8],[-6,15],[-12,17],[-19,9],[-11,14],[-7,-6],[-3,-2],[-3,0],[-4,-2],[-2,0],[-2,-1],[1,3],[-2,7],[1,2],[-1,2],[2,-1],[3,2],[0,1],[1,0],[0,3],[-1,1],[1,0],[-1,3],[1,0],[1,3],[1,0],[-1,1],[1,0],[0,2],[-1,1],[292,0],[0,-60]],[[603,201],[-7,-5],[2,-20],[-4,-4],[7,-18],[1,-7],[-13,-9],[-12,13],[-7,27],[-4,-1],[0,-2],[-8,2],[-4,5],[-11,9],[-2,-3],[-4,3],[-4,9],[0,1],[70,0]],[[623,199],[0,1],[-1,1],[-1,5],[-1,0],[0,1],[2,1],[-1,1],[1,0],[0,4],[-3,6],[2,-1],[0,2],[-2,0],[0,-2],[-1,0],[-1,2],[-2,1],[0,1],[-3,1],[-2,3],[-1,0],[0,1],[-9,0],[-5,-7],[9,-19],[-3,-2],[-67,0],[-1,1],[-4,4],[0,9],[-1,3],[-2,4],[-1,0],[-1,2],[-2,0],[1,0],[-1,1],[1,0],[0,2],[1,0],[0,3],[2,3],[-1,1],[0,3],[1,0],[1,12],[-1,4],[-2,2],[1,3],[-2,2],[-1,9],[-3,2],[0,-1],[-1,1],[1,0],[-15,9],[4,6],[-3,1],[0,2],[-1,0],[-1,3],[0,4],[-1,2],[-1,3],[-2,0],[-1,3],[-2,2],[-1,7],[-2,5],[-1,0],[-2,5],[-1,0],[-1,3],[-1,1],[-3,5],[-1,0],[-2,0],[1,1],[-2,1],[0,-2],[-1,0],[0,6],[-2,6],[-4,2],[0,1],[-1,0],[0,2],[-2,-1],[-1,2],[-1,0],[-1,1],[-1,1],[0,2],[-1,0],[-2,4],[-4,9],[-2,1],[-4,7],[-1,0],[-2,4],[1,0],[0,7],[-3,5],[1,5],[1,1],[-1,4],[2,-1],[0,-1],[3,0],[1,-5],[3,-1],[0,-3],[2,0],[0,6],[-1,1],[1,3],[-1,0],[1,1],[0,1],[-1,0],[0,2],[-2,0],[1,2],[1,0],[1,0],[0,-1],[1,0],[0,1],[2,0],[0,2],[-1,0],[1,1],[-1,0],[0,3],[1,-1],[-1,2],[-5,3],[0,1],[1,0],[-1,2],[-2,0],[0,4],[9,0],[0,-2],[2,0],[0,-1],[6,0],[1,-3],[1,0],[2,-3],[2,0],[0,-2],[1,0],[0,-1],[2,-1],[1,2],[1,0],[0,3],[-2,1],[0,3],[6,1],[0,-1],[1,0],[1,2],[2,0],[-1,2],[1,1],[0,-1],[3,1],[2,3],[4,0],[8,1],[1,2],[3,1],[1,-1],[0,1],[3,0],[1,0],[-1,-2],[0,1],[-1,0],[0,-2],[-1,0],[-2,-5],[-1,0],[2,-4],[0,-4],[1,-1],[0,5],[2,1],[6,-1],[0,-2],[1,0],[0,-1],[-2,1],[1,-3],[-1,1],[-1,-1],[0,-6],[-3,-1],[-3,-15],[-1,0],[1,3],[-1,0],[-1,-4],[-1,0],[0,-1],[-1,0],[0,-2],[0,-1],[-1,2],[1,2],[-1,0],[1,2],[-1,5],[-1,-6],[-1,1],[0,-8],[-1,-1],[0,-3],[2,0],[0,-1],[-1,0],[1,-3],[-1,0],[0,-1],[-3,0],[0,-3],[-1,0],[0,-1],[-3,2],[0,2],[-2,4],[-1,0],[1,1],[-2,0],[0,1],[-1,0],[0,1],[-1,0],[0,1],[-2,1],[0,1],[-1,0],[0,1],[-1,1],[-1,7],[-1,0],[0,-7],[1,0],[0,-2],[2,-1],[2,-5],[2,0],[1,-3],[1,0],[0,-4],[2,-1],[-1,-2],[2,0],[1,-1],[4,1],[0,-1],[1,0],[0,-1],[0,-4],[1,0],[0,-4],[0,-2],[6,-7],[7,3],[-2,1],[-2,1],[-2,4],[1,1],[-2,8],[0,-1],[-1,1],[1,0],[1,3],[-1,2],[1,0],[1,2],[1,0],[-1,0],[0,3],[2,0],[-1,2],[1,0],[2,7],[-1,-1],[1,2],[2,5],[0,2],[3,0],[0,1],[1,0],[0,4],[3,1],[-1,2],[1,0],[1,1],[-1,0],[0,1],[1,1],[1,-1],[0,3],[4,2],[0,4],[9,4],[0,1],[1,1],[0,-2],[3,1],[3,-8],[2,-1],[-1,-2],[1,-5],[1,0],[0,3],[1,0],[-1,2],[2,1],[2,-2],[1,2],[2,0],[0,1],[1,0],[1,1],[-1,-1],[-3,1],[1,4],[-3,0],[0,3],[1,0],[0,3],[-1,0],[-1,7],[-4,-1],[-1,1],[1,3],[1,3],[1,0],[0,2],[2,0],[2,5],[0,2],[4,8],[1,0],[1,3],[1,0],[3,6],[1,1],[4,6],[2,0],[0,1],[5,1],[1,-4],[-1,-1],[-4,0],[0,-1],[2,-1],[0,-2],[1,0],[2,0],[1,0],[-2,-1],[0,-2],[-2,0],[0,-1],[1,0],[0,-1],[3,-2],[0,-1],[-1,0],[1,-2],[-1,0],[0,-3],[2,-1],[0,-1],[-1,0],[0,-1],[4,-1],[0,-2],[1,0],[0,-5],[2,-2],[0,10],[-1,4],[0,3],[-1,0],[1,3],[-1,3],[1,7],[2,1],[2,2],[1,4],[2,2],[0,-1],[4,0],[2,1],[0,-2],[2,-1],[0,-2],[0,-5],[-1,-2],[-1,0],[0,-2],[0,-2],[2,0],[1,1],[0,-1],[2,0],[2,-4],[-1,-1],[1,-9],[-1,0],[3,-5],[1,3],[-1,0],[-1,1],[3,0],[0,3],[0,2],[4,1],[6,1],[4,-2],[1,2],[0,1],[-2,0],[1,3],[0,2],[-1,0],[0,4],[-1,2],[-3,0],[1,2],[2,9],[-2,4],[-1,0],[0,1],[-4,1],[-1,5],[-2,-1],[-3,11],[-1,-1],[0,6],[0,-1],[6,-1],[2,1],[-1,-5],[2,-2],[1,-6],[3,-3],[2,-1],[0,-1],[1,-1],[4,0],[6,2],[0,-2],[-2,-1],[0,-3],[-1,0],[-1,-3],[-1,0],[0,-1],[2,-1],[0,1],[3,2],[2,0],[0,-1],[0,-3],[0,-1],[3,1],[-1,2],[4,0],[-1,-3],[2,-1],[0,2],[5,3],[0,-1],[-1,0],[0,-3],[2,-1],[-2,-1],[-1,-3],[2,1],[-2,-8],[1,0],[2,4],[2,1],[0,1],[2,1],[1,-1],[0,3],[-2,1],[0,2],[-1,2],[3,1],[1,0],[4,3],[1,-2],[3,0],[2,3],[3,0],[1,1],[1,-2],[-1,-1],[0,-3],[0,-1],[-2,0],[1,-2],[-2,-1],[2,0],[1,0],[0,-3],[2,1],[0,1],[2,-1],[1,-3],[-3,0],[0,-1],[2,0],[0,-1],[-3,-1],[1,0],[0,-1],[-1,0],[0,-2],[2,1],[0,-2],[-1,0],[0,-5],[-2,0],[1,-2],[3,-1],[0,-1],[-2,-1],[0,-1],[-3,0],[-3,-7],[-1,0],[2,0],[0,1],[3,1],[0,1],[5,2],[2,-2],[0,-2],[2,0],[0,-2],[-3,0],[0,-1],[2,0],[0,-1],[1,0],[0,2],[2,0],[0,-2],[1,0],[1,1],[2,1],[0,-1],[2,0],[0,-2],[-1,0],[0,-1],[4,0],[-1,2],[7,-1],[0,-1],[3,-2],[0,-1],[3,-2],[-3,-4],[2,1],[1,2],[3,-1],[0,1],[1,0],[-1,4],[-1,0],[0,-1],[-1,0],[0,2],[-3,0],[0,1],[-2,1],[1,2],[-1,1],[-2,0],[0,1],[-3,0],[0,2],[-1,0],[0,-2],[-1,0],[0,1],[-1,-1],[-2,1],[-1,1],[-2,1],[-3,0],[-1,3],[-2,0],[0,5],[-2,1],[0,3],[3,-1],[0,2],[2,0],[0,1],[-2,1],[-3,1],[0,1],[1,1],[2,3],[3,-1],[2,2],[-2,0],[2,2],[4,2],[-1,3],[-4,-2],[-2,2],[-2,0],[0,-1],[-2,0],[-1,3],[-2,0],[0,3],[1,0],[3,4],[0,4],[1,-1],[4,0],[0,-1],[8,2],[0,-2],[1,1],[1,1],[1,0],[0,1],[1,0],[0,2],[2,0],[2,2],[1,-1],[1,-1],[0,-1],[-1,-1],[0,-2],[0,-1],[0,-1],[0,-1],[2,-1],[0,-1],[-1,0],[0,-1],[1,0],[-1,-4],[2,1],[1,-4],[1,0],[0,-1],[1,0],[0,2],[-2,1],[0,7],[-2,4],[4,-1],[0,1],[3,1],[0,-1],[2,0],[0,1],[2,-1],[2,-1],[1,1],[1,1],[1,2],[1,0],[0,2],[0,-3],[1,-1],[-1,0],[0,-1],[1,-3],[0,-3],[-1,0],[1,-2],[0,-1],[1,-1],[-1,-1],[1,0],[1,0],[-1,-2],[1,0],[0,-1],[0,-1],[2,0],[-1,-2],[1,-1],[0,-1],[1,-2],[0,1],[0,2],[0,1],[0,1],[1,0],[-1,1],[0,1],[-1,1],[-1,1],[0,1],[1,0],[-1,3],[-1,0],[0,1],[1,2],[0,1],[2,2],[2,1],[1,1],[1,-1],[1,-1],[-1,-1],[4,1],[1,1],[1,-2],[1,0],[1,1],[2,-1],[1,0],[1,1],[1,-3],[1,0],[0,-1],[-1,-2],[1,0],[0,1],[1,0],[0,1],[1,1],[2,1],[1,-1],[2,1],[1,0],[1,1],[1,1],[-1,0],[-1,0],[-1,-1],[-1,0],[-2,0],[-1,0],[-1,0],[-1,-1],[-2,2],[1,1],[0,1],[-2,0],[-1,-1],[-1,0],[-1,1],[-1,0],[-1,-1],[-1,3],[-1,0],[-1,1],[-1,-2],[-1,0],[-1,0],[-1,1],[-1,1],[-1,0],[-1,-1],[-1,-1],[0,-1],[-2,-1],[1,7],[-1,1],[-1,0],[1,4],[-1,1],[0,3],[-1,0],[0,3],[1,0],[1,2],[3,0],[0,1],[2,0],[-1,-1],[2,0],[6,0],[0,1],[2,-1],[0,2],[1,2],[1,0],[174,0],[0,-303],[-291,0]],[[738,502],[-1,0],[-1,0],[0,-1],[-5,0],[0,1],[7,0]],[[718,502],[-1,0],[1,-4],[2,0],[-1,-4],[-1,1],[2,-4],[0,-2],[-3,0],[0,-3],[-2,0],[0,-1],[-2,0],[-2,2],[-1,1],[-1,2],[0,1],[0,1],[0,1],[0,2],[-1,-2],[-1,-2],[1,0],[-1,-1],[0,-2],[1,0],[0,-1],[-3,1],[-2,-2],[0,2],[-3,0],[1,3],[-2,0],[0,2],[-1,0],[1,-6],[-5,0],[-1,-2],[-4,1],[1,2],[0,1],[0,5],[-2,-1],[1,-2],[-3,0],[0,-1],[0,-1],[1,0],[-1,-6],[-2,0],[0,1],[-4,0],[0,1],[-1,0],[0,1],[1,1],[-2,1],[1,2],[-1,1],[-3,0],[1,-1],[0,-7],[-1,1],[1,2],[-3,0],[-1,0],[-1,0],[0,1],[-1,0],[1,-1],[-1,1],[-2,0],[1,-2],[1,0],[0,-1],[1,0],[0,-1],[2,1],[1,-5],[-6,1],[0,-1],[-2,0],[0,1],[-3,0],[0,-1],[-2,0],[-2,3],[-2,-2],[-3,0],[0,-1],[-2,1],[-3,-1],[0,-1],[-2,2],[-3,0],[0,6],[1,4],[0,1],[1,0],[-1,1],[1,3],[-2,0],[-2,-5],[-1,-1],[-2,0],[0,1],[-1,0],[0,-1],[-1,0],[-1,0],[0,-1],[-2,1],[0,1],[-1,0],[1,1],[0,1],[-2,0],[1,5],[3,0],[0,2],[1,0],[0,1],[-2,0],[0,1],[0,1],[83,0]],[[566,502],[1,0],[3,-4],[1,0],[0,-2],[-2,0],[0,1],[-1,0],[0,-1],[-2,1],[0,1],[-4,2],[-1,2],[5,0]],[[544,502],[-2,-1],[0,1],[2,0]],[[327,265],[1,-1],[1,-2],[1,-1],[0,-3],[1,-2],[0,-2],[1,-1],[0,-1],[3,-3],[2,-3],[1,-2],[1,-1],[2,-3],[6,-14],[9,-7],[0,-1],[21,-6],[0,-1],[0,-1],[0,-1],[0,-1],[-2,0],[-1,-1],[-1,-1],[-2,-2],[-1,-1],[-1,-2],[-2,-1],[-1,-2],[-1,-2],[0,-1],[-1,-2],[0,-2],[-1,-1],[0,-1],[0,-1],[0,-1],[1,-1],[0,-1],[0,-1],[0,-1],[1,-1],[0,-1],[0,-1],[1,-1],[-1,0],[1,-1],[1,0],[-1,-1],[0,-1],[1,-1],[0,-2],[0,-1],[1,-1],[1,-1],[0,-1],[1,-1],[-1,-2],[0,-1],[0,-1],[-1,-1],[-1,-1],[0,-1],[-1,-1],[-1,-2],[0,-1],[-1,-2],[-1,-1],[-1,-1],[-1,-2],[-2,-2],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[-1,-1],[-1,-2],[-2,-1],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[-1,-2],[-1,-1],[0,-1],[-1,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,-1],[0,165]],[[327,59],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[0,1],[1,1],[1,0],[0,1],[0,-1],[1,0],[1,0],[0,1],[1,0],[1,0],[1,0],[1,0],[0,1],[1,0],[0,1],[0,1],[1,0],[0,1],[0,1],[0,1],[1,0],[1,0],[1,0],[1,-1],[1,0],[1,0],[0,-1],[0,1],[1,0],[0,-1],[1,0],[2,-1],[1,0],[1,-1],[1,0],[1,-1],[1,0],[1,-1],[2,0],[1,-1],[1,-1],[1,0],[1,0],[1,-1],[1,0],[1,0],[0,-1],[1,0],[1,0],[0,-1],[1,0],[1,-1],[1,0],[1,-1],[0,-1],[1,-1],[1,0],[1,-1],[1,0],[1,-1],[1,0],[1,-1],[1,0],[1,0],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[1,0],[0,-1],[-1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-2,-1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[-1,-1],[-1,0],[0,-1],[-2,-1],[-1,-2],[-1,-1],[-1,0],[-1,-1],[0,-1],[-1,-1],[-2,-2],[-1,-1],[0,-1],[-1,-1],[0,-1],[-3,-4],[0,-1],[0,-1],[-1,-1],[0,-1],[-2,-4],[0,-1],[-28,0],[0,59]],[[804,380],[0,1],[2,0],[0,-1],[-2,0]],[[660,32],[0,1],[1,-1],[2,0],[-2,-2],[0,-1],[2,0],[0,-1],[-1,-1],[2,-6],[1,0],[1,-1],[0,-1],[0,-1],[1,-1],[-1,0],[0,-1],[3,-1],[-1,-1],[1,-6],[1,-1],[0,-5],[1,-1],[0,1],[1,0],[0,-2],[-2,0],[-1,3],[-1,7],[-1,-1],[-2,-1],[0,4],[-2,2],[0,3],[-1,5],[-1,0],[0,1],[-1,0],[1,-1],[-1,0],[0,-1],[1,0],[1,-3],[-1,-2],[1,1],[0,-2],[-2,0],[-1,5],[1,0],[-1,4],[1,1],[-2,4],[1,-4],[-1,-1],[0,1],[-1,0],[1,-3],[-1,0],[-3,6],[1,-3],[-1,4],[-1,0],[0,2],[1,0],[0,1],[-1,0],[0,1],[-1,6],[4,1],[1,-2],[-1,0],[0,-1],[1,0],[0,-1],[1,1],[1,-3],[-1,-1],[1,0],[1,0],[-1,0],[0,-1],[1,0]],[[657,0],[1,3],[0,1],[0,1],[1,0],[1,-5],[-3,0]],[[660,7],[0,1],[-2,0],[-1,13],[2,1],[0,-1],[-2,0],[0,-2],[1,0],[1,-1],[-1,-2],[1,0],[0,-5],[1,-4]],[[656,9],[0,1],[1,0],[-1,0],[0,-1]],[[615,65],[3,-5],[-1,1],[-5,2],[-2,0],[-1,1],[-1,0],[-1,1],[-1,1],[-3,3],[1,2],[-1,1],[0,2],[-1,1],[-1,0],[0,1],[-1,0],[-1,1],[1,3],[-1,3],[-1,4],[0,3],[-1,2],[-4,2],[2,2],[2,6],[0,1],[1,0],[-1,4],[-1,1],[-2,1],[1,3],[-1,1],[-1,0],[-1,4],[1,1],[1,1],[-1,1],[0,2],[0,1],[0,2],[0,2],[1,2],[0,3],[0,2],[1,3],[1,0],[1,2],[1,1],[1,1],[3,0],[4,-1],[0,-1],[-1,0],[1,0],[0,-1],[1,-1],[1,-1],[1,-1],[0,-2],[1,-2],[2,-1],[0,-2],[1,-1],[2,0],[1,-1],[1,1],[1,-1],[1,-1],[1,-1],[0,-1],[1,-1],[2,0],[1,-1],[0,-1],[-1,0],[-1,1],[-1,1],[-2,0],[-1,1],[-1,0],[-1,1],[-1,0],[-1,-1],[1,-1],[0,-1],[1,-1],[0,-1],[1,-1],[2,-1],[3,-6],[1,-1],[1,0],[1,-2],[1,-1],[-1,0],[0,-2],[1,0],[0,-1],[-1,1],[-1,0],[-1,1],[0,1],[0,3],[-1,0],[-1,1],[-1,1],[-1,0],[-1,3],[-1,0],[0,1],[-2,0],[-1,0],[-2,0],[-1,-1],[-1,1],[-1,1],[0,1],[-3,0],[0,-1],[1,0],[0,-1],[-1,0],[0,-2],[2,-1],[-1,-1],[0,-1],[1,0],[1,-1],[1,0],[1,-1],[0,-2],[1,0],[0,-1],[1,0],[0,-1],[1,-4],[1,-1],[-2,0],[0,-1],[-1,-1],[0,-1],[-1,-2],[-2,2],[-1,0],[0,-1],[1,-2],[1,-1],[0,-1],[2,-1],[0,-1],[1,-2],[0,-5],[-4,-1],[-2,3],[-1,0],[-4,6],[0,2],[-1,1],[-3,3],[-1,-1],[2,-2],[1,-3],[-1,-2],[1,-1],[1,-1],[0,-2],[1,-1],[-1,-1],[0,1],[-1,-1],[2,0],[2,-1],[-1,-1],[2,-3],[0,-1],[3,-1],[2,0],[3,-9],[1,0],[1,-2]],[[684,42],[0,1],[1,0],[0,-1],[-1,0]],[[590,500],[-1,2],[2,1],[0,-1],[0,-1],[0,-1],[-1,0]],[[578,493],[-3,1],[1,0],[2,0],[0,-1]],[[534,482],[-2,0],[-1,3],[-1,0],[-3,2],[0,3],[2,7],[0,2],[1,2],[1,0],[0,-1],[1,0],[1,-3],[2,-1],[1,-2],[1,0],[-2,-3],[-1,0],[0,-5],[-2,1],[-2,1],[-1,-2],[2,-1],[3,-3]],[[444,456],[1,4],[-2,2],[0,4],[1,0],[0,1],[2,0],[0,-1],[0,-1],[0,-8],[-2,-1]],[[637,37],[0,1],[0,-1]],[[510,366],[0,1],[1,0],[0,-1],[-1,0]],[[508,366],[0,1],[0,-1]],[[559,125],[-1,0],[0,2],[-1,0],[0,1],[1,-1],[2,1],[0,-1],[2,0],[1,-1],[-4,-1]],[[557,113],[0,1],[-1,1],[1,0],[1,-2],[-1,0]],[[440,429],[-2,5],[0,2],[1,0],[1,5],[2,1],[0,-2],[0,-1],[0,-1],[-1,0],[0,-6],[0,-3],[-1,0]],[[556,118],[-1,3],[-2,-1],[0,-1],[-1,0],[-1,3],[1,0],[-1,3],[-1,-2],[-1,0],[-1,2],[-1,0],[0,3],[3,0],[1,4],[1,-2],[1,-1],[0,-1],[4,-1],[-1,0],[0,-2],[-1,0],[1,-6],[1,-1],[-1,0]],[[688,37],[-3,2],[0,1],[-3,-1],[-1,1],[0,2],[1,0],[0,-2],[3,0],[-1,1],[2,0],[-1,-1],[2,0],[1,-3]],[[558,96],[1,12],[-1,2],[1,0],[0,1],[1,0],[1,-2],[2,0],[1,-3],[1,0],[2,-4],[-3,-2],[-1,-3],[-5,-1]],[[442,448],[0,1],[-2,0],[0,4],[-1,1],[2,0],[2,1],[0,-1],[-1,0],[0,-4],[1,0],[0,-1],[-1,-1]],[[628,54],[-1,-1],[-1,2],[-2,2],[2,0],[1,1],[1,-4]],[[679,97],[-3,0],[-4,0],[-5,-2],[-3,-1],[-2,-3],[0,-3],[-3,0],[-3,-2],[-3,-4],[-2,-1],[-4,1],[1,4],[0,3],[-2,6],[-2,3],[3,2],[1,2],[2,-2],[1,-3],[5,-1],[3,1],[2,2],[2,3],[2,1],[-1,2],[-1,3],[-1,4],[-1,1],[-2,-2],[-2,-1],[3,3],[1,1],[3,0],[1,0],[1,1],[1,1],[-1,3],[1,0],[3,-3],[1,0],[1,-1],[2,-1],[1,-2],[2,-4],[1,-3],[2,-1],[2,-4],[-3,-3]],[[957,0],[0,1],[-9,17],[-28,40],[-8,4],[0,9],[43,12],[31,13],[1,9],[37,0],[0,-105],[-67,0]],[[987,104],[2,19],[-7,17],[-11,33],[-30,8],[-8,9],[-3,-1],[-3,-7],[-1,-4],[-2,-1],[0,-1],[-1,-2],[-1,0],[-1,-1],[-2,-2],[-1,-2],[-2,-6],[0,-5],[0,-2],[2,-2],[3,0],[2,-1],[0,-1],[-2,-1],[-2,-1],[-4,-3],[-1,-3],[-1,-6],[0,-7],[-1,-1],[0,372],[112,0],[0,-398],[-37,0]],[[328,124],[0,-22],[0,-1],[-1,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,-1],[0,-1],[-1,-1],[-1,-26],[1,0],[0,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1],[1,0],[0,-1],[0,1],[0,-1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[0,-59],[-224,0],[0,124],[224,0]],[[15,0],[0,1],[3,2],[0,4],[8,4],[1,4],[-1,0],[-1,-2],[-1,0],[0,1],[1,0],[0,1],[0,1],[-2,1],[0,2],[-3,3],[-3,0],[0,-1],[-2,-1],[-1,0],[0,3],[-3,-1],[1,2],[-1,1],[-8,0],[-3,1],[0,98],[106,0],[0,-124],[-91,0]],[[0,19]],[[0,17],[3,-1],[0,-2],[2,1],[7,-2],[-2,-5],[-1,0],[-2,-2],[-2,-6],[-4,0],[-1,0],[0,17]],[[181,515],[-2,-20],[0,-2],[0,-5],[3,-11],[1,-3],[0,-1],[10,-32],[1,-3],[1,-1],[0,-3],[1,-2],[1,-2],[0,-1],[1,-1],[0,-1],[2,-4],[4,-9],[4,-7],[8,-14],[1,-2],[5,-9],[1,0],[1,-2],[1,0],[-1,-1],[1,0],[3,-4],[1,-1],[1,-2],[2,-1],[5,-5],[1,0],[2,-2],[0,-2],[8,-4],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[-1,0],[-1,-2],[0,-1],[1,1],[1,1],[1,1],[1,1],[1,-2],[1,-1],[2,-2],[2,-1],[5,-5],[-1,0],[0,-1],[-1,0],[1,-1],[1,-1],[2,-2],[1,-1],[1,-1],[1,0],[1,-1],[1,-1],[2,-2],[1,-1],[1,-1],[2,-2],[2,-2],[1,-1],[1,-1],[-1,-1],[-1,0],[-1,0],[0,1],[0,-1],[-1,0],[0,-1],[0,-1],[1,-2],[1,-2],[1,-1],[2,-3],[3,-2],[2,-3],[3,-1],[1,0],[2,-2],[2,-1],[0,-1],[1,-1],[0,-1],[2,-2],[1,0],[1,0],[5,-3],[0,-1],[-1,0],[1,-2],[1,-1],[1,0],[1,-1],[1,-3],[2,0],[3,-6],[4,-3],[0,-3],[2,-1],[0,-1],[2,-1],[1,-1],[2,-1],[1,0],[1,-1],[1,-1],[1,-2],[1,-3],[2,-1],[2,-2],[0,-141],[-328,0],[0,392],[181,0]],[[122,968],[0,1],[0,1],[0,1],[0,1],[0,1],[-1,0],[0,1],[0,1],[0,1],[-1,0],[0,1],[-1,0],[-1,0],[0,1],[0,1],[1,1],[0,1],[-1,0],[1,1],[-1,0],[0,1],[0,1],[0,1],[1,0],[1,1],[-1,0],[-1,0],[-1,-2],[-1,-1],[1,0],[-1,-1],[1,0],[1,-1],[-1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[1,0],[0,-1],[0,-1],[-1,-1],[1,-1],[0,-1],[1,0],[0,-1],[0,-1],[0,-1],[0,-1],[1,-1],[1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[1,-1],[0,-1],[-1,-1],[-1,0],[0,-1],[-1,-1],[-1,-1],[0,-1],[0,-1],[0,-1],[1,-1],[0,-1],[-1,-1],[0,-2],[-1,-1],[0,-1],[-1,-1],[-1,-1],[-1,0],[0,-1],[0,-1],[-1,-1],[0,1],[0,1],[0,1],[1,0],[0,1],[0,1],[0,1],[0,1],[1,1],[1,1],[-1,0],[0,1],[-1,1],[0,1],[1,1],[0,1],[1,1],[-1,0],[-1,0],[-1,0],[0,-1],[0,-1],[-1,-1],[0,-1],[1,-1],[0,-1],[-1,-1],[-1,1],[0,-1],[0,-1],[0,-1],[1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[1,-2],[0,-1],[-1,-1],[-1,0],[0,-1],[1,-1],[0,-3],[-1,0],[-1,-1],[1,-1],[3,-1],[0,1],[0,1],[0,1],[1,0],[1,-1],[4,-2],[-1,-9],[2,-8],[0,-1],[-96,0],[0,121],[99,0],[0,-56]],[[161,970],[1,0],[1,0],[0,-1],[0,1],[1,-1],[0,-1],[0,-1],[1,0],[0,-1],[-1,0],[1,0],[-1,0],[0,-1],[1,0],[-1,-1],[1,0],[0,-1],[0,-1],[1,0],[1,0],[-1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[-1,0],[-1,0],[-1,1],[0,1],[-1,1],[0,-1],[0,-1],[0,-1],[1,-1],[-1,0],[-1,-1],[-1,0],[0,1],[0,1],[-1,0],[-1,1],[-1,0],[0,-1],[1,0],[0,-1],[-1,0],[-1,0],[-1,0],[-1,0],[-1,1],[0,1],[0,1],[-1,0],[0,1],[-1,0],[1,1],[-1,0],[0,1],[-1,0],[0,1],[-1,1],[0,-1],[0,-1],[1,-1],[0,-1],[0,-1],[1,0],[-1,0],[-1,1],[-1,0],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[1,0],[0,-1],[1,0],[1,1],[0,-1],[0,1],[1,-1],[0,1],[1,0],[1,0],[1,0],[0,-1],[0,1],[1,0],[1,0],[-1,0],[-1,0],[0,1],[1,0],[1,0],[1,1],[1,0],[1,0],[1,0],[0,1],[1,0],[1,-1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,0],[-1,0],[-1,-1],[-1,0],[0,-1],[-1,0],[-1,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[0,-1],[1,0],[0,-1],[-1,0],[0,-1],[-1,0],[1,-1],[-1,0],[-1,0],[-1,-1],[0,-1],[-1,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,1],[-1,0],[0,1],[1,0],[0,-1],[0,1],[0,1],[-1,0],[-1,1],[1,0],[1,0],[0,1],[1,0],[1,1],[1,0],[-1,0],[-1,0],[0,-1],[-1,0],[0,1],[0,-1],[-1,0],[-1,-1],[-1,0],[-1,0],[0,-1],[-1,0],[-1,-1],[-1,0],[-1,0],[0,1],[1,1],[1,2],[0,1],[1,0],[-1,1],[0,1],[1,0],[0,1],[1,0],[0,1],[-1,1],[0,1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,-1],[0,-1],[0,-1],[-1,0],[-1,1],[0,1],[0,1],[0,1],[-1,0],[-1,0],[0,1],[-1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,0],[1,-1],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[1,0],[0,-1],[-1,-1],[0,-1],[-1,0],[0,-1],[2,0],[-1,-1],[0,-1],[-1,0],[-1,0],[0,1],[-1,0],[-1,-1],[-1,1],[-1,-1],[0,1],[0,-1],[1,0],[1,0],[1,-1],[0,-1],[1,0],[1,0],[1,0],[0,1],[1,0],[0,-1],[1,-1],[1,1],[0,1],[1,0],[0,1],[1,0],[1,0],[1,0],[1,-1],[0,-1],[0,-1],[-1,-1],[0,-1],[-1,0],[-1,0],[-1,0],[-1,0],[-1,0],[-1,0],[-1,-1],[-1,0],[-1,0],[-1,-1],[0,1],[-1,-1],[-1,0],[0,-1],[-1,0],[-3,-2],[-3,-1],[-2,-2],[0,-1],[-1,0],[-1,0],[0,1],[0,1],[-1,1],[0,1],[-1,0],[0,1],[1,0],[0,1],[0,1],[-1,-1],[-1,0],[0,-1],[0,14],[0,1],[0,4],[1,1],[1,0],[0,1],[0,1],[0,1],[1,1],[-1,0],[0,1],[0,1],[-1,0],[1,1],[0,1],[0,1],[1,0],[0,1],[1,1],[1,1],[0,1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[-1,1],[-1,0],[0,1],[0,1],[39,0]],[[118,905],[1,-1],[1,-1],[0,-1],[2,0],[2,-5],[1,-1],[1,0],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-2],[-1,-2],[-1,0],[0,-1],[-1,0],[-1,0],[-1,-1],[0,1],[-1,0],[-1,1],[1,0],[2,0],[0,1],[0,1],[-1,1],[-1,0],[-1,0],[-2,-1],[-1,-1],[-1,0],[-1,0],[-1,0],[0,-1],[0,-1],[1,0],[2,0],[1,-1],[3,1],[1,0],[1,-2],[-1,-1],[0,-1],[0,-3],[1,-4],[3,-8],[7,-12],[5,-6],[4,-2],[1,1],[2,0],[0,1],[-1,-2],[-1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[0,-1],[0,-1],[1,-1],[0,-2],[1,0],[1,0],[0,1],[0,1],[0,1],[0,1],[0,1],[1,1],[0,1],[0,1],[-1,1],[0,1],[1,1],[1,3],[-1,-3],[1,-1],[3,-1],[3,-1],[0,1],[3,1],[6,0],[4,-1],[2,-7],[0,-1],[-1,-1],[0,-2],[0,-2],[0,-2],[0,-2],[0,-1],[-1,-2],[0,-2],[-1,-2],[-1,-2],[0,-2],[0,1],[-1,0],[0,-1],[-1,0],[0,-2],[1,0],[0,-1],[1,0],[0,-1],[-2,-3],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[-1,-6],[0,-2],[0,-2],[0,-1],[-1,-1],[0,-1],[0,-9],[0,-1],[0,-2],[0,-1],[-2,-1],[0,1],[0,1],[-1,0],[0,-1],[0,-1],[-1,0],[-1,1],[0,-1],[-1,0],[0,2],[-1,-2],[0,-1],[-3,-1],[-9,-7],[1,-1],[6,6],[2,1],[1,-1],[0,1],[2,2],[0,-1],[2,1],[1,1],[1,0],[0,-1],[1,1],[1,0],[1,0],[0,-1],[0,-1],[0,-1],[0,-2],[1,-21],[0,-1],[1,-2],[1,-4],[1,-12],[1,-4],[4,-19],[0,-2],[3,-14],[6,-16],[6,-13],[2,-12],[2,-4],[2,-11],[2,0],[-3,0],[-1,0],[0,1],[-1,0],[0,4],[-1,2],[1,-6],[0,-1],[1,0],[1,-1],[1,0],[2,0],[-1,0],[-2,-11],[-5,-34],[-1,-28],[0,-2],[2,-36],[0,-1],[0,-1],[-1,-11],[-181,0],[0,391],[118,0]],[[25,903],[-25,0],[0,121],[25,0],[0,-121]],[[121,957],[0,-1],[1,-1],[0,-1],[-1,-1],[0,4]],[[208,1013],[0,-1],[-1,0],[1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,-1],[1,-1],[0,-1],[-1,0],[1,-1],[-1,0],[-1,0],[0,-1],[0,-1],[-1,0],[-1,0],[0,1],[-1,0],[0,-1],[-2,0],[-1,-1],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[1,0],[-1,0],[1,-1],[0,-1],[0,-1],[-1,0],[-1,0],[0,-1],[1,0],[0,-1],[0,-1],[1,0],[0,-1],[-1,1],[-1,0],[-1,0],[0,-1],[-1,0],[0,-1],[0,-1],[-1,0],[0,-1],[0,-1],[0,-1],[-1,0],[0,-1],[1,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,1],[-1,0],[-1,0],[0,-1],[-1,0],[-1,-1],[0,-1],[0,-1],[0,-1],[0,1],[-1,0],[0,-1],[0,1],[0,-1],[-1,0],[0,1],[-1,0],[-1,-1],[-1,-1],[-1,0],[-1,0],[-1,-1],[-1,0],[-1,0],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[-1,0],[0,1],[-1,0],[0,1],[0,1],[0,1],[0,1],[1,1],[-1,0],[0,1],[0,1],[0,1],[0,1],[-1,0],[0,-1],[0,-1],[0,-1],[-1,-1],[0,-1],[1,0],[-1,-1],[0,-1],[0,-1],[-1,0],[-1,1],[-1,0],[0,1],[-1,0],[-1,0],[-1,-1],[0,1],[0,1],[-1,0],[-1,0],[0,-1],[0,-1],[-1,0],[-1,0],[-1,0],[0,-1],[-1,0],[-1,0],[0,1],[0,-1],[1,0],[1,0],[1,0],[1,-1],[2,1],[1,0],[1,-1],[2,0],[1,-1],[0,-1],[0,1],[-1,0],[-1,0],[-1,-1],[1,0],[1,0],[1,-1],[1,0],[1,0],[1,0],[0,-1],[0,1],[1,-1],[-42,0],[0,1],[0,1],[0,1],[0,1],[-1,0],[0,1],[0,1],[0,1],[0,37],[87,0]],[[121,966],[1,-1],[0,-1],[0,-1],[1,0],[0,-1],[-1,-1],[-1,-1],[0,-1],[0,-1],[0,8]],[[167,962],[1,0],[0,1],[0,-1],[0,-1],[-1,1]]]}</code></pre></noscript></div>
-</p>
+
 
 <p>TileStache provides an easy-to-use point of entry for vector tiles. In a later post I&rsquo;ll go over some of the profiling
 experiments I&rsquo;ve been running, using TileStache&rsquo;s dynamic line simplification, and it&rsquo;s affects on file size as well as
 the aesthetic affects on representations of these geometries.</p>
 
 <p>I&rsquo;ll also be writing out the work I did extending TileStache to support calls to the <a href="http://labs.giphy.com">Giphy Labs API</a>: <a href="http://mattmakesmaps.github.io/TileStache-GiphyAPI-Demo/">http://mattmakesmaps.github.io/TileStache-GiphyAPI-Demo/</a></p>
-]]></content>
-  </entry>
+
+    </div>
+  </div>
+
+
+
+  <footer>
+    <hr>
+    
+    <div class="row-fluid">
+      
+      <div class="span6">
+        <p class="meta">
+        
+        
+
+
+
+  <a href="/blog/categories/Web-GIS/"><span class="badge">Web-GIS</span></a>
+
+
+
+
+        </p>
+      </div>
+      
+      <div class="span6 social-sharing">
+        <div class="sharing">
+  <div class="addthis_toolbox addthis_default_style ">
   
-  <entry>
-    <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Tiles]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/"/>
-    <updated>2013-05-01T20:53:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles</id>
-    <content type="html"><![CDATA[<p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
-GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
-as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
-for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. <!-- more -->My application deals
-primarily with the storage of field collected (GPS, field notes, aerial markup, etc.) data.
-Our data occur primarily in non-urban areas, where natural features provide a much
-better context for orientation then would be expected with any streets layer, OSM or otherwise.
-Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
-<p>It&rsquo;s easier to place a point on this:</p>
+      </div>
+      
+      
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12">
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/" title="Previous Post: Quickstart GIS Setup on Ubuntu Linux 12.04 LTS">&laquo; Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
+          
+          
+        </p>
+      </div>
+    </div>
+  </footer>
+</article>
 
-<p><img class="<a" src="href="http://mattmakesmaps.com/images/2013-04-30/aerial.jpg">http://mattmakesmaps.com/images/2013-04-30/aerial.jpg</a>" width="500"></p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
-<p>Then this:</p>
+</div>
 
-<p><img class="<a" src="href="http://mattmakesmaps.com/images/2013-04-30/osm.png">http://mattmakesmaps.com/images/2013-04-30/osm.png</a>" width="500"></p>
 
-<p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
-From the gis contrib package, we&rsquo;ll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
-folder</a>,
-we&rsquo;ll create two new files, a html template file, that actually points to a javascript file
-containing a reference to the Mapquest Open Aerial tiles service.</p>
 
-<h2>Creating mapquestGeoAdminSubclass</h2>
-
-<p>The <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py#L132-L139">OSMGeoAdmin class</a> is a subclass of the base GeoModelAdmin. The GeoModelAdmin contains a set of
-configuration parameters for the map, covering basic setup. The OSMGeoAdmin class utilizes
-many of those configuration parameters, but configures the map for a spherical mercator projection.
-Since our Mapquest Aerial Tiles also require a spherical mercator projection, our class will
-be a subclass of the OSMGeoAdmin.</p>
-
-<p>We add the following code below the OSMGeoAdmin class definition.</p>
-
-<p>``` python</p>
-
-<pre><code># Subclass OSMGeoAdmin, pointing to the To-Be-Created
-# Mapquest template file.`
-class mapquestGeoAdmin(OSMGeoAdmin):
-    map_template = 'gis/admin/mapquest.html'
-</code></pre>
-
-<p>```</p>
-
-<h2>Modify the GIS Admin Package&rsquo;s __init__.py</h2>
-
-<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let&rsquo;s modify it to include our
-new subclass</p>
-
-<p>``` python</p>
-
-<pre><code># From this
-from django.contrib.gis.admin.options import OSMGeoAdmin
-# To this
-from django.contrib.gis.admin.options import OSMGeoAdmin, mapquestGeoAdmin
-</code></pre>
-
-<p>```</p>
-
-<h2>Create mapquest.js</h2>
-
-<p>Again, using the OpenStreetMap implementation as a reference, we can see that <code>osm.js</code> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
-block with an a reference to the OpenStreetMap layer.</p>
-
-<p>We&rsquo;ll create a similar file in this package called <code>mapquest.js</code>. The contents are as
-follows:</p>
-
-<p>
-```
-{# Source: <a href="http://openlayers.org/dev/examples/mapquest.html">http://openlayers.org/dev/examples/mapquest.html</a> #}
-{% extends &ldquo;gis/admin/openlayers.js&rdquo; %}
-{% block base_layer %}</p>
-
-<pre><code>    new OpenLayers.Layer.XYZ(
-        "Imagery",
-        [
-            "http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-            "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-            "http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-            "http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png"
-        ],
-        {
-            attribution: "Tiles Courtesy of &lt;a href='http://open.mapquest.co.uk/' target='_blank'&gt;MapQuest&lt;/a&gt;. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. &lt;img src='http://developer.mapquest.com/content/osm/mq_logo.png' border='0'&gt;",
-            transitionEffect: "resize"
-        }
-    )
-</code></pre>
-
-<p>{% endblock %}
-```
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
+  Copyright &copy; 2013 - Matthew Kenny -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-<h2>Create mapquest.html</h2>
 
-<p>In the same folder, we&rsquo;ll create an html template file, pointing to our javascript file.
-We&rsquo;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
-
-<p>
-<code>
-{% extends "gis/admin/openlayers.html" %}
-{% block openlayers %}{% include "gis/admin/mapquest.js" %}{% endblock %}
-</code>
-</p>
-
-<h2>In admin.py, Reference mapquestGeoAdmin</h2>
-
-<p>The last step is to replace references to <code>GeoModelAdmin</code> or <code>OSMGeoAdmin</code> to
-<code>mapquestGeoAdmin</code>.</p>
-
-<p>```
-class PntTraxGeoAdmin(admin.mapquestGeoAdmin):</p>
-
-<pre><code>"""Base Class for Geometry Table Admin"""
-list_display = ('name','collectDate','group','featurePurpose','collectionMethod')
-list_editable = ('featurePurpose','group','collectionMethod')
-list_filter = ('featurePurpose','group__name')
-</code></pre>
-
-<p>```</p>
-
-<p>And there you go. Your Django GeoAdmin interface is now rocking aerial tiles courtesy
-of Mapquest.</p>
-]]></content>
-  </entry>
+        </footer>
+      </div>
+    </div>
+  </div>
   
-  <entry>
-    <title type="html"><![CDATA[GeoDjango: Standing Up A GeoJSON Web-Service]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/"/>
-    <updated>2011-12-12T00:30:17-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service</id>
-    <content type="html"><![CDATA[<p>The models are complete. The database is loaded with some test tabular and spatial data. We&rsquo;re pushing out HTML representations of attribute data using GeoDjango&rsquo;s standard templating functions. Now, the focus moves to visualizing these features' geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. <!-- more --> When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
 
-<h2>Why GeoJSON?</h2>
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson/';
+        var disqus_url = 'http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
-<p>From the perspective of exporting data, GeoDjango supports a number of formats. The GeoQuerySet methods can represent your model&rsquo;s geometry column in a number of different <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoquerysets/#geometry-output">formats</a>: GeoHash, GeoJSON, GML, KML, and SVG. Of all these serialization formats, I&rsquo;ve found KML to be the most frequently used amongst GeoDjango users. Illustrative of this, three of the four functions in <a href="https://code.djangoproject.com/browser/django/trunk/django/contrib/gis/shortcuts.py">django.contrib.gis.shortcuts</a> have to do with KML/KMZ. That&rsquo;s awesome, but where is the love for GeoJSON?</p>
 
-<p>KML can be easily consumed by OpenLayers, the king of open source web mapping viewers. But some of the new kids, e.g. leaflet, polymaps, look to favor GeoJSON over KML as an input for dynamically rendered data, not directly consuming KML out-of-the-box. That being said, if you want KML, this <a href="https://github.com/shramov/Leaflet/tree/master/src/layer">fork of leaflet</a> looks like it will work for you. In my particular project, I&rsquo;m interested in using leaflet, so GeoJSON was the way to go.</p>
 
-<p>Later on, I&rsquo;d like to do some speed comparisons, rendering the same featureset using OpenLayers, represented as both KML and GeoJSON, but that&rsquo;s for the future. I&rsquo;m wondering if OpenLayers will handle the JSON object faster then KML&rsquo;s XML? JSON is just JavaScript after all.</p>
 
-<h2>The Problem</h2>
 
-<p>The GeoDjango GeoQuerySet API has built in methods to handle the serialization and de-serialization of a result set&rsquo;s geometries into different formats. The problem is that these methods only wrap the geometries of a result set. For display in a web mapping application, like leaflet, I want to have access to both the geometry in the format of my choosing, as well as the supplementary attributes (name, type, etc.) which provide context for that geometry.</p>
 
-<p>For example, asking for the GeoJSON representation of a given feature through Django&rsquo;s shell, like this:</p>
 
-<p>``` python</p>
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
-<h1>Import Models from the Company Application</h1>
 
-<p>from company.Models import *</p>
 
-<h1>Create a GeoQuerySet from the primary key, return GeoJSON</h1>
 
-<p>qs = Boundary.objects.filter(pk=1).geojson()</p>
 
-<h1>Print GeoJSON representation of geom</h1>
-
-<p>print qs[0].geojson
-```</p>
-
-<p>Will produce a GeoJSON object like this:</p>
-
-<p>``` javascript
-{
- &ldquo;type&rdquo;:&ldquo;MultiPolygon&rdquo;,
-  &ldquo;coordinates&rdquo;:[</p>
-
-<pre><code>[
-  [
-    [
-      -122.574295,
-      47.856636
-    ],
-    [
-      -122.573924,
-      47.85718
-    ],
-    [
-      -122.573719,
-      47.85757
-    ] // Truncated Verticies
-  ]
-]
-</code></pre>
-
-<p>  ]
-}
-```</p>
-
-<p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &lsquo;type&rsquo; values which an object can be constrained by. Using GeoDjango&rsquo;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&rsquo;d like to return a GeoJSON object of type &lsquo;Feature&rsquo; or &lsquo;FeatureCollection&rsquo;. These types require an additional &lsquo;properties&rsquo; parameter, which can store tabular attributes. From the spec:</p>
-
-<blockquote><p>A feature object must have a member with the name &ldquo;properties&rdquo;. The value of the properties member is an object (any JSON object or a JSON null value).</p></blockquote>
-
-<p>So, the trick now is to dynamically create a GeoJSON object which contains both populated Geom and Properties attributes.</p>
-
-<h2>The fix (vectorformats)</h2>
-
-<p>In order to create a fully populated GeoJSON object, we need to bring in some extra assistance. Some quick searching brought me to this stack exchange <a href="http://stackoverflow.com/questions/3034482/rendering-spatial-data-of-geoqueryset-in-a-custom-view-on-geodjango">response</a>, from <a href="http://crschmidt.net/blog/">Chris Schmidt</a>. Chris' vectorformats package handles the serialization and de-serializtion of a variety of formats, including Django Querysets and GeoJSON. From the project <a href="http://packages.python.org/vectorformats/">homepage</a>:</p>
-
-<blockquote><p>The vectorformats library is designed to make it easy to serialize content from any source to any source within Python. Think of it as a “poor man’s OGR” – a pure Python implementation of transforming features to and from various formats (largely XML based).</p></blockquote>
-
-<p>Installing vectorformats is as easy as:</p>
-
-<p><code>bash
-$sudo easy_install vectorformats
-</code></p>
-
-<p>From there, as outlined in the above referenced post, it&rsquo;s only a matter of adding a few lines into your GeoDjango app&rsquo;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
-
-<p>``` python</p>
-
-<h1>Using vectorfeatures module return a GeoJSON FeatureCollection</h1>
-
-<h1>for a given boundary ID.</h1>
-
-<p>def boundary_detail(request, boundary_id):</p>
-
-<pre><code>boundary_detail = Boundary.objects.filter(pk=boundary_id)
-djf = Django.Django(geodjango='geom', properties=['name'])
-geoj = GeoJSON.GeoJSON()
-s = geoj.encode(djf.decode(boundary_detail))
-return HttpResponse(s)
-</code></pre>
-
-<p>```</p>
-
-<p>The resulting GeoJSON object, represented as a &lsquo;type&rsquo; of &lsquo;FeatureCollection&rsquo;:</p>
-
-<p>``` javascript
-{
-  &ldquo;crs&rdquo;:null,
-  &ldquo;type&rdquo;:&ldquo;FeatureCollection&rdquo;,
-  &ldquo;features&rdquo;:[</p>
-
-<pre><code>{
-  "geometry":{
-    "type":"MultiPolygon",
-    "coordinates":[
-      [
-        [
-          [
-            -122.574295,
-            47.856636
-          ],
-          [
-            -122.573924,
-            47.85718
-          ],
-          [
-            -122.573719,
-            47.85757
-          ] // Truncated Verticies
-        ]
-      ]
-    ]
-  },
-  "type":"Feature",
-  "id":1,
-  "properties":{
-    "name":"Port Gamble"
-  }
-}
-</code></pre>
-
-<p>  ]
-}
-```</p>
-
-<p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &lsquo;<a href="http://my-site.com/geojson/boundary/">http://my-site.com/geojson/boundary/</a>{boundary_id}/&rsquo;. Pass this to your web mapping client, and you&rsquo;re ready to rock.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Moving to GeoDjango]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/"/>
-    <updated>2011-11-28T00:35:49-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&rsquo;s been a lot of fun so far. I&rsquo;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
-
-<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&rsquo;ll just put two entries into the same cell).</p>
-
-<!-- more -->
-
-
-<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;464&rdquo; caption=&ldquo;sometimes spreadsheets just don&rsquo;t work&hellip;&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
-
-<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt&rsquo;s <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">&ldquo;Puget Sound on the Pacific Coast&rdquo;</a>, but it&rsquo;s just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
-
-<p><code>
-^ Column One                ^ Column Two                 ^
-| Zee 'z' string            | This is a longer string    |
-| 2nd longer string of text | 2nd short string           |
-| SuperShort                | A string starting with 'A' |
-</code></p>
-
-<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don&rsquo;t allow for the storage/visualization of spatial data.</p>
-
-<p>[caption id=&ldquo;attachment_488&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;10 megs free for one user? cool!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
-
-<p>In comes GeoDjango. Over the next few posts, I think I&rsquo;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
-
-<p>[caption id=&ldquo;attachment_489&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Hey look Ma', it&rsquo;s GeoJSON!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hand-Rolled Vector Tiles - TileStache]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
-    <updated>2011-02-25T05:09:52-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
-    <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&mdash; Imagine that&rsquo;s a mustache on it&rsquo;s side.</p>
-
-<blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
-
-<!-- more -->
-
-
-<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I&rsquo;m most interested in though, is it&rsquo;s ability to deploy vector tiles. So what are vector tiles? Think TMS tiles&hellip; but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
-
-<p>For example, data from a PostGIS data source can be rendered as an image tile (&hellip;/10/16/357.png), like this:</p>
-
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png" alt="" /></a></p>
-
-<p>But can also be represtented as a vector tile (&hellip;/10/16/357.json), like this:</p>
-
-<p>``` javascript
-// Subset of a single 256x256 pixel vector tile.
-{
-  &ldquo;type&rdquo;: &ldquo;FeatureCollection&rdquo;,
-  &ldquo;features&rdquo;: [</p>
-
-<pre><code>{
-  "geometry": {
-    "type": "MultiPolygon",
-    "coordinates": [
-      [
-        [
-          [
-            -122.973093,
-            47.969842
-          ],...
-          [
-            -122.973093,
-            47.969842
-          ]
-        ]
-      ]
-    ]
-  },
-  "type": "Feature",
-  "properties": {
-    "property_s": "USFS",
-    "juris_name": "Olympic National Forest"
-  },
-  "id": 1280
-}
-</code></pre>
-
-<p>  ]
-}
-```</p>
-
-<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers' GeoJSON</a> format reader to populate a vector layer in OL. It&rsquo;s an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS&hellip; only request those sections of data which you need at that time. By only requesting those tiles within the user&rsquo;s current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS&rsquo;s can be pre-cached to disk (seeded), so can vector tiles.</p>
-
-<p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
-
-<p>[caption id=&ldquo;attachment_398&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;665&rdquo; caption=&ldquo;NFS Boundaries Provided By ChopShopGeo&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
-
-<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&rsquo;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&hellip; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
-
-<p>[caption id=&ldquo;attachment_393&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;691&rdquo; caption=&ldquo;USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You&rsquo;ll have to ignore the fact that I&rsquo;m symbolizing streamflow without the streams.&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
-
-<p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
-
-<p><code>javascript
-{
-"type": "FeatureCollection",
-"features": [{
-"geometry": {
-"type": "MultiPolygon",
-"coordinates": [
-[
-[
-[-122.973093, 47.969842],
-[-122.973093, 47.969842]
-]
-]
-]
-},
-http: //jsbeautifier.org/
-"type": "Feature",
-"properties": {
-"property_s": "USFS",
-"juris_name": "Olympic National Forest"
-},
-"id": 1280
-}]
-}
-</code></p>
-]]></content>
-  </entry>
-  
-</feed>
+</body>
+</html>

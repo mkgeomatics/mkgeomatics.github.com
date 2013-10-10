@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Github | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-08-26T22:04:29-07:00</updated>
+  <updated>2013-10-09T22:43:30-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -20,11 +20,11 @@
     <id>http://mkgeomatics.github.io/blog/2013/06/16/auto-push-to-github-via-machine-user</id>
     <content type="html"><![CDATA[<p>This post will review a workflow for automatically pushing data from a client machine to github.
 This can be useful if you want to automatically make publicly available data that are regularly processed on
-a local machine. <!-- more --> For my particular use case, I'm downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
+a local machine. <!-- more --> For my particular use case, I&rsquo;m downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
 Web Service</a> , and would
 like to process those data locally for use in a d3 visualization. My d3 viz will eventually be
 hosted on github as well, so having a dynamically updated dataset stored on github made sense.
-I'm sure that it's possible to emulate this ETL workflow in pure JavaScript, but I wanted to see
+I&rsquo;m sure that it&rsquo;s possible to emulate this ETL workflow in pure JavaScript, but I wanted to see
 how to set this up, in the event that I found myself in a situation in which heavy pre-processing
 of data was required.</p>
 
@@ -43,7 +43,7 @@ of data was required.</p>
 <h2>Create Machine User and Group</h2>
 
 <p>On my local machine, I start by creating a user and group for the purpose of pushing data to github.
-I'm doing this to isolate the amount of exposure that this user has to my wider system.</p>
+I&rsquo;m doing this to isolate the amount of exposure that this user has to my wider system.</p>
 
 <p>```bash</p>
 
@@ -51,7 +51,7 @@ I'm doing this to isolate the amount of exposure that this user has to my wider 
 
 <p>$ sudo adduser rdi-git</p>
 
-<h1>You'll be prompted to enter a password as well.</h1>
+<h1>You&rsquo;ll be prompted to enter a password as well.</h1>
 
 <h1>Create the group, git</h1>
 
@@ -69,7 +69,7 @@ user on <a href="https://github.com">github</a>.</p>
 
 <h2>Generate SSH Key &amp; Assign to Github User</h2>
 
-<p>From the local machine, make sure that you're logged in as the newly created machine user.</p>
+<p>From the local machine, make sure that you&rsquo;re logged in as the newly created machine user.</p>
 
 <p><code>bash
 $ sudo su rdi-git
@@ -84,7 +84,7 @@ the <a href="https://help.github.com/articles/how-do-i-add-a-collaborator">Githu
 
 <h2>Clone the Repository of Interest, add Assign Permissions</h2>
 
-<p>I'm creating a <code>/projects/</code> folder, in which I'll clone my repo. I'd like to ensure that this folder, and
+<p>I&rsquo;m creating a <code>/projects/</code> folder, in which I&rsquo;ll clone my repo. I&rsquo;d like to ensure that this folder, and
 subsequently all repos contained within it, are associated with git group. This <a href="http://unix.stackexchange.com/questions/12842/make-all-new-files-in-a-directory-accessible-to-a-group">stackoverflow</a> outlines the required commands.</p>
 
 <p>```bash</p>
@@ -108,10 +108,10 @@ $ chmod g+s .          # files created in directory will be in group git</p>
 
 <h2>Create the Cron Job</h2>
 
-<p>The repo I've just cloned contains the <a href="https://github.com/mattmakesmaps/robo-d3/blob/master/scripts/waterservices_parser.py">processing script</a> I'll be running.
+<p>The repo I&rsquo;ve just cloned contains the <a href="https://github.com/mattmakesmaps/robo-d3/blob/master/scripts/waterservices_parser.py">processing script</a> I&rsquo;ll be running.
 Our processed data will also be stored and pushed back to this repository.</p>
 
-<p>I'd like to have my processing script run once every hour, on the hour. We setup the cron job by first entering
+<p>I&rsquo;d like to have my processing script run once every hour, on the hour. We setup the cron job by first entering
 crontab.</p>
 
 <p>```bash</p>
@@ -122,7 +122,7 @@ crontab.</p>
 $ crontab -e
 ```</p>
 
-<p>Here is an excerpt of the machine user's cron jobs, with the new job added at the bottom.</p>
+<p>Here is an excerpt of the machine user&rsquo;s cron jobs, with the new job added at the bottom.</p>
 
 <p>```bash</p>
 
@@ -135,7 +135,7 @@ $ crontab -e
 <p>0 * * * * python /projects/robo-d3/scripts/waterservices_parser.py > ~/robo-d3.log 2>&amp;1
 ```</p>
 
-<p>We essential say, on the minute zero, of every hour, for every day, month, and weekday, run the command 'python /path/to/script'. The tail indicates that we're outputting both STDOUT and the ERROR log to <code>/home/rdi-git/robo-d3.log</code></p>
+<p>We essential say, on the minute zero, of every hour, for every day, month, and weekday, run the command &lsquo;python /path/to/script&rsquo;. The tail indicates that we&rsquo;re outputting both STDOUT and the ERROR log to <code>/home/rdi-git/robo-d3.log</code></p>
 
 <p>And there we go. If we check out the <a href="https://github.com/mattmakesmaps/robo-d3/commits/master">commit logs</a> we can
 see that our github user, rdi-git, has been pushing every hour on the hour. Woo-hoo!</p>

@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="cURL'ing to FeatureServer From PostGIS: Easier Then I Thought Jul 9th, 2010 So I&#8217;ve finished cutting a draft tileset using mapnik, depicting &hellip;">
+  <meta name="description" content="cURL'ing to FeatureServer From PostGIS: Easier Then I Thought Jul 9th, 2010 So I&rsquo;ve finished cutting a draft tileset using mapnik, depicting &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,7 +120,7 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>So I&#8217;ve finished cutting a draft tileset using mapnik, <a href="http://mkgeomatics.com/apps/bus/bus.html">depicting bus routes in Bellingham, WA</a>. Now that the cartography is well in progress, I&#8217;d like to add some interactivity to the map. My first attempt at this will be to utilize MetaCarta (Chris Schmidt)&#8217;s <a href="http://featureserver.org/">FeatureServer</a>. <!-- more --> FeatureServer allows one to use standard HTTP verbs to GET representations of data, POST new data, or DELETE existing data. While querying data you can also pass additional URL parameters like a bounding box or attribute to select out a smaller subset of returned representations. I&#8217;ll be POST&#8217;ing a bus stop dataset to FeatureServer as GeoJSON. Once the data are stored in FeatureServer, I&#8217;ll be able to add popups based on a user&#8217;s click of a bus stop. <!-- more --></p>
+      <p>So I&rsquo;ve finished cutting a draft tileset using mapnik, <a href="http://mkgeomatics.com/apps/bus/bus.html">depicting bus routes in Bellingham, WA</a>. Now that the cartography is well in progress, I&rsquo;d like to add some interactivity to the map. My first attempt at this will be to utilize MetaCarta (Chris Schmidt)&rsquo;s <a href="http://featureserver.org/">FeatureServer</a>. <!-- more --> FeatureServer allows one to use standard HTTP verbs to GET representations of data, POST new data, or DELETE existing data. While querying data you can also pass additional URL parameters like a bounding box or attribute to select out a smaller subset of returned representations. I&rsquo;ll be POST&#8217;ing a bus stop dataset to FeatureServer as GeoJSON. Once the data are stored in FeatureServer, I&rsquo;ll be able to add popups based on a user&rsquo;s click of a bus stop. <!-- more --></p>
 
 <p>Getting data stored on my local PostGIS install to my remote FeatureServer instance turned out to be a three step process.</p>
 
@@ -128,17 +128,17 @@
 
 <p>I had originally planned on writing a pg/plsql function to try and output a bash script. The script would cURL each feature individually to my FeatureServer instance. This proved to be way more work then I had expected. What was the solution? <a href="http://www.gdal.org/ogr/">OGR</a>, of course. OGR has read/write drivers for both <a href="http://www.gdal.org/ogr/drv_geojson.html">GeoJSON</a> and <a href="http://www.gdal.org/ogr/drv_pg.html">PostGIS</a>. This allows one to convert an entire dataset to GeoJSON with a single command (see below).</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-ogr2ogr -f &#8220;GeoJSON&#8221; ogrstops.json PG:&#8221;host=localhost dbname=routing user=postgres password=*** port=5432&#8221; &#8220;wtastops(the_geom)&#8221;
+<p>[sourcecode language=&ldquo;bash&rdquo;]
+ogr2ogr -f &ldquo;GeoJSON&rdquo; ogrstops.json PG:&ldquo;host=localhost dbname=routing user=postgres password=*** port=5432&rdquo; &ldquo;wtastops(the_geom)&rdquo;
 [/sourcecode]</p>
 
-<p><strong>Step 2:</strong> Wrap &#8220;coordinate&#8221; elements in double brackets</p>
+<p><strong>Step 2:</strong> Wrap &ldquo;coordinate&rdquo; elements in double brackets</p>
 
-<p>When initially trying to cURL the GeoJSON output to FeatureServer, I was receiving an error stating that a bounding box could not be determined for the first geometry in my dataset. After some trial-and-error, I soon realized that the OGR output FeatureCollection was wrapping each point feature&#8217;s geometry in a single set of brackets. This type of behavior follows the GeoJSON <a href="http://geojson.org/geojson-spec.html#id9">specification for a FeatureCollection</a>, as far as I can tell. However, in order for FeatureServer to consume this dataset, each point feature is required to be wrapped in a second set of brackets. I used gedit to run the find/replace. Below is an example of a GeoJSON feature which FeatureServer can consume. This individual feature is part of a larger FeatureCollection.</p>
+<p>When initially trying to cURL the GeoJSON output to FeatureServer, I was receiving an error stating that a bounding box could not be determined for the first geometry in my dataset. After some trial-and-error, I soon realized that the OGR output FeatureCollection was wrapping each point feature&rsquo;s geometry in a single set of brackets. This type of behavior follows the GeoJSON <a href="http://geojson.org/geojson-spec.html#id9">specification for a FeatureCollection</a>, as far as I can tell. However, in order for FeatureServer to consume this dataset, each point feature is required to be wrapped in a second set of brackets. I used gedit to run the find/replace. Below is an example of a GeoJSON feature which FeatureServer can consume. This individual feature is part of a larger FeatureCollection.</p>
 
-<p>[sourcecode language=&#8221;js&#8221;]</p>
+<p>[sourcecode language=&ldquo;js&rdquo;]</p>
 
-<p>{ &#8220;type&#8221;: &#8220;Feature&#8221;,</p>
+<p>{ &ldquo;type&rdquo;: &ldquo;Feature&rdquo;,</p>
 
 <pre><code>      "properties": {
          "POINT_ID": "1000",
@@ -156,9 +156,9 @@ ogr2ogr -f &#8220;GeoJSON&#8221; ogrstops.json PG:&#8221;host=localhost dbname=r
 
 <p>The last step is to actually POST the data to FeatureServer. For that, I used cURL.</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]</p>
+<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
 
-<p>curl -d @ogrstops.json http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/create.json</p>
+<p>curl -d @ogrstops.json <a href="http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/create.json">http://mkgeomatics.com/cgi-bin/featureserver/featureserver.cgi/scribble/create.json</a></p>
 
 <p>[/sourcecode]</p>
 

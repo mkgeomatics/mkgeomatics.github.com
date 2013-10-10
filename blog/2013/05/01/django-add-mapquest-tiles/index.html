@@ -129,7 +129,7 @@ Our data occur primarily in non-urban areas, where natural features provide a mu
 better context for orientation then would be expected with any streets layer, OSM or otherwise.
 Mapquest provides a good set of aerial tiles, that can be easily integrated into OpenLayers.</p>
 
-<p>It&#8217;s easier to place a point on this:</p>
+<p>It&rsquo;s easier to place a point on this:</p>
 
 <p><img src="http://mattmakesmaps.com/images/2013-04-30/aerial.jpg" width="500"></p>
 
@@ -138,9 +138,9 @@ Mapquest provides a good set of aerial tiles, that can be easily integrated into
 <p><img src="http://mattmakesmaps.com/images/2013-04-30/osm.png" width="500"></p>
 
 <p>Hacking the admin to display the <a href="http://developer.mapquest.com/web/products/open/map">Mapquest aerial tiles</a> is a pretty straightforward process.
-From the gis contrib package, we&#8217;ll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
+From the gis contrib package, we&rsquo;ll modify <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/options.py">options.py</a> and its <a href="https://github.com/django/django/blob/master/django/contrib/gis/admin/__init__.py">__init__.py</a>, subclassing the OSMGeoAdmin. Within the <a href="https://github.com/django/django/tree/master/django/contrib/gis/templates/gis/admin">templates
 folder</a>,
-we&#8217;ll create two new files, a html template file, that actually points to a javascript file
+we&rsquo;ll create two new files, a html template file, that actually points to a javascript file
 containing a reference to the Mapquest Open Aerial tiles service.</p>
 
 <h2>Creating mapquestGeoAdminSubclass</h2>
@@ -164,9 +164,9 @@ be a subclass of the OSMGeoAdmin.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>Modify the GIS Admin Package&#8217;s __init__.py</h2>
+<h2>Modify the GIS Admin Package&rsquo;s __init__.py</h2>
 
-<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let&#8217;s modify it to include our
+<p>The <code>__init__.py</code> file imports the <code>OSMGeoAdmin</code> class, let&rsquo;s modify it to include our
 new subclass</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -185,7 +185,7 @@ new subclass</p>
 <p>Again, using the OpenStreetMap implementation as a reference, we can see that <code>osm.js</code> extends the basic <code>openlayers.js</code> file, but replaces the contents of the <code>base layer</code>
 block with an a reference to the OpenStreetMap layer.</p>
 
-<p>We&#8217;ll create a similar file in this package called <code>mapquest.js</code>. The contents are as
+<p>We&rsquo;ll create a similar file in this package called <code>mapquest.js</code>. The contents are as
 follows:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -227,8 +227,8 @@ follows:</p>
 
 <h2>Create mapquest.html</h2>
 
-<p>In the same folder, we&#8217;ll create an html template file, pointing to our javascript file.
-We&#8217;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
+<p>In the same folder, we&rsquo;ll create an html template file, pointing to our javascript file.
+We&rsquo;ll call the file <code>mapquest.html</code>. Here are the contents:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

@@ -124,19 +124,19 @@
 
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
 
-<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &#8216;spatially&#8217; enabled. The trick is to make it except shapefiles as an input source.</p>
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &lsquo;spatially&rsquo; enabled. The trick is to make it except shapefiles as an input source.</p>
 
 <!-- more -->
 
 
 <p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
-$ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8221; > output.csv</p>
+$ogrinfo -al input_polyline.shp | grep linestring | tr -d &ldquo;LINESTRING()&rdquo; > output.csv</p>
 
 <p>-Reformat the verticies [somehow], so that they can be readable to the python script.</p>
 
 <p>-Rebuild shapefile from output csv with projection information using GDAL/OGR.</p>
 
-<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&#8217;ll see how far this goes.</p>
+<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&rsquo;ll see how far this goes.</p>
 
 <p>Some reading:</p>
 
@@ -146,7 +146,7 @@ $ogrinfo -al input_polyline.shp | grep linestring | tr -d &#8220;LINESTRING()&#8
 
 <p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=530&amp;pid=513&amp;topicname=Simplifying_and_smoothing_features">Existing ArcGIS Implementation</a></p>
 
-<p>-</p>
+<p>&ndash;</p>
 
     </div>
   </div>

@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="Hi. I&#8217;m Matthew Kenny. maps + matt = mattmakesmaps Aug 26th, 2013 Desktop-GIS Linux Quickstart GIS Setup on Ubuntu Linux 12.04 LTS I had to &hellip;">
+  <meta name="description" content="Hi. I&#8217;m Matthew Kenny. Here are some thoughts of mine. Oct 9th, 2013 Web-GIS TileStache: Generate [Topo|Geo]JSON Vector Tiles Vector tiles are &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,13 +99,71 @@
           <div class="jumbotron">
   <div class="container">
     Hi. I&#8217;m Matthew Kenny.
-    <h3 class="tagline">maps + matt = mattmakesmaps</h3>
+    <h3 class="tagline">Here are some thoughts of mine.</h3>
   </div>
 </div>
 
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2">
+		<h1 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> <time datetime="2013-10-09T19:25:00-07:00" pubdate data-updated="true">Oct 9<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/Web-GIS/"><span class="badge">Web-GIS</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10">
+      <h1 class="link"><a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a></h1>
+      <p>Vector tiles are simply tiled representations of geographic data, much like raster tiles
+used to power typical web maps such as OpenStreetMap. They differ from traditional
+raster tiles however in that instead being an image, they actually contain the
+geographic coordinates and attributes of the features that exist within their bounding boxes.
+Vector tiles can be used for a variety of different rendered outputs within a modern web-mapping
+application. One examples can include serving as an intermediate step in the processing of
+raster tiles. This approach is adopted by Mapbox, who have defined their own
+<a href="https://www.mapbox.com/blog/vector-tiles/">mapnik-vector-tile</a> spec. This allows for amazing
+styling possibilities, allowing raster tiles to be generated with different styles quickly and
+efficiently based on the same dataset. Another approach relies on transmitting vector data directly
+to the client, where client-side libs render data as SVGs directly in the browser. <a href="http://d3js.org">D3.js</a>
+is a JavaScript library that can do this just this, as illustrated by <a href="http://bl.ocks.org/svmatthews/6081504">Sam Matthews</a>. Now that we know what they&rsquo;re good for, how can we take our own local geographic data, and render our own?</p>
+
+
+      
+       <a href="/blog/2013/10/09/tilestache-rendering-topojson/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
   
   
     <article>
@@ -191,7 +249,7 @@ blog posts.
     </div>
     <div class="span10">
       <h1 class="link"><a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a></h1>
-      <p>With the announcement of Github&#8217;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
+      <p>With the announcement of Github&rsquo;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
 folks can deploy an embeddable web map with a single git commit and push. This got me
 thinking about the potential of github, specifically <a href="http://pages.github.com/">github pages</a>,
 as a vehicle for the display of more customized web mapping applications. The result of that
@@ -243,9 +301,9 @@ experiment is <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a>
     <div class="span10">
       <h1 class="link"><a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/">Fixing ArcGIS 10.1 Numpy Import Error From Python Console</a></h1>
       <p>At my current employer, we have four Windows 7 64-bit workstations, all running ArcGIS 10.1 under
-various license levels. Hilariously, due to some quirk that I haven&#8217;t been able to figure out,
+various license levels. Hilariously, due to some quirk that I haven&rsquo;t been able to figure out,
 all machines have been reporting the following traceback when running <code>&gt;&gt;&gt; import numpy</code> from
-ArcGIS Desktop&#8217;s internal Python console.</p>
+ArcGIS Desktop&rsquo;s internal Python console.</p>
 
 
       
@@ -345,51 +403,6 @@ as well as a subclass for OSM streets data. The OSM layer is great, and provides
 for most use cases. That being said, for <a href="https://github.com/mattmakesmaps/PntTrax">PntTrax</a>, I needed aerial tiles. 
       
        <a href="/blog/2013/05/01/django-add-mapquest-tiles/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2">
-		<h1 class="date-time">
-
-
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2011-12-12T00:30:17-08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/Web-GIS/"><span class="badge">Web-GIS</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10">
-      <h1 class="link"><a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a></h1>
-      <p>The models are complete. The database is loaded with some test tabular and spatial data. We&#8217;re pushing out HTML representations of attribute data using GeoDjango&#8217;s standard templating functions. Now, the focus moves to visualizing these features&#8217; geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. 
-      
-       <a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">Read on &rarr;</a> 
     </div>
   </div>
 

@@ -120,21 +120,21 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>The models are complete. The database is loaded with some test tabular and spatial data. We&#8217;re pushing out HTML representations of attribute data using GeoDjango&#8217;s standard templating functions. Now, the focus moves to visualizing these features&#8217; geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. <!-- more --> When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
+      <p>The models are complete. The database is loaded with some test tabular and spatial data. We&rsquo;re pushing out HTML representations of attribute data using GeoDjango&rsquo;s standard templating functions. Now, the focus moves to visualizing these features&#8217; geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. <!-- more --> When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
 
 <h2>Why GeoJSON?</h2>
 
-<p>From the perspective of exporting data, GeoDjango supports a number of formats. The GeoQuerySet methods can represent your model&#8217;s geometry column in a number of different <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoquerysets/#geometry-output">formats</a>: GeoHash, GeoJSON, GML, KML, and SVG. Of all these serialization formats, I&#8217;ve found KML to be the most frequently used amongst GeoDjango users. Illustrative of this, three of the four functions in <a href="https://code.djangoproject.com/browser/django/trunk/django/contrib/gis/shortcuts.py">django.contrib.gis.shortcuts</a> have to do with KML/KMZ. That&#8217;s awesome, but where is the love for GeoJSON?</p>
+<p>From the perspective of exporting data, GeoDjango supports a number of formats. The GeoQuerySet methods can represent your model&rsquo;s geometry column in a number of different <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoquerysets/#geometry-output">formats</a>: GeoHash, GeoJSON, GML, KML, and SVG. Of all these serialization formats, I&rsquo;ve found KML to be the most frequently used amongst GeoDjango users. Illustrative of this, three of the four functions in <a href="https://code.djangoproject.com/browser/django/trunk/django/contrib/gis/shortcuts.py">django.contrib.gis.shortcuts</a> have to do with KML/KMZ. That&rsquo;s awesome, but where is the love for GeoJSON?</p>
 
-<p>KML can be easily consumed by OpenLayers, the king of open source web mapping viewers. But some of the new kids, e.g. leaflet, polymaps, look to favor GeoJSON over KML as an input for dynamically rendered data, not directly consuming KML out-of-the-box. That being said, if you want KML, this <a href="https://github.com/shramov/Leaflet/tree/master/src/layer">fork of leaflet</a> looks like it will work for you. In my particular project, I&#8217;m interested in using leaflet, so GeoJSON was the way to go.</p>
+<p>KML can be easily consumed by OpenLayers, the king of open source web mapping viewers. But some of the new kids, e.g. leaflet, polymaps, look to favor GeoJSON over KML as an input for dynamically rendered data, not directly consuming KML out-of-the-box. That being said, if you want KML, this <a href="https://github.com/shramov/Leaflet/tree/master/src/layer">fork of leaflet</a> looks like it will work for you. In my particular project, I&rsquo;m interested in using leaflet, so GeoJSON was the way to go.</p>
 
-<p>Later on, I&#8217;d like to do some speed comparisons, rendering the same featureset using OpenLayers, represented as both KML and GeoJSON, but that&#8217;s for the future. I&#8217;m wondering if OpenLayers will handle the JSON object faster then KML&#8217;s XML? JSON is just JavaScript after all.</p>
+<p>Later on, I&rsquo;d like to do some speed comparisons, rendering the same featureset using OpenLayers, represented as both KML and GeoJSON, but that&rsquo;s for the future. I&rsquo;m wondering if OpenLayers will handle the JSON object faster then KML&rsquo;s XML? JSON is just JavaScript after all.</p>
 
 <h2>The Problem</h2>
 
-<p>The GeoDjango GeoQuerySet API has built in methods to handle the serialization and de-serialization of a result set&#8217;s geometries into different formats. The problem is that these methods only wrap the geometries of a result set. For display in a web mapping application, like leaflet, I want to have access to both the geometry in the format of my choosing, as well as the supplementary attributes (name, type, etc.) which provide context for that geometry.</p>
+<p>The GeoDjango GeoQuerySet API has built in methods to handle the serialization and de-serialization of a result set&rsquo;s geometries into different formats. The problem is that these methods only wrap the geometries of a result set. For display in a web mapping application, like leaflet, I want to have access to both the geometry in the format of my choosing, as well as the supplementary attributes (name, type, etc.) which provide context for that geometry.</p>
 
-<p>For example, asking for the GeoJSON representation of a given feature through Django&#8217;s shell, like this:</p>
+<p>For example, asking for the GeoJSON representation of a given feature through Django&rsquo;s shell, like this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -198,9 +198,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &#8216;type&#8217; values which an object can be constrained by. Using GeoDjango&#8217;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&#8217;d like to return a GeoJSON object of type &#8216;Feature&#8217; or &#8216;FeatureCollection&#8217;. These types require an additional &#8216;properties&#8217; parameter, which can store tabular attributes. From the spec:</p>
+<p>As shown in the example above, the geometries are returned, but not the tabular attributes associated with that feature. Looking at the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a>, there are multiple &lsquo;type&rsquo; values which an object can be constrained by. Using GeoDjango&rsquo;s geoJSON() method will produce a type matching the geometry listed in the associated GeoDjango model (point, line, polygon, etc). The distinction here is that I&rsquo;d like to return a GeoJSON object of type &lsquo;Feature&rsquo; or &lsquo;FeatureCollection&rsquo;. These types require an additional &lsquo;properties&rsquo; parameter, which can store tabular attributes. From the spec:</p>
 
-<blockquote><p>A feature object must have a member with the name &#8220;properties&#8221;. The value of the properties member is an object (any JSON object or a JSON null value).</p></blockquote>
+<blockquote><p>A feature object must have a member with the name &ldquo;properties&rdquo;. The value of the properties member is an object (any JSON object or a JSON null value).</p></blockquote>
 
 <p>So, the trick now is to dynamically create a GeoJSON object which contains both populated Geom and Properties attributes.</p>
 
@@ -217,7 +217,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>From there, as outlined in the above referenced post, it&#8217;s only a matter of adding a few lines into your GeoDjango app&#8217;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
+<p>From there, as outlined in the above referenced post, it&rsquo;s only a matter of adding a few lines into your GeoDjango app&rsquo;s <a href="https://github.com/mattmakesmaps/geodjango/blob/master/sampling/views.py">view function</a>.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -238,7 +238,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The resulting GeoJSON object, represented as a &#8216;type&#8217; of &#8216;FeatureCollection&#8217;:</p>
+<p>The resulting GeoJSON object, represented as a &lsquo;type&rsquo; of &lsquo;FeatureCollection&rsquo;:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -311,7 +311,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &#8216;http://my-site.com/geojson/boundary/{boundary_id}/&#8217;. Pass this to your web mapping client, and you&#8217;re ready to rock.</p>
+<p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &lsquo;<a href="http://my-site.com/geojson/boundary/">http://my-site.com/geojson/boundary/</a>{boundary_id}/&rsquo;. Pass this to your web mapping client, and you&rsquo;re ready to rock.</p>
 
     </div>
   </div>

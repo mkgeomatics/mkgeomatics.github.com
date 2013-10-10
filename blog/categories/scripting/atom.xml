@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scripting | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/scripting/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-08-26T22:04:29-07:00</updated>
+  <updated>2013-10-09T22:43:30-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -18,14 +18,14 @@
     <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
-    <content type="html"><![CDATA[<p>I've been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It's one thing to execute pgRouting's built-in functions for a single vertex (building) to another vertex (bus stop)... but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
-<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I've posted my function below. It's not pretty, but it's filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
+<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&rsquo;ve posted my function below. It&rsquo;s not pretty, but it&rsquo;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
 
 <ul>
 <li><p>Loop through a table in which each row has a source and destination vertex</p></li>
 <li><p>Execute the pgRouting function using these two vertices, determining the length of the least-cost path.</p></li>
-<li><p>Populate a field, 'dist_calc' with the distance.</p></li>
+<li><p>Populate a field, &lsquo;dist_calc&rsquo; with the distance.</p></li>
 </ul>
 
 
@@ -35,47 +35,47 @@ DECLARE
  bld_row bld_wtastops_staging5%ROWTYPE;
  dist_calc RECORD;
 BEGIN
- RAISE NOTICE 'Beginning Function';
+ RAISE NOTICE &lsquo;Beginning Function&rsquo;;
  FOR bld_row IN SELECT * FROM bld_wtastops_staging5 WHERE bld_wtastops_staging5.bld_vert_node IS NOT NULL
  AND bld_wtastops_staging5.wtastops_vert_node IS NOT NULL
- -- BEGIN ADDING BUM NODES TO SKIP OVER
+ &mdash; BEGIN ADDING BUM NODES TO SKIP OVER
  AND bld_wtastops_staging5.bld_vert_node &lt;&gt; 2915
  AND bld_wtastops_staging5.wtastops_vert_node &lt;&gt; 293
- -- ADD START GID
- -- USED ONLY IF BUM NODES EXIST
- --AND bld_wtastops_staging5.bld_gid &gt;= 29200
+ &mdash; ADD START GID
+ &mdash; USED ONLY IF BUM NODES EXIST
+ &mdash;AND bld_wtastops_staging5.bld_gid &gt;= 29200
  ORDER BY bld_wtastops_staging5.bld_gid LOOP
- RAISE NOTICE 'Value of wtastops_vert_node is %. The value of bld_vert_node is %',bld_row.wtastops_vert_node, bld_row.bld_vert_node;
- RAISE NOTICE 'Value of wtastops_gid is %. The value of bld_gid is %',bld_row.wtastops_gid, bld_row.bld_gid;
- -- BEGIN STANDARD pgRouting A*Star FUNCTION
- SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar('
+ RAISE NOTICE &lsquo;Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo;Value of wtastops_gid is %. The value of bld_gid is %&rsquo;,bld_row.wtastops_gid, bld_row.bld_gid;
+ &mdash; BEGIN STANDARD pgRouting A*Star FUNCTION
+ SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar(&lsquo;
  SELECT gid as id,
  source::integer,
  target::integer,
  length::double precision as cost,
  x1, y1, x2, y2
- FROM streets_9102748',
+ FROM streets_9102748&rsquo;,
  bld_row.bld_vert_node, bld_row.wtastops_vert_node, false, false);
- RAISE NOTICE 'Value of dist_calc is %.',dist_calc;
- EXECUTE 'UPDATE bld_wtastops_staging5
- SET route_dist = ' ||dist_calc|| '
- WHERE ' ||bld_row.bld_gid|| ' = bld_wtastops_staging5.bld_gid';
+ RAISE NOTICE &lsquo;Value of dist_calc is %.&rsquo;,dist_calc;
+ EXECUTE &lsquo;UPDATE bld_wtastops_staging5
+ SET route_dist = &rsquo; ||dist_calc|| &lsquo;
+ WHERE &rsquo; ||bld_row.bld_gid|| &lsquo; = bld_wtastops_staging5.bld_gid&rsquo;;
  END LOOP;
- -- BAIL OUT ON ERRORS
+ &mdash; BAIL OUT ON ERRORS
  EXCEPTION
  WHEN CONTAINING_SQL_NOT_PERMITTED THEN
- RAISE NOTICE ' EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %',bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo; EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
 END;
-$$ LANGUAGE 'plpgsql';
--- EXECUTE FUNCTION
+$$ LANGUAGE &lsquo;plpgsql&rsquo;;
+&mdash; EXECUTE FUNCTION
 SELECT bulk_route_generate();
 [/sourcecode]</p>
 
-<p>I'm excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I'm sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I'll be sure to do some serious head-scratching to think about a better approach!</p>
+<p>I&rsquo;m excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I&rsquo;m sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I&rsquo;ll be sure to do some serious head-scratching to think about a better approach!</p>
 
-<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a 1/4 mile distance, while areas from yellow-to-red represent distances increasingly greater then a 1/4 mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
+<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a &frac14; mile distance, while areas from yellow-to-red represent distances increasingly greater then a &frac14; mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
 
-<p>[caption id="attachment_360" align="alignnone" width="430" caption="the result as seen in mapnik"]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_360&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;430&rdquo; caption=&ldquo;the result as seen in mapnik&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
 ]]></content>
   </entry>
   
@@ -84,24 +84,24 @@ SELECT bulk_route_generate();
     <link href="http://mkgeomatics.github.io/blog/2008/10/03/nested-tuples-and-hours-of-patience/"/>
     <updated>2008-10-03T14:48:38-07:00</updated>
     <id>http://mkgeomatics.github.io/blog/2008/10/03/nested-tuples-and-hours-of-patience</id>
-    <content type="html"><![CDATA[<p>I've finally got a working python script that does the following:</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve finally got a working python script that does the following:</p>
 
-<p>-Reads each of the vertexes of a polyline shapefile using 'OGR'</p>
+<p>-Reads each of the vertexes of a polyline shapefile using &lsquo;OGR&rsquo;</p>
 
 <p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
 
-<p>-Generates an output text file using 'stdout' with the resulting 'smoothed' coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+<p>-Generates an output text file using &lsquo;stdout&rsquo; with the resulting &lsquo;smoothed&rsquo; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
 
 <!-- more -->
 
 
 <p>This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.</p>
 
-<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes... and re-import them as input files for the DP algorithm. It's all good now though, and the code looks (a bit) cleaner.</p>
+<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes&hellip; and re-import them as input files for the DP algorithm. It&rsquo;s all good now though, and the code looks (a bit) cleaner.</p>
 
-<p>The next step will be to take this output text file and build another shapefile from it...</p>
+<p>The next step will be to take this output text file and build another shapefile from it&hellip;</p>
 
-<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select 'save-as') as it stands thus-far.</p>
+<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select &lsquo;save-as&rsquo;) as it stands thus-far.</p>
 ]]></content>
   </entry>
   
@@ -114,19 +114,19 @@ SELECT bulk_route_generate();
 
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
 
-<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not 'spatially' enabled. The trick is to make it except shapefiles as an input source.</p>
+<p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &lsquo;spatially&rsquo; enabled. The trick is to make it except shapefiles as an input source.</p>
 
 <!-- more -->
 
 
 <p>-Extract each of the verticies using ogrinfo, pipe to grep, and export to output csv file.
-$ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > output.csv</p>
+$ogrinfo -al input_polyline.shp | grep linestring | tr -d &ldquo;LINESTRING()&rdquo; > output.csv</p>
 
 <p>-Reformat the verticies [somehow], so that they can be readable to the python script.</p>
 
 <p>-Rebuild shapefile from output csv with projection information using GDAL/OGR.</p>
 
-<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We'll see how far this goes.</p>
+<p>So my plan is to essentially to break down the shapefile, smooth it, and build it back up again, using open source tools. We&rsquo;ll see how far this goes.</p>
 
 <p>Some reading:</p>
 
@@ -136,7 +136,7 @@ $ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > outpu
 
 <p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?id=530&amp;pid=513&amp;topicname=Simplifying_and_smoothing_features">Existing ArcGIS Implementation</a></p>
 
-<p>-</p>
+<p>&ndash;</p>
 ]]></content>
   </entry>
   
@@ -170,22 +170,22 @@ $ogrinfo -al input_polyline.shp | grep linestring | tr -d "LINESTRING()" > outpu
 
 <h1>Set the workspace</h1>
 
-<p>gp.workspace = ("F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/")</p>
+<p>gp.workspace = (&ldquo;F:/!South_Kona/DEM_XYZ_Tiled/Area1/Group5/ASCII/&rdquo;)</p>
 
 <h1>get list of all the ASCII files in the workspace</h1>
 
-<p>asciiList = gp.ListRasters("<em>DEM</em>", "*")
+<p>asciiList = gp.ListRasters(&ldquo;<em>DEM</em>&rdquo;, &ldquo;*&rdquo;)
 ascii = asciiList.next()
-print "Starting with " + ascii</p>
+print &ldquo;Starting with &rdquo; + ascii</p>
 
 <h1>Set initial INPUT file</h1>
 
-<p>inputAscii = gp.workspace + "/" + ascii
+<p>inputAscii = gp.workspace + &ldquo;/&rdquo; + ascii
 print inputAscii</p>
 
 <h1>Set initial OUTPUT file</h1>
 
-<p>raster = gp.workspace + "/GRID/" + ascii[:-8] + ".img"
+<p>raster = gp.workspace + &ldquo;/GRID/&rdquo; + ascii[:-8] + &ldquo;.img&rdquo;
 print raster</p>
 
 <h1>loop through list of feature classes</h1>
@@ -194,14 +194,14 @@ print raster</p>
 
 <h1>Execute ASCII to Raster</h1>
 
-<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, "INTEGER")
-    print "File " + raster+ " has been created."
+<p>    gp.ASCIIToRaster_conversion(inputAscii, raster, &ldquo;INTEGER&rdquo;)
+    print &ldquo;File &rdquo; + raster+ &ldquo; has been created.&rdquo;
     ascii = asciiList.next()
-    print "Moving onto " + ascii
-    inputAscii = gp.workspace + "/" + ascii
-    print "new inputAscii: " + inputAscii
-    raster = gp.workspace + "/GRID/" + ascii[:-8] + ".img"
-    print "new output Raster: " + raster
+    print &ldquo;Moving onto &rdquo; + ascii
+    inputAscii = gp.workspace + &ldquo;/&rdquo; + ascii
+    print &ldquo;new inputAscii: &rdquo; + inputAscii
+    raster = gp.workspace + &ldquo;/GRID/&rdquo; + ascii[:-8] + &ldquo;.img&rdquo;
+    print &ldquo;new output Raster: &rdquo; + raster
 ascii = asciiList.reset()</p>
 
 <h1>remove geoprocessor object from memory</h1>

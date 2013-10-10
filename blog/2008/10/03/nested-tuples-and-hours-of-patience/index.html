@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="Nested Tuples and Hours of Patience Oct 3rd, 2008 I&#8217;ve finally got a working python script that does the following: -Reads each of the &hellip;">
+  <meta name="description" content="Nested Tuples and Hours of Patience Oct 3rd, 2008 I&rsquo;ve finally got a working python script that does the following: -Reads each of the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,24 +120,24 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>I&#8217;ve finally got a working python script that does the following:</p>
+      <p>I&rsquo;ve finally got a working python script that does the following:</p>
 
-<p>-Reads each of the vertexes of a polyline shapefile using &#8216;OGR&#8217;</p>
+<p>-Reads each of the vertexes of a polyline shapefile using &lsquo;OGR&rsquo;</p>
 
 <p>-Runs the vertexes through the Douglas-Peucker smoothing algorithm.</p>
 
-<p>-Generates an output text file using &#8216;stdout&#8217; with the resulting &#8216;smoothed&#8217; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
+<p>-Generates an output text file using &lsquo;stdout&rsquo; with the resulting &lsquo;smoothed&rsquo; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
 
 <!-- more -->
 
 
 <p>This has taken quite awhile to get this far, but it has been an excellent learning experience. The breakthrough for tonight was understanding that the Douglas-Peucker algorithm which I downloaded from mappinghacks required a nested tuple as an input. Basically then, I needed to figure out how translate the extracted vertexes from the source shapefile into the tuple object.</p>
 
-<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes&#8230; and re-import them as input files for the DP algorithm. It&#8217;s all good now though, and the code looks (a bit) cleaner.</p>
+<p>Things started to go bad, really bad, when I attempted to create formatted output files for the extracted vertexes&hellip; and re-import them as input files for the DP algorithm. It&rsquo;s all good now though, and the code looks (a bit) cleaner.</p>
 
-<p>The next step will be to take this output text file and build another shapefile from it&#8230;</p>
+<p>The next step will be to take this output text file and build another shapefile from it&hellip;</p>
 
-<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select &#8216;save-as&#8217;) as it stands thus-far.</p>
+<p>Here is a link to the heavily commented <a href="http://www.mkgeomatics.com/scripts/dp_100308.py">script</a> (right-click, select &lsquo;save-as&rsquo;) as it stands thus-far.</p>
 
     </div>
   </div>

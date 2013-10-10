@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="PL/pgSQL Function to Iterate pgRouting Jun 28th, 2010 I&#8217;ve been working on a side project using pgRouting to determine the least-cost path &hellip;">
+  <meta name="description" content="PL/pgSQL Function to Iterate pgRouting Jun 28th, 2010 I&rsquo;ve been working on a side project using pgRouting to determine the least-cost path &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,14 +120,14 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>I&#8217;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&#8217;s one thing to execute pgRouting&#8217;s built-in functions for a single vertex (building) to another vertex (bus stop)&#8230; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
+      <p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
-<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&#8217;ve posted my function below. It&#8217;s not pretty, but it&#8217;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
+<p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&rsquo;ve posted my function below. It&rsquo;s not pretty, but it&rsquo;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
 
 <ul>
 <li><p>Loop through a table in which each row has a source and destination vertex</p></li>
 <li><p>Execute the pgRouting function using these two vertices, determining the length of the least-cost path.</p></li>
-<li><p>Populate a field, &#8216;dist_calc&#8217; with the distance.</p></li>
+<li><p>Populate a field, &lsquo;dist_calc&rsquo; with the distance.</p></li>
 </ul>
 
 
@@ -137,47 +137,47 @@ DECLARE
  bld_row bld_wtastops_staging5%ROWTYPE;
  dist_calc RECORD;
 BEGIN
- RAISE NOTICE &#8216;Beginning Function&#8217;;
+ RAISE NOTICE &lsquo;Beginning Function&rsquo;;
  FOR bld_row IN SELECT * FROM bld_wtastops_staging5 WHERE bld_wtastops_staging5.bld_vert_node IS NOT NULL
  AND bld_wtastops_staging5.wtastops_vert_node IS NOT NULL
- &#8211; BEGIN ADDING BUM NODES TO SKIP OVER
+ &mdash; BEGIN ADDING BUM NODES TO SKIP OVER
  AND bld_wtastops_staging5.bld_vert_node &lt;&gt; 2915
  AND bld_wtastops_staging5.wtastops_vert_node &lt;&gt; 293
- &#8211; ADD START GID
- &#8211; USED ONLY IF BUM NODES EXIST
- &#8211;AND bld_wtastops_staging5.bld_gid &gt;= 29200
+ &mdash; ADD START GID
+ &mdash; USED ONLY IF BUM NODES EXIST
+ &mdash;AND bld_wtastops_staging5.bld_gid &gt;= 29200
  ORDER BY bld_wtastops_staging5.bld_gid LOOP
- RAISE NOTICE &#8216;Value of wtastops_vert_node is %. The value of bld_vert_node is %&#8217;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
- RAISE NOTICE &#8216;Value of wtastops_gid is %. The value of bld_gid is %&#8217;,bld_row.wtastops_gid, bld_row.bld_gid;
- &#8211; BEGIN STANDARD pgRouting A*Star FUNCTION
- SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar(&#8217;
+ RAISE NOTICE &lsquo;Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo;Value of wtastops_gid is %. The value of bld_gid is %&rsquo;,bld_row.wtastops_gid, bld_row.bld_gid;
+ &mdash; BEGIN STANDARD pgRouting A*Star FUNCTION
+ SELECT SUM(cost) INTO dist_calc FROM shortest_path_astar(&lsquo;
  SELECT gid as id,
  source::integer,
  target::integer,
  length::double precision as cost,
  x1, y1, x2, y2
- FROM streets_9102748&#8217;,
+ FROM streets_9102748&rsquo;,
  bld_row.bld_vert_node, bld_row.wtastops_vert_node, false, false);
- RAISE NOTICE &#8216;Value of dist_calc is %.&#8217;,dist_calc;
- EXECUTE &#8216;UPDATE bld_wtastops_staging5
- SET route_dist = &#8217; ||dist_calc|| &#8217;
- WHERE &#8217; ||bld_row.bld_gid|| &#8217; = bld_wtastops_staging5.bld_gid&#8217;;
+ RAISE NOTICE &lsquo;Value of dist_calc is %.&rsquo;,dist_calc;
+ EXECUTE &lsquo;UPDATE bld_wtastops_staging5
+ SET route_dist = &rsquo; ||dist_calc|| &lsquo;
+ WHERE &rsquo; ||bld_row.bld_gid|| &lsquo; = bld_wtastops_staging5.bld_gid&rsquo;;
  END LOOP;
- &#8211; BAIL OUT ON ERRORS
+ &mdash; BAIL OUT ON ERRORS
  EXCEPTION
  WHEN CONTAINING_SQL_NOT_PERMITTED THEN
- RAISE NOTICE &#8217; EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %&#8217;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
+ RAISE NOTICE &lsquo; EXECPTION Value of wtastops_vert_node is %. The value of bld_vert_node is %&rsquo;,bld_row.wtastops_vert_node, bld_row.bld_vert_node;
 END;
-$$ LANGUAGE &#8216;plpgsql&#8217;;
-&#8211; EXECUTE FUNCTION
+$$ LANGUAGE &lsquo;plpgsql&rsquo;;
+&mdash; EXECUTE FUNCTION
 SELECT bulk_route_generate();
 [/sourcecode]</p>
 
-<p>I&#8217;m excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I&#8217;m sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I&#8217;ll be sure to do some serious head-scratching to think about a better approach!</p>
+<p>I&rsquo;m excited at the possibilities that using PL/pgSQL offers in terms of manipulating data. I&rsquo;m sure that the above function can be cleaned up quite a bit, too. If I ever have the need to re-visit this or similar problems, I&rsquo;ll be sure to do some serious head-scratching to think about a better approach!</p>
 
-<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a 1/4 mile distance, while areas from yellow-to-red represent distances increasingly greater then a 1/4 mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
+<p>Here is an image of the resulting data generated using <a href="http://mapnik.org/">mapnik</a>. Areas from dark green to light-green are within a &frac14; mile distance, while areas from yellow-to-red represent distances increasingly greater then a &frac14; mile. The large checkered areas are where the dataset failed to route. More on that at another time.</p>
 
-<p>[caption id=&#8221;attachment_360&#8221; align=&#8221;alignnone&#8221; width=&#8221;430&#8221; caption=&#8221;the result as seen in mapnik&#8221;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
+<p>[caption id=&ldquo;attachment_360&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;430&rdquo; caption=&ldquo;the result as seen in mapnik&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2010/06/bld_sym_diverging_web.png" alt="bld_sym_diverging_web" /></a>[/caption]</p>
 
     </div>
   </div>

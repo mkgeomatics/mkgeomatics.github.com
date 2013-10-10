@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="WMS to WFS Nov 18th, 2008 The main goal for today is figuring out what is going on with my WFS demo. I&#8217;ve got it a Mapserver mapfile up and &hellip;">
+  <meta name="description" content="WMS to WFS Nov 18th, 2008 The main goal for today is figuring out what is going on with my WFS demo. I&rsquo;ve got it a Mapserver mapfile up and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,9 +120,9 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&#8217;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>. <!-- more --></p>
+      <p>The main goal for today is figuring out what is going on with <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_NAD83UTM10N.map&amp;MODE=MAP">my WFS demo</a>. I&rsquo;ve got it a Mapserver mapfile up and running, and can load each layer individually by calling the service in either QGIS or ArcGIS. The mapfile was tweaked to WFS metadata specs via this <a href="http://mapserver.gis.umn.edu/docs/howto/wfs_server">extremely helpful tutorial</a>. <!-- more --></p>
 
-<p>If we take a look at the DescribeFeatureType() results for <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_WGS84.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">my WFS</a> query (I don&#8217;t know if I should be calling it a WFS at this point, but I will&#8230;) we see that no tabular information is being extracted from the shapefiles.</p>
+<p>If we take a look at the DescribeFeatureType() results for <a href="http://mkgeomatics.com/apps/FWTools-2.0.6/bin_safe/mapserv.cgi?map=/home/matthewkenny/mkgeomatics.com/apps/FWTools-2.0.6/mapdata/WA/WA_WGS84.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType">my WFS</a> query (I don&rsquo;t know if I should be calling it a WFS at this point, but I will&hellip;) we see that no tabular information is being extracted from the shapefiles.</p>
 
 <blockquote><p><schema targetNamespace="http://mapserver.gis.umn.edu/mapserver" elementFormDefault="qualified" version="0.1">
 <import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/2.1.2/feature.xsd"/>
@@ -145,11 +145,11 @@
 <element name="AREA" type="string"/>
 <element name="PERIMETER" type="string"/>
 <element name="PROVINCE_" type="string"/>
-&#8230;</p></blockquote>
+&hellip;</p></blockquote>
 
-<p>I&#8217;m thinking that there is more work which needs to be done in the mapfile. My guess is that it has to do with the &#8216;gml_featureid&#8217; and &#8216;gml_include_items&#8217; metadata information.</p>
+<p>I&rsquo;m thinking that there is more work which needs to be done in the mapfile. My guess is that it has to do with the &lsquo;gml_featureid&rsquo; and &lsquo;gml_include_items&rsquo; metadata information.</p>
 
-<p>whatever&#8217;s clever.</p>
+<p>whatever&rsquo;s clever.</p>
 
     </div>
   </div>

@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="Web-Based GRASS! Sep 14th, 2008 Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve &hellip;">
+  <meta name="description" content="Web-Based GRASS! Sep 14th, 2008 Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&rsquo;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,13 +120,13 @@
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&#8217;ve been working off of Aaron Racicot&#8217;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &#8211;with-fftw-includes and &#8211;with-tclktk-includes respectively. Also, ran into <!-- more --> an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, &#8216;export NAD2BIN=/home/&#8230;/bin/nad2bin&#8217;.</p>
+      <p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&rsquo;ve been working off of Aaron Racicot&rsquo;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &mdash;with-fftw-includes and &mdash;with-tclktk-includes respectively. Also, ran into <!-- more --> an issue with NAD2BIN not being explicitly laid out as well, but I was lucky enough to find a forum post stating that I needed to use the command, &lsquo;export NAD2BIN=/home/&hellip;/bin/nad2bin&rsquo;.</p>
 
-<p>I&#8217;m not all that familiar with the command line syntax of GRASS, so I actually had to use a local install to view some sample syntax, and modify it for use on the web instance. Pretty fun.</p>
+<p>I&rsquo;m not all that familiar with the command line syntax of GRASS, so I actually had to use a local install to view some sample syntax, and modify it for use on the web instance. Pretty fun.</p>
 
-<p>I&#8217;m wondering if there is anyway for a user to access the geoprocessing functionality of this GRASS install w/o logging into the server. Furthermore, could it be possible to tie this into a mapserver / openlayers install? It would be amazing to recreate this <a href="http://resources.esri.com/help/9.3/arcgisserver/apis/javascript/arcgis/help/jssamples_start.htm#jssamples/GPviewShed.html">ESRI on-the-fly geoprocessing example</a> using only open source GIS tools.</p>
+<p>I&rsquo;m wondering if there is anyway for a user to access the geoprocessing functionality of this GRASS install w/o logging into the server. Furthermore, could it be possible to tie this into a mapserver / openlayers install? It would be amazing to recreate this <a href="http://resources.esri.com/help/9.3/arcgisserver/apis/javascript/arcgis/help/jssamples_start.htm#jssamples/GPviewShed.html">ESRI on-the-fly geoprocessing example</a> using only open source GIS tools.</p>
 
-<p>Anyways, it&#8217;s a pretty cool feeling to be able to upload a file to the server, run a geoprocessing task on it, and download the results back to my machine!</p>
+<p>Anyways, it&rsquo;s a pretty cool feeling to be able to upload a file to the server, run a geoprocessing task on it, and download the results back to my machine!</p>
 
 <blockquote><p>GRASS 6.2.3 (spearfish):~/usr/local/bin > r.shaded.relief map=elevation.dem shadedmap=shade_test altitude=30 azimuth=270 zmult=2 scale=1
 Calculating shading, please stand by.
@@ -135,7 +135,7 @@ Color table for [shade_test] set to grey</p></blockquote>
 
 <p>Shaded relief map created and named [shade_test].
 GRASS 6.2.3 (spearfish):~/usr/local/bin > r.out.tiff input=shade_test output=/home/matthewkenny/usr/local/gis_workspace/shade_out compression=none
-WARNING: The map <shade_test> in mapset <user1> is a floating point map.
+WARNING: The map &lt;shade_test> in mapset <user1> is a floating point map.
 Decimal values will be rounded to integer!
 GRASS 6.2.3 (spearfish):~/usr/local/bin ></p>
 

@@ -122,11 +122,11 @@
     <div class="span12">
       <p>This post will review a workflow for automatically pushing data from a client machine to github.
 This can be useful if you want to automatically make publicly available data that are regularly processed on
-a local machine. <!-- more --> For my particular use case, I&#8217;m downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
+a local machine. <!-- more --> For my particular use case, I&rsquo;m downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
 Web Service</a> , and would
 like to process those data locally for use in a d3 visualization. My d3 viz will eventually be
 hosted on github as well, so having a dynamically updated dataset stored on github made sense.
-I&#8217;m sure that it&#8217;s possible to emulate this ETL workflow in pure JavaScript, but I wanted to see
+I&rsquo;m sure that it&rsquo;s possible to emulate this ETL workflow in pure JavaScript, but I wanted to see
 how to set this up, in the event that I found myself in a situation in which heavy pre-processing
 of data was required.</p>
 
@@ -145,7 +145,7 @@ of data was required.</p>
 <h2>Create Machine User and Group</h2>
 
 <p>On my local machine, I start by creating a user and group for the purpose of pushing data to github.
-I&#8217;m doing this to isolate the amount of exposure that this user has to my wider system.</p>
+I&rsquo;m doing this to isolate the amount of exposure that this user has to my wider system.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -171,7 +171,7 @@ user on <a href="https://github.com">github</a>.</p>
 
 <h2>Generate SSH Key &amp; Assign to Github User</h2>
 
-<p>From the local machine, make sure that you&#8217;re logged in as the newly created machine user.</p>
+<p>From the local machine, make sure that you&rsquo;re logged in as the newly created machine user.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo su rdi-git
@@ -187,7 +187,7 @@ the <a href="https://help.github.com/articles/how-do-i-add-a-collaborator">Githu
 
 <h2>Clone the Repository of Interest, add Assign Permissions</h2>
 
-<p>I&#8217;m creating a <code>/projects/</code> folder, in which I&#8217;ll clone my repo. I&#8217;d like to ensure that this folder, and
+<p>I&rsquo;m creating a <code>/projects/</code> folder, in which I&rsquo;ll clone my repo. I&rsquo;d like to ensure that this folder, and
 subsequently all repos contained within it, are associated with git group. This <a href="http://unix.stackexchange.com/questions/12842/make-all-new-files-in-a-directory-accessible-to-a-group">stackoverflow</a> outlines the required commands.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -215,10 +215,10 @@ subsequently all repos contained within it, are associated with git group. This 
 
 <h2>Create the Cron Job</h2>
 
-<p>The repo I&#8217;ve just cloned contains the <a href="https://github.com/mattmakesmaps/robo-d3/blob/master/scripts/waterservices_parser.py">processing script</a> I&#8217;ll be running.
+<p>The repo I&rsquo;ve just cloned contains the <a href="https://github.com/mattmakesmaps/robo-d3/blob/master/scripts/waterservices_parser.py">processing script</a> I&rsquo;ll be running.
 Our processed data will also be stored and pushed back to this repository.</p>
 
-<p>I&#8217;d like to have my processing script run once every hour, on the hour. We setup the cron job by first entering
+<p>I&rsquo;d like to have my processing script run once every hour, on the hour. We setup the cron job by first entering
 crontab.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -230,7 +230,7 @@ crontab.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Here is an excerpt of the machine user&#8217;s cron jobs, with the new job added at the bottom.</p>
+<p>Here is an excerpt of the machine user&rsquo;s cron jobs, with the new job added at the bottom.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -243,7 +243,7 @@ crontab.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We essential say, on the minute zero, of every hour, for every day, month, and weekday, run the command &#8216;python /path/to/script&#8217;. The tail indicates that we&#8217;re outputting both STDOUT and the ERROR log to <code>/home/rdi-git/robo-d3.log</code></p>
+<p>We essential say, on the minute zero, of every hour, for every day, month, and weekday, run the command &lsquo;python /path/to/script&rsquo;. The tail indicates that we&rsquo;re outputting both STDOUT and the ERROR log to <code>/home/rdi-git/robo-d3.log</code></p>
 
 <p>And there we go. If we check out the <a href="https://github.com/mattmakesmaps/robo-d3/commits/master">commit logs</a> we can
 see that our github user, rdi-git, has been pushing every hour on the hour. Woo-hoo!</p>

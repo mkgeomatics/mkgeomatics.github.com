@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="MapBox + Github = Free and Fast Web Maps Jul 17th, 2013 With the announcement of Github&#8217;s awesome support for direct geojson renderingg,
+  <meta name="description" content="MapBox + Github = Free and Fast Web Maps Jul 17th, 2013 With the announcement of Github&rsquo;s awesome support for direct geojson renderingg,
 folks &hellip;">
   
 
@@ -121,14 +121,14 @@ folks &hellip;">
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>With the announcement of Github&#8217;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
+      <p>With the announcement of Github&rsquo;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
 folks can deploy an embeddable web map with a single git commit and push. This got me
 thinking about the potential of github, specifically <a href="http://pages.github.com/">github pages</a>,
 as a vehicle for the display of more customized web mapping applications. The result of that
 experiment is <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a>. <!-- more --></p>
 
 <p>I deployed the initial draft of this site in a few hours, thanks entirely not only to
-the power of MapBox and Github&#8217;s hosting infrastructure, but also to the easy-to-use
+the power of MapBox and Github&rsquo;s hosting infrastructure, but also to the easy-to-use
 <a href="http://www.mapbox.com/map-sites/">mapping templates</a> provided by MapBox.</p>
 
 <p>This blog series will attempt to illustrate some of the major steps involved in the
@@ -137,7 +137,7 @@ process of deploying this map. The general process however, is as follows.</p>
 <ol>
 <li>Style cartographic layers via TileMill, upload to MapBox.</li>
 <li>Create composite map of individual operation layers plus a base within MapBox.</li>
-<li>Fork MapBox&#8217;s dc-properties-template via github.</li>
+<li>Fork MapBox&rsquo;s dc-properties-template via github.</li>
 <li>Edit forked repository to point to my layers of interest.</li>
 <li>Add CNAME record for custom URL to forked repository.</li>
 <li>Configure DNS to route custom domain name to github pages.</li>
@@ -154,7 +154,7 @@ layers.</p>
 load your own datasets from a variety of spatial formats (SHP, SpatialLite, PostGIS), and style via a CSS-like
 language, <a href="http://www.mapbox.com/tilemill/docs/manual/carto/">CartoCSS</a>.</p>
 
-<p>I&#8217;ll gloss over the details for styling maps in in TileMill, but they&#8217;ve got a great
+<p>I&rsquo;ll gloss over the details for styling maps in in TileMill, but they&rsquo;ve got a great
 <a href="http://www.mapbox.com/tilemill/docs/crashcourse/introduction/">quick-start guide</a>.</p>
 
 <p>For my site, I ended up creating two projects in TileMill, one for each operational layer present in the final
@@ -164,7 +164,7 @@ map. The first layer represents <a href="http://a.tiles.mapbox.com/v3/mattmakesm
 
 <p>Splitting these operational layers into separate projects in TileMill, and conversely separate web maps when uploaded to MapBox, allows
 us to mix and match these layers at will. Specifically, the <a href="http://www.mapbox.com/developers/api/#Map.resources">MapBox REST API</a>
-allows us to composite or layer individual maps into a single-tile, on-the-fly. If you&#8217;re head hasn&#8217;t been exploded, allow me to illustrate.</p>
+allows us to composite or layer individual maps into a single-tile, on-the-fly. If you&rsquo;re head hasn&rsquo;t been exploded, allow me to illustrate.</p>
 
 <p>The map on <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a> is a composite of multiple layers. A basemap, provided by mapbox, as well as two operational layers (a point layer and a line layer).</p>
 
@@ -172,13 +172,13 @@ allows us to composite or layer individual maps into a single-tile, on-the-fly. 
 
 <p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png" title="Base Tile" ></p>
 
-<p>The URL is as follows: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png</a>. Note the <code>mattmakesmaps.map-9ipoh3441</code> section of the URL. This is a combination of my user account, <code>mattmakesmaps</code> and the unique map id. This identifier indicates that I&#8217;m requesting the tile representing this specific map, again, a composite of multiple layers.</p>
+<p>The URL is as follows: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.map-9ipoh344/6/5/16.png</a>. Note the <code>mattmakesmaps.map-9ipoh3441</code> section of the URL. This is a combination of my user account, <code>mattmakesmaps</code> and the unique map id. This identifier indicates that I&rsquo;m requesting the tile representing this specific map, again, a composite of multiple layers.</p>
 
 <p>We can however, query individual layers that make up this map. For example, the lines layer specifically has a URL endpoint of <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png</a>. It looks like this.</p>
 
 <p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_lines/6/5/16.png"></p>
 
-<p>Similarly, with the points layer: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png</a>. NOTE: You&#8217;ll have to squint to see the points. They don&#8217;t show up very well with the black on dark blue background. OR, you can open the tile link above in a new tab.</p>
+<p>Similarly, with the points layer: <a href="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png">http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png</a>. NOTE: You&rsquo;ll have to squint to see the points. They don&rsquo;t show up very well with the black on dark blue background. OR, you can open the tile link above in a new tab.</p>
 
 <p><img src="http://a.tiles.mapbox.com/v3/mattmakesmaps.language_points/6/5/16.png"></p>
 
@@ -193,7 +193,7 @@ allows us to composite or layer individual maps into a single-tile, on-the-fly. 
 
 <p>Pretty cool. You can even flip the z-index in which the layers are composited by simply re-arranging their position in the URL.</p>
 
-<p>That&#8217;s it for now. The next post will cover how to fork Mapbox&#8217;s DC-Properties template, allowing us to visualize our maps, accessible via github pages.</p>
+<p>That&rsquo;s it for now. The next post will cover how to fork Mapbox&rsquo;s DC-Properties template, allowing us to visualize our maps, accessible via github pages.</p>
 
     </div>
   </div>
