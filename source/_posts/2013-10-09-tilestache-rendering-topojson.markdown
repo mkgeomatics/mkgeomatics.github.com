@@ -2,6 +2,7 @@
 layout: post
 title: "TileStache: Generate [Topo|Geo]JSON Vector Tiles"
 date: 2013-10-09 19:25
+keywords: "linux, gis, python, geojson, topojson, tilestache, open source"
 comments: true
 categories: 
 - Web-GIS
