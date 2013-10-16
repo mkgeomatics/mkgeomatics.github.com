@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-10-10T20:37:09-07:00</updated>
+  <updated>2013-10-15T21:32:57-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[TileStache-Links-Roundup]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup/"/>
+    <updated>2013-10-15T20:51:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m giving a presentation at this year&rsquo;s <a href="http://cugos.org/events/2013/10/16/fall-fling/">CUGOS Fall Fling Bling</a>, on <a href="http://tilestache.org">TileStache</a>. The list below are a series of interesting links I&rsquo;ve found regarding TileStache, or Vector Tiles in general.</p>
+
+<h2>Mind of Migurski</h2>
+
+<ul>
+<li><a href="http://mike.teczno.com/notes/vector-tile-rendering-numbers.html">Tiled Vector Update, with Math</a></li>
+<li><a href="http://mike.teczno.com/notes/postgreslessness-mapnik-vectiles.html">the libery of postgreslessness: tiled vectors in mapnik</a></li>
+<li><a href="http://mike.teczno.com/notes/tilestache.html">Presenting TileStache</a></li>
+</ul>
+
+
+<h2>Nelson Minar Vector Tiles Notes</h2>
+
+<ul>
+<li><a href="https://github.com/NelsonMinar/vector-river-map">Map of American Rivers</a>: <strong>NOTE:</strong> This is a fantastic tutorial.</li>
+<li><a href="http://bl.ocks.org/NelsonMinar/5851197">TopoJSON Vector Maps from OSM</a></li>
+<li><a href="http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68099164">TopoJSON: A Smaller GeoJSON with Some Neat Tricks</a></li>
+</ul>
+
+
+<h2>Data</h2>
+
+<ul>
+<li><a href="http://openstreetmap.us/~migurski/vector-datasource/">OSM US Vector Tiles</a></li>
+</ul>
+
+
+<p>My own slides from the Fall Fling can be found <a href="https://speakerdeck.com/mattmakesmaps/tilestache-more-then-youre-granddads-tilecache-server">here</a>. An introductory blog post on rendering TopoJSON with TileStache can be found, <a href="http://mattmakesmaps.com/blog/2013/10/09/tilestache-rendering-topojson/">here</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fixing ArcGIS 10.1 Numpy Import Error From Python Console]]></title>

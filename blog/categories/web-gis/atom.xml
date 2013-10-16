@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-10-10T20:37:09-07:00</updated>
+  <updated>2013-10-15T21:32:57-07:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[TileStache-Links-Roundup]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup/"/>
+    <updated>2013-10-15T20:51:00-07:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m giving a presentation at this year&rsquo;s <a href="http://cugos.org/events/2013/10/16/fall-fling/">CUGOS Fall Fling Bling</a>, on <a href="http://tilestache.org">TileStache</a>. The list below are a series of interesting links I&rsquo;ve found regarding TileStache, or Vector Tiles in general.</p>
+
+<h2>Mind of Migurski</h2>
+
+<ul>
+<li><a href="http://mike.teczno.com/notes/vector-tile-rendering-numbers.html">Tiled Vector Update, with Math</a></li>
+<li><a href="http://mike.teczno.com/notes/postgreslessness-mapnik-vectiles.html">the libery of postgreslessness: tiled vectors in mapnik</a></li>
+<li><a href="http://mike.teczno.com/notes/tilestache.html">Presenting TileStache</a></li>
+</ul>
+
+
+<h2>Nelson Minar Vector Tiles Notes</h2>
+
+<ul>
+<li><a href="https://github.com/NelsonMinar/vector-river-map">Map of American Rivers</a>: <strong>NOTE:</strong> This is a fantastic tutorial.</li>
+<li><a href="http://bl.ocks.org/NelsonMinar/5851197">TopoJSON Vector Maps from OSM</a></li>
+<li><a href="http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68099164">TopoJSON: A Smaller GeoJSON with Some Neat Tricks</a></li>
+</ul>
+
+
+<h2>Data</h2>
+
+<ul>
+<li><a href="http://openstreetmap.us/~migurski/vector-datasource/">OSM US Vector Tiles</a></li>
+</ul>
+
+
+<p>My own slides from the Fall Fling can be found <a href="https://speakerdeck.com/mattmakesmaps/tilestache-more-then-youre-granddads-tilecache-server">here</a>. An introductory blog post on rendering TopoJSON with TileStache can be found, <a href="http://mattmakesmaps.com/blog/2013/10/09/tilestache-rendering-topojson/">here</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[TileStache: Generate [Topo|Geo]JSON Vector Tiles]]></title>
@@ -100,7 +136,8 @@ below. This example uses the VecTiles provider (<a href="http://tilestache.org/d
 which requires a PostGIS backing store, and produces tiles in geojson, topojson, or Mapnik Vector Tile (MVT) format.
 Comments have been added below for clarity.</p>
 
-<p>``` javascript
+<p>
+``` javascript
 &ldquo;osm-processed_p1&rdquo;: { // Layer Name</p>
 
 <pre><code>// Sets ACCESS-CONTROL-ALLOW-ORIGIN header to "*"
@@ -124,7 +161,8 @@ Comments have been added below for clarity.</p>
 </code></pre>
 
 <p>}
-```</p>
+```
+</p>
 
 <ol>
 <li>Start the Server.</li>
@@ -482,103 +520,6 @@ return HttpResponse(s)
 <p>In comes GeoDjango. Over the next few posts, I think I&rsquo;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
 
 <p>[caption id=&ldquo;attachment_489&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Hey look Ma', it&rsquo;s GeoJSON!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hand-Rolled Vector Tiles - TileStache]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
-    <updated>2011-02-25T05:09:52-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
-    <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&mdash; Imagine that&rsquo;s a mustache on it&rsquo;s side.</p>
-
-<blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
-
-<!-- more -->
-
-
-<p>By design, TileStache can be used to serve up stylish TMS tiles using <a href="http://mapnik.org/">mapnik</a> map files, and can also be used to locally cache remote-services via <a href="http://tilestache.org/doc/#providers">proxy</a>. What I&rsquo;m most interested in though, is it&rsquo;s ability to deploy vector tiles. So what are vector tiles? Think TMS tiles&hellip; but replace representations of the geometries through images, with <a href="http://geojson.org/">GeoJSON</a>. Pretty wild right? Specifically, the TileStache <a href="http://tilestache.org/doc/TileStache.Goodies.Providers.PostGeoJSON.html">PostGeoJSON Provider</a> can be used to connect TileStache to a PostGIS data source, and return a tile comprised entirely of GeoJSON data.</p>
-
-<p>For example, data from a PostGIS data source can be rendered as an image tile (&hellip;/10/16/357.png), like this:</p>
-
-<p><a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/tile.png" alt="" /></a></p>
-
-<p>But can also be represtented as a vector tile (&hellip;/10/16/357.json), like this:</p>
-
-<p>``` javascript
-// Subset of a single 256x256 pixel vector tile.
-{
-  &ldquo;type&rdquo;: &ldquo;FeatureCollection&rdquo;,
-  &ldquo;features&rdquo;: [</p>
-
-<pre><code>{
-  "geometry": {
-    "type": "MultiPolygon",
-    "coordinates": [
-      [
-        [
-          [
-            -122.973093,
-            47.969842
-          ],...
-          [
-            -122.973093,
-            47.969842
-          ]
-        ]
-      ]
-    ]
-  },
-  "type": "Feature",
-  "properties": {
-    "property_s": "USFS",
-    "juris_name": "Olympic National Forest"
-  },
-  "id": 1280
-}
-</code></pre>
-
-<p>  ]
-}
-```</p>
-
-<p>So what are the advantages of using vector tiles? You can already use <a href="http://dev.openlayers.org/docs/files/OpenLayers/Format/GeoJSON-js.html">OpenLayers' GeoJSON</a> format reader to populate a vector layer in OL. It&rsquo;s an issue of size. Highly complex geometries can be large in size, and requesting all that data at once can be time consuming. Vector tiles approach this problem using the same answer as TMS&hellip; only request those sections of data which you need at that time. By only requesting those tiles within the user&rsquo;s current extent + a small buffer, the need to download large geometries at once can be negated. Furthermore, just as TMS&rsquo;s can be pre-cached to disk (seeded), so can vector tiles.</p>
-
-<p>One example of this is serving up a combined NFS boundary dataset compiled by my good pal, Greg (<a href="http://www.chopshopgeo.com/blog/">http://www.chopshopgeo.com/blog/</a>). These boundaries are <strong>dense</strong> and displaying them at their full extent &amp; raw level of detail is expensive. But by breaking the vector representations of these geometries up into a standard tile scheme, only those tiles which we need are requested, and only when we need them. As a side note, in addition to tiling, I also simplified the boundaries, to promote faster load time at small-scales. The least granular vector representations display at the smallest zoom-scales, while the highest (raw, unsimplified) level of granularity displays only at the largest zoom-scales.</p>
-
-<p>[caption id=&ldquo;attachment_398&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;665&rdquo; caption=&ldquo;NFS Boundaries Provided By ChopShopGeo&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/parks.png" alt="" /></a>[/caption]</p>
-
-<p>Additionally, using vector representations of geometry rather then cached images allows styling of those geometries on the fly. <a href="http://polymaps.org/">Polymaps</a>, the only display client I&rsquo;ve found so far that can consume vector tiles out-of-the-box, renders these tiles as SVG elements. Because of this, unique styling can be applied via CSS; controlling the color, stroke, fill, etc. of each geometry in response to both attributes associated with the geometry (see image below) or user input&hellip; ala the <a href="http://polymaps.org/ex/statehood.html">Polymaps example page</a>.</p>
-
-<p>[caption id=&ldquo;attachment_393&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;691&rdquo; caption=&ldquo;USGS real-time gauge stations. Darker dots represent stronger streamflow, lighter dots represent slower flow. You&rsquo;ll have to ignore the fact that I&rsquo;m symbolizing streamflow without the streams.&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/02/usgs.png" alt="" /></a>[/caption]</p>
-
-<p>The above example converts data from the <a href="http://waterservices.usgs.gov/rest/WOF-IV-Service.html">USGS Instantaneous Values Web Service</a> (part of the <a href="http://waterdata.usgs.gov/nwis/">USGS Water Date for the Nation program</a>) as a JSON response to GeoJSON. These data points are then symbolized dynamically using Polymaps. More on that later.</p>
-
-<p><code>javascript
-{
-"type": "FeatureCollection",
-"features": [{
-"geometry": {
-"type": "MultiPolygon",
-"coordinates": [
-[
-[
-[-122.973093, 47.969842],
-[-122.973093, 47.969842]
-]
-]
-]
-},
-http: //jsbeautifier.org/
-"type": "Feature",
-"properties": {
-"property_s": "USFS",
-"juris_name": "Olympic National Forest"
-},
-"id": 1280
-}]
-}
-</code></p>
 ]]></content>
   </entry>
   
