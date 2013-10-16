@@ -72,6 +72,7 @@ below. This example uses the VecTiles provider ([docs](http://tilestache.org/doc
 which requires a PostGIS backing store, and produces tiles in geojson, topojson, or Mapnik Vector Tile (MVT) format.
 Comments have been added below for clarity.
  
+{% raw %}
 ``` javascript
 "osm-processed_p1": { // Layer Name
     // Sets ACCESS-CONTROL-ALLOW-ORIGIN header to "*"
@@ -94,6 +95,7 @@ Comments have been added below for clarity.
     }
 }
 ```
+{% endraw %}
 
 4. Start the Server.
 
