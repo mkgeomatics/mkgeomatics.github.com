@@ -15,6 +15,8 @@ def makeToast(toastLevel, inBread):
 ```
 
 # Presentations
+[TileStache Cat GIF Extension @ CUGOS Fall Fling Bling 2013](https://speakerdeck.com/mattmakesmaps/tilestache-more-then-youre-granddads-tilecache-server) - May 2013
+
 [PntTrax @ WAURISA 2013](https://speakerdeck.com/mattmakesmaps/pnttrax-at-waurisa-2013) - May 2013
 
 [PntTrax @ King County GIS User Group](https://speakerdeck.com/mattmakesmaps/pnttrax-at-king-county-gis-user-group-feb-2013) - Feb 2013
