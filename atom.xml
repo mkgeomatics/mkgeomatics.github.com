@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-10-15T21:32:57-07:00</updated>
+  <updated>2013-11-13T19:38:37-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Label Points With OpenStreetMap Data]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data/"/>
+    <updated>2013-11-13T19:13:00-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data</id>
+    <content type="html"><![CDATA[<p>tl;dr</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">((</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span><span class="p">,</span><span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span><span class="p">,</span> <span class="n">ST_PointOnSurface</span><span class="p">((</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span><span class="p">)</span> <span class="k">AS</span> <span class="n">geom</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[TileStache-Links-Roundup]]></title>
@@ -1542,21 +1565,6 @@ FROM export;[/sourcecode]</p>
 <p>[caption id=&ldquo;attachment_272&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: CloudMade&rsquo;s Tile Request Graphic&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request-300x187.jpg" alt="Above: CloudMade's Tile Request Overlay" /></a>[/caption]</p>
 
 <p>Following the link to the <a href="http://maps.cloudmade.com/javascripts/stats/cloudmade.js?1238766232">stats JavaScript</a>, it looks like they are using a custom OpenLayers layer class, OpenLayers.Layer.Cloudmade. Sweet!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SpatialLite: My First Look]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2009/04/05/spatiallite-my-first-look/"/>
-    <updated>2009-04-05T05:45:46-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2009/04/05/spatiallite-my-first-look</id>
-    <content type="html"><![CDATA[<p>With such a small footprint (a single file) <a href="http://www.gaia-gis.it/spatialite/">SpatialLite</a> appears to a novice like myself to be a fantastic niche storage solution for spatial data. In an environment where installing larger FOSS databases such as MySQL or PostGIS/PostgreSQL can be prohibitive, Spatial Lite appears to provide a great solution. Using the provided GUI interface, <!-- more --> it&rsquo;s extremely easy for a first-time user to create an sqllite dbase, load multiple shapefiles, and create spatial indexes against them. Analogous to a FOSSGIS ESRI Geodatabase, I can see a lot of potential uses for GIS developers who require the indexing and searching power of a database as well as the portability of formats such as an ESRI Shapefile or KML.</p>
-
-<p>It looks like a <a href="http://geobabble.wordpress.com/2009/03/26/spatiallite-support-in-qgis/">QGIS connection</a> is in the works for the 1.1 release as well.</p>
-
-<p>I&rsquo;m not sure if it&rsquo;s already being done, but I&rsquo;d bet that it would be pretty easy to put together a SpatialLite / <a href="http://featureserver.org/">FeatureServer</a> combination, considering its native support for so many spatial-backends.</p>
-
-<p>Some tutorials I&rsquo;ve found to be very helpful have come from: <a href="http://www.bostongis.com/PrinterFriendly.aspx?content_name=spatialite_tut01">BostonGIS</a> and the <a href="http://www.gaia-gis.it/spatialite/spatialite-2.2_tutorial.html">SpatialLite project site</a>.</p>
 ]]></content>
   </entry>
   

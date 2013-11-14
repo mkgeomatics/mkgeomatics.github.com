@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: OpenStreetMap | mattmakesmaps]]></title>
+  <link href="http://mkgeomatics.github.io/blog/categories/openstreetmap/atom.xml" rel="self"/>
+  <link href="http://mkgeomatics.github.io/"/>
+  <updated>2013-11-13T19:38:37-08:00</updated>
+  <id>http://mkgeomatics.github.io/</id>
+  <author>
+    <name><![CDATA[Matthew Kenny]]></name>
+    <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Label Points With OpenStreetMap Data]]></title>
+    <link href="http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data/"/>
+    <updated>2013-11-13T19:13:00-08:00</updated>
+    <id>http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data</id>
+    <content type="html"><![CDATA[<p>tl;dr
+<code>sql
+SELECT name, ST_Area(Geography(ST_Transform((ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom,4326))) AS area, ST_PointOnSurface((ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom) AS geom
+FROM osm_new_waterareas
+WHERE name IS NOT NULL
+GROUP BY name
+</code></p>
+
+<!-- more -->
+
+]]></content>
+  </entry>
+  
+</feed>
