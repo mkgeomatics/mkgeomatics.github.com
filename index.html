@@ -12,7 +12,8 @@
   <meta name="description" content="Hi. I&#8217;m Matthew Kenny. maps + bikes = matt Nov 13th, 2013 OpenStreetMap PostGIS Creating Label Points With OpenStreetMap Data tl;dr 1
 2
 3
-4 &hellip;">
+4
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -150,10 +151,28 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">((</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span><span class="p">,</span><span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span><span class="p">,</span> <span class="n">ST_PointOnSurface</span><span class="p">((</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span><span class="p">)</span> <span class="k">AS</span> <span class="n">geom</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
-</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- Use a CTE to create a table of water polygons, aggregating</span>
+</span><span class='line'><span class="c1">-- overlapping polygons sharing the same name</span>
+</span><span class='line'><span class="k">WITH</span> <span class="n">polys</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'>    <span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span> <span class="k">AS</span> <span class="n">single_geom</span>
+</span><span class='line'>    <span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
+</span><span class='line'>    <span class="k">WHERE</span> <span class="n">name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+</span><span class='line'>    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="c1">-- Generate a name and label point for each feature</span>
+</span><span class='line'><span class="c1">-- Generate an accurate area attribute by casting to geography</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_PointOnSurface</span><span class="p">(</span><span class="n">single_geom</span><span class="p">),</span>
+</span><span class='line'>       <span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">polys</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
