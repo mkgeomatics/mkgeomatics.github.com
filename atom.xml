@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-11-14T22:50:32-08:00</updated>
+  <updated>2013-11-15T16:32:28-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -249,7 +249,7 @@ to create a label point for each instance of <code>Twin Lakes</code></p>
 but rather a special <a href="http://postgis.net/docs/geometry_dump.html">geometry_dump</a> data type. From that
 resulting datatype, we&rsquo;ll select out the <code>geom</code> field, giving us our POLYGON.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -337,14 +337,14 @@ Spherical Mercator projection to WGS84 Lat/Lng.</p>
 
 <p>The area calculation snippet looks like this</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>And wrapped into our larger label point SQL statement, looks like this.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -393,7 +393,7 @@ both spatial and non-spatial indexes can be utilized.</p>
 of geometric data to EPSG 4326, and a gist index already existed on the geometry column
 as part of the imposm import.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
