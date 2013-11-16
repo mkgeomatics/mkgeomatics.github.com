@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-11-15T17:51:35-08:00</updated>
+  <updated>2013-11-15T17:54:08-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -23,27 +23,7 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-- Use a CTE to create a table of water polygons, aggregating
-</span><span class='line'>-- overlapping polygons sharing the same name
-</span><span class='line'>WITH polys AS (
-</span><span class='line'>    SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
-</span><span class='line'>    FROM osm_new_waterareas
-</span><span class='line'>    WHERE name IS NOT NULL
-</span><span class='line'>    GROUP BY name
-</span><span class='line'>)
-</span><span class='line'>-- Generate a name and label point for each feature
-</span><span class='line'>-- Generate an accurate area attribute by casting to geography
-</span><span class='line'>SELECT name, ST_PointOnSurface(single_geom),
+</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT name, ST_PointOnSurface(single_geom),
 </span><span class='line'>       ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
 </span><span class='line'>FROM polys;</span></code></pre></td></tr></table></div></figure>
 
