@@ -9,7 +9,7 @@
   <meta name="author" content="Matthew Kenny">
 
   
-  <meta name="description" content="Creating Label Points With OpenStreetMap Data Nov 13th, 2013 tl;dr 1
+  <meta name="description" content="tl;dr 1
 2
 3
 4
@@ -22,7 +22,9 @@
 11
 12
 13
--- Use a CTE to create a table of water polygons, &hellip;">
+-- Use a CTE to create a table of water polygons, aggregating
+-- overlapping polygons sharing the same name
+WITH &hellip;">
   <meta name="keywords" content="linux, gis, open source, PostGIS, OpenStreetMap, labels, index, ST_Collect, ST_Buffer, ST_Dump, ST_PointOnSurface">
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,20 +35,12 @@
   
   <link rel="canonical" href="http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data">
   <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
-  <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/stylesheets/flat-ui.css" rel="stylesheet">
-  <link href="/stylesheets/font-awesome.css" rel="stylesheet">
   <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
+  <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -68,14 +62,27 @@
 </head>
 
 <body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
+  <header role="banner"><div class="jumbotron">
+  <div class="container">
+    Hi. I'm Matthew Kenny.
+    <h3 class="tagline">maps + bikes = matt</h3>
+  </div>
+</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="nav">
     
         <li ><a href="/index.html">Home</a></li>
     
@@ -87,36 +94,19 @@
     
 </ul>
 
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    
-</ul>
-
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-    <div class="span12">
-      <div class="row-fluid">
-        <div id="content">
-          <div>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
 <article class="hentry" role="article">
   
-
   <header>
-  <div class="jumbotron">
-    Creating Label Points With OpenStreetMap Data
-	<h5>
+    
+      <h1 class="entry-title">Creating Label Points With OpenStreetMap Data</h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -128,12 +118,14 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2013-11-13T19:13:00-08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time></h5>
-  </div>
-</header>
-  <div class="row-fluid">
-    <div class="span12">
-      <h2>tl;dr</h2>
+<time datetime="2013-11-13T19:13:00-08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>tl;dr</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -365,7 +357,7 @@ to create a label point for each instance of <code>Twin Lakes</code></p>
 but rather a special <a href="http://postgis.net/docs/geometry_dump.html">geometry_dump</a> data type. From that
 resulting datatype, we&rsquo;ll select out the <code>geom</code> field, giving us our POLYGON.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -453,14 +445,14 @@ Spherical Mercator projection to WGS84 Lat/Lng.</p>
 
 <p>The area calculation snippet looks like this</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>And wrapped into our larger label point SQL statement, looks like this.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -509,7 +501,7 @@ both spatial and non-spatial indexes can be utilized.</p>
 of geometric data to EPSG 4326, and a gist index already existed on the geometry column
 as part of the imposm import.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -525,62 +517,55 @@ set of label points for ~185,000 named water features within the OSM planet file
 dynamically calculated area attribute. This test was performed on modest desktop hardware, on a PostGIS
 instance that was already hot (had been running, been used for querying water area data as part
 of this experiment).</p>
-
-    </div>
-  </div>
-
+</div>
 
 
   <footer>
-    <hr>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Matthew Kenny</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-13T19:13:00-08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/openstreetmap/'>OpenStreetMap</a>, <a class='category' href='/blog/categories/postgis/'>PostGIS</a>
+  
+</span>
+
+
+    </p>
     
-    <div class="row-fluid">
-      
-      <div class="span6">
-        <p class="meta">
-        
-        
-
-
-
-  <a href="/blog/categories/OpenStreetMap/"><span class="badge">OpenStreetMap</span></a>
-
-  <a href="/blog/categories/PostGIS/"><span class="badge">PostGIS</span></a>
-
-
-
-
-        </p>
-      </div>
-      
-      <div class="span6 social-sharing">
-        <div class="sharing">
-  <div class="addthis_toolbox addthis_default_style ">
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data/" data-via="mattmakesmaps" data-counturl="http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data/" >Tweet</a>
   
   
-  <a class="addthis_button_tweet"></a>
   
-  
-  <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
-      </div>
-      
-      
-    </div>
     
-    <div class="row-fluid">
-      <div class="span12">
-        <p class="meta">
-          
-            <a class="basic-alignment left" href="/blog/2013/10/15/tilestache-links-roundup/" title="Previous Post: TileStache-Links-Roundup">&laquo; TileStache-Links-Roundup</a>
-          
-          
-        </p>
-      </div>
-    </div>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/15/tilestache-links-roundup/" title="Previous Post: TileStache-Links-Roundup">&laquo; TileStache-Links-Roundup</a>
+      
+      
+    </p>
   </footer>
 </article>
 
@@ -592,22 +577,80 @@ of this experiment).</p>
 
 </div>
 
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/mattmakesmaps">@mattmakesmaps</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'mattmakesmaps',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
 
 
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2013 - Matthew Kenny -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-
-        </footer>
-      </div>
-    </div>
-  </div>
+</footer>
   
 
 <script type="text/javascript">
@@ -621,7 +664,7 @@ of this experiment).</p>
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -637,7 +680,7 @@ of this experiment).</p>
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
