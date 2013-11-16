@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-11-15T18:19:20-08:00</updated>
+  <updated>2013-11-15T18:25:01-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -57,8 +57,10 @@
 <p><a href="http://www.openstreetmap.org/">OpenStreetMap</a> is one the most amazing data projects I know of.
 The breadth of high-quality, high-precision features contained with the OSM Planet never ceases
 to impress me. That being said, the freedom of the OSM data model, which allows this high-level of
-flexibility and openness, is not without its problems. One of the major problems I&rsquo;ve run into
-recently have been the generation of label points derived from Open Street Map.</p>
+flexibility and openness, is not without its problems. Having participated in the OSM edit-a-thon,
+I was inspired to deep dive into the OSM tagging ontology, and subsequent rendering workflows. As part
+of this exploration, one of the major problems I&rsquo;ve run into was the generation of label points
+derived from Open Street Map data.</p>
 
 <p>The following example is illustrative of the primary problem faced when generating label points,
 overlapping geometries. The SQL statement below returns all features within an <a href="http://imposm.org">imposm</a>
