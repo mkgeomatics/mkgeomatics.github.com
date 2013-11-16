@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OpenStreetMap | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/openstreetmap/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-11-15T17:43:46-08:00</updated>
+  <updated>2013-11-15T17:47:10-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -20,27 +20,44 @@
     <id>http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data</id>
     <content type="html"><![CDATA[<h2>tl;dr</h2>
 
-<p>``` sql
-&mdash; Use a CTE to create a table of water polygons, aggregating
-&mdash; overlapping polygons sharing the same name
-WITH polys AS (</p>
-
-<pre><code>SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
-FROM osm_new_waterareas
-WHERE name IS NOT NULL
-GROUP BY name
-</code></pre>
-
-<p>)
-&mdash; Generate a name and label point for each feature
-&mdash; Generate an accurate area attribute by casting to geography
-SELECT name, ST_PointOnSurface(single_geom),</p>
-
-<pre><code>   ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
-</code></pre>
-
-<p>FROM polys;
-```</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&mdash; Use a CTE to create a table of water polygons, aggregating
+</span><span class='line'>&mdash; overlapping polygons sharing the same name
+</span><span class='line'>WITH polys AS (&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
+</span><span class='line'>FROM osm_new_waterareas
+</span><span class='line'>WHERE name IS NOT NULL
+</span><span class='line'>GROUP BY name
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>)
+</span><span class='line'>&mdash; Generate a name and label point for each feature
+</span><span class='line'>&mdash; Generate an accurate area attribute by casting to geography
+</span><span class='line'>SELECT name, ST_PointOnSurface(single_geom),&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>   ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>FROM polys;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <!-- more -->
 
