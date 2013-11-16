@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PostGIS | mattmakesmaps]]></title>
   <link href="http://mkgeomatics.github.io/blog/categories/postgis/atom.xml" rel="self"/>
   <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-11-15T18:09:44-08:00</updated>
+  <updated>2013-11-15T18:15:03-08:00</updated>
   <id>http://mkgeomatics.github.io/</id>
   <author>
     <name><![CDATA[Matthew Kenny]]></name>
@@ -20,44 +20,27 @@
     <id>http://mkgeomatics.github.io/blog/2013/11/13/creating-label-points-with-openstreetmap-data</id>
     <content type="html"><![CDATA[<h2>tl;dr</h2>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&mdash; Use a CTE to create a table of water polygons, aggregating
-</span><span class='line'>&mdash; overlapping polygons sharing the same name
-</span><span class='line'>WITH polys AS (&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
-</span><span class='line'>FROM osm_new_waterareas
-</span><span class='line'>WHERE name IS NOT NULL
-</span><span class='line'>GROUP BY name
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p>)
-</span><span class='line'>&mdash; Generate a name and label point for each feature
-</span><span class='line'>&mdash; Generate an accurate area attribute by casting to geography
-</span><span class='line'>SELECT name, ST_PointOnSurface(single_geom),&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>   ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p>FROM polys;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>```sql
+&mdash; Use a CTE to create a table of water polygons, aggregating
+&mdash; overlapping polygons sharing the same name
+WITH polys AS (</p>
+
+<pre><code>SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
+FROM osm_new_waterareas
+WHERE name IS NOT NULL
+GROUP BY name
+</code></pre>
+
+<p>)
+&mdash; Generate a name and label point for each feature
+&mdash; Generate an accurate area attribute by casting to geography
+SELECT name, ST_PointOnSurface(single_geom),</p>
+
+<pre><code>   ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
+</code></pre>
+
+<p>FROM polys;
+```</p>
 
 <!-- more -->
 
@@ -229,99 +212,54 @@ to create a label point for each instance of <code>Twin Lakes</code></p>
 but rather a special <a href="http://postgis.net/docs/geometry_dump.html">geometry_dump</a> data type. From that
 resulting datatype, we&rsquo;ll select out the <code>geom</code> field, giving us our POLYGON.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">ST_Dump</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">Lake</span> <span class="n">Chelan</span> <span class="n">Example</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">Wrapping</span> <span class="n">ST_Dump</span><span class="p">()</span> <span class="k">call</span> <span class="k">in</span> <span class="n">parentheses</span><span class="p">,</span> <span class="k">and</span> <span class="n">returning</span> <span class="n">the</span> <span class="n">geom</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">field</span> <span class="k">from</span> <span class="n">the</span> <span class="n">resulting</span> <span class="n">geometry_dump</span><span class="p">.</span>
-</span><span class='line'><span class="k">WITH</span> <span class="n">coll_buff</span> <span class="k">as</span> <span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_Dump</span><span class="p">(</span><span class="n">ST_Buffer</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span> <span class="k">AS</span> <span class="n">geometry</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Lake Chelan&#39;</span>
-</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_GeometryType</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="n">ST_NRings</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">coll_buff</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="k">Returns</span> <span class="n">a</span> <span class="n">single</span> <span class="n">feature</span> <span class="k">as</span> <span class="n">expected</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">name</span>     <span class="o">|</span> <span class="n">st_geometrytype</span> <span class="o">|</span> <span class="n">st_nrings</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">+&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">+&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span>
-</span><span class='line'> <span class="n">Lake</span> <span class="n">Chelan</span> <span class="o">|</span> <span class="n">ST_Polygon</span>      <span class="o">|</span>         <span class="mi">1</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">ST_Dump</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">Twin</span> <span class="n">Lakes</span> <span class="n">Example</span>
-</span><span class='line'><span class="k">WITH</span> <span class="n">coll_buff</span> <span class="k">as</span> <span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_Dump</span><span class="p">(</span><span class="n">ST_Buffer</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span> <span class="k">AS</span> <span class="n">geometry</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Twin Lakes&#39;</span>
-</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_GeometryType</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="n">ST_NRings</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">coll_buff</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="k">Returns</span> <span class="k">each</span> <span class="k">of</span> <span class="n">the</span> <span class="mi">272</span> <span class="n">rings</span> <span class="k">of</span> <span class="n">the</span> <span class="n">MULTIPOLYGON</span> <span class="k">as</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="k">unique</span> <span class="n">polygon</span> <span class="n">features</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">name</span>    <span class="o">|</span> <span class="n">st_geometrytype</span> <span class="o">|</span> <span class="n">st_nrings</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">+&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">+&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span>
-</span><span class='line'> <span class="n">Twin</span> <span class="n">Lakes</span> <span class="o">|</span> <span class="n">ST_Polygon</span>      <span class="o">|</span>         <span class="mi">1</span>
-</span><span class='line'> <span class="n">Twin</span> <span class="n">Lakes</span> <span class="o">|</span> <span class="n">ST_Polygon</span>      <span class="o">|</span>         <span class="mi">1</span>
-</span><span class='line'> <span class="n">Twin</span> <span class="n">Lakes</span> <span class="o">|</span> <span class="n">ST_Polygon</span>      <span class="o">|</span>         <span class="mi">1</span>
-</span><span class='line'> <span class="n">Twin</span> <span class="n">Lakes</span> <span class="o">|</span> <span class="n">ST_Polygon</span>      <span class="o">|</span>         <span class="mi">1</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">Selection</span> <span class="k">of</span> <span class="n">results</span> <span class="n">shown</span><span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>```sql
+&mdash; ST_Dump &ndash; Lake Chelan Example
+&mdash; NOTE: Wrapping ST_Dump() call in parentheses, and returning the geom
+&mdash; field from the resulting geometry_dump.
+WITH coll_buff as (</p>
+
+<pre><code>SELECT name, (ST_Dump(ST_Buffer(ST_Collect(geometry), 0))).geom AS geometry
+FROM osm_new_waterareas
+WHERE name = 'Lake Chelan'
+GROUP BY name
+</code></pre>
+
+<p>) SELECT name, ST_GeometryType(geometry), ST_NRings(geometry)
+FROM coll_buff;</p>
+
+<p>&mdash; Returns a single feature as expected.</p>
+
+<pre><code>name     | st_geometrytype | st_nrings 
+</code></pre>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+ Lake Chelan | ST_Polygon      |         1</p>
+
+<p>&mdash; ST_Dump &ndash; Twin Lakes Example
+WITH coll_buff as (</p>
+
+<pre><code>SELECT name, (ST_Dump(ST_Buffer(ST_Collect(geometry), 0))).geom AS geometry
+FROM osm_new_waterareas
+WHERE name = 'Twin Lakes'
+GROUP BY name
+</code></pre>
+
+<p>) SELECT name, ST_GeometryType(geometry), ST_NRings(geometry)
+FROM coll_buff;</p>
+
+<p>&mdash; Returns each of the 272 rings of the MULTIPOLYGON as
+&mdash; unique polygon features.</p>
+
+<pre><code>name    | st_geometrytype | st_nrings 
+</code></pre>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+ Twin Lakes | ST_Polygon      |         1
+ Twin Lakes | ST_Polygon      |         1
+ Twin Lakes | ST_Polygon      |         1
+ Twin Lakes | ST_Polygon      |         1
+&mdash; NOTE: Selection of results shown.
+```</p>
 
 <h3>Step Four: Generate An Area Attribute</h3>
 
@@ -337,47 +275,31 @@ data type.</p>
 Spherical Mercator projection to WGS84 Lat/Lng.</p>
 
 <p>The area calculation snippet looks like this
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<code>sql
+ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
+</code></p>
 
 <p>And wrapped into our larger label point SQL statement, looks like this.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">polys</span> <span class="k">AS</span> <span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span> <span class="k">AS</span> <span class="n">single_geom</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Lake Chelan&#39;</span>
-</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">)</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">Generate</span> <span class="n">a</span> <span class="n">name</span> <span class="k">and</span> <span class="n">label</span> <span class="n">point</span> <span class="k">for</span> <span class="k">each</span> <span class="n">feature</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">Generate</span> <span class="n">an</span> <span class="n">accurate</span> <span class="n">area</span> <span class="n">attribute</span> <span class="k">by</span> <span class="n">casting</span> <span class="k">to</span> <span class="n">geography</span>
-</span><span class='line'><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_PointOnSurface</span><span class="p">(</span><span class="n">single_geom</span><span class="p">),</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>   <span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">FROM</span> <span class="n">polys</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>```sql
+WITH polys AS (</p>
+
+<pre><code>SELECT name, (ST_DUMP(ST_BUFFER(ST_Collect(geometry), 0))).geom AS single_geom
+FROM osm_new_waterareas
+WHERE name = 'Lake Chelan' 
+GROUP BY name
+</code></pre>
+
+<p>)
+&mdash; Generate a name and label point for each feature
+&mdash; Generate an accurate area attribute by casting to geography
+SELECT name, ST_PointOnSurface(single_geom),</p>
+
+<pre><code>   ST_Area(Geography(ST_Transform(single_geom, 4326))) AS area
+</code></pre>
+
+<p>FROM polys;
+```</p>
 
 <p>Just to drive home the importance of accurate area calculations, our call using the CAST
 to geography returns a value of 132.028 square kilometers, while using the raw Spherical
@@ -403,15 +325,12 @@ both spatial and non-spatial indexes can be utilized.</p>
 of geometric data to EPSG 4326, and a gist index already existed on the geometry column
 as part of the imposm import.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="k">Create</span> <span class="n">a</span> <span class="k">partial</span> <span class="k">index</span> <span class="k">on</span> <span class="k">names</span> <span class="n">that</span> <span class="k">are</span> <span class="k">not</span> <span class="k">null</span><span class="p">.</span>
-</span><span class='line'><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_waterareas_name_partial</span> <span class="k">ON</span> <span class="n">osm_new_waterareas</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="k">Create</span> <span class="n">a</span> <span class="n">functional</span> <span class="k">index</span> <span class="k">on</span> <span class="n">the</span> <span class="n">transformation</span>
-</span><span class='line'><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_waterareas_4326</span> <span class="k">ON</span> <span class="n">osm_new_waterareas</span> <span class="k">USING</span> <span class="n">gist</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="mi">4326</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p><code>sql
+-- Create a partial index on names that are not null.
+CREATE INDEX idx_waterareas_name_partial ON osm_new_waterareas (name) WHERE name IS NOT NULL;
+-- Create a functional index on the transformation
+CREATE INDEX idx_waterareas_4326 ON osm_new_waterareas USING gist(ST_Transform(geometry, 4326));
+</code></p>
 
 <p>This process, after applying indexes, took about 5.4 minutes to create. That is, to create a global
 set of label points for ~185,000 named water features within the OSM planet file, with both a name and
