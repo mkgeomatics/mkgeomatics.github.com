@@ -8,11 +8,10 @@
   <title>Blog Archive - mattmakesmaps</title>
   <meta name="author" content="Matthew Kenny">
 
+   
+  <meta name="description" content="open source mapping notes from cascadia">
   
-  <meta name="description" content="Blog Archive 2013 Creating Label Points With OpenStreetMap Data
-Nov 13 2013 posted in OpenStreetMap, PostGIS TileStache-Links-Roundup
-Oct 15 2013 &hellip;">
-  
+  <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -22,12 +21,17 @@ Oct 15 2013 &hellip;">
   
   <link rel="canonical" href="http://mkgeomatics.github.io/blog/archives">
   <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -49,27 +53,14 @@ Oct 15 2013 &hellip;">
 </head>
 
 <body   >
-  <header role="banner"><div class="jumbotron">
-  <div class="container">
-    Hi. I'm Matthew Kenny.
-    <h3 class="tagline">maps + bikes = matt</h3>
-  </div>
-</div>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="nav">
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
     
         <li ><a href="/index.html">Home</a></li>
     
@@ -81,739 +72,1759 @@ Oct 15 2013 &hellip;">
     
 </ul>
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article role="article">
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+    <li><a href="mailto:matthewkenny AT gmail DOT com" title="Email"><i class="icon-envelope-alt social-navbar"></i></a></li>
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <article role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    <div class="jumbotron">
+      Blog Archive
+    </div>
     
   </header>
   
-  <div id="blog-archives">
-
-
+  <div clas id="blog-archives">
 
   
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a></h1>
-<time datetime="2013-11-13T19:13:00-08:00" pubdate><span class='month'>Nov</span> <span class='day'>13</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/openstreetmap/'>OpenStreetMap</a>, <a class='category' href='/blog/categories/postgis/'>PostGIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a></h1>
-<time datetime="2013-10-15T20:51:00-07:00" pubdate><span class='month'>Oct</span> <span class='day'>15</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a></h1>
-<time datetime="2013-10-09T19:25:00-07:00" pubdate><span class='month'>Oct</span> <span class='day'>09</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a></h1>
-<time datetime="2013-08-26T21:12:00-07:00" pubdate><span class='month'>Aug</span> <span class='day'>26</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/desktop-gis/'>Desktop-GIS</a>, <a class='category' href='/blog/categories/linux/'>Linux</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a></h1>
-<time datetime="2013-07-17T11:06:00-07:00" pubdate><span class='month'>Jul</span> <span class='day'>17</span> <span class='year'>2013</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/">Fixing ArcGIS 10.1 Numpy Import Error From Python Console</a></h1>
-<time datetime="2013-07-10T20:35:00-07:00" pubdate><span class='month'>Jul</span> <span class='day'>10</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/arcgis/'>ArcGIS</a>, <a class='category' href='/blog/categories/python/'>Python</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/06/16/auto-push-to-github-via-machine-user/">Auto-Push to GitHub via Machine User</a></h1>
-<time datetime="2013-06-16T14:19:00-07:00" pubdate><span class='month'>Jun</span> <span class='day'>16</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/github/'>Github</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/05/01/django-add-mapquest-tiles/">Hack GeoDjango Admin with Mapquest Tiles</a></h1>
-<time datetime="2013-05-01T20:53:00-07:00" pubdate><span class='month'>May</span> <span class='day'>01</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2011</h2>
-
-<article>
-  
-<h1><a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a></h1>
-<time datetime="2011-12-12T00:30:17-08:00" pubdate><span class='month'>Dec</span> <span class='day'>12</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a></h1>
-<time datetime="2011-11-28T00:35:49-08:00" pubdate><span class='month'>Nov</span> <span class='day'>28</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a></h1>
-<time datetime="2011-02-25T05:09:52-08:00" pubdate><span class='month'>Feb</span> <span class='day'>25</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2010</h2>
-
-<article>
-  
-<h1><a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL&#8217;ing to FeatureServer from PostGIS: Easier then I Thought</a></h1>
-<time datetime="2010-07-09T05:25:40-07:00" pubdate><span class='month'>Jul</span> <span class='day'>09</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a></h1>
-<time datetime="2010-06-28T00:37:39-07:00" pubdate><span class='month'>Jun</span> <span class='day'>28</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">pgRouting III: PHP + OpenLayers Interface</a></h1>
-<time datetime="2010-02-06T09:47:11-08:00" pubdate><span class='month'>Feb</span> <span class='day'>06</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">pgRouting Part II: PostGIS + Geoserver</a></h1>
-<time datetime="2010-01-31T05:05:32-08:00" pubdate><span class='month'>Jan</span> <span class='day'>31</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">pgRouting On Ubuntu Netbook Remix 9.10</a></h1>
-<time datetime="2010-01-11T14:26:59-08:00" pubdate><span class='month'>Jan</span> <span class='day'>11</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2009</h2>
-
-<article>
-  
-<h1><a href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">ESRI UC Student Assistant, Sweet!</a></h1>
-<time datetime="2009-04-27T03:13:59-07:00" pubdate><span class='month'>Apr</span> <span class='day'>27</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing An Existing MySQL Database</a></h1>
-<time datetime="2009-04-22T08:43:21-07:00" pubdate><span class='month'>Apr</span> <span class='day'>22</span> <span class='year'>2009</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/">MetaCarta&#8217;s Map Rectifier + ESRI DevSummit Mashup Winner :)</a></h1>
-<time datetime="2009-04-08T08:24:07-07:00" pubdate><span class='month'>Apr</span> <span class='day'>08</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/04/07/cloudmade-tile-request-graphics/">CloudMade Tile Request Graphics</a></h1>
-<time datetime="2009-04-07T10:14:36-07:00" pubdate><span class='month'>Apr</span> <span class='day'>07</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/04/05/spatiallite-my-first-look/">SpatialLite: My First Look</a></h1>
-<time datetime="2009-04-05T05:45:46-07:00" pubdate><span class='month'>Apr</span> <span class='day'>05</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/03/13/arcgis-rest-api-openlayers-unit-testing-fun-in-the-sun/">ArcGIS REST API / OpenLayers / Unit Testing = Fun In The Sun</a></h1>
-<time datetime="2009-03-13T12:31:39-07:00" pubdate><span class='month'>Mar</span> <span class='day'>13</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/01/31/google-motion-charts-from-data-to-information/">Google Motion Charts: From Data To Information </a></h1>
-<time datetime="2009-01-31T07:51:18-08:00" pubdate><span class='month'>Jan</span> <span class='day'>31</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/">OSM &#8216;Minutely&#8217; Tile Updates: Thanks CloudMade!</a></h1>
-<time datetime="2009-01-24T13:32:07-08:00" pubdate><span class='month'>Jan</span> <span class='day'>24</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/">Geocoding with OpenLayers: A Crash Course In Firebug</a></h1>
-<time datetime="2009-01-20T12:24:03-08:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span> <span class='year'>2009</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2008</h2>
-
-<article>
-  
-<h1><a href="/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/">TMS: Shaded Relief for OSM Data (An Adventure and A 1/2)</a></h1>
-<time datetime="2008-12-19T17:00:15-08:00" pubdate><span class='month'>Dec</span> <span class='day'>19</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/12/08/osm-recap/">OSM Recap</a></h1>
-<time datetime="2008-12-08T02:01:36-08:00" pubdate><span class='month'>Dec</span> <span class='day'>08</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend/">OpenStreetMap.org Mapping Party This Weekend</a></h1>
-<time datetime="2008-12-04T06:29:01-08:00" pubdate><span class='month'>Dec</span> <span class='day'>04</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/12/01/stefan-steinger-foss-desktop-gis-overview/">Stefan Steinger - FOSS Desktop GIS Overview</a></h1>
-<time datetime="2008-12-01T02:09:19-08:00" pubdate><span class='month'>Dec</span> <span class='day'>01</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/links/'>Links</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/30/spherical-mercator-new-portfolio/">Spherical Mercator / New Portfolio</a></h1>
-<time datetime="2008-11-30T14:38:53-08:00" pubdate><span class='month'>Nov</span> <span class='day'>30</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/23/scapetoad-open-source-cartogram-generator/">ScapeToad - Open Source Cartogram Generator</a></h1>
-<time datetime="2008-11-23T05:11:25-08:00" pubdate><span class='month'>Nov</span> <span class='day'>23</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/links/'>Links</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/22/attribution-css-and-irc/">Attribution, CSS, and IRC</a></h1>
-<time datetime="2008-11-22T10:41:33-08:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/21/whew/">whew&#8230;</a></h1>
-<time datetime="2008-11-21T10:21:14-08:00" pubdate><span class='month'>Nov</span> <span class='day'>21</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/19/happy-gis-day/">Happy GIS Day.</a></h1>
-<time datetime="2008-11-19T01:44:54-08:00" pubdate><span class='month'>Nov</span> <span class='day'>19</span> <span class='year'>2008</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/18/wfs/">WFS!</a></h1>
-<time datetime="2008-11-18T08:10:22-08:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/18/wms-to-wfs/">WMS To WFS</a></h1>
-<time datetime="2008-11-18T04:00:42-08:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/16/mapserver-update/">Mapserver [Update]</a></h1>
-<time datetime="2008-11-16T08:19:10-08:00" pubdate><span class='month'>Nov</span> <span class='day'>16</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/11/15/73/">Mapserver Up and Running</a></h1>
-<time datetime="2008-11-15T12:33:28-08:00" pubdate><span class='month'>Nov</span> <span class='day'>15</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
-<time datetime="2008-10-03T14:48:38-07:00" pubdate><span class='month'>Oct</span> <span class='day'>03</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
-<time datetime="2008-09-30T08:12:46-07:00" pubdate><span class='month'>Sep</span> <span class='day'>30</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
-<time datetime="2008-09-14T16:20:42-07:00" pubdate><span class='month'>Sep</span> <span class='day'>14</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
-<time datetime="2008-09-14T09:11:44-07:00" pubdate><span class='month'>Sep</span> <span class='day'>14</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 On Shared Webhost</a></h1>
-<time datetime="2008-09-12T05:02:06-07:00" pubdate><span class='month'>Sep</span> <span class='day'>12</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/08/plans/">Plans</a></h1>
-<time datetime="2008-09-08T06:09:35-07:00" pubdate><span class='month'>Sep</span> <span class='day'>08</span> <span class='year'>2008</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
-<time datetime="2008-09-07T16:24:38-07:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/links/'>Links</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2008/09/07/i-am-matt/">i am matt</a></h1>
-<time datetime="2008-09-07T12:24:52-07:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span> <span class='year'>2008</span></time>
-
-
-</article>
-
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2013</h1>
+	
+	</div>
+	
+	<div class="span11">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-11-13T19:13:00-08:00" pubdate><span class='month'>Nov</span> <span class='day'>13</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a></h1>
+	</div>
 </div>
 
-  
-</article>
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
 
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/openstreetmap/'>OpenStreetMap</a>, <a class='category' href='/blog/categories/postgis/'>PostGIS</a></span>
+		</footer>
+		
+	</div>
 </div>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a>
-      </li>
-    
-  </ul>
-</section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/mattmakesmaps">@mattmakesmaps</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'mattmakesmaps',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
-    </div>
+	  </article>
+	</div>
   </div>
-  <footer role="contentinfo"><p>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-10-15T20:51:00-07:00" pubdate><span class='month'>Oct</span> <span class='day'>15</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-10-09T19:25:00-07:00" pubdate><span class='month'>Oct</span> <span class='day'>09</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-08-26T21:12:00-07:00" pubdate><span class='month'>Aug</span> <span class='day'>26</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/desktop-gis/'>Desktop-GIS</a>, <a class='category' href='/blog/categories/linux/'>Linux</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-07-17T11:06:00-07:00" pubdate><span class='month'>Jul</span> <span class='day'>17</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-07-10T20:35:00-07:00" pubdate><span class='month'>Jul</span> <span class='day'>10</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/">Fixing ArcGIS 10.1 Numpy Import Error From Python Console</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/arcgis/'>ArcGIS</a>, <a class='category' href='/blog/categories/python/'>Python</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-06-16T14:19:00-07:00" pubdate><span class='month'>Jun</span> <span class='day'>16</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/06/16/auto-push-to-github-via-machine-user/">Auto-Push to GitHub via Machine User</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/github/'>Github</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-05-01T20:53:00-07:00" pubdate><span class='month'>May</span> <span class='day'>01</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2013/05/01/django-add-mapquest-tiles/">Hack GeoDjango Admin with Mapquest Tiles</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2011</h1>
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2011-12-12T00:30:17-08:00" pubdate><span class='month'>Dec</span> <span class='day'>12</span><span class='year'><!--2011--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/">GeoDjango: Standing Up A GeoJSON Web-Service</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2011-11-28T00:35:49-08:00" pubdate><span class='month'>Nov</span> <span class='day'>28</span><span class='year'><!--2011--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2011/11/28/moving-to-geodjango/">Moving to GeoDjango</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2011-02-25T05:09:52-08:00" pubdate><span class='month'>Feb</span> <span class='day'>25</span><span class='year'><!--2011--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/">Hand-Rolled Vector Tiles - TileStache</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2010</h1>
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2010-07-09T05:25:40-07:00" pubdate><span class='month'>Jul</span> <span class='day'>09</span><span class='year'><!--2010--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2010/07/09/curling-to-featureserver-from-postgis-easier-then-i-thought/">cURL&#8217;ing to FeatureServer from PostGIS: Easier then I Thought</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2010-06-28T00:37:39-07:00" pubdate><span class='month'>Jun</span> <span class='day'>28</span><span class='year'><!--2010--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2010-02-06T09:47:11-08:00" pubdate><span class='month'>Feb</span> <span class='day'>06</span><span class='year'><!--2010--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">pgRouting III: PHP + OpenLayers Interface</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2010-01-31T05:05:32-08:00" pubdate><span class='month'>Jan</span> <span class='day'>31</span><span class='year'><!--2010--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">pgRouting Part II: PostGIS + Geoserver</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2010-01-11T14:26:59-08:00" pubdate><span class='month'>Jan</span> <span class='day'>11</span><span class='year'><!--2010--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">pgRouting On Ubuntu Netbook Remix 9.10</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2009</h1>
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-04-27T03:13:59-07:00" pubdate><span class='month'>Apr</span> <span class='day'>27</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">ESRI UC Student Assistant, Sweet!</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-04-22T08:43:21-07:00" pubdate><span class='month'>Apr</span> <span class='day'>22</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing An Existing MySQL Database</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-04-08T08:24:07-07:00" pubdate><span class='month'>Apr</span> <span class='day'>08</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/">MetaCarta&#8217;s Map Rectifier + ESRI DevSummit Mashup Winner :)</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-04-07T10:14:36-07:00" pubdate><span class='month'>Apr</span> <span class='day'>07</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/04/07/cloudmade-tile-request-graphics/">CloudMade Tile Request Graphics</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-04-05T05:45:46-07:00" pubdate><span class='month'>Apr</span> <span class='day'>05</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/04/05/spatiallite-my-first-look/">SpatialLite: My First Look</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/databases/'>Databases</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-03-13T12:31:39-07:00" pubdate><span class='month'>Mar</span> <span class='day'>13</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/03/13/arcgis-rest-api-openlayers-unit-testing-fun-in-the-sun/">ArcGIS REST API / OpenLayers / Unit Testing = Fun In The Sun</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-01-31T07:51:18-08:00" pubdate><span class='month'>Jan</span> <span class='day'>31</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/01/31/google-motion-charts-from-data-to-information/">Google Motion Charts: From Data To Information </a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-01-24T13:32:07-08:00" pubdate><span class='month'>Jan</span> <span class='day'>24</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/01/24/osm-minutely-tile-updates-thanks-cloudmade/">OSM &#8216;Minutely&#8217; Tile Updates: Thanks CloudMade!</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2009-01-20T12:24:03-08:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span><span class='year'><!--2009--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2009/01/20/geocoding-with-openlayers-a-crash-course-in-firebug/">Geocoding with OpenLayers: A Crash Course In Firebug</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2008</h1>
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-12-19T17:00:15-08:00" pubdate><span class='month'>Dec</span> <span class='day'>19</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/">TMS: Shaded Relief for OSM Data (An Adventure and A 1/2)</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-12-08T02:01:36-08:00" pubdate><span class='month'>Dec</span> <span class='day'>08</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/12/08/osm-recap/">OSM Recap</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-12-04T06:29:01-08:00" pubdate><span class='month'>Dec</span> <span class='day'>04</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/12/04/openstreetmaporg-mapping-party-this-weekend/">OpenStreetMap.org Mapping Party This Weekend</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/events/'>Events</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-12-01T02:09:19-08:00" pubdate><span class='month'>Dec</span> <span class='day'>01</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/12/01/stefan-steinger-foss-desktop-gis-overview/">Stefan Steinger - FOSS Desktop GIS Overview</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/links/'>Links</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-30T14:38:53-08:00" pubdate><span class='month'>Nov</span> <span class='day'>30</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/30/spherical-mercator-new-portfolio/">Spherical Mercator / New Portfolio</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-23T05:11:25-08:00" pubdate><span class='month'>Nov</span> <span class='day'>23</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/23/scapetoad-open-source-cartogram-generator/">ScapeToad - Open Source Cartogram Generator</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/cartography/'>Cartography</a>, <a class='category' href='/blog/categories/links/'>Links</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-22T10:41:33-08:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/22/attribution-css-and-irc/">Attribution, CSS, and IRC</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-21T10:21:14-08:00" pubdate><span class='month'>Nov</span> <span class='day'>21</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/21/whew/">whew&#8230;</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-19T01:44:54-08:00" pubdate><span class='month'>Nov</span> <span class='day'>19</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/19/happy-gis-day/">Happy GIS Day.</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-18T08:10:22-08:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/18/wfs/">WFS!</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-18T04:00:42-08:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/18/wms-to-wfs/">WMS To WFS</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-16T08:19:10-08:00" pubdate><span class='month'>Nov</span> <span class='day'>16</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/16/mapserver-update/">Mapserver [Update]</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-11-15T12:33:28-08:00" pubdate><span class='month'>Nov</span> <span class='day'>15</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/11/15/73/">Mapserver Up and Running</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-10-03T14:48:38-07:00" pubdate><span class='month'>Oct</span> <span class='day'>03</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-30T08:12:46-07:00" pubdate><span class='month'>Sep</span> <span class='day'>30</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-14T16:20:42-07:00" pubdate><span class='month'>Sep</span> <span class='day'>14</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-14T09:11:44-07:00" pubdate><span class='month'>Sep</span> <span class='day'>14</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/scripting/'>Scripting</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-12T05:02:06-07:00" pubdate><span class='month'>Sep</span> <span class='day'>12</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/12/gdal-proj4-on-shared-webhost/">GDAL / PROJ.4 On Shared Webhost</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-08T06:09:35-07:00" pubdate><span class='month'>Sep</span> <span class='day'>08</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/08/plans/">Plans</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-07T16:24:38-07:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/07/free-courses-in-gis/">University Courses in GIS</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/links/'>Links</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2008-09-07T12:24:52-07:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span><span class='year'><!--2008--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/blog/2008/09/07/i-am-matt/">i am matt</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+</div>
+
+</article>
+
+
+
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
   Copyright &copy; 2013 - Matthew Kenny -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-</footer>
+
+        </footer>
+      </div>
+  </div>
   
 
 <script type="text/javascript">
@@ -824,7 +1835,7 @@ Oct 15 2013 &hellip;">
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -840,7 +1851,7 @@ Oct 15 2013 &hellip;">
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

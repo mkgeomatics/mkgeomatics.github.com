@@ -8,9 +8,10 @@
   <title>MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :) - mattmakesmaps</title>
   <meta name="author" content="Matthew Kenny">
 
+   
+  <meta name="description" content="open source mapping notes from cascadia">
   
-  <meta name="description" content="I never knew about the MetaCarta Labs&#8217; Map Rectifier tool, but I&rsquo;ll expect to be using it more in the future. After uploading an image to &hellip;">
-  
+  <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,12 +21,17 @@
   
   <link rel="canonical" href="http://mkgeomatics.github.io/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner">
   <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -47,27 +53,14 @@
 </head>
 
 <body   >
-  <header role="banner"><div class="jumbotron">
-  <div class="container">
-    Hi. I'm Matthew Kenny.
-    <h3 class="tagline">maps + bikes = matt</h3>
-  </div>
-</div>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="nav">
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
     
         <li ><a href="/index.html">Home</a></li>
     
@@ -79,19 +72,38 @@
     
 </ul>
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+    <li><a href="mailto:matthewkenny AT gmail DOT com" title="Email"><i class="icon-envelope-alt social-navbar"></i></a></li>
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <div>
 <article class="hentry" role="article">
   
+
   <header>
-    
-      <h1 class="entry-title">MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :)</h1>
-    
-    
-      <p class="meta">
-        
+  <div class="jumbotron">
+    MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :)
+	<h5>
 
 
 
@@ -103,14 +115,12 @@
   
 
 
-<time datetime="2009-04-08T08:24:07-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&rsquo;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. <!-- more --> In addition to uploading your own content, a user has the ability to add GCPs for other users&#8217; uploads as well.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2009-04-08T08:24:07-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2009</time></h5>
+  </div>
+</header>
+  <div class="row-fluid">
+    <div class="span12">
+      <p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&rsquo;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. <!-- more --> In addition to uploading your own content, a user has the ability to add GCPs for other users&#8217; uploads as well.</p>
 
 <p>[caption id=&ldquo;attachment_276&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: The MetaCarta Interface&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta-300x170.jpg" alt="Above: The MetaCarta Interface" /></a>[/caption]</p>
 
@@ -127,57 +137,62 @@
 <p>Easy as pie? Piece of Cake? Yes. It&rsquo;s innovative projects like these that keep pushing me to learn more about web mapping technology. Big thanks go out to <a href="http://">crschmidt</a> (who i assumed was involved w/ the project) at MetaCarta and <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a> for putting together two great products.</p>
 
 <p>On a final note, the MetaCarta Rectifier has the ability to export out images as geotiffs, allowing us to consume them in our desktop GIS applications. A quick check in ArcCatalog of the Chernobyl sample image I exported out revealed a WGS84 GCS. I can see some really nice workflows combining this tool with tiling programs such as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a> for painless TMS creation.</p>
-</div>
+
+    </div>
+  </div>
+
 
 
   <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-08T08:24:07-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2009</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
-  
-</span>
-
-
-    </p>
+    <hr>
     
-      <div class="sharing">
+    <div class="row-fluid">
+      
+      <div class="span6">
+        <p class="meta">
+        
+        
+
+
+
+  <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
+
+
+
+
+        </p>
+      </div>
+      
+      <div class="span6 social-sharing">
+        <div class="sharing">
+  <div class="addthis_toolbox addthis_default_style ">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mkgeomatics.github.io/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/" data-via="mattmakesmaps" data-counturl="http://mkgeomatics.github.io/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/" >Tweet</a>
+  
+  <a class="addthis_button_tweet"></a>
   
   
-  
+  <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
+      </div>
+      
+      
+    </div>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2009/04/07/cloudmade-tile-request-graphics/" title="Previous Post: CloudMade Tile Request Graphics">&laquo; CloudMade Tile Request Graphics</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2009/04/22/visualizing-an-existing-mysql-database/" title="Next Post: Visualizing An Existing MySQL Database">Visualizing An Existing MySQL Database &raquo;</a>
-      
-    </p>
+    <div class="row-fluid">
+      <div class="span12">
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2009/04/07/cloudmade-tile-request-graphics/" title="Previous Post: CloudMade Tile Request Graphics">&laquo; CloudMade Tile Request Graphics</a>
+          
+          
+            <a class="basic-alignment right" href="/blog/2009/04/22/visualizing-an-existing-mysql-database/" title="Next Post: Visualizing An Existing MySQL Database">Visualizing An Existing MySQL Database &raquo;</a>
+          
+        </p>
+      </div>
+    </div>
   </footer>
 </article>
 
@@ -189,80 +204,21 @@
 
 </div>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/mattmakesmaps">@mattmakesmaps</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'mattmakesmaps',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
 
 
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
   Copyright &copy; 2013 - Matthew Kenny -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-</footer>
+
+        </footer>
+      </div>
+  </div>
   
 
 <script type="text/javascript">
@@ -276,7 +232,7 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -292,7 +248,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

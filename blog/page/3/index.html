@@ -8,9 +8,10 @@
   <title>mattmakesmaps</title>
   <meta name="author" content="Matthew Kenny">
 
+   
+  <meta name="description" content="open source mapping notes from cascadia">
   
-  <meta name="description" content="I&rsquo;ve been working on a side project using pgRouting to determine the least-cost path across a street network from a given building to the &hellip;">
-  
+  <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,12 +21,17 @@
   
   <link rel="canonical" href="http://mkgeomatics.github.io/blog/page/3">
   <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -47,27 +53,14 @@
 </head>
 
 <body   >
-  <header role="banner"><div class="jumbotron">
-  <div class="container">
-    Hi. I'm Matthew Kenny.
-    <h3 class="tagline">maps + bikes = matt</h3>
-  </div>
-</div>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:mkgeomatics.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="nav">
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
     
         <li ><a href="/index.html">Home</a></li>
     
@@ -79,22 +72,48 @@
     
 </ul>
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+    <li><a href="mailto:matthewkenny AT gmail DOT com" title="Email"><i class="icon-envelope-alt social-navbar"></i></a></li>
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <div class="jumbotron">
+  <div class="container">
+    Hi. I&#8217;m Matthew Kenny.
+    <h3 class="tagline">Here are some thoughts of mine.</h3>
+  </div>
+</div>
+
+
+<div class="blog-index">
   
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL Function to Iterate pgRouting</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -106,34 +125,42 @@
   
 
 
-<time datetime="2010-06-28T00:37:39-07:00" pubdate data-updated="true">Jun 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2010-06-28T00:37:39-07:00" pubdate data-updated="true">Jun 28<span>th</span>, 2010</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/databases/"><span class="badge">Databases</span></a>
+          
+          <a href="/blog/categories/scripting/"><span class="badge">Scripting</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">PL/pgSQL function to Iterate pgRouting</a></h1>
+      <p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. 
+      
+       <a href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-
-  <div class="entry-content"><p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">pgRouting III: PHP + OpenLayers Interface</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -145,36 +172,44 @@
   
 
 
-<time datetime="2010-02-06T09:47:11-08:00" pubdate data-updated="true">Feb 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2010-02-06T09:47:11-08:00" pubdate data-updated="true">Feb 6<span>th</span>, 2010</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/databases/"><span class="badge">Databases</span></a>
+          
+          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">pgRouting III: PHP + OpenLayers Interface</a></h1>
+      <p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
 
+<p>The conceptual plan is as follows: 
+      
+       <a href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-  <div class="entry-content"><p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
-
-<p>The conceptual plan is as follows: </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">pgRouting Part II: PostGIS + Geoserver</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -186,34 +221,42 @@
   
 
 
-<time datetime="2010-01-31T05:05:32-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2010-01-31T05:05:32-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2010</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/databases/"><span class="badge">Databases</span></a>
+          
+          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">pgRouting Part II: PostGIS + Geoserver</a></h1>
+      <p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&rsquo;s pgRouting extension</a> to PostgreSQL/PostGIS, I&rsquo;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: 
+      
+       <a href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-
-  <div class="entry-content"><p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&rsquo;s pgRouting extension</a> to PostgreSQL/PostGIS, I&rsquo;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">pgRouting on Ubuntu Netbook Remix 9.10</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -225,34 +268,42 @@
   
 
 
-<time datetime="2010-01-11T14:26:59-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2010-01-11T14:26:59-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2010</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/databases/"><span class="badge">Databases</span></a>
+          
+          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">pgRouting On Ubuntu Netbook Remix 9.10</a></h1>
+      <p>While working through Regina Obe and Leo Hsu&rsquo;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&rsquo;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included. 
+      
+       <a href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-
-  <div class="entry-content"><p>While working through Regina Obe and Leo Hsu&rsquo;s <a href="http://www.postgis.us">PostGIS In Action</a> I thought that I&rsquo;d jump into the world of routing. My plan was to develop a sample application that could be used to plan bicycle routes throughout the city of Seattle. A quick google search proved that someone has already done it, and done it very well! <a href="http://www.ridethecity.com/">http://www.ridethecity.com/</a> provides cycling routes using OSM data for many major cities, Seattle included. </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2010/01/11/pgrouting-on-ubuntu-netbook-remix-9-10/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">ESRI UC Student Assistant, Sweet!</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -264,36 +315,42 @@
   
 
 
-<time datetime="2009-04-27T03:13:59-07:00" pubdate data-updated="true">Apr 27<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2009-04-27T03:13:59-07:00" pubdate data-updated="true">Apr 27<span>th</span>, 2009</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/events/"><span class="badge">Events</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">ESRI UC Student Assistant, Sweet!</a></h1>
+      <p>Just found out that I&rsquo;ll be participating in the 2009 ESRI UC as a student assistant. Big thanks go out to <a href="http://geography.asu.edu/balling">Dr. Robert Balling</a> and <a href="http://www.spatiallyadjusted.com/">James Fee</a>, who both wrote letters of recommendation for me.</p>
 
+<p>Now to get back to more pressing matters, like refactoring this giant wad o&#8217; javascript. 
+      
+       <a href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-  <div class="entry-content"><p>Just found out that I&rsquo;ll be participating in the 2009 ESRI UC as a student assistant. Big thanks go out to <a href="http://geography.asu.edu/balling">Dr. Robert Balling</a> and <a href="http://www.spatiallyadjusted.com/">James Fee</a>, who both wrote letters of recommendation for me.</p>
-
-<p>Now to get back to more pressing matters, like refactoring this giant wad o&#8217; javascript. </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2009/04/27/esri-uc-student-assistant-sweet/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing an Existing MySQL Database</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -305,107 +362,54 @@
   
 
 
-<time datetime="2009-04-22T08:43:21-07:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
+<i class="icon-calendar-empty"></i> <time datetime="2009-04-22T08:43:21-07:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2009</time></h5>
+          <div class="row-fluid">
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Visualizing An Existing MySQL Database</a></h1>
+      <p>So I&rsquo;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&hellip; you know, the kind that usually don&rsquo;t work out very well? 
+      
+       <a href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Read on &rarr;</a> 
+    </div>
+  </div>
 
-
-  <div class="entry-content"><p>So I&rsquo;ve been working for about a month with a fairly-normalized (53-table) database in which I draw out all kinds of tabular information, and display it in a spatial context. This has required the numerous multiple table joins, with all kinds of weird relationships&hellip; you know, the kind that usually don&rsquo;t work out very well? </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2009/04/22/visualizing-an-existing-mysql-database/">Read on &rarr;</a>
-    </footer>
-  
 
 
     </article>
+    
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    <a class="prev" href="/blog/page/4/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
+
     
     <a class="next" href="/blog/page/2/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">Creating Label Points With OpenStreetMap Data</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/15/tilestache-links-roundup/">TileStache-Links-Roundup</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/09/tilestache-rendering-topojson/">TileStache: Generate [Topo|Geo]JSON Vector Tiles</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">MapBox + Github = Free and Fast Web Maps</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/mattmakesmaps">@mattmakesmaps</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'mattmakesmaps',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
 
 
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
   Copyright &copy; 2013 - Matthew Kenny -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-</footer>
+
+        </footer>
+      </div>
+  </div>
   
 
 <script type="text/javascript">
@@ -416,7 +420,7 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -432,7 +436,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
