@@ -10,7 +10,7 @@ categories:
 ---
 ## tl;dr
 
-``` sql
+```sql
 -- Use a CTE to create a table of water polygons, aggregating
 -- overlapping polygons sharing the same name
 WITH polys AS (
@@ -32,8 +32,10 @@ FROM polys;
 [OpenStreetMap](http://www.openstreetmap.org/) is one the most amazing data projects I know of.
 The breadth of high-quality, high-precision features contained with the OSM Planet never ceases
 to impress me. That being said, the freedom of the OSM data model, which allows this high-level of
-flexibility and openness, is not without its problems. One of the major problems I've run into
-recently have been the generation of label points derived from Open Street Map.
+flexibility and openness, is not without its problems. Having participated in the OSM edit-a-thon,
+I was inspired to deep dive into the OSM tagging ontology, and subsequent rendering workflows. As part 
+of this exploration, one of the major problems I've run into was the generation of label points 
+derived from Open Street Map data.
 
 The following example is illustrative of the primary problem faced when generating label points,
 overlapping geometries. The SQL statement below returns all features within an [imposm](http://imposm.org)
