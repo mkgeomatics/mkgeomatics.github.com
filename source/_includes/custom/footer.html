@@ -1,4 +1,18 @@
-<p>
-  Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
-</p>
+Copyright &copy; {{ site.time | date: "%Y" }}
+{% if site.author %}
+    {{ site.author }}
+{% else %}
+    {{ site.title }}
+{% endif %}
+<br>
+{% if site.github_user %}
+    <a href="https://github.com/{{ site.github_user }}">Github</a> 
+{% endif %}
+{% if site.twitter_user %}
+    <a href="https://twitter.com/{{ site.twitter_user }}">Twitter</a> 
+{% endif %}
+{% if site.linkedin_user %}
+    <a href="https://www.linkedin.com/in/{{ site.linkedin_user }}">Linkedin</a>
+{% endif %}
+<br>
+Powered by Octopress.
