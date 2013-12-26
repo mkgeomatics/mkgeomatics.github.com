@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ArcGIS | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/arcgis/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/arcgis/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Fixing ArcGIS 10.1 Numpy Import Error From Python Console]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/"/>
     <updated>2013-07-10T20:35:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error</id>
+    <id>http://mattmakesmaps.com/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error</id>
     <content type="html"><![CDATA[<p>At my current employer, we have four Windows 7 64-bit workstations, all running ArcGIS 10.1 under
 various license levels. Hilariously, due to some quirk that I haven&rsquo;t been able to figure out,
 all machines have been reporting the following traceback when running <code>&gt;&gt;&gt; import numpy</code> from

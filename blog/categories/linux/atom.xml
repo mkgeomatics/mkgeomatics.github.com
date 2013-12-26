@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Linux | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/linux/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Quickstart GIS Setup on Ubuntu Linux 12.04 LTS]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/"/>
     <updated>2013-08-26T21:12:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts</id>
+    <id>http://mattmakesmaps.com/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts</id>
     <content type="html"><![CDATA[<p>I had to recently setup a clean Ubuntu 12.04 LTS workstation for GIS
 data processing. For the simplicity and speed, I decided to go with
 packaged versions of many of the required GIS software. Many of the

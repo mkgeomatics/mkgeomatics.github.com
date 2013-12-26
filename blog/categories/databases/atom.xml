@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Databases | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/databases/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/databases/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Moving to GeoDjango]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/"/>
+    <link href="http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango/"/>
     <updated>2011-11-28T00:35:49-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango</id>
+    <id>http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&rsquo;s been a lot of fun so far. I&rsquo;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
 
 <p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&rsquo;ll just put two entries into the same cell).</p>
@@ -48,9 +48,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hand-Rolled Vector Tiles - TileStache]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
+    <link href="http://mattmakesmaps.com/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
     <updated>2011-02-25T05:09:52-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
+    <id>http://mattmakesmaps.com/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
     <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&mdash; Imagine that&rsquo;s a mustache on it&rsquo;s side.</p>
 
 <blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
@@ -145,9 +145,9 @@ http: //jsbeautifier.org/
   
   <entry>
     <title type="html"><![CDATA[PL/pgSQL function to Iterate pgRouting]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
+    <link href="http://mattmakesmaps.com/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
+    <id>http://mattmakesmaps.com/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
 <p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&rsquo;ve posted my function below. It&rsquo;s not pretty, but it&rsquo;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
@@ -211,9 +211,9 @@ SELECT bulk_route_generate();
   
   <entry>
     <title type="html"><![CDATA[pgRouting III: PHP + OpenLayers Interface]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/"/>
+    <link href="http://mattmakesmaps.com/blog/2010/02/06/pgrouting-iii-php-openlayers-interface/"/>
     <updated>2010-02-06T09:47:11-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
+    <id>http://mattmakesmaps.com/blog/2010/02/06/pgrouting-iii-php-openlayers-interface</id>
     <content type="html"><![CDATA[<p>With the routing <a href="http://www.mkgeomatics.com/wordpress/?p=312">database configured and populated</a>, and with <a href="http://www.mkgeomatics.com/wordpress/?p=322">geoserver rendering the WMS</a>, now the focus can shift on designing the actual display and functionality.</p>
 
 <p>The conceptual plan is as follows: <!-- more --></p>
@@ -280,9 +280,9 @@ SELECT bulk_route_generate();
   
   <entry>
     <title type="html"><![CDATA[pgRouting Part II: PostGIS + Geoserver]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/"/>
+    <link href="http://mattmakesmaps.com/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver/"/>
     <updated>2010-01-31T05:05:32-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver</id>
+    <id>http://mattmakesmaps.com/blog/2010/01/31/pgrouting-part-ii-postgis-geoserver</id>
     <content type="html"><![CDATA[<p>Since compiling <a href="http://pgrouting.postlbs.org/">Orkney&rsquo;s pgRouting extension</a> to PostgreSQL/PostGIS, I&rsquo;ve decided to try my hand at creating a simple web interface to poke into the database. The current setup is as follows: <!-- more --></p>
 
 <ul>

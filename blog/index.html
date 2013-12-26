@@ -1,0 +1,490 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>maps + bikes = matt don't know nothin bout nothin else  | mattmakesmaps</title>
+
+<meta name="author" content="Matt Kenny"> 
+
+<meta name="description" content="maps + bikes = matt don't know nothin bout nothin else"> <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Tableau, django, python, geodjango">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">mattmakesmaps</a></h1>
+<h4>maps + bikes = matt don't know nothin bout nothin else</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:mattmakesmaps.com">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/">
+		
+			Creating Label Points With OpenStreetMap Data</a>
+	</h2>
+	<div class="entry-content">
+		<h2>tl;dr</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- Use a CTE to create a table of water polygons, aggregating</span>
+</span><span class='line'><span class="c1">-- overlapping polygons sharing the same name</span>
+</span><span class='line'><span class="k">WITH</span> <span class="n">polys</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'>    <span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_DUMP</span><span class="p">(</span><span class="n">ST_BUFFER</span><span class="p">(</span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">geometry</span><span class="p">),</span> <span class="mi">0</span><span class="p">))).</span><span class="n">geom</span> <span class="k">AS</span> <span class="n">single_geom</span>
+</span><span class='line'>    <span class="k">FROM</span> <span class="n">osm_new_waterareas</span>
+</span><span class='line'>    <span class="k">WHERE</span> <span class="n">name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+</span><span class='line'>    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="c1">-- Generate a name and label point for each feature</span>
+</span><span class='line'><span class="c1">-- Generate an accurate area attribute by casting to geography</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">ST_PointOnSurface</span><span class="p">(</span><span class="n">single_geom</span><span class="p">),</span>
+</span><span class='line'>       <span class="n">ST_Area</span><span class="p">(</span><span class="n">Geography</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">single_geom</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">area</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">polys</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+		
+		<a href="/blog/2013/11/13/creating-label-points-with-openstreetmap-data/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-13T19:13:00-08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/openstreetmap/'>OpenStreetMap</a>, <a class='category' href='/blog/categories/postgis/'>PostGIS</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/10/15/tilestache-links-roundup/">
+		
+			TileStache-Links-Roundup</a>
+	</h2>
+	<div class="entry-content">
+		<p>I&rsquo;m giving a presentation at this year&rsquo;s <a href="http://cugos.org/events/2013/10/16/fall-fling/">CUGOS Fall Fling Bling</a>, on <a href="http://tilestache.org">TileStache</a>. The list below are a series of interesting links I&rsquo;ve found regarding TileStache, or Vector Tiles in general.</p>
+
+<h2>Mind of Migurski</h2>
+
+<ul>
+<li><a href="http://mike.teczno.com/notes/vector-tile-rendering-numbers.html">Tiled Vector Update, with Math</a></li>
+<li><a href="http://mike.teczno.com/notes/postgreslessness-mapnik-vectiles.html">the libery of postgreslessness: tiled vectors in mapnik</a></li>
+<li><a href="http://mike.teczno.com/notes/tilestache.html">Presenting TileStache</a></li>
+</ul>
+
+
+<h2>Nelson Minar Vector Tiles Notes</h2>
+
+<ul>
+<li><a href="https://github.com/NelsonMinar/vector-river-map">Map of American Rivers</a>: <strong>NOTE:</strong> This is a fantastic tutorial.</li>
+<li><a href="http://bl.ocks.org/NelsonMinar/5851197">TopoJSON Vector Maps from OSM</a></li>
+<li><a href="http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68099164">TopoJSON: A Smaller GeoJSON with Some Neat Tricks</a></li>
+</ul>
+
+
+<h2>Data</h2>
+
+<ul>
+<li><a href="http://openstreetmap.us/~migurski/vector-datasource/">OSM US Vector Tiles</a></li>
+</ul>
+
+
+<p>My own slides from the Fall Fling can be found <a href="https://speakerdeck.com/mattmakesmaps/tilestache-more-then-youre-granddads-tilecache-server">here</a>. An introductory blog post on rendering TopoJSON with TileStache can be found, <a href="http://mattmakesmaps.com/blog/2013/10/09/tilestache-rendering-topojson/">here</a>.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T20:51:00-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/10/09/tilestache-rendering-topojson/">
+		
+			TileStache: Generate [Topo|Geo]JSON Vector Tiles</a>
+	</h2>
+	<div class="entry-content">
+		<p>Vector tiles are simply tiled representations of geographic data, much like raster tiles
+used to power typical web maps such as OpenStreetMap. They differ from traditional
+raster tiles however in that instead being an image, they actually contain the
+geographic coordinates and attributes of the features that exist within their bounding boxes.
+Vector tiles can be used for a variety of different rendered outputs within a modern web-mapping
+application. One examples can include serving as an intermediate step in the processing of
+raster tiles. This approach is adopted by Mapbox, who have defined their own
+<a href="https://www.mapbox.com/blog/vector-tiles/">mapnik-vector-tile</a> spec. This allows for amazing
+styling possibilities, allowing raster tiles to be generated with different styles quickly and
+efficiently based on the same dataset. Another approach relies on transmitting vector data directly
+to the client, where client-side libs render data as SVGs directly in the browser. <a href="http://d3js.org">D3.js</a>
+is a JavaScript library that can do this just this, as illustrated by <a href="http://bl.ocks.org/svmatthews/6081504">Sam Matthews</a>. Now that we know what they&rsquo;re good for, how can we take our own local geographic data, and render our own?</p>
+
+
+		
+		<a href="/blog/2013/10/09/tilestache-rendering-topojson/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-09T19:25:00-07:00" pubdate data-updated="true">Oct 9<span>th</span>, 2013</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/">
+		
+			Quickstart GIS Setup on Ubuntu Linux 12.04 LTS</a>
+	</h2>
+	<div class="entry-content">
+		<p>I had to recently setup a clean Ubuntu 12.04 LTS workstation for GIS
+data processing. For the simplicity and speed, I decided to go with
+packaged versions of many of the required GIS software. Many of the
+packages are derived from the <a href="https://launchpad.net/~ubuntugis/+archive/ubuntugis-unstable">ubuntugis-unstable</a> repository.</p>
+
+<p>What follows below are a blow-by-blow of my installation notes
+grouped by software package. Either code snippets or links to relevant
+blog posts.
+		
+		<a href="/blog/2013/08/26/quickstart-gis-setup-on-ubuntu-linux-12-dot-04-lts/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-26T21:12:00-07:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/desktop-gis/'>Desktop-GIS</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/">
+		
+			MapBox + Github = Free and Fast Web Maps</a>
+	</h2>
+	<div class="entry-content">
+		<p>With the announcement of Github&rsquo;s awesome support for <a href="http://www.mapbox.com/blog/github-mapbox-maps/">direct geojson renderingg</a>,
+folks can deploy an embeddable web map with a single git commit and push. This got me
+thinking about the potential of github, specifically <a href="http://pages.github.com/">github pages</a>,
+as a vehicle for the display of more customized web mapping applications. The result of that
+experiment is <a href="http://aknativenamesatlas.com">aknativenamesatlas.com</a>. 
+		
+		<a href="/blog/2013/07/17/mapbox-plus-github-equals-free-and-fast-web-maps/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T11:06:00-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time></div>
+	
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/">
+		
+			Fixing ArcGIS 10.1 Numpy Import Error From Python Console</a>
+	</h2>
+	<div class="entry-content">
+		<p>At my current employer, we have four Windows 7 64-bit workstations, all running ArcGIS 10.1 under
+various license levels. Hilariously, due to some quirk that I haven&rsquo;t been able to figure out,
+all machines have been reporting the following traceback when running <code>&gt;&gt;&gt; import numpy</code> from
+ArcGIS Desktop&rsquo;s internal Python console.</p>
+
+
+		
+		<a href="/blog/2013/07/10/fixing-arcgis-10-dot-1-python-console-numpy-import-error/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-10T20:35:00-07:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/arcgis/'>ArcGIS</a>, <a class='category' href='/blog/categories/python/'>Python</a>
+
+</div>
+
+
+	
+</div></article>
+
+<nav id="pagenavi">
+    
+    
+        <a href="/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Matt Kenny
+
+<br>
+
+    <a href="https://github.com/mattmakesmaps">Github</a> 
+
+
+    <a href="https://twitter.com/mattmakesmaps">Twitter</a> 
+
+
+    <a href="https://www.linkedin.com/in/mattmakesmaps">Linkedin</a>
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-40519413-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

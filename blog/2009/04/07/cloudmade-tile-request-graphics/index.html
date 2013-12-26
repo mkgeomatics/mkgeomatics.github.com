@@ -1,247 +1,210 @@
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>CloudMade Tile Request Graphics - mattmakesmaps</title>
-  <meta name="author" content="Matt Kenny">
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>CloudMade Tile Request Graphics  | mattmakesmaps</title>
 
-   
-  <meta name="description" content="open source mapping notes from cascadia">
-  
-  <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango">
+<meta name="author" content="Matt Kenny"> 
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="maps + bikes = matt don't know nothin bout nothin else"> <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Tableau, django, python, geodjango">
 
-  
-  <link rel="canonical" href="http://mkgeomatics.github.io/blog/2009/04/07/cloudmade-tile-request-graphics">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
-  <script src="/js/application.js"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-40519413-1']);
-    _gaq.push(['_trackPageview']);
+	<link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
 
+          if (id) {
+            el = $('#' + id);
 
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
 </head>
 
-<body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
-    
-        <li ><a href="/index.html">Home</a></li>
-    
-        <li ><a href="/about/">About</a></li>
-    
-        <li ><a href="/portfolio/">Portfolio/Slides</a></li>
-    
-        <li ><a href="/blog/archives/">Archives</a></li>
-    
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">mattmakesmaps</a></h1>
+<h4>maps + bikes = matt don't know nothin bout nothin else</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
 </ul>
-
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    
-    
-    <li><a href="mailto:matthewkenny AT gmail DOT com" title="Email"><i class="icon-envelope-alt social-navbar"></i></a></li>
-    
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
 </ul>
-
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          <div>
-<article class="hentry" role="article">
-  
-
-  <header>
-  <div class="jumbotron">
-    CloudMade Tile Request Graphics
-	<h5>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:mattmakesmaps.com">
+			</form>
+		</div>
+	</div>
+</nav>
 
 
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2009-04-07T10:14:36-07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2009</time></h5>
-  </div>
 </header>
-  <div class="row-fluid">
-    <div class="span12">
-      <p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&rsquo;s also interesting to note the high activity in other regions such as Chile and the Philippines. <!-- more --></p>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">CloudMade Tile Request Graphics</h2>
+	<div class="entry-content"><p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&rsquo;s also interesting to note the high activity in other regions such as Chile and the Philippines. <!-- more --></p>
 
 <p>[caption id=&ldquo;attachment_272&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: CloudMade&rsquo;s Tile Request Graphic&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request-300x187.jpg" alt="Above: CloudMade's Tile Request Overlay" /></a>[/caption]</p>
 
 <p>Following the link to the <a href="http://maps.cloudmade.com/javascripts/stats/cloudmade.js?1238766232">stats JavaScript</a>, it looks like they are using a custom OpenLayers layer class, OpenLayers.Layer.Cloudmade. Sweet!</p>
-
-    </div>
-  </div>
+</div>
 
 
-
-  <footer>
-    <hr>
-    
-    <div class="row-fluid">
-      
-      <div class="span6">
-        <p class="meta">
-        
-        
-
-
-
-  <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
+<div class="meta">
+	<div class="date">
 
 
 
 
-        </p>
-      </div>
-      
-      <div class="span6 social-sharing">
-        <div class="sharing">
-  <div class="addthis_toolbox addthis_default_style ">
+
+
+
+
   
-  
-  <a class="addthis_button_tweet"></a>
-  
-  
-  <a class="addthis_counter addthis_pill_style"></a>
-  </div>
+
+
+<time datetime="2009-04-07T10:14:36-07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2009</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
   <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
-      </div>
-      
-      
-    </div>
-    
-    <div class="row-fluid">
-      <div class="span12">
-        <p class="meta">
-          
-            <a class="basic-alignment left" href="/blog/2009/04/05/spatiallite-my-first-look/" title="Previous Post: SpatialLite: My First Look">&laquo; SpatialLite: My First Look</a>
-          
-          
-            <a class="basic-alignment right" href="/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/" title="Next Post: MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :)">MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :) &raquo;</a>
-          
-        </p>
-      </div>
-    </div>
-  </footer>
-</article>
 
-  <section>
-    <h1>Comments</h1>
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  </section>
-
+</section>
 </div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Matt Kenny
+
+<br>
+
+    <a href="https://github.com/mattmakesmaps">Github</a> 
 
 
-
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
-  Copyright &copy; 2013 - Matt Kenny -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
-</p>
+    <a href="https://twitter.com/mattmakesmaps">Twitter</a> 
 
 
-        </footer>
-      </div>
-  </div>
-  
+    <a href="https://www.linkedin.com/in/mattmakesmaps">Linkedin</a>
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
 
 <script type="text/javascript">
       var disqus_shortname = 'mkgeomatics';
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://mkgeomatics.github.io/blog/2009/04/07/cloudmade-tile-request-graphics/';
-        var disqus_url = 'http://mkgeomatics.github.io/blog/2009/04/07/cloudmade-tile-request-graphics/';
+        var disqus_identifier = 'http://mattmakesmaps.com/blog/2009/04/07/cloudmade-tile-request-graphics/';
+        var disqus_url = 'http://mattmakesmaps.com/blog/2009/04/07/cloudmade-tile-request-graphics/';
         var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-40519413-1']);
+		_gaq.push(['_trackPageview']);
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
 
 

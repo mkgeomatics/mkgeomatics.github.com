@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Scripting | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/scripting/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/scripting/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[PL/pgSQL function to Iterate pgRouting]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
+    <link href="http://mattmakesmaps.com/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting/"/>
     <updated>2010-06-28T00:37:39-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
+    <id>http://mattmakesmaps.com/blog/2010/06/28/plpgsql-function-to-iterate-pgrouting</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working on a side project using <a href="http://www.mkgeomatics.com/wordpress/?s=pgRouting&amp;searchsubmit=Find">pgRouting</a> to determine the least-cost path across a street network from a given building to the nearest bus stop within <a href="http://en.wikipedia.org/wiki/Bellingham,_Washington">Bellingham, WA</a>. It&rsquo;s one thing to execute pgRouting&rsquo;s built-in functions for a single vertex (building) to another vertex (bus stop)&hellip; but another to have the function iterate through all buildings and their closest bus stop. <!-- more --></p>
 
 <p>So that began my first experience with using PL/pgSQL. The benefit for using the procedural language for PostgreSQL lies in its ability to loop through collections of records easily. I&rsquo;ve posted my function below. It&rsquo;s not pretty, but it&rsquo;s filled with enough notices to let me know where an error occurs, which helped me understand how things were acting each step of the way. Here is the basic idea:</p>
@@ -81,9 +81,9 @@ SELECT bulk_route_generate();
   
   <entry>
     <title type="html"><![CDATA[Nested Tuples and Hours of Patience]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/10/03/nested-tuples-and-hours-of-patience/"/>
+    <link href="http://mattmakesmaps.com/blog/2008/10/03/nested-tuples-and-hours-of-patience/"/>
     <updated>2008-10-03T14:48:38-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/10/03/nested-tuples-and-hours-of-patience</id>
+    <id>http://mattmakesmaps.com/blog/2008/10/03/nested-tuples-and-hours-of-patience</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve finally got a working python script that does the following:</p>
 
 <p>-Reads each of the vertexes of a polyline shapefile using &lsquo;OGR&rsquo;</p>
@@ -107,9 +107,9 @@ SELECT bulk_route_generate();
   
   <entry>
     <title type="html"><![CDATA[I'm Obsessed With Douglas-Peucker]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/09/30/im-obsessed-with-douglas-peucker/"/>
+    <link href="http://mattmakesmaps.com/blog/2008/09/30/im-obsessed-with-douglas-peucker/"/>
     <updated>2008-09-30T08:12:46-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/09/30/im-obsessed-with-douglas-peucker</id>
+    <id>http://mattmakesmaps.com/blog/2008/09/30/im-obsessed-with-douglas-peucker</id>
     <content type="html"><![CDATA[<p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
 
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
@@ -142,9 +142,9 @@ $ogrinfo -al input_polyline.shp | grep linestring | tr -d &ldquo;LINESTRING()&rd
   
   <entry>
     <title type="html"><![CDATA[Python GP Strangeness]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/09/14/python-gp-strangeness/"/>
+    <link href="http://mattmakesmaps.com/blog/2008/09/14/python-gp-strangeness/"/>
     <updated>2008-09-14T09:11:44-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/09/14/python-gp-strangeness</id>
+    <id>http://mattmakesmaps.com/blog/2008/09/14/python-gp-strangeness</id>
     <content type="html"><![CDATA[<p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
 
 <!-- more -->

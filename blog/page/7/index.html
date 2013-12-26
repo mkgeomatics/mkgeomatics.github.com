@@ -1,164 +1,159 @@
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>mattmakesmaps</title>
-  <meta name="author" content="Matt Kenny">
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>maps + bikes = matt don't know nothin bout nothin else  | mattmakesmaps</title>
 
-   
-  <meta name="description" content="open source mapping notes from cascadia">
-  
-  <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Ridolfi, django, python, geodjango">
+<meta name="author" content="Matt Kenny"> 
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="maps + bikes = matt don't know nothin bout nothin else"> <meta name="keywords" content="GIS, Open Source, web mapping, seattle, CUGOS, Tableau, django, python, geodjango">
 
-  
-  <link rel="canonical" href="http://mkgeomatics.github.io/blog/page/7">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
-  <script src="/js/application.js"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-40519413-1']);
-    _gaq.push(['_trackPageview']);
+	<link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
 
+          if (id) {
+            el = $('#' + id);
 
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
 </head>
 
-<body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
-    
-        <li ><a href="/index.html">Home</a></li>
-    
-        <li ><a href="/about/">About</a></li>
-    
-        <li ><a href="/portfolio/">Portfolio/Slides</a></li>
-    
-        <li ><a href="/blog/archives/">Archives</a></li>
-    
-</ul>
 
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/mattmakesmaps" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://linkedin.com/in/mattmakesmaps" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://twitter.com/mattmakesmaps" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    
-    
-    <li><a href="mailto:matthewkenny AT gmail DOT com" title="Email"><i class="icon-envelope-alt social-navbar"></i></a></li>
-    
+<body>
+	<header id="header" class="inner"><h1><a href="/">mattmakesmaps</a></h1>
+<h4>maps + bikes = matt don't know nothin bout nothin else</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
 </ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:mattmakesmaps.com">
+			</form>
+		</div>
+	</div>
+</nav>
 
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          <div class="jumbotron">
-  <div class="container">
-    Hi. I&#8217;m Matt Kenny.
-    <h3 class="tagline">matt + maps  = mattmakesmaps</h3>
-  </div>
+
+</header>
+
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/11/16/mapserver-update/">
+		
+			Mapserver [Update]</a>
+	</h2>
+	<div class="entry-content">
+		<p>Well, using the <a href="http://openlayers.org/dev/examples/">OpenLayers Cookbook</a> I&rsquo;ve been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now. 
+		
+		<a href="/blog/2008/11/16/mapserver-update/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-16T08:19:10-08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2008</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
 </div>
 
 
-<div class="blog-index">
-  
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+	
+</div></article>
 
 
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/11/15/73/">
+		
+			Mapserver Up and Running</a>
+	</h2>
+	<div class="entry-content">
+		<p>Well, after about a month of no progress in the Web GIS realm, i&rsquo;ve finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you&rsquo;re also wondering, the data being displayed is actually a <a href="http://www.cob.org/services/maps/index.aspx">shapefile</a> of the neighborhoods of beautiful Bellingham, WA. 
+		
+		<a href="/blog/2008/11/15/73/" class="more-link">more &rarr;</a>
+	</div>
 
 
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2008-11-16T08:19:10-08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/11/16/mapserver-update/">Mapserver [Update]</a></h1>
-      <p>Well, using the <a href="http://openlayers.org/dev/examples/">OpenLayers Cookbook</a> I&rsquo;ve been able to modify OpenLayers to display base data from Google and their own World WMS layer. That is all for now. 
-      
-       <a href="/blog/2008/11/16/mapserver-update/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+<div class="meta">
+	<div class="date">
 
 
 
@@ -170,66 +165,29 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2008-11-15T12:33:28-08:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/11/15/73/">Mapserver Up and Running</a></h1>
-      <p>Well, after about a month of no progress in the Web GIS realm, i&rsquo;ve finally got some progress to show! The openlayers map you are looking at below is consuming information from a Mapserver WMS, running on this site. In case you&rsquo;re also wondering, the data being displayed is actually a <a href="http://www.cob.org/services/maps/index.aspx">shapefile</a> of the neighborhoods of beautiful Bellingham, WA. 
-      
-       <a href="/blog/2008/11/15/73/">Read on &rarr;</a> 
-    </div>
-  </div>
+<time datetime="2008-11-15T12:33:28-08:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
+</div>
 
 
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+	
+</div></article>
 
 
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/scripting/"><span class="badge">Scripting</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Nested Tuples and Hours of Patience</a></h1>
-      <p>I&rsquo;ve finally got a working python script that does the following:</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">
+		
+			Nested Tuples and Hours of Patience</a>
+	</h2>
+	<div class="entry-content">
+		<p>I&rsquo;ve finally got a working python script that does the following:</p>
 
 <p>-Reads each of the vertexes of a polyline shapefile using &lsquo;OGR&rsquo;</p>
 
@@ -238,25 +196,13 @@
 <p>-Generates an output text file using &lsquo;stdout&rsquo; with the resulting &lsquo;smoothed&rsquo; coordinates (in whatever linear unit of measurement that the source shapefile happens to be in).</p>
 
 
-      
-       <a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/">Read on &rarr;</a> 
-    </div>
-  </div>
+		
+		<a href="/blog/2008/10/03/nested-tuples-and-hours-of-patience/" class="more-link">more &rarr;</a>
+	</div>
 
 
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+<div class="meta">
+	<div class="date">
 
 
 
@@ -268,48 +214,42 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/scripting/"><span class="badge">Scripting</span></a>
-          
-          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">I&#8217;m Obsessed With Douglas-Peucker</a></h1>
-      <p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
+<time datetime="2008-10-03T14:48:38-07:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2008</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/scripting/'>Scripting</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">
+		
+			I&#8217;m Obsessed With Douglas-Peucker</a>
+	</h2>
+	<div class="entry-content">
+		<p>The Problem: Web map vector overlays take a really long time to load if there are too many verticies.</p>
 
 <p>The Idea: Use the Douglas-Peucker algorithm to reduce the number of verticies thereby decreasing load time.</p>
 
 <p>The [Proposed] Solution: Using a version of the Douglas-Peucker algorithm written in Python, input a source shapefile, and output a smoothed shapefile through the following steps. This script currently uses board coordinates, and as such, is not &lsquo;spatially&rsquo; enabled. The trick is to make it except shapefiles as an input source.</p>
 
 
-      
-       <a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/">Read on &rarr;</a> 
-    </div>
-  </div>
+		
+		<a href="/blog/2008/09/30/im-obsessed-with-douglas-peucker/" class="more-link">more &rarr;</a>
+	</div>
 
 
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+<div class="meta">
+	<div class="date">
 
 
 
@@ -321,104 +261,137 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/web-gis/"><span class="badge">Web-GIS</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/09/14/web-based-grass/">Web-Based GRASS!</a></h1>
-      <p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&rsquo;ve been working off of Aaron Racicot&rsquo;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &mdash;with-fftw-includes and &mdash;with-tclktk-includes respectively. Also, ran into 
-      
-       <a href="/blog/2008/09/14/web-based-grass/">Read on &rarr;</a> 
-    </div>
-  </div>
+<time datetime="2008-09-30T08:12:46-07:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time></div>
+	
 
+<div class="tags">
 
+	<a class='category' href='/blog/categories/scripting/'>Scripting</a>, <a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
 
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
-
-
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time></h5>
-          <div class="row-fluid">
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/scripting/"><span class="badge">Scripting</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2008/09/14/python-gp-strangeness/">Python GP Strangeness</a></h1>
-      <p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
-
-
-      
-       <a href="/blog/2008/09/14/python-gp-strangeness/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
-  
-  <div class="pagination">
-    
-    <a class="prev" href="/blog/page/8/">&larr; Older</a>
-    
-
-    
-    <a class="next" href="/blog/page/6/">Newer &rarr;</a>
-    
-  </div>
 </div>
 
 
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
-  Copyright &copy; 2013 - Matt Kenny -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
-</p>
+	
+</div></article>
 
 
-        </footer>
-      </div>
-  </div>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/09/14/web-based-grass/">
+		
+			Web-Based GRASS!</a>
+	</h2>
+	<div class="entry-content">
+		<p>Whoo-hoo! After a number of tweaks, I finally was able to install command-line GRASS GIS onto this site. I&rsquo;ve been working off of Aaron Racicot&rsquo;s <a href="http://www.reprojected.com/geoblog/how-tos/gis-on-a-shared-hosting-environment-the-magic-of-not-having-root/">tutorial</a> for about a week now. Actually being able to understand and fix some of the errors in the ./configure process is feeling pretty rewarding. I had to manually set the pathways for FFTW and TK using &mdash;with-fftw-includes and &mdash;with-tclktk-includes respectively. Also, ran into 
+		
+		<a href="/blog/2008/09/14/web-based-grass/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
   
+
+
+<time datetime="2008-09-14T16:20:42-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/web-gis/'>Web-GIS</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/09/14/python-gp-strangeness/">
+		
+			Python GP Strangeness</a>
+	</h2>
+	<div class="entry-content">
+		<p>I had to explicitly set the workspace, list the ASCII files, THEN link the two into a single variable for use in the ASCIIToRaster tool. I could have sworn that all I needed to do was to pass along the ASCII variable right into the ASCIIToRaster tool, and it would automatically carry the file path along with it. Maybe that is only the case when you are working with fields, rather than rasters / feature classes?</p>
+
+
+		
+		<a href="/blog/2008/09/14/python-gp-strangeness/" class="more-link">more &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-14T09:11:44-07:00" pubdate data-updated="true">Sep 14<span>th</span>, 2008</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/scripting/'>Scripting</a>
+
+</div>
+
+
+	
+</div></article>
+
+<nav id="pagenavi">
+    
+        <a href="/blog/page/6/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/8/" class="next">Next</a>
+    
+    <div class="center"><a href="/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Matt Kenny
+
+<br>
+
+    <a href="https://github.com/mattmakesmaps">Github</a> 
+
+
+    <a href="https://twitter.com/mattmakesmaps">Twitter</a> 
+
+
+    <a href="https://www.linkedin.com/in/mattmakesmaps">Linkedin</a>
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
 
 <script type="text/javascript">
       var disqus_shortname = 'mkgeomatics';
@@ -428,28 +401,24 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-40519413-1']);
+		_gaq.push(['_trackPageview']);
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
 
 

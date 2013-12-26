@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Cartography | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/cartography/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/cartography/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hand-Rolled Vector Tiles - TileStache]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
+    <link href="http://mattmakesmaps.com/blog/2011/02/25/hand-rolled-vector-tiles-tilestache/"/>
     <updated>2011-02-25T05:09:52-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
+    <id>http://mattmakesmaps.com/blog/2011/02/25/hand-rolled-vector-tiles-tilestache</id>
     <content type="html"><![CDATA[<p>A few weeks ago I found myself surfing the intertubes for instructions on how to serve up some vector tile goodness. That search came up pretty much empty, except for one glimmering <a href="http://gis.stackexchange.com/questions/3712/create-vector-geojson-tiles-for-polymaps">thread</a> of hope. The answer, <a href="http://tilestache.org/">TileStache</a> { &lt;&mdash; Imagine that&rsquo;s a mustache on it&rsquo;s side.</p>
 
 <blockquote><p>TileStache is a Python-based server application that can serve up map tiles based on rendered geographic data.</p></blockquote>
@@ -112,9 +112,9 @@ http: //jsbeautifier.org/
   
   <entry>
     <title type="html"><![CDATA[TMS: Shaded Relief for OSM Data (An Adventure and A 1/2)]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/"/>
+    <link href="http://mattmakesmaps.com/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12/"/>
     <updated>2008-12-19T17:00:15-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12</id>
+    <id>http://mattmakesmaps.com/blog/2008/12/19/tms-shaded-relief-for-osm-data-an-adventure-and-a-12</id>
     <content type="html"><![CDATA[<p>After reading <a href="http://stamen.com/">Michal Migurski&rsquo;s</a> excellent post, &lsquo;<a href="http://mike.teczno.com/notes/hillshading.html">making friends with hillshading</a>&rsquo; I decided to try my own hand at producing a TMS-compatible hillshade layer for OSM. Motivated by both the high resolution LiDAR data which I happen to have access to, and the lack of access to ArcDesktop during the winter intersession&hellip; I set out on the FOSSGIS path. <!-- more --></p>
 
 <p>[caption id=&ldquo;attachment_205&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;259&rdquo; caption=&ldquo;The resulting overlay&rdquo;]<a href="http://www.mkgeomatics.com/apps/openlayers/tiles/ol_working.html"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/12/picture-1-259x300.png" alt="The resulting overlay" /></a>[/caption]</p>
@@ -146,9 +146,9 @@ A GRASS-based approach to creating a TMS layer is possible, and has been outline
   
   <entry>
     <title type="html"><![CDATA[ScapeToad - Open Source Cartogram Generator]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator/"/>
+    <link href="http://mattmakesmaps.com/blog/2008/11/23/scapetoad-open-source-cartogram-generator/"/>
     <updated>2008-11-23T05:11:25-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2008/11/23/scapetoad-open-source-cartogram-generator</id>
+    <id>http://mattmakesmaps.com/blog/2008/11/23/scapetoad-open-source-cartogram-generator</id>
     <content type="html"><![CDATA[<p><a href="http://chorogram.choros.ch/scapetoad/index.php">ScapeToad</a> provides an amazingly easy to use interface for creating cartograms. Accepting shapefiles directly as input, it has a wide variety of fine-tunable settings in addition to its presets. The ability to utilize multiple layers as weights also seems like a pretty exciting feature. Written entirely in java, it&rsquo;s platform-independent, another plus for mac and / or linux GIS users. <!-- more --></p>
 
 <p>[caption id=&ldquo;attachment_127&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: The counties of Washington State.&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2008/11/wa-300x202.jpg" alt="WA_Green" /></a>[/caption]</p>

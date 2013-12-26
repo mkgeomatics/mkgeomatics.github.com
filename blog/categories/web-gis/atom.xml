@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/web-gis/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/web-gis/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[TileStache-Links-Roundup]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/10/15/tilestache-links-roundup/"/>
     <updated>2013-10-15T20:51:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/10/15/tilestache-links-roundup</id>
+    <id>http://mattmakesmaps.com/blog/2013/10/15/tilestache-links-roundup</id>
     <content type="html"><![CDATA[<p>I&rsquo;m giving a presentation at this year&rsquo;s <a href="http://cugos.org/events/2013/10/16/fall-fling/">CUGOS Fall Fling Bling</a>, on <a href="http://tilestache.org">TileStache</a>. The list below are a series of interesting links I&rsquo;ve found regarding TileStache, or Vector Tiles in general.</p>
 
 <h2>Mind of Migurski</h2>
@@ -51,9 +51,9 @@
   
   <entry>
     <title type="html"><![CDATA[TileStache: Generate [Topo|Geo]JSON Vector Tiles]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/10/09/tilestache-rendering-topojson/"/>
     <updated>2013-10-09T19:25:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/10/09/tilestache-rendering-topojson</id>
+    <id>http://mattmakesmaps.com/blog/2013/10/09/tilestache-rendering-topojson</id>
     <content type="html"><![CDATA[<p>Vector tiles are simply tiled representations of geographic data, much like raster tiles
 used to power typical web maps such as OpenStreetMap. They differ from traditional
 raster tiles however in that instead being an image, they actually contain the
@@ -215,9 +215,9 @@ the aesthetic affects on representations of these geometries.</p>
   
   <entry>
     <title type="html"><![CDATA[Hack GeoDjango Admin with Mapquest Tiles]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/05/01/django-add-mapquest-tiles/"/>
     <updated>2013-05-01T20:53:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/05/01/django-add-mapquest-tiles</id>
+    <id>http://mattmakesmaps.com/blog/2013/05/01/django-add-mapquest-tiles</id>
     <content type="html"><![CDATA[<p>The <a href="http://geodjango.org/">GeoDjango model</a> admin provides a great <a href="http://openlayers.org/">OpenLayers</a> interface, allowing a user to create geographic features (points, lines, polygons) directly via a web map. Out-of-the-box,
 GeoDjango ships with a base GeoAdmin class, using the default OL world borders layer,
 as well as a subclass for OSM streets data. The OSM layer is great, and provides a good base
@@ -344,9 +344,9 @@ of Mapquest.</p>
   
   <entry>
     <title type="html"><![CDATA[GeoDjango: Standing Up A GeoJSON Web-Service]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/"/>
+    <link href="http://mattmakesmaps.com/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service/"/>
     <updated>2011-12-12T00:30:17-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service</id>
+    <id>http://mattmakesmaps.com/blog/2011/12/12/geodjango-standing-up-a-geojson-web-service</id>
     <content type="html"><![CDATA[<p>The models are complete. The database is loaded with some test tabular and spatial data. We&rsquo;re pushing out HTML representations of attribute data using GeoDjango&rsquo;s standard templating functions. Now, the focus moves to visualizing these features' geometries in a spatial context. Just as with a Django QuerySet, GeoDjango provides a GeoQuerySet. <!-- more --> When paired with a spatially-enabled database (e.g. PostGIS, SpatialLite, etc.), the GeoQuerySet provides functionality for querying data using a series of spatial filters, in addition to tabular filters. As a point of reference, the GeoDjango docs have great tables depicting a blow-by-blow comparison of different spatial databases, displaying each available <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#spatial-lookup-compatibility">Spatial Lookup</a> and <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/db-api/#geoqueryset-methods">GeoQuerySet method</a>. Take note, PostGIS is the clear winner in terms of functionality ;)</p>
 
 <h2>Why GeoJSON?</h2>
@@ -492,9 +492,9 @@ return HttpResponse(s)
   
   <entry>
     <title type="html"><![CDATA[Moving to GeoDjango]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango/"/>
+    <link href="http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango/"/>
     <updated>2011-11-28T00:35:49-08:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2011/11/28/moving-to-geodjango</id>
+    <id>http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&rsquo;s been a lot of fun so far. I&rsquo;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
 
 <p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&rsquo;ll just put two entries into the same cell).</p>

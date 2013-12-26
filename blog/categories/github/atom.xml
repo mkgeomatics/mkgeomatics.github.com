@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Github | mattmakesmaps]]></title>
-  <link href="http://mkgeomatics.github.io/blog/categories/github/atom.xml" rel="self"/>
-  <link href="http://mkgeomatics.github.io/"/>
-  <updated>2013-12-08T14:33:47-08:00</updated>
-  <id>http://mkgeomatics.github.io/</id>
+  <link href="http://mattmakesmaps.com/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://mattmakesmaps.com/"/>
+  <updated>2013-12-25T20:29:21-08:00</updated>
+  <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
     <email><![CDATA[matthewkenny AT gmail DOT com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Auto-Push to GitHub via Machine User]]></title>
-    <link href="http://mkgeomatics.github.io/blog/2013/06/16/auto-push-to-github-via-machine-user/"/>
+    <link href="http://mattmakesmaps.com/blog/2013/06/16/auto-push-to-github-via-machine-user/"/>
     <updated>2013-06-16T14:19:00-07:00</updated>
-    <id>http://mkgeomatics.github.io/blog/2013/06/16/auto-push-to-github-via-machine-user</id>
+    <id>http://mattmakesmaps.com/blog/2013/06/16/auto-push-to-github-via-machine-user</id>
     <content type="html"><![CDATA[<p>This post will review a workflow for automatically pushing data from a client machine to github.
 This can be useful if you want to automatically make publicly available data that are regularly processed on
 a local machine. <!-- more --> For my particular use case, I&rsquo;m downloading data from the <a href="http://waterservices.usgs.gov/rest/IV-Test-Tool.html">USGS Instantaneus Values
