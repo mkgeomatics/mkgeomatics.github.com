@@ -25,7 +25,7 @@ loading that empty database with data.
 * GEOS: 3.3.8
 * PROJ: 4.8.0
 * GDAL: 1.9.2
-
+<!-- more -->
 ### Configuration
 
 **NOTE:** For background reading on Travis CI, check out the [Getting Started](http://about.travis-ci.org/docs/user/getting-started/) and [Build Configuration](http://about.travis-ci.org/docs/user/build-configuration/) docs.
