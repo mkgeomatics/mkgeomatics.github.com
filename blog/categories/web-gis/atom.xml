@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web-GIS | mattmakesmaps]]></title>
   <link href="http://mattmakesmaps.com/blog/categories/web-gis/atom.xml" rel="self"/>
   <link href="http://mattmakesmaps.com/"/>
-  <updated>2014-01-11T15:02:10-08:00</updated>
+  <updated>2014-01-11T15:04:54-08:00</updated>
   <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configure PostGIS with Travis CI]]></title>
+    <link href="http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci/"/>
+    <updated>2014-01-11T13:03:00-08:00</updated>
+    <id>http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci</id>
+    <content type="html"><![CDATA[<p>Thanks to a great presentation by <a href="https://github.com/foundatron">foundatron</a> on the continuous
+integration framework, <a href="https://travis-ci.org">Travis CI</a>, I&rsquo;ve finally been motivated to push
+for higher test coverage in my python projects.</p>
+
+<p>Some of these <a href="https://github.com/mattmakesmaps/pgsql2gist">projects</a> require connectivity to a
+PostGIS database for testing, and with Travis CI that process is extremely straightforward.
+This post includes notes on configuring a Travis CI environment with PostgreSQL and PostGIS, then
+loading that empty database with data.</p>
+
+<h3>PostgreSQL/Postgis Versions</h3>
+
+<p><strong>NOTE:</strong> These versions are current as of <strong>January 2014</strong>.</p>
+
+<ul>
+<li>PostgreSQL: 9.1.11 by default, although you can <a href="http://about.travis-ci.org/blog/2013-11-29-PostgreSQLql-92-93-now-available/">explicitly declare</a> 9.2 or 9.3.</li>
+<li>PostGIS: 2.1.1 r12113</li>
+<li>GEOS: 3.3.8</li>
+<li>PROJ: 4.8.0</li>
+<li>GDAL: 1.9.2</li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p><strong>NOTE:</strong> For background reading on Travis CI, check out the <a href="http://about.travis-ci.org/docs/user/getting-started/">Getting Started</a> and <a href="http://about.travis-ci.org/docs/user/build-configuration/">Build Configuration</a> docs.</p>
+
+<p>As stated in the <a href="http://about.travis-ci.org/docs/user/database-setup/#PostgreSQLQL">database docs</a>,
+a Travis CI environment comes with PostgreSQL installed and ready-to-go. This also includes supporting
+utilities such as: <code>psql</code>,<code>pg_dump</code>, and <code>pg_restore</code>. Since we&rsquo;re using PostgreSQL 9.1+ and PostGIS 2.0+,
+PostGIS can be installed using the <code>CREATE EXTENSION</code> syntax.</p>
+
+<p>The <code>.travis.yml</code> configuration file should now be modified to execute <code>psql</code> calls in the
+<code>before_script</code> block to:</p>
+
+<ol>
+<li>Create the database</li>
+<li>Create the PostGIS/PostGIS Topology Extensions</li>
+<li>Populate the database with test data. (See Below for Instructions)</li>
+</ol>
+
+
+<p>A reference example <code>.travis.yml</code> looks like this:</p>
+
+<p>```yml
+language: python
+python:
+  &ndash; &ldquo;2.7&rdquo;</p>
+
+<h1>command to install dependencies</h1>
+
+<p>install:
+  &ndash; &ldquo;pip install -r requirements.txt &mdash;use-mirrors&rdquo;</p>
+
+<h1>database creation</h1>
+
+<p>before_script:
+  &ndash; psql -c &lsquo;create database travis_postgis;&rsquo; -U postgres
+  &ndash; psql -c &lsquo;CREATE EXTENSION postgis;&rsquo; -U postgres -d travis_postgis
+  &ndash; psql -c &lsquo;CREATE EXTENSION postgis_topology;&rsquo; -U postgres -d travis_postgis
+  &ndash; psql -f test_data.sql -U postgres -d travis_postgis</p>
+
+<h1>command to run tests</h1>
+
+<p>script: nosetests &mdash;verbose
+```</p>
+
+<h3>Creating Test Data</h3>
+
+<p>The <code>pg_dump</code> utility can be used to export the contents of a PostGIS database into a sql file,
+suitable for loading into a newly created database by the Travis worker. Key to this is to have testing
+data that you want to export inside of a separate schema (e.g. not in <code>public</code>). With <code>pg_dump</code> we can
+specify an individual schema of data tables to export, otherwise we&rsquo;d be stuck with exporting potentially
+incompatible PostGIS function signitures in addition to our data. Boundless has a
+<a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">good article</a> on backup strategies for PostGIS.</p>
+
+<p>From our source PostGIS database, export tables from our schema of interest (<code>test_data</code>) into <code>test_data.sql</code></p>
+
+<p><code>bash
+$ pg_dump --schema=test_data travis_postgis &gt; test_data.sql
+</code></p>
+
+<p>As seen in the section above, the resulting sql file, <code>test_data.sql</code> is then executed as part of the
+Travis <code>before_script</code> block, populating the testing database with geometries.</p>
+
+<p><strong>NOTE:</strong> I&rsquo;ve used the same name <code>travis_postgis</code> for both my local database as well as the testing
+database used by Travis CI. This isn&rsquo;t required.</p>
+
+<h3>Wrap Up</h3>
+
+<p>Thanks to the combination of PostgreSQL&rsquo;s easy to use <code>CREATE EXTENSION</code> syntax along with Travis CI&rsquo;s flexible build configurations, setting up a custom PostGIS database is fairly simple.</p>
+
+<p>An example repository with a <code>.travis.yml</code> file and an example unit test can be found here: <a href="https://github.com/mattmakesmaps/travis-postgis-test">https://github.com/mattmakesmaps/travis-postgis-test</a></p>
+
+<p>This repository&rsquo;s Travis CI build log can be found here: <a href="https://travis-ci.org/mattmakesmaps/travis-postgis-test">https://travis-ci.org/mattmakesmaps/travis-postgis-test</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[TileStache-Links-Roundup]]></title>
@@ -487,39 +589,6 @@ return HttpResponse(s)
 ```</p>
 
 <p>And there you have it, GeoJSON containing both the geometry and attributes. This output can now be mapped to URL, creating an endpoint such as &lsquo;<a href="http://my-site.com/geojson/boundary/">http://my-site.com/geojson/boundary/</a>{boundary_id}/&rsquo;. Pass this to your web mapping client, and you&rsquo;re ready to rock.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Moving to GeoDjango]]></title>
-    <link href="http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango/"/>
-    <updated>2011-11-28T00:35:49-08:00</updated>
-    <id>http://mattmakesmaps.com/blog/2011/11/28/moving-to-geodjango</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve been creating a simple GeoDjango application for managing environmental sampling metadata, and it&rsquo;s been a lot of fun so far. I&rsquo;ve had experience working with many different forms of metadata tracking, from spreadsheets, to wikis, to online project management tools. All of them have their ups and downs, and it seems like there is always a dealbreaker with each organizational method.</p>
-
-<p>Spreadsheets are easy to edit, but lack any form of relational structure (two sets of data for the same report? i guess i&rsquo;ll just put two entries into the same cell).</p>
-
-<!-- more -->
-
-
-<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;464&rdquo; caption=&ldquo;sometimes spreadsheets just don&rsquo;t work&hellip;&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot.png" alt="" /></a>[/caption]</p>
-
-<p>Wikis are cool, allow easy access to information, but are (in certain cases) a pain for folks to edit. Take the experience of table creation. Dokuwiki, a generic wiki software, requires a series of  carefully placed carrots and pipes to delineate headers and columns. A common pain comes when adding a new value to a new row, in which that value exceeds the length of any previous cell. This requires the author to expand the column header, and all previously entered rows, re-aligning the pipes and carrots. Granted as a slightly OCD GIS Analyst, the sight of a well crafted text table fills me with no less wonder then when I saw Albert Bierstadt&rsquo;s <a href="http://www.seattleartmuseum.org/exhibit/exhibitDetail.asp?eventID=21084">&ldquo;Puget Sound on the Pacific Coast&rdquo;</a>, but it&rsquo;s just darn tedious at times. Additionally, as the log of sampling events grows larger, it gets harder to manage. Dokuwiki, AFAIK provides no ways to automatically resort entire sections of pages or records in tables based on alphabetical order, which would make searching for information on a particular page much faster as content becomes larger and larger.</p>
-
-<p><code>
-^ Column One                ^ Column Two                 ^
-| Zee 'z' string            | This is a longer string    |
-| 2nd longer string of text | 2nd short string           |
-| SuperShort                | A string starting with 'A' |
-</code></p>
-
-<p>Online project management tools are interesting as well. They allow rapid collaboration between project members, and provide template functionality, allowing for status reports on recurring workflows to be easily generated (e.g., create a template for a report, spawn off an instance of a template for each new project). The downside to these services are that: they cost money, they also may not provide a normalized way to store data, and (of most interest to myself) they probably don&rsquo;t allow for the storage/visualization of spatial data.</p>
-
-<p>[caption id=&ldquo;attachment_488&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;10 megs free for one user? cool!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-1-300x162.png" alt="" /></a>[/caption]</p>
-
-<p>In comes GeoDjango. Over the next few posts, I think I&rsquo;ll record my experiences developing an application that allows the storage of metadata, within the context of environmental sampling efforts. The goal is to provide a web application which stores both tabular and spatial data in a normalized fashion, and easily visualize both in an informative way.</p>
-
-<p>[caption id=&ldquo;attachment_489&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Hey look Ma', it&rsquo;s GeoJSON!&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2.png"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2011/11/Screenshot-2-300x147.png" alt="" /></a>[/caption]</p>
 ]]></content>
   </entry>
   

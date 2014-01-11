@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PostGIS | mattmakesmaps]]></title>
   <link href="http://mattmakesmaps.com/blog/categories/postgis/atom.xml" rel="self"/>
   <link href="http://mattmakesmaps.com/"/>
-  <updated>2014-01-11T15:02:10-08:00</updated>
+  <updated>2014-01-11T15:04:54-08:00</updated>
   <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configure PostGIS with Travis CI]]></title>
+    <link href="http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci/"/>
+    <updated>2014-01-11T13:03:00-08:00</updated>
+    <id>http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci</id>
+    <content type="html"><![CDATA[<p>Thanks to a great presentation by <a href="https://github.com/foundatron">foundatron</a> on the continuous
+integration framework, <a href="https://travis-ci.org">Travis CI</a>, I&rsquo;ve finally been motivated to push
+for higher test coverage in my python projects.</p>
+
+<p>Some of these <a href="https://github.com/mattmakesmaps/pgsql2gist">projects</a> require connectivity to a
+PostGIS database for testing, and with Travis CI that process is extremely straightforward.
+This post includes notes on configuring a Travis CI environment with PostgreSQL and PostGIS, then
+loading that empty database with data.</p>
+
+<h3>PostgreSQL/Postgis Versions</h3>
+
+<p><strong>NOTE:</strong> These versions are current as of <strong>January 2014</strong>.</p>
+
+<ul>
+<li>PostgreSQL: 9.1.11 by default, although you can <a href="http://about.travis-ci.org/blog/2013-11-29-PostgreSQLql-92-93-now-available/">explicitly declare</a> 9.2 or 9.3.</li>
+<li>PostGIS: 2.1.1 r12113</li>
+<li>GEOS: 3.3.8</li>
+<li>PROJ: 4.8.0</li>
+<li>GDAL: 1.9.2</li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p><strong>NOTE:</strong> For background reading on Travis CI, check out the <a href="http://about.travis-ci.org/docs/user/getting-started/">Getting Started</a> and <a href="http://about.travis-ci.org/docs/user/build-configuration/">Build Configuration</a> docs.</p>
+
+<p>As stated in the <a href="http://about.travis-ci.org/docs/user/database-setup/#PostgreSQLQL">database docs</a>,
+a Travis CI environment comes with PostgreSQL installed and ready-to-go. This also includes supporting
+utilities such as: <code>psql</code>,<code>pg_dump</code>, and <code>pg_restore</code>. Since we&rsquo;re using PostgreSQL 9.1+ and PostGIS 2.0+,
+PostGIS can be installed using the <code>CREATE EXTENSION</code> syntax.</p>
+
+<p>The <code>.travis.yml</code> configuration file should now be modified to execute <code>psql</code> calls in the
+<code>before_script</code> block to:</p>
+
+<ol>
+<li>Create the database</li>
+<li>Create the PostGIS/PostGIS Topology Extensions</li>
+<li>Populate the database with test data. (See Below for Instructions)</li>
+</ol>
+
+
+<p>A reference example <code>.travis.yml</code> looks like this:</p>
+
+<p>```yml
+language: python
+python:
+  &ndash; &ldquo;2.7&rdquo;</p>
+
+<h1>command to install dependencies</h1>
+
+<p>install:
+  &ndash; &ldquo;pip install -r requirements.txt &mdash;use-mirrors&rdquo;</p>
+
+<h1>database creation</h1>
+
+<p>before_script:
+  &ndash; psql -c &lsquo;create database travis_postgis;&rsquo; -U postgres
+  &ndash; psql -c &lsquo;CREATE EXTENSION postgis;&rsquo; -U postgres -d travis_postgis
+  &ndash; psql -c &lsquo;CREATE EXTENSION postgis_topology;&rsquo; -U postgres -d travis_postgis
+  &ndash; psql -f test_data.sql -U postgres -d travis_postgis</p>
+
+<h1>command to run tests</h1>
+
+<p>script: nosetests &mdash;verbose
+```</p>
+
+<h3>Creating Test Data</h3>
+
+<p>The <code>pg_dump</code> utility can be used to export the contents of a PostGIS database into a sql file,
+suitable for loading into a newly created database by the Travis worker. Key to this is to have testing
+data that you want to export inside of a separate schema (e.g. not in <code>public</code>). With <code>pg_dump</code> we can
+specify an individual schema of data tables to export, otherwise we&rsquo;d be stuck with exporting potentially
+incompatible PostGIS function signitures in addition to our data. Boundless has a
+<a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">good article</a> on backup strategies for PostGIS.</p>
+
+<p>From our source PostGIS database, export tables from our schema of interest (<code>test_data</code>) into <code>test_data.sql</code></p>
+
+<p><code>bash
+$ pg_dump --schema=test_data travis_postgis &gt; test_data.sql
+</code></p>
+
+<p>As seen in the section above, the resulting sql file, <code>test_data.sql</code> is then executed as part of the
+Travis <code>before_script</code> block, populating the testing database with geometries.</p>
+
+<p><strong>NOTE:</strong> I&rsquo;ve used the same name <code>travis_postgis</code> for both my local database as well as the testing
+database used by Travis CI. This isn&rsquo;t required.</p>
+
+<h3>Wrap Up</h3>
+
+<p>Thanks to the combination of PostgreSQL&rsquo;s easy to use <code>CREATE EXTENSION</code> syntax along with Travis CI&rsquo;s flexible build configurations, setting up a custom PostGIS database is fairly simple.</p>
+
+<p>An example repository with a <code>.travis.yml</code> file and an example unit test can be found here: <a href="https://github.com/mattmakesmaps/travis-postgis-test">https://github.com/mattmakesmaps/travis-postgis-test</a></p>
+
+<p>This repository&rsquo;s Travis CI build log can be found here: <a href="https://travis-ci.org/mattmakesmaps/travis-postgis-test">https://travis-ci.org/mattmakesmaps/travis-postgis-test</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating Label Points With OpenStreetMap Data]]></title>
