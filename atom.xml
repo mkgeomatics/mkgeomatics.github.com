@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mattmakesmaps.com/atom.xml" rel="self"/>
   <link href="http://mattmakesmaps.com/"/>
-  <updated>2013-12-25T20:29:21-08:00</updated>
+  <updated>2014-01-11T15:02:10-08:00</updated>
   <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configure PostGIS with Travis CI]]></title>
+    <link href="http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci/"/>
+    <updated>2014-01-11T13:03:00-08:00</updated>
+    <id>http://mattmakesmaps.com/blog/2014/01/11/configure-postgis-with-travis-ci</id>
+    <content type="html"><![CDATA[<p>Thanks to a great presentation by <a href="https://github.com/foundatron">foundatron</a> on the continuous
+integration framework, <a href="https://travis-ci.org">Travis CI</a>, I&rsquo;ve finally been motivated to push
+for higher test coverage in my python projects.</p>
+
+<p>Some of these <a href="https://github.com/mattmakesmaps/pgsql2gist">projects</a> require connectivity to a
+PostGIS database for testing, and with Travis CI that process is extremely straightforward.
+This post includes notes on configuring a Travis CI environment with PostgreSQL and PostGIS, then
+loading that empty database with data.</p>
+
+<h3>PostgreSQL/Postgis Versions</h3>
+
+<p><strong>NOTE:</strong> These versions are current as of <strong>January 2014</strong>.</p>
+
+<ul>
+<li>PostgreSQL: 9.1.11 by default, although you can <a href="http://about.travis-ci.org/blog/2013-11-29-PostgreSQLql-92-93-now-available/">explicitly declare</a> 9.2 or 9.3.</li>
+<li>PostGIS: 2.1.1 r12113</li>
+<li>GEOS: 3.3.8</li>
+<li>PROJ: 4.8.0</li>
+<li>GDAL: 1.9.2</li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p><strong>NOTE:</strong> For background reading on Travis CI, check out the <a href="http://about.travis-ci.org/docs/user/getting-started/">Getting Started</a> and <a href="http://about.travis-ci.org/docs/user/build-configuration/">Build Configuration</a> docs.</p>
+
+<p>As stated in the <a href="http://about.travis-ci.org/docs/user/database-setup/#PostgreSQLQL">database docs</a>,
+a Travis CI environment comes with PostgreSQL installed and ready-to-go. This also includes supporting
+utilities such as: <code>psql</code>,<code>pg_dump</code>, and <code>pg_restore</code>. Since we&rsquo;re using PostgreSQL 9.1+ and PostGIS 2.0+,
+PostGIS can be installed using the <code>CREATE EXTENSION</code> syntax.</p>
+
+<p>The <code>.travis.yml</code> configuration file should now be modified to execute <code>psql</code> calls in the
+<code>before_script</code> block to:</p>
+
+<ol>
+<li>Create the database</li>
+<li>Create the PostGIS/PostGIS Topology Extensions</li>
+<li>Populate the database with test data. (See Below for Instructions)</li>
+</ol>
+
+
+<p>A reference example <code>.travis.yml</code> looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">python</span>
+</span><span class='line'><span class="l-Scalar-Plain">python</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="s">&quot;2.7&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># command to install dependencies</span>
+</span><span class='line'><span class="l-Scalar-Plain">install</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="s">&quot;pip</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">-r</span><span class="nv"> </span><span class="s">requirements.txt</span><span class="nv"> </span><span class="s">--use-mirrors&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># database creation</span>
+</span><span class='line'><span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">psql -c &#39;create database travis_postgis;&#39; -U postgres</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">psql -c &#39;CREATE EXTENSION postgis;&#39; -U postgres -d travis_postgis</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">psql -c &#39;CREATE EXTENSION postgis_topology;&#39; -U postgres -d travis_postgis</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">psql -f test_data.sql -U postgres -d travis_postgis</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># command to run tests</span>
+</span><span class='line'><span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">nosetests --verbose</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Creating Test Data</h3>
+
+<p>The <code>pg_dump</code> utility can be used to export the contents of a PostGIS database into a sql file,
+suitable for loading into a newly created database by the Travis worker. Key to this is to have testing
+data that you want to export inside of a separate schema (e.g. not in <code>public</code>). With <code>pg_dump</code> we can
+specify an individual schema of data tables to export, otherwise we&rsquo;d be stuck with exporting potentially
+incompatible PostGIS function signitures in addition to our data. Boundless has a
+<a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">good article</a> on backup strategies for PostGIS.</p>
+
+<p>From our source PostGIS database, export tables from our schema of interest (<code>test_data</code>) into <code>test_data.sql</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pg_dump --schema<span class="o">=</span>test_data travis_postgis &gt; test_data.sql
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As seen in the section above, the resulting sql file, <code>test_data.sql</code> is then executed as part of the
+Travis <code>before_script</code> block, populating the testing database with geometries.</p>
+
+<p><strong>NOTE:</strong> I&rsquo;ve used the same name <code>travis_postgis</code> for both my local database as well as the testing
+database used by Travis CI. This isn&rsquo;t required.</p>
+
+<h3>Wrap Up</h3>
+
+<p>Thanks to the combination of PostgreSQL&rsquo;s easy to use <code>CREATE EXTENSION</code> syntax along with Travis CI&rsquo;s flexible build configurations, setting up a custom PostGIS database is fairly simple.</p>
+
+<p>An example repository with a <code>.travis.yml</code> file and an example unit test can be found here: <a href="https://github.com/mattmakesmaps/travis-postgis-test">https://github.com/mattmakesmaps/travis-postgis-test</a></p>
+
+<p>This repository&rsquo;s Travis CI build log can be found here: <a href="https://travis-ci.org/mattmakesmaps/travis-postgis-test">https://travis-ci.org/mattmakesmaps/travis-postgis-test</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating Label Points With OpenStreetMap Data]]></title>
@@ -1930,19 +2047,6 @@ FROM export;[/sourcecode]</p>
 <p>Easy as pie? Piece of Cake? Yes. It&rsquo;s innovative projects like these that keep pushing me to learn more about web mapping technology. Big thanks go out to <a href="http://">crschmidt</a> (who i assumed was involved w/ the project) at MetaCarta and <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a> for putting together two great products.</p>
 
 <p>On a final note, the MetaCarta Rectifier has the ability to export out images as geotiffs, allowing us to consume them in our desktop GIS applications. A quick check in ArcCatalog of the Chernobyl sample image I exported out revealed a WGS84 GCS. I can see some really nice workflows combining this tool with tiling programs such as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a> for painless TMS creation.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CloudMade Tile Request Graphics]]></title>
-    <link href="http://mattmakesmaps.com/blog/2009/04/07/cloudmade-tile-request-graphics/"/>
-    <updated>2009-04-07T10:14:36-07:00</updated>
-    <id>http://mattmakesmaps.com/blog/2009/04/07/cloudmade-tile-request-graphics</id>
-    <content type="html"><![CDATA[<p>I just found a neat feature from CloudMade, a <a href="http://maps.cloudmade.com/stats/tile_requests">heat map</a> showing intensity of their tile requests at each zoom scale. As can be expected, Europe and North America are the definite zones of high activity. It&rsquo;s also interesting to note the high activity in other regions such as Chile and the Philippines. <!-- more --></p>
-
-<p>[caption id=&ldquo;attachment_272&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: CloudMade&rsquo;s Tile Request Graphic&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/cm_tile_request-300x187.jpg" alt="Above: CloudMade's Tile Request Overlay" /></a>[/caption]</p>
-
-<p>Following the link to the <a href="http://maps.cloudmade.com/javascripts/stats/cloudmade.js?1238766232">stats JavaScript</a>, it looks like they are using a custom OpenLayers layer class, OpenLayers.Layer.Cloudmade. Sweet!</p>
 ]]></content>
   </entry>
   
