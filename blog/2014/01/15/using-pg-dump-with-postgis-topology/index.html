@@ -96,13 +96,33 @@ $(document).ready(
 
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">Using Pg_dump With PostGIS Topology</h2>
-	<div class="entry-content"><p>Using the <a href="http://www.postgresql.org/docs/0.0/static/app-pgdump.html">pg_dump</a> utility is a standard
-method for backing up a PostgreSQL database. Furthermore, limiting a <code>pg_dump</code> export to a particular schema increases the portability of your geospatial data across different versions of PostGIS.
-Since the PostGIS function signatures themselves are not copied in the data backup, data can be
-backed up from a database under one version of PostGIS and restored into a new database of a differing version. <a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">Boundless</a> has a great intro
-guide to backing up and restoring PostGIS databases.</p>
+	<div class="entry-content"><h3>tl;dr</h3>
 
-<p>Working with PostGIS Topologies however, requires a special tweak. <!-- more --> A typical PostGIS topology contains
+<p><code>pg_dump</code> defaults to outputting <code>COPY</code> commands for the <code>topology.layer</code> table before populating the <code>topology.topology</code> table.
+this breaks a foreign key constraint, and causes the following error:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ERROR:  insert or update on table "layer" violates foreign key constraint "layer_topology_id_fkey"
+</span><span class='line'>DETAIL:  Key (topology_id)=(1) is not present in table "topology".</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To fix, manually swap the <code>COPY</code> block for <code>topology.topology</code> before <code>topology.layer</code>.</p>
+
+<!-- more -->
+
+
+<h3>Detailed Notes</h3>
+
+<p>Using the <a href="http://www.postgresql.org/docs/0.0/static/app-pgdump.html">pg_dump</a> utility is a standard
+method for backing up a PostgreSQL database. Furthermore, limiting a <code>pg_dump</code> export to a particular
+schema increases the portability of your geospatial data across different versions of PostGIS.
+Since the PostGIS function signatures themselves are not copied in the data backup, data can be
+backed up from a database under one version of PostGIS and restored into a new database of a differing version.
+<a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">Boundless</a> has a great intro guide to backing up
+and restoring PostGIS databases.</p>
+
+<p>Working with PostGIS Topologies however, requires a special tweak. A typical PostGIS topology contains
 data spread across three schemas:</p>
 
 <ul>
@@ -134,7 +154,7 @@ Created by executing the statement <code>CREATE EXTENSION postgis_topology;</cod
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>psql:test_data.sql:644: ERROR:  insert or update on table "layer" violates foreign key constraint "layer_topology_id_fkey"
+</pre></td><td class='code'><pre><code class=''><span class='line'>ERROR:  insert or update on table "layer" violates foreign key constraint "layer_topology_id_fkey"
 </span><span class='line'>DETAIL:  Key (topology_id)=(1) is not present in table "topology".</span></code></pre></td></tr></table></div></figure>
 
 
