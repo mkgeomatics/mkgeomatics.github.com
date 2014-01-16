@@ -4,7 +4,7 @@
   <title><![CDATA[mattmakesmaps]]></title>
   <link href="http://mattmakesmaps.com/atom.xml" rel="self"/>
   <link href="http://mattmakesmaps.com/"/>
-  <updated>2014-01-11T15:10:26-08:00</updated>
+  <updated>2014-01-15T22:58:39-08:00</updated>
   <id>http://mattmakesmaps.com/</id>
   <author>
     <name><![CDATA[Matt Kenny]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using pg_dump with PostGIS Topology]]></title>
+    <link href="http://mattmakesmaps.com/blog/2014/01/15/using-pg-dump-with-postgis-topology/"/>
+    <updated>2014-01-15T22:15:00-08:00</updated>
+    <id>http://mattmakesmaps.com/blog/2014/01/15/using-pg-dump-with-postgis-topology</id>
+    <content type="html"><![CDATA[<p>Using the <a href="http://www.postgresql.org/docs/0.0/static/app-pgdump.html">pg_dump</a> utility is a standard
+method for backing up a PostgreSQL database. Furthermore, limiting a <code>pg_dump</code> export to a particular schema increases the portability of your geospatial data across different versions of PostGIS.
+Since the PostGIS function signatures themselves are not copied in the data backup, data can be
+backed up from a database under one version of PostGIS and restored into a new database of a differing version. <a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">Boundless</a> has a great intro
+guide to backing up and restoring PostGIS databases.</p>
+
+<p>Working with PostGIS Topologies however, requires a special tweak. <!-- more --> A typical PostGIS topology contains
+data spread across three schemas:</p>
+
+<ul>
+<li>Topology &lsquo;Metadata&rsquo; schema, containing registered topologies and their layers.
+Created by executing the statement <code>CREATE EXTENSION postgis_topology;</code>.</li>
+<li>Schema containing topology primitives. This is created as the result of a call to
+<a href="http://postgis.net/docs/CreateTopology.html">CreateTopology()</a></li>
+<li>Schema containing topogeometry columns. These would be created by a call to
+<a href="http://postgis.net/docs/AddTopoGeometryColumn.html">AddTopoGeometryColumn</a></li>
+</ul>
+
+
+<p>As an example, we&rsquo;ll have a PostGIS database called <code>parcels_postgis</code> with the following:</p>
+
+<ul>
+<li>Topology extension enabled</li>
+<li>Topology primitives are stored in the <code>parcel_topology</code> schema.</li>
+<li>Topogeometry columns are stored in the <code>parcels</code> schema</li>
+</ul>
+
+
+<p>Under this example, a call to <code>pg_dump</code> looks like the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pg_dump --schema=topology --schema=parcels --schema=parcel_topology --file=parcel_data.sql parcels_postgis </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restoring to a new db however, produces the following error:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql:test_data.sql:644: ERROR:  insert or update on table "layer" violates foreign key constraint "layer_topology_id_fkey"
+</span><span class='line'>DETAIL:  Key (topology_id)=(1) is not present in table "topology".</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is because the <code>pg_dump</code> utility defaults to INSERT&#8217;ing records into the <code>topology</code> schema&rsquo;s
+<code>layer</code> table <strong>before</strong> INSERT&#8217;ing records into the <code>topology</code> schema&rsquo;s <code>topology</code> table. Since
+the <code>layer</code> table has a foreign key constraint with the <code>topology</code> table, this can never work properly.</p>
+
+<p>One solution therefore, is to manually edit your <code>pg_dump</code> output file to run <code>COPY</code> commands onto
+the <code>topology.topology</code> table first, then the <code>topology.layer</code> table second. A modified script with
+the highlighted changes can be seen <a href="https://github.com/mattmakesmaps/travis-postgis-test/blob/master/test_data.sql#L633-L651">here</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Configure PostGIS with Travis CI]]></title>
@@ -2025,31 +2082,6 @@ FROM export;[/sourcecode]</p>
 <p>The real benefit for me however, is the automatic highlighting of key values linking tables together. I&rsquo;m now able to quickly work my way from the table I need to get to, drilling backwards until I see the table I need to start with.</p>
 
 <p>[caption id=&ldquo;attachment_294&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: Automatically Highlight The Key Fields Between Two Tables.&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables.jpeg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/linking_tables-300x147.jpg" alt="Above: Automatically Highlight The Key Fields Between Two Tables." /></a>[/caption]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MetaCarta's Map Rectifier + ESRI DevSummit Mashup Winner :)]]></title>
-    <link href="http://mattmakesmaps.com/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner/"/>
-    <updated>2009-04-08T08:24:07-07:00</updated>
-    <id>http://mattmakesmaps.com/blog/2009/04/08/metacartas-map-rectifier-esri-devsummit-mashup-winner</id>
-    <content type="html"><![CDATA[<p>I never knew about the <a href="http://labs.metacarta.com/rectifier/">MetaCarta Labs&#8217; Map Rectifier</a> tool, but I&rsquo;ll expect to be using it more in the future. After uploading an image to the site, a user has full control over the creation of Ground Control Points. The advanced nature of this tool is shown though included RMS error reporting as well as the choice between multiple transformation algorithms. <!-- more --> In addition to uploading your own content, a user has the ability to add GCPs for other users&#8217; uploads as well.</p>
-
-<p>[caption id=&ldquo;attachment_276&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: The MetaCarta Interface&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/metacarta-300x170.jpg" alt="Above: The MetaCarta Interface" /></a>[/caption]</p>
-
-<p>What&rsquo;s really amazing is the ability to directly access rectified images via WMS overlay. Each image hosted on the site is given a unique URL, we can insert into our favorite web mapping clients.</p>
-
-<p>To try it out, I used the <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGalleryDetails&amp;scriptID=16067">ExtMap &ndash; Mashup Framework</a> developed by ArcGIS user <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a>. This particular application framework was one of the winners at 2009 ESRI DevSummit, with good reason. I was able to quickly pass in the MetaCarta Labs URL, allowing the ExtMap application to consume and display the WMS layer with ease.</p>
-
-<p>[caption id=&ldquo;attachment_278&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: Adding a Service to ExtMap&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/add_service-300x158.jpg" alt="Above: Adding a Service to ExtMap" /></a>[/caption]</p>
-
-<p>In addition to WMS layers, we can add in KML/GeoRSS as well as ArcGIS Server Dynamic/Tiled Map Layers.</p>
-
-<p>[caption id=&ldquo;attachment_279&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;300&rdquo; caption=&ldquo;Above: ExtMap Interface&rdquo;]<a href="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs.jpg"><img src="http://www.mkgeomatics.com/wordpress/wp-content/uploads/2009/04/extjs-300x187.jpg" alt="Above: ExtMap Interface" /></a>[/caption]</p>
-
-<p>Easy as pie? Piece of Cake? Yes. It&rsquo;s innovative projects like these that keep pushing me to learn more about web mapping technology. Big thanks go out to <a href="http://">crschmidt</a> (who i assumed was involved w/ the project) at MetaCarta and <a href="http://resources.esri.com/arcgisserver/apis/javascript/gmaps/index.cfm?fa=codeGallery&amp;authorID=alperdincer">alperdincer</a> for putting together two great products.</p>
-
-<p>On a final note, the MetaCarta Rectifier has the ability to export out images as geotiffs, allowing us to consume them in our desktop GIS applications. A quick check in ArcCatalog of the Chernobyl sample image I exported out revealed a WGS84 GCS. I can see some really nice workflows combining this tool with tiling programs such as <a href="http://www.klokan.cz/projects/gdal2tiles/">GDAL2Tiles</a> for painless TMS creation.</p>
 ]]></content>
   </entry>
   

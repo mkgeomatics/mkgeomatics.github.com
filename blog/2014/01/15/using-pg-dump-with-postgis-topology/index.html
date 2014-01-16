@@ -1,0 +1,256 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Using pg_dump with PostGIS Topology  | mattmakesmaps</title>
+
+<meta name="author" content="Matt Kenny"> 
+
+<meta name="description" content="maps + bikes = matt don't know nothin bout nothin else"> <meta name="keywords" content="Postgis, Topology, pg_dump, PostgreSQL">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="mattmakesmaps" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">mattmakesmaps</a></h1>
+<h4>maps + bikes = matt don't know nothin bout nothin else</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:mattmakesmaps.com">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Using Pg_dump With PostGIS Topology</h2>
+	<div class="entry-content"><p>Using the <a href="http://www.postgresql.org/docs/0.0/static/app-pgdump.html">pg_dump</a> utility is a standard
+method for backing up a PostgreSQL database. Furthermore, limiting a <code>pg_dump</code> export to a particular schema increases the portability of your geospatial data across different versions of PostGIS.
+Since the PostGIS function signatures themselves are not copied in the data backup, data can be
+backed up from a database under one version of PostGIS and restored into a new database of a differing version. <a href="http://workshops.boundlessgeo.com/postgis-intro/backup.html">Boundless</a> has a great intro
+guide to backing up and restoring PostGIS databases.</p>
+
+<p>Working with PostGIS Topologies however, requires a special tweak. <!-- more --> A typical PostGIS topology contains
+data spread across three schemas:</p>
+
+<ul>
+<li>Topology &lsquo;Metadata&rsquo; schema, containing registered topologies and their layers.
+Created by executing the statement <code>CREATE EXTENSION postgis_topology;</code>.</li>
+<li>Schema containing topology primitives. This is created as the result of a call to
+<a href="http://postgis.net/docs/CreateTopology.html">CreateTopology()</a></li>
+<li>Schema containing topogeometry columns. These would be created by a call to
+<a href="http://postgis.net/docs/AddTopoGeometryColumn.html">AddTopoGeometryColumn</a></li>
+</ul>
+
+
+<p>As an example, we&rsquo;ll have a PostGIS database called <code>parcels_postgis</code> with the following:</p>
+
+<ul>
+<li>Topology extension enabled</li>
+<li>Topology primitives are stored in the <code>parcel_topology</code> schema.</li>
+<li>Topogeometry columns are stored in the <code>parcels</code> schema</li>
+</ul>
+
+
+<p>Under this example, a call to <code>pg_dump</code> looks like the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pg_dump --schema=topology --schema=parcels --schema=parcel_topology --file=parcel_data.sql parcels_postgis </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restoring to a new db however, produces the following error:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql:test_data.sql:644: ERROR:  insert or update on table "layer" violates foreign key constraint "layer_topology_id_fkey"
+</span><span class='line'>DETAIL:  Key (topology_id)=(1) is not present in table "topology".</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is because the <code>pg_dump</code> utility defaults to INSERT&#8217;ing records into the <code>topology</code> schema&rsquo;s
+<code>layer</code> table <strong>before</strong> INSERT&#8217;ing records into the <code>topology</code> schema&rsquo;s <code>topology</code> table. Since
+the <code>layer</code> table has a foreign key constraint with the <code>topology</code> table, this can never work properly.</p>
+
+<p>One solution therefore, is to manually edit your <code>pg_dump</code> output file to run <code>COPY</code> commands onto
+the <code>topology.topology</code> table first, then the <code>topology.layer</code> table second. A modified script with
+the highlighted changes can be seen <a href="https://github.com/mattmakesmaps/travis-postgis-test/blob/master/test_data.sql#L633-L651">here</a>.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-15T22:15:00-08:00" pubdate data-updated="true">Jan 15<span>th</span>, 2014</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/postgis/'>Postgis</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Matt Kenny
+
+<br>
+
+    <a href="https://github.com/mattmakesmaps">Github</a> 
+
+
+    <a href="https://twitter.com/mattmakesmaps">Twitter</a> 
+
+
+    <a href="https://www.linkedin.com/in/mattmakesmaps">Linkedin</a>
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mkgeomatics';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mattmakesmaps.com/blog/2014/01/15/using-pg-dump-with-postgis-topology/';
+        var disqus_url = 'http://mattmakesmaps.com/blog/2014/01/15/using-pg-dump-with-postgis-topology/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-40519413-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
